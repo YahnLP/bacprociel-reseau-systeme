@@ -150,11 +150,11 @@ TPS.push({
 });
 
 /* ---------- S15 : cinq pannes à diagnostiquer (rotation) ---------- */
-function reseauPanne(h) {
+function reseauPanne(h, sansLiaison) {
   const { dev, link, get } = h;
   C.internet(null, h, 900, 200); C.box(null, h, 'BOX', 680, 200);
-  dev('sw-8p', 'SW1', 480, 200); link('SW1', 'port1', 'BOX', 'lan1');
-  dev('pc-win', 'PC-REF', 300, 90, 'PC de référence'); dev('pc-win', 'PC-CLIENT', 300, 330, 'PC du client');
+  dev('sw-8p', 'SW1', 480, 200); if (!sansLiaison) link('SW1', 'port1', 'BOX', 'lan1');
+  dev('pc-win', 'PC-REF', 300, 90, 'PC de référence');
   link('PC-REF', 'eth0', 'SW1', 'port2');
 }
 const PANNE_CHECKS = [
@@ -175,9 +175,9 @@ const PANNES = [
   { n: 4, nom: 'dns', txt: 'panne 4 : serveur DNS faux',
     build(h) { reseauPanne(h); hostDhcp(h.get('PC-REF')); const c = h.dev('pc-win', 'PC-CLIENT', 300, 330, 'PC du client'); h.link('PC-CLIENT', 'eth0', 'SW1', 'port3'); hostIp(c, '192.168.1.30', '24', '192.168.1.1', '192.168.1.5'); },
     solve(sim, h) { hostIp(h.get('PC-CLIENT'), '192.168.1.30', '24', '192.168.1.1', '192.168.1.1'); } },
-  { n: 5, nom: 'dhcp', txt: 'panne 5 : DHCP de la box désactivé',
-    build(h) { reseauPanne(h); h.get('BOX').dhcpd.enabled = false; hostIp(h.get('PC-REF'), '192.168.1.50', '24', '192.168.1.1', '192.168.1.1'); const c = h.dev('pc-win', 'PC-CLIENT', 300, 330, 'PC du client'); h.link('PC-CLIENT', 'eth0', 'SW1', 'port3'); hostDhcp(c); },
-    solve(sim, h) { h.get('BOX').dhcpd.enabled = true; hostDhcp(h.get('PC-CLIENT')); } },
+  { n: 5, nom: 'liaison', txt: 'panne 5 : câble entre le switch et la box débranché',
+    build(h) { reseauPanne(h, true); hostDhcp(h.get('PC-REF')); const c = h.dev('pc-win', 'PC-CLIENT', 300, 330, 'PC du client'); h.link('PC-CLIENT', 'eth0', 'SW1', 'port3'); hostDhcp(c); },
+    solve(sim, h) { h.link('SW1', 'port1', 'BOX', 'lan1'); } },
 ].forEach(P => {
   TPS.push({
     id: 's15-panne-' + P.n, start: D + 'S15-depannage-n1/tp/s15-panne-' + P.n + '.json', solution: K + 'S15-panne-' + P.n + '-corrige.json',

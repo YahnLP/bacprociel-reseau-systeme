@@ -13,7 +13,7 @@ with sync_playwright() as p:
     b = p.chromium.launch(args=["--no-sandbox"]); pg = b.new_page(viewport={"width": a.w, "height": a.h})
     pg.goto("file://" + html); pg.wait_for_timeout(600)
     pg.set_input_files("#filein", a.json); pg.wait_for_timeout(a.wait)
-    pg.locator("#stage").locator(f"text={a.dev}").first.dblclick(); pg.wait_for_timeout(700)
+    pg.locator(f'#stage .node[aria-label^="{a.dev},"]').first.dblclick(force=True); pg.wait_for_timeout(700)
     win = pg.locator(".win").last
     if a.tab:
         win.locator(f"text={a.tab}").first.click(); pg.wait_for_timeout(400)
