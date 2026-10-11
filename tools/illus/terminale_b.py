@@ -126,6 +126,27 @@ def s11():
     f.save(out(d, "echelle-tests.svg"))
 
 
+
+def s12():
+    d = "S12-depanner-2"
+    f = Fig(1000, 440, "Quand et comment passer la main", "Trois niveaux : je dépanne seul si je connais la panne et que je suis autorisé ; je demande à un collègue ou à mon responsable si je bloque ou si le risque est élevé ; je fais appel au constructeur ou au prestataire pour une panne matérielle sous garantie ou hors de mon périmètre.")
+    f.title_bar("Passer la main, ce n'est pas un échec : c'est une décision")
+    niv = [("Niveau 1 – Moi", "Je dépanne seul si :", ["je connais la panne,", "j'ai l'autorisation,", "je peux revenir en arrière."], TEAL_L, TEAL),
+           ("Niveau 2 – Mon responsable", "Je préviens et je demande si :", ["je bloque depuis 30 min,", "le risque est élevé,", "la décision n'est pas la mienne."], IND_L, IND),
+           ("Niveau 3 – Constructeur", "On fait appel à l'extérieur si :", ["panne matérielle sous garantie,", "logiciel en cause,", "hors de notre périmètre."], ORA_L, ORA)]
+    for i, (t, a, ls, fill, st) in enumerate(niv):
+        x = 30 + i * 322
+        f.rect(x, 75, 300, 250, fill, st, 3, 14); f.text(x + 150, 112, t, 18, st, "middle", "700"); f.text(x + 150, 150, a, 14, INK, "middle", "700")
+        for k, l in enumerate(ls):
+            f.text(x + 30, 190 + k * 34, "• " + l, 14.5, INK, "start")
+        if i < 2:
+            f.arrow(x + 302, 200, x + 320, 200, MUTED, 3)
+    f.rect(30, 350, 940, 70, YEL_L, YEL, 2, 10)
+    f.text(500, 378, "En passant la main, je transmets TOUT : symptôme, tests faits, résultats, ce que j'ai déjà modifié.", 14.5, INK, "middle", "700")
+    f.text(500, 404, "Celui qui reprend ne doit rien avoir à me redemander.", 14.5, INK)
+    f.save(out(d, "escalade.svg"))
+
+
 if __name__ == "__main__":
-    for w_ in (sys.argv[1:] or ["s06", "s07", "s08", "s09", "s10", "s11"]):
+    for w_ in (sys.argv[1:] or ["s06", "s07", "s08", "s09", "s10", "s11", "s12"]):
         globals()[w_](); print("OK", w_)

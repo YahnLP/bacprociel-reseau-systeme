@@ -186,7 +186,7 @@ module.exports = function (TPS, env) {
     hostIp(get('PC-COM'), '192.168.20.11', '24', f.gw || '192.168.20.1', '192.168.30.10'); hostIp(get('SRV'), '192.168.30.10', '24', '192.168.30.1', '192.168.30.10');
     const s = get('SRV'); s.dnsd.records = [{ name: 'intranet.delmas.local', type: 'A', data: f.dnsIp || '192.168.30.10' }]; s.dnsd.start();
     s.httpd.pages['/'] = { type: 'text/html; charset=utf-8', body: '<html><body><h1>Intranet Delmas</h1></body></html>', _custom: true }; s.httpd.start();
-    cliRun(get('SW1'), 'enable\nconfigure terminal\nhostname SW1\nvlan 10\nname BUREAU\nvlan 20\nname ATELIER\nvlan 30\nname SERVEURS\nexit\ninterface fa0/1\nswitchport mode access\nswitchport access vlan ' + (f.vlanCpt || 10) + '\nexit\ninterface fa0/2\nswitchport mode access\nswitchport access vlan 30\nexit\ninterface fa0/3\nswitchport mode access\nswitchport access vlan 20\n' + (f.shutCom ? 'shutdown\n' : '') + 'exit\ninterface fa0/24\nswitchport mode trunk\nend\nwrite memory');
+    if (!f.noSw) cliRun(get('SW1'), 'enable\nconfigure terminal\nhostname SW1\nvlan 10\nname BUREAU\nvlan 20\nname ATELIER\nvlan 30\nname SERVEURS\nexit\ninterface fa0/1\nswitchport mode access\nswitchport access vlan ' + (f.vlanCpt || 10) + '\nexit\ninterface fa0/2\nswitchport mode access\nswitchport access vlan 30\nexit\ninterface fa0/3\nswitchport mode access\nswitchport access vlan 20\n' + (f.shutCom ? 'shutdown\n' : '') + 'exit\ninterface fa0/24\nswitchport mode trunk\nend\nwrite memory');
     cliRun(get('R1'), 'enable\nconfigure terminal\nhostname R1\ninterface gi0/0\nno shutdown\nexit\ninterface gi0/0.10\nencapsulation dot1Q 10\nip address 192.168.10.1 255.255.255.0\nexit\ninterface gi0/0.20\nencapsulation dot1Q 20\nip address 192.168.20.1 255.255.255.0\n' + (f.shutSub ? 'shutdown\n' : '') + 'exit\ninterface gi0/0.30\nencapsulation dot1Q 30\nip address 192.168.30.1 255.255.255.0\nexit\nip dhcp excluded-address 192.168.10.1 192.168.10.49\nip dhcp pool BUREAU\nnetwork 192.168.10.0 255.255.255.0\ndefault-router 192.168.10.1\n' + (f.noDns ? '' : 'dns-server 192.168.30.10\n') + 'exit\nend\nwrite memory');
   }
   const dpChecks = [
@@ -214,5 +214,16 @@ module.exports = function (TPS, env) {
       },
       checks: dpChecks, startShould: k === 'a' ? [dpChecks[2].label, dpChecks[3].label] : k === 'b' ? [dpChecks[0].label, dpChecks[1].label, dpChecks[2].label] : [dpChecks[1].label, dpChecks[2].label, dpChecks[3].label],
     });
+  });
+
+  /* ---------- S12 : remplacer un switch et restaurer (PME Delmas) ---------- */
+  const DP_SW_BACKUP = 'enable\nconfigure terminal\nhostname SW1\nvlan 10\nname BUREAU\nvlan 20\nname ATELIER\nvlan 30\nname SERVEURS\nexit\ninterface fa0/1\nswitchport mode access\nswitchport access vlan 10\nexit\ninterface fa0/2\nswitchport mode access\nswitchport access vlan 30\nexit\ninterface fa0/3\nswitchport mode access\nswitchport access vlan 20\nexit\ninterface fa0/24\nswitchport mode trunk\nend\nwrite memory';
+  TPS.push({
+    id: 't12-remplacement', start: D + 'S12-depanner-2/tp/t12-remplacement.json', solution: K + 'T12-remplacement-corrige.json',
+    notes: 'Terminale S12 – Le switch de la PME Delmas a grillé. Son remplaçant, identique, est déjà câblé aux mêmes ports mais VIERGE. À faire : restaurer la configuration à partir de la sauvegarde fournie dans le TP, vérifier que tout est revenu à la normale (4 tests), sauvegarder, rédiger le compte rendu.',
+    build(sim, h) { h.sim = sim; dpBuild(h, { noSw: 1 }); },
+    solve(sim, h) { cliRun(dv({ sim }, 'SW1'), DP_SW_BACKUP); const p = h.get('PC-CPT'); p.applyIp(p.ifaceList()[0].name, { dhcp: true }); },
+    checks: dpChecks.concat([{ label: 'Le switch de remplacement est sauvegardé (startup-config)', run: c => /hostname SW1/.test(scfg(c, 'SW1')) && /switchport trunk|mode trunk/.test(scfg(c, 'SW1')) }]),
+    startShould: dpChecks.map(x => x.label).concat(['Le switch de remplacement est sauvegardé (startup-config)']),
   });
 };
