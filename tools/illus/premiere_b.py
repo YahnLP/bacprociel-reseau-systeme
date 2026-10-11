@@ -231,6 +231,39 @@ def s11():
     f.save(out(d, "dns-resolution.svg"))
 
 
+def s12():
+    d = "S12-web-partage"
+    f = Fig(1000, 430, "HTTP et HTTPS vus par un espion sur le réseau", "En HTTP, le contenu de la page est lisible par quiconque capture les trames. En HTTPS, il est chiffré : seul le serveur et le navigateur le lisent.")
+    f.title_bar("HTTP en clair, HTTPS chiffré : ce que voit un espion")
+    for ox, titre, col, colL, lines, verdict in (
+        (30, "HTTP (port 80)", RED, RED_L, ["GET /direction.html HTTP/1.1", "Host: intranet.mecapro.local", "", "<h1>Espace Direction</h1>", "salaires : …"], "Tout est lisible"),
+        (520, "HTTPS (port 443)", GRN, GRN_L, ["16 03 03 02 ac 01 00 02", "a8 03 03 5f 3a 91 d0 7c", "e4 af 57 a9 00 86 2e 16", "6c 63 99 fa e3 4f ba e6", "bc 21 6d 09 6d 33 96 f2"], "Illisible sans la clé")):
+        f.rect(ox, 60, 450, 300, colL, col, 3, 14)
+        f.text(ox + 225, 92, titre, 19, col, "middle", "700")
+        f.rect(ox + 25, 110, 400, 170, WHITE, col, 2, 8)
+        for i, l in enumerate(lines):
+            f.mono(ox + 40, 142 + i * 28, l, 14, INK, "start")
+        f.text(ox + 225, 320, verdict, 18, col, "middle", "700")
+        f.text(ox + 225, 345, "(ce qu'on voit dans l'analyseur de trames)", 13, MUTED, "middle")
+    f.text(500, 405, "Le cadenas du navigateur = HTTPS : la page ET les mots de passe sont protégés pendant le trajet.", 14.5, INK, "middle", "700")
+    f.save(out(d, "http-https.svg"))
+
+    f = Fig(1000, 470, "Partage de fichiers : groupes et droits", "Deux dossiers partagés, un par service. Le groupe Direction lit et écrit dans son dossier mais n'a aucun accès à celui de l'Atelier, et réciproquement.")
+    f.title_bar("Un partage = des dossiers + des groupes + des droits")
+    node(f, "user", 70, 95, "alice", None, c=IND); node(f, "user", 70, 200, "bob", None, c=IND); node(f, "user", 70, 335, "carl", None, c=ORA)
+    f.rect(190, 125, 130, 44, IND_L, IND, 2.5, 22); f.text(255, 153, "Direction", 16, IND, "middle", "700")
+    f.rect(190, 313, 130, 44, ORA_L, ORA, 2.5, 22); f.text(255, 341, "Atelier", 16, ORA, "middle", "700")
+    f.line(108, 100, 190, 140, IND, 3); f.line(108, 205, 190, 158, IND, 3); f.line(108, 340, 190, 335, ORA, 3)
+    f.text(255, 112, "groupe", 12.5, MUTED, "middle"); f.text(255, 300, "groupe", 12.5, MUTED, "middle")
+    f.rect(620, 90, 330, 100, IND_L, IND, 3, 12); f.text(785, 120, "\\\\SRV\\direction", 17, IND, "middle", "700"); f.text(785, 148, "groupe Direction : lecture + écriture", 13.5, INK, "middle"); f.text(785, 170, "autres : aucun accès", 13.5, RED, "middle", "700")
+    f.rect(620, 290, 330, 100, ORA_L, ORA, 3, 12); f.text(785, 320, "\\\\SRV\\atelier", 17, ORA, "middle", "700"); f.text(785, 348, "groupe Atelier : lecture + écriture", 13.5, INK, "middle"); f.text(785, 370, "autres : aucun accès", 13.5, RED, "middle", "700")
+    f.arrow(320, 147, 610, 140, GRN, 4); f.text(465, 125, "accès autorisé", 13.5, GRN, "middle", "700")
+    f.arrow(320, 335, 610, 340, GRN, 4); f.text(465, 365, "accès autorisé", 13.5, GRN, "middle", "700")
+    f.line(320, 318, 625, 195, RED, 3, "6 5"); f.check(470, 257, False, 26); f.text(540, 285, "accès refusé", 13.5, RED, "middle", "700")
+    f.callout(40, 415, 920, "Principe : on donne les droits à des GROUPES, jamais personne par personne. Un nouvel arrivant dans la Direction = on l'ajoute au groupe, et c'est tout.", YEL_L, YEL, 14.5)
+    f.save(out(d, "partage-droits.svg"))
+
+
 if __name__ == "__main__":
-    for w in (sys.argv[1:] or ["s07", "s08", "s09", "s10", "s11"]):
+    for w in (sys.argv[1:] or ["s07", "s08", "s09", "s10", "s11", "s12"]):
         globals()[w](); print("OK", w)

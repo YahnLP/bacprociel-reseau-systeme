@@ -1,0 +1,261 @@
+{
+ "app": "simulateur-reseau",
+ "v": 1,
+ "opts": {
+  "strictCables": false,
+  "stpFast": true
+ },
+ "devices": [
+  {
+   "id": "D1",
+   "type": "switch",
+   "model": "sw-8p",
+   "name": "SW1",
+   "x": 420,
+   "y": 180,
+   "powered": true,
+   "cli": "!\nhostname SW1\n!\nline con 0\n logging synchronous\nline vty 0 4\n!",
+   "label": ""
+  },
+  {
+   "id": "D2",
+   "type": "server",
+   "model": "srv-linux",
+   "name": "SRV1",
+   "x": 700,
+   "y": 180,
+   "powered": true,
+   "ifaces": [
+    {
+     "name": "ens33",
+     "ip": "192.168.10.2",
+     "mask": "255.255.255.0",
+     "dhcp": false
+    }
+   ],
+   "gw": "192.168.10.1",
+   "dns": [
+    "192.168.10.2"
+   ],
+   "domain": "",
+   "allowIcmpEcho": true,
+   "wifi": {
+    "ssid": "",
+    "key": ""
+   },
+   "hosts": {},
+   "dhcpd": {
+    "enabled": false,
+    "excluded": [],
+    "pools": []
+   },
+   "dnsd": {
+    "enabled": true,
+    "records": [
+     {
+      "name": "intranet.mecapro.local",
+      "type": "A",
+      "data": "192.168.10.2"
+     }
+    ],
+    "forwarders": []
+   },
+   "httpd": {
+    "enabled": false,
+    "https": false,
+    "pages": {
+     "/": {
+      "type": "text/html; charset=utf-8",
+      "body": "<html><head><title>SRV1</title></head><body><h1>Bienvenue sur SRV1</h1><p>Serveur web du simulateur.</p></body></html>"
+     }
+    }
+   },
+   "mgmt": {
+    "comms": [],
+    "location": "",
+    "contact": "",
+    "syslogd": false,
+    "trapd": false
+   },
+   "v6": {
+    "ifs": [
+     {
+      "name": "ens33",
+      "autoconf": true,
+      "addrs": []
+     }
+    ],
+    "statics": []
+   },
+   "label": "Serveur web"
+  },
+  {
+   "id": "D3",
+   "type": "pc",
+   "model": "pc-win",
+   "name": "PC1",
+   "x": 180,
+   "y": 90,
+   "powered": true,
+   "ifaces": [
+    {
+     "name": "Ethernet0",
+     "ip": "192.168.10.51",
+     "mask": "255.255.255.0",
+     "dhcp": false
+    }
+   ],
+   "gw": "192.168.10.1",
+   "dns": [
+    "192.168.10.2"
+   ],
+   "domain": "",
+   "allowIcmpEcho": true,
+   "wifi": {
+    "ssid": "",
+    "key": ""
+   },
+   "hosts": {},
+   "dhcpd": {
+    "enabled": false,
+    "excluded": [],
+    "pools": []
+   },
+   "dnsd": {
+    "enabled": false,
+    "records": [],
+    "forwarders": []
+   },
+   "httpd": {
+    "enabled": false,
+    "https": false,
+    "pages": {
+     "/": {
+      "type": "text/html; charset=utf-8",
+      "body": "<html><head><title>PC1</title></head><body><h1>Bienvenue sur PC1</h1><p>Serveur web du simulateur.</p></body></html>"
+     }
+    }
+   },
+   "mgmt": {
+    "comms": [],
+    "location": "",
+    "contact": "",
+    "syslogd": false,
+    "trapd": false
+   },
+   "v6": {
+    "ifs": [
+     {
+      "name": "Ethernet0",
+      "autoconf": true,
+      "addrs": []
+     }
+    ],
+    "statics": []
+   },
+   "label": "Poste 1"
+  },
+  {
+   "id": "D4",
+   "type": "pc",
+   "model": "pc-win",
+   "name": "PC2",
+   "x": 180,
+   "y": 270,
+   "powered": true,
+   "ifaces": [
+    {
+     "name": "Ethernet0",
+     "ip": "192.168.10.52",
+     "mask": "255.255.255.0",
+     "dhcp": false
+    }
+   ],
+   "gw": "192.168.10.1",
+   "dns": [
+    "192.168.10.2"
+   ],
+   "domain": "",
+   "allowIcmpEcho": true,
+   "wifi": {
+    "ssid": "",
+    "key": ""
+   },
+   "hosts": {},
+   "dhcpd": {
+    "enabled": false,
+    "excluded": [],
+    "pools": []
+   },
+   "dnsd": {
+    "enabled": false,
+    "records": [],
+    "forwarders": []
+   },
+   "httpd": {
+    "enabled": false,
+    "https": false,
+    "pages": {
+     "/": {
+      "type": "text/html; charset=utf-8",
+      "body": "<html><head><title>PC2</title></head><body><h1>Bienvenue sur PC2</h1><p>Serveur web du simulateur.</p></body></html>"
+     }
+    }
+   },
+   "mgmt": {
+    "comms": [],
+    "location": "",
+    "contact": "",
+    "syslogd": false,
+    "trapd": false
+   },
+   "v6": {
+    "ifs": [
+     {
+      "name": "Ethernet0",
+      "autoconf": true,
+      "addrs": []
+     }
+    ],
+    "statics": []
+   },
+   "label": "Poste 2"
+  }
+ ],
+ "links": [
+  {
+   "a": [
+    "D2",
+    "ens33"
+   ],
+   "b": [
+    "D1",
+    "Port1"
+   ],
+   "type": "straight"
+  },
+  {
+   "a": [
+    "D3",
+    "Ethernet0"
+   ],
+   "b": [
+    "D1",
+    "Port2"
+   ],
+   "type": "straight"
+  },
+  {
+   "a": [
+    "D4",
+    "Ethernet0"
+   ],
+   "b": [
+    "D1",
+    "Port3"
+   ],
+   "type": "straight"
+  }
+ ],
+ "notes": "Première S12 – Le serveur SRV1 (192.168.10.2) a un nom (intranet.mecapro.local) mais son service web est arrêté : à démarrer, à personnaliser (page d'accueil + page Direction) et à passer en HTTPS."
+}

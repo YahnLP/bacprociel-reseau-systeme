@@ -286,6 +286,31 @@ TPS.push({
   checks: dhcpChecks.slice(3),
   startShould: [dhcpChecks[3].label],
 });
+
+/* ---------- S12 : serveur web ---------- */
+function webBuild(h) {
+  const { dev, link, get } = h;
+  dev('sw-8p', 'SW1', 420, 180); dev('srv-linux', 'SRV1', 700, 180, 'Serveur web'); dev('pc-win', 'PC1', 180, 90, 'Poste 1'); dev('pc-win', 'PC2', 180, 270, 'Poste 2');
+  link('SRV1', 'ens33', 'SW1', 'port1'); link('PC1', 'eth0', 'SW1', 'port2'); link('PC2', 'eth0', 'SW1', 'port3');
+  hostIp(get('SRV1'), '192.168.10.2', '24', '192.168.10.1', '192.168.10.2'); hostIp(get('PC1'), '192.168.10.51', '24', '192.168.10.1', '192.168.10.2'); hostIp(get('PC2'), '192.168.10.52', '24', '192.168.10.1', '192.168.10.2');
+  const s = get('SRV1'); s.dnsd.records = [{ name: 'intranet.mecapro.local', type: 'A', data: '192.168.10.2' }]; s.dnsd.start();
+}
+const INTRA = '<!DOCTYPE html><html><head><meta charset="utf-8"><title>Intranet MécaPro</title></head><body><h1>Intranet MécaPro</h1><p>Bienvenue sur l\'intranet de l\'atelier.</p><ul><li><a href="/direction.html">Espace Direction</a></li></ul></body></html>';
+const DIR = '<!DOCTYPE html><html><head><meta charset="utf-8"><title>Espace Direction</title></head><body><h1>Espace Direction</h1><p>Documents de la Direction.</p></body></html>';
+const webGet = (c, url) => { c.wait(3000); const r = c.http('PC1', url); return r; };
+const webChecks = [
+  { label: 'PC1 ouvre http://intranet.mecapro.local (200)', run: c => { const r = webGet(c, 'http://intranet.mecapro.local'); return !!r && r.status === 200 && /Intranet MécaPro/.test(r.body); } },
+  { label: 'La page /direction.html existe', run: c => { const r = webGet(c, 'http://intranet.mecapro.local/direction.html'); return !!r && r.status === 200 && /Espace Direction/.test(r.body); } },
+  { label: 'HTTPS (443) fonctionne', run: c => { const r = webGet(c, 'https://intranet.mecapro.local'); return !!r && r.status === 200; } },
+];
+TPS.push({
+  id: 'p12-web', start: D + 'S12-web-partage/tp/p12-web.json', solution: K + 'P12-web-corrige.json',
+  notes: 'Première S12 – Le serveur SRV1 (192.168.10.2) a un nom (intranet.mecapro.local) mais son service web est arrêté : à démarrer, à personnaliser (page d\'accueil + page Direction) et à passer en HTTPS.',
+  build(sim, h) { webBuild(h); },
+  solve(sim, h) { const w = h.get('SRV1').httpd; w.pages['/'] = { type: 'text/html; charset=utf-8', body: INTRA, _custom: true }; w.pages['/direction.html'] = { type: 'text/html; charset=utf-8', body: DIR, _custom: true }; w.https = true; w.start(); },
+  checks: webChecks,
+  startShould: webChecks.map(x => x.label),
+});
 const want = process.argv.slice(2);
 let all = true;
 TPS.filter(t => !want.length || want.includes(t.id)).forEach(t => { all = L.run(t) && all; });

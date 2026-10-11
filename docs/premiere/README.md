@@ -22,7 +22,7 @@
 | **S09** | 14 décembre 2026 | VLAN (2) : deux switchs et lien trunk | 🟡 Semi-guidé | [📘 Ouvrir](S09-vlan-2-trunk/README.md) |
 | **S10** | 11 janvier 2027 | Un serveur Linux et la connexion à distance | 🟡 Semi-guidé | [📘 Ouvrir](S10-serveur-linux-ssh/README.md) |
 | **S11** | 25 janvier 2027 | DHCP et DNS sur un serveur | 🟡 Semi-guidé | [📘 Ouvrir](S11-dhcp-dns-serveur/README.md) |
-| **S12** | 8 février 2027 | Serveur web et partage de fichiers | 🟡 Semi-guidé | 🚧 en préparation |
+| **S12** | 8 février 2027 | Serveur web et partage de fichiers | 🟡 Semi-guidé | [📘 Ouvrir](S12-web-partage/README.md) |
 | **S13** | 15 février 2027 | Cuivre certifié, fibre optique et sécurité | 🟡 Semi-guidé | 🚧 en préparation |
 | **S14** | 15 mars 2027 | Sécurité de base d'un réseau | 🟡 Semi-guidé | 🚧 en préparation |
 | **S15** | 5 avril 2027 | Révision, remédiation et lancement du projet | 🟡 Semi-guidé | 🚧 en préparation |
