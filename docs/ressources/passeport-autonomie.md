@@ -27,4 +27,40 @@ Le passeport te permet de suivre **ce que tu sais faire seul**. Chaque ligne pas
 | Dépanner un problème simple avec la méthode | S15 | ☐ | ☐ | ☐ |
 | Réaliser un petit réseau complet et le documenter | S16–S18 | ☐ | ☐ | ☐ |
 
-*Les passeports de Première et de Terminale sont ajoutés avec leurs séances.*
+## 🌿 Première
+
+| Je sais… | Séance | 1 | 2 | 3 |
+|---|---|---|---|---|
+| Utiliser le simulateur : câbler, configurer, tester | S02 | ☐ | ☐ | ☐ |
+| Lire une capture et distinguer les couches (Wireshark) | S03 | ☐ | ☐ | ☐ |
+| Reconnaître ARP, ICMP, DHCP, DNS, HTTP dans une capture | S04 | ☐ | ☐ | ☐ |
+| Configurer un switch administrable et le sauvegarder | S05 | ☐ | ☐ | ☐ |
+| Découper un réseau en sous-réseaux | S06 | ☐ | ☐ | ☐ |
+| Configurer un routeur et le routage statique | S07 | ☐ | ☐ | ☐ |
+| Créer des VLAN et affecter les ports | S08 | ☐ | ☐ | ☐ |
+| Configurer un trunk et dépanner un VLAN | S09 | ☐ | ☐ | ☐ |
+| Administrer un serveur Linux (SSH, utilisateurs) | S10 | ☐ | ☐ | ☐ |
+| Installer et configurer DHCP et DNS sur un serveur | S11 | ☐ | ☐ | ☐ |
+| Publier un site web et un partage de fichiers | S12 | ☐ | ☐ | ☐ |
+| Choisir cuivre ou fibre, mesurer, sécuriser un câblage | S13 | ☐ | ☐ | ☐ |
+| Appliquer la sécurité de base (mots de passe, SSH, ports) | S14 | ☐ | ☐ | ☐ |
+| Étudier, réaliser et recetter un petit projet complet | S16–S18 | ☐ | ☐ | ☐ |
+| Présenter son projet à l'oral | S19 | ☐ | ☐ | ☐ |
+
+## 🌳 Terminale
+
+| Je sais… | Séance | 1 | 2 | 3 |
+|---|---|---|---|---|
+| Relever les besoins d'un dossier et préparer un chantier en sécurité | S02–S03 | ☐ | ☐ | ☐ |
+| Installer, câbler et mesurer (cuivre et fibre) | S04 | ☐ | ☐ | ☐ |
+| Faire communiquer des VLAN (routeur ou switch de niveau 3) et filtrer | S05 | ☐ | ☐ | ☐ |
+| Mettre en service un Wi-Fi personnel et invités | S06 | ☐ | ☐ | ☐ |
+| Sauvegarder, restaurer et mettre à jour un équipement | S07 | ☐ | ☐ | ☐ |
+| Intégrer un nouvel équipement (adresse réservée, VLAN) | S08 | ☐ | ☐ | ☐ |
+| Sécuriser l'accès à distance (SSH, redirection, VPN) | S09 | ☐ | ☐ | ☐ |
+| Superviser un équipement et rédiger un ticket | S10 | ☐ | ☐ | ☐ |
+| Dépanner avec méthode, y compris des pannes combinées | S11 | ☐ | ☐ | ☐ |
+| Remplacer un équipement et rédiger un compte rendu | S12 | ☐ | ☐ | ☐ |
+| Dérouler une recette et accompagner le client | S13 | ☐ | ☐ | ☐ |
+| Conduire un chantier complet en 3 h | S15–S17 | ☐ | ☐ | ☐ |
+| Constituer son livret de preuves | S18 | ☐ | ☐ | ☐ |
