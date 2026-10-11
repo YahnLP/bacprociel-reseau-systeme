@@ -1,0 +1,458 @@
+{
+ "app": "simulateur-reseau",
+ "v": 1,
+ "opts": {
+  "strictCables": false,
+  "stpFast": true
+ },
+ "devices": [
+  {
+   "id": "D1",
+   "type": "switch",
+   "model": "sw-8p",
+   "name": "SW1",
+   "x": 420,
+   "y": 180,
+   "powered": true,
+   "cli": "!\nhostname SW1\n!\nline con 0\n logging synchronous\nline vty 0 4\n!",
+   "label": ""
+  },
+  {
+   "id": "D2",
+   "type": "router",
+   "model": "r-1941",
+   "name": "R1",
+   "x": 420,
+   "y": 40,
+   "powered": true,
+   "cli": "!\nhostname R1\n!\ninterface GigabitEthernet0/0\n ip address 192.168.10.1 255.255.255.0\n!\ninterface GigabitEthernet0/1\n no ip address\n shutdown\n!\nline con 0\n logging synchronous\nline vty 0 4\n!",
+   "label": "Routeur"
+  },
+  {
+   "id": "D3",
+   "type": "server",
+   "model": "srv-linux",
+   "name": "SRV1",
+   "x": 700,
+   "y": 180,
+   "powered": true,
+   "ifaces": [
+    {
+     "name": "ens33",
+     "ip": "192.168.10.2",
+     "mask": "255.255.255.0",
+     "dhcp": false
+    }
+   ],
+   "gw": "192.168.10.1",
+   "dns": [
+    "192.168.10.2"
+   ],
+   "domain": "",
+   "allowIcmpEcho": true,
+   "wifi": {
+    "ssid": "",
+    "key": ""
+   },
+   "hosts": {},
+   "dhcpd": {
+    "enabled": true,
+    "excluded": [
+     [
+      3232238081,
+      3232238129
+     ]
+    ],
+    "pools": [
+     {
+      "name": "LAN",
+      "net": 3232238080,
+      "mask": 4294967040,
+      "router": 3232238081,
+      "dns": [
+       3232238082
+      ],
+      "domain": "mecapro.local",
+      "lease": 28800,
+      "start": 3232238130,
+      "end": 3232238230
+     }
+    ]
+   },
+   "dnsd": {
+    "enabled": true,
+    "records": [
+     {
+      "name": "srv.mecapro.local",
+      "type": "A",
+      "data": "192.168.10.2"
+     },
+     {
+      "name": "intranet.mecapro.local",
+      "type": "A",
+      "data": "192.168.10.2"
+     },
+     {
+      "name": "imprimante.mecapro.local",
+      "type": "A",
+      "data": "192.168.10.30"
+     }
+    ],
+    "forwarders": []
+   },
+   "httpd": {
+    "enabled": false,
+    "https": false,
+    "pages": {
+     "/": {
+      "type": "text/html; charset=utf-8",
+      "body": "<html><head><title>SRV1</title></head><body><h1>Bienvenue sur SRV1</h1><p>Serveur web du simulateur.</p></body></html>"
+     }
+    }
+   },
+   "mgmt": {
+    "comms": [],
+    "location": "",
+    "contact": "",
+    "syslogd": false,
+    "trapd": false
+   },
+   "v6": {
+    "ifs": [
+     {
+      "name": "ens33",
+      "autoconf": true,
+      "addrs": []
+     }
+    ],
+    "statics": []
+   },
+   "label": "Serveur DHCP/DNS"
+  },
+  {
+   "id": "D4",
+   "type": "pc",
+   "model": "pc-win",
+   "name": "PC1",
+   "x": 180,
+   "y": 90,
+   "powered": true,
+   "ifaces": [
+    {
+     "name": "Ethernet0",
+     "ip": "",
+     "mask": "",
+     "dhcp": true
+    }
+   ],
+   "gw": "",
+   "dns": [],
+   "domain": "mecapro.local",
+   "allowIcmpEcho": true,
+   "wifi": {
+    "ssid": "",
+    "key": ""
+   },
+   "hosts": {},
+   "dhcpd": {
+    "enabled": false,
+    "excluded": [],
+    "pools": []
+   },
+   "dnsd": {
+    "enabled": false,
+    "records": [],
+    "forwarders": []
+   },
+   "httpd": {
+    "enabled": false,
+    "https": false,
+    "pages": {
+     "/": {
+      "type": "text/html; charset=utf-8",
+      "body": "<html><head><title>PC1</title></head><body><h1>Bienvenue sur PC1</h1><p>Serveur web du simulateur.</p></body></html>"
+     }
+    }
+   },
+   "mgmt": {
+    "comms": [],
+    "location": "",
+    "contact": "",
+    "syslogd": false,
+    "trapd": false
+   },
+   "v6": {
+    "ifs": [
+     {
+      "name": "Ethernet0",
+      "autoconf": true,
+      "addrs": []
+     }
+    ],
+    "statics": []
+   },
+   "label": "Poste 1"
+  },
+  {
+   "id": "D5",
+   "type": "pc",
+   "model": "pc-win",
+   "name": "PC2",
+   "x": 180,
+   "y": 270,
+   "powered": true,
+   "ifaces": [
+    {
+     "name": "Ethernet0",
+     "ip": "",
+     "mask": "",
+     "dhcp": true
+    }
+   ],
+   "gw": "",
+   "dns": [],
+   "domain": "mecapro.local",
+   "allowIcmpEcho": true,
+   "wifi": {
+    "ssid": "",
+    "key": ""
+   },
+   "hosts": {},
+   "dhcpd": {
+    "enabled": false,
+    "excluded": [],
+    "pools": []
+   },
+   "dnsd": {
+    "enabled": false,
+    "records": [],
+    "forwarders": []
+   },
+   "httpd": {
+    "enabled": false,
+    "https": false,
+    "pages": {
+     "/": {
+      "type": "text/html; charset=utf-8",
+      "body": "<html><head><title>PC2</title></head><body><h1>Bienvenue sur PC2</h1><p>Serveur web du simulateur.</p></body></html>"
+     }
+    }
+   },
+   "mgmt": {
+    "comms": [],
+    "location": "",
+    "contact": "",
+    "syslogd": false,
+    "trapd": false
+   },
+   "v6": {
+    "ifs": [
+     {
+      "name": "Ethernet0",
+      "autoconf": true,
+      "addrs": []
+     }
+    ],
+    "statics": []
+   },
+   "label": "Poste 2"
+  },
+  {
+   "id": "D6",
+   "type": "pc",
+   "model": "pc-linux",
+   "name": "PC3",
+   "x": 700,
+   "y": 330,
+   "powered": true,
+   "ifaces": [
+    {
+     "name": "ens33",
+     "ip": "",
+     "mask": "",
+     "dhcp": true
+    }
+   ],
+   "gw": "",
+   "dns": [],
+   "domain": "mecapro.local",
+   "allowIcmpEcho": true,
+   "wifi": {
+    "ssid": "",
+    "key": ""
+   },
+   "hosts": {},
+   "dhcpd": {
+    "enabled": false,
+    "excluded": [],
+    "pools": []
+   },
+   "dnsd": {
+    "enabled": false,
+    "records": [],
+    "forwarders": []
+   },
+   "httpd": {
+    "enabled": false,
+    "https": false,
+    "pages": {
+     "/": {
+      "type": "text/html; charset=utf-8",
+      "body": "<html><head><title>PC3</title></head><body><h1>Bienvenue sur PC3</h1><p>Serveur web du simulateur.</p></body></html>"
+     }
+    }
+   },
+   "mgmt": {
+    "comms": [],
+    "location": "",
+    "contact": "",
+    "syslogd": false,
+    "trapd": false
+   },
+   "v6": {
+    "ifs": [
+     {
+      "name": "ens33",
+      "autoconf": true,
+      "addrs": []
+     }
+    ],
+    "statics": []
+   },
+   "label": "Poste 3 (Linux)"
+  },
+  {
+   "id": "D7",
+   "type": "peripheral",
+   "model": "printer",
+   "name": "IMP",
+   "x": 180,
+   "y": 180,
+   "powered": true,
+   "ifaces": [
+    {
+     "name": "LAN",
+     "ip": "192.168.10.30",
+     "mask": "255.255.255.0",
+     "dhcp": false
+    }
+   ],
+   "gw": "192.168.10.1",
+   "dns": [],
+   "domain": "",
+   "allowIcmpEcho": true,
+   "wifi": {
+    "ssid": "",
+    "key": ""
+   },
+   "hosts": {},
+   "dhcpd": {
+    "enabled": false,
+    "excluded": [],
+    "pools": []
+   },
+   "dnsd": {
+    "enabled": false,
+    "records": [],
+    "forwarders": []
+   },
+   "httpd": {
+    "enabled": false,
+    "https": false,
+    "pages": {
+     "/": {
+      "type": "text/html; charset=utf-8",
+      "body": "<html><head><title>IMP</title></head><body><h1>Bienvenue sur IMP</h1><p>Serveur web du simulateur.</p></body></html>"
+     }
+    }
+   },
+   "mgmt": {
+    "comms": [],
+    "location": "",
+    "contact": "",
+    "syslogd": false,
+    "trapd": false
+   },
+   "v6": {
+    "ifs": [
+     {
+      "name": "LAN",
+      "autoconf": true,
+      "addrs": []
+     }
+    ],
+    "statics": []
+   },
+   "label": "Imprimante"
+  }
+ ],
+ "links": [
+  {
+   "a": [
+    "D2",
+    "GigabitEthernet0/0"
+   ],
+   "b": [
+    "D1",
+    "Port1"
+   ],
+   "type": "straight"
+  },
+  {
+   "a": [
+    "D3",
+    "ens33"
+   ],
+   "b": [
+    "D1",
+    "Port2"
+   ],
+   "type": "straight"
+  },
+  {
+   "a": [
+    "D4",
+    "Ethernet0"
+   ],
+   "b": [
+    "D1",
+    "Port3"
+   ],
+   "type": "straight"
+  },
+  {
+   "a": [
+    "D5",
+    "Ethernet0"
+   ],
+   "b": [
+    "D1",
+    "Port4"
+   ],
+   "type": "straight"
+  },
+  {
+   "a": [
+    "D6",
+    "ens33"
+   ],
+   "b": [
+    "D1",
+    "Port5"
+   ],
+   "type": "straight"
+  },
+  {
+   "a": [
+    "D7",
+    "LAN"
+   ],
+   "b": [
+    "D1",
+    "Port6"
+   ],
+   "type": "straight"
+  }
+ ],
+ "notes": "CORRIGÉ – Première S11 – Le serveur SRV1 (192.168.10.2) n'a encore aucun service : les postes en DHCP n'ont pas d'adresse. À configurer : DHCP (pool 192.168.10.50-150, passerelle .1, DNS .2) et DNS (srv, intranet, imprimante)."
+}

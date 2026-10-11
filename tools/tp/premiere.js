@@ -239,6 +239,53 @@ TPS.push({
   ],
   startShould: ['PC1 joint SRV1', 'SRV1 joint PC1'],
 });
+
+/* ---------- S11 : DHCP et DNS sur un serveur ---------- */
+const ip4 = x => IP.parse(x), mk24 = IP.parseMask('24');
+function dhcpBuild(h) {
+  const { dev, link, get } = h;
+  dev('sw-8p', 'SW1', 420, 180); dev('r-1941', 'R1', 420, 40, 'Routeur'); dev('srv-linux', 'SRV1', 700, 180, 'Serveur DHCP/DNS');
+  dev('pc-win', 'PC1', 180, 90, 'Poste 1'); dev('pc-win', 'PC2', 180, 270, 'Poste 2'); dev('pc-linux', 'PC3', 700, 330, 'Poste 3 (Linux)');
+  cliRun(get('R1'), 'enable\nconf t\nhostname R1\ninterface gi0/0\nip address 192.168.10.1 255.255.255.0\nno shutdown\nend');
+  link('R1', 'gi0/0', 'SW1', 'port1'); link('SRV1', 'ens33', 'SW1', 'port2'); link('PC1', 'eth0', 'SW1', 'port3'); link('PC2', 'eth0', 'SW1', 'port4'); link('PC3', 'ens33', 'SW1', 'port5');
+  dev('printer', 'IMP', 180, 180, 'Imprimante'); link('IMP', get('IMP').ifaceList()[0].port.name, 'SW1', 'port6'); hostIp(get('IMP'), '192.168.10.30', '24', '192.168.10.1');
+  hostIp(get('SRV1'), '192.168.10.2', '24', '192.168.10.1', '192.168.10.2');
+  ['PC1', 'PC2', 'PC3'].forEach(n => hostDhcp(get(n)));
+}
+function dhcpSolve(srv, opts = {}) {
+  const d = srv.dhcpd; d.excluded = [[ip4('192.168.10.1'), ip4('192.168.10.49')]];
+  d.addPool({ name: 'LAN', net: ip4('192.168.10.0'), mask: mk24, router: ip4('192.168.10.1'), dns: [ip4(opts.dns || '192.168.10.2')], domain: 'mecapro.local', lease: 28800, start: ip4('192.168.10.50'), end: ip4('192.168.10.150') });
+  d.enabled = true;
+  srv.dnsd.records = [{ name: 'srv.mecapro.local', type: 'A', data: '192.168.10.2' }, { name: 'intranet.mecapro.local', type: 'A', data: opts.intra || '192.168.10.2' }, { name: 'imprimante.mecapro.local', type: 'A', data: '192.168.10.30' }];
+  srv.dnsd.start();
+}
+const dhcpChecks = [
+  { label: 'PC1 reçoit une adresse du pool (192.168.10.50 à 150)', run: c => { c.wait(8000); const a = c.ipOf('PC1'); return /^192\.168\.10\.(5\d|[6-9]\d|1[0-4]\d|150)$/.test(a); } },
+  { label: 'PC2 reçoit une adresse du pool', run: c => /^192\.168\.10\.(5\d|[6-9]\d|1[0-4]\d|150)$/.test(c.ipOf('PC2')) },
+  { label: 'PC1 et PC2 ont des adresses différentes', run: c => c.ipOf('PC1') !== c.ipOf('PC2') },
+  { label: 'PC1 résout intranet.mecapro.local en 192.168.10.2', run: c => /192\.168\.10\.2\b/.test(L.shell(c.sim, Array.from(c.sim.devices.values()).find(d => d.name === 'PC1'), 'nslookup intranet.mecapro.local')) && !/\.20\b/.test(L.shell(c.sim, Array.from(c.sim.devices.values()).find(d => d.name === 'PC1'), 'nslookup intranet.mecapro.local')) },
+  { label: 'PC1 joint le serveur par son nom', run: c => /octets=/.test(L.shell(c.sim, Array.from(c.sim.devices.values()).find(d => d.name === 'PC1'), 'ping srv.mecapro.local')) },
+];
+TPS.push({
+  id: 'p11-dhcp-dns', start: D + 'S11-dhcp-dns-serveur/tp/p11-dhcp-dns.json', solution: K + 'P11-dhcp-dns-corrige.json',
+  notes: 'Première S11 – Le serveur SRV1 (192.168.10.2) n\'a encore aucun service : les postes en DHCP n\'ont pas d\'adresse. À configurer : DHCP (pool 192.168.10.50-150, passerelle .1, DNS .2) et DNS (srv, intranet, imprimante).',
+  build(sim, h) { dhcpBuild(h); },
+  solve(sim, h) { dhcpSolve(h.get('SRV1')); },
+  checks: dhcpChecks,
+  startShould: dhcpChecks.filter(x => !/différentes/.test(x.label)).map(x => x.label),
+});
+TPS.push({
+  id: 'p11-dhcp-dns-panne', start: D + 'S11-dhcp-dns-serveur/tp/p11-dhcp-dns-panne.json', solution: K + 'P11-dhcp-dns-panne-corrige.json',
+  notes: 'Première S11 – Dépannage : le DHCP et le DNS tournent, mais le pool distribue un mauvais serveur DNS (192.168.10.3) et l\'enregistrement intranet.mecapro.local pointe sur 192.168.10.20 au lieu de .2.',
+  build(sim, h) { dhcpBuild(h); dhcpSolve(h.get('SRV1'), { dns: '192.168.10.3', intra: '192.168.10.20' }); },
+  solve(sim, h) {
+    const s = h.get('SRV1'); const p = s.dhcpd.pools[0]; p.dns = [ip4('192.168.10.2')];
+    s.dnsd.records.find(r => r.name === 'intranet.mecapro.local').data = '192.168.10.2';
+    ['PC1', 'PC2', 'PC3'].forEach(n => { const pc = h.get(n); const i = pc.ifaceList()[0]; pc.dhcpDns = true; pc.dnsServers = [ip4('192.168.10.2')]; });
+  },
+  checks: dhcpChecks.slice(3),
+  startShould: [dhcpChecks[3].label],
+});
 const want = process.argv.slice(2);
 let all = true;
 TPS.filter(t => !want.length || want.includes(t.id)).forEach(t => { all = L.run(t) && all; });

@@ -187,6 +187,50 @@ def s10():
     f.save(out(d, "arborescence.svg"))
 
 
+def s11():
+    d = "S11-dhcp-dns-serveur"
+    f = Fig(1000, 440, "Plan d'adresses du réseau 192.168.10.0/24", "La plage dynamique du DHCP (50 à 150) est séparée des adresses fixes (routeur, serveur, imprimante) pour éviter les doublons.")
+    f.title_bar("Un plan d'adresses : fixes d'un côté, DHCP de l'autre")
+    x0, w = 40, 920
+    segs = [(0, 49, "Adresses FIXES\n.1 routeur · .2 serveur · .30 imprimante", GRY, GRY_D, "exclues du DHCP"), (50, 150, "POOL DHCP\n192.168.10.50 → .150", GRN_L, GRN, "101 adresses distribuées"), (151, 254, "Libre / réserve", YEL_L, YEL, "pour l'avenir")]
+    for a, b, lab, fill, st, sub in segs:
+        xa = x0 + a / 256 * w; xb = x0 + (b + 1) / 256 * w
+        f.rect(xa, 100, xb - xa, 90, fill, st, 3, 6)
+        l1, _, l2 = lab.partition("\n")
+        f.text((xa + xb) / 2, 135, l1, 17, st if st != YEL else "#8a6d00", "middle", "700")
+        if l2: f.text((xa + xb) / 2, 160, l2, 12.5, INK, "middle", maxw=xb - xa - 8)
+        f.text((xa + xb) / 2, 215, sub, 13.5, MUTED, "middle")
+    for v in (0, 50, 150, 255):
+        x = x0 + v / 256 * w
+        f.line(x, 190, x, 200, LINE, 2); f.text(x, 238, f".{v}", 14, INK, "middle", "700")
+    f.text(500, 82, "dernier octet de l'adresse (0 à 255)", 14, MUTED, "middle")
+    f.rect(40, 280, 440, 130, IND_L, IND, 2.5, 12)
+    f.text(260, 308, "Ce que le serveur DHCP remet au poste", 16, IND, "middle", "700")
+    for i, t in enumerate(("① une adresse IP (dans le pool)", "② le masque (255.255.255.0)", "③ la passerelle (192.168.10.1)", "④ le serveur DNS (192.168.10.2)")):
+        f.text(62, 336 + i * 20, t, 14, INK, "start")
+    f.rect(520, 280, 440, 130, ORA_L, ORA, 2.5, 12)
+    f.text(740, 308, "Le bail (lease)", 16, ORA, "middle", "700")
+    f.text(540, 336, "L'adresse est PRÊTÉE pour une durée (ex. 8 h).", 14, INK, "start")
+    f.text(540, 358, "À la moitié du bail, le poste demande à renouveler.", 14, INK, "start")
+    f.text(540, 380, "Poste éteint : l'adresse retourne dans le pool.", 14, INK, "start")
+    f.save(out(d, "plan-adresses.svg"))
+
+    f = Fig(1000, 420, "Résolution d'un nom par le serveur DNS local", "Le poste demande l'adresse de intranet.mecapro.local à son serveur DNS ; le serveur répond avec l'adresse trouvée dans sa zone.")
+    f.title_bar("Le DNS : l'annuaire qui traduit un nom en adresse")
+    node(f, "pc", 130, 160, "Poste", "DHCP : 192.168.10.50")
+    node(f, "server", 500, 160, "SRV1 – DNS", "192.168.10.2")
+    f.rect(740, 70, 230, 175, WHITE, ORA, 2.5, 12)
+    f.text(855, 96, "Zone mecapro.local", 15, ORA, "middle", "700")
+    for i, (n, a) in enumerate((("srv", "192.168.10.2"), ("intranet", "192.168.10.2"), ("imprimante", "192.168.10.30"))):
+        f.mono(755, 128 + i * 32, f"{n:<11}A  {a}", 12.5, INK, "start")
+    f.line(540, 160, 740, 160, ORA, 2, "4 4")
+    f.arrow(200, 120, 440, 120, IND, 4); f.text(320, 108, "« intranet.mecapro.local ? »", 14, IND, "middle", "700")
+    f.arrow(440, 200, 200, 200, GRN, 4); f.text(320, 224, "« c'est 192.168.10.2 »", 14, GRN, "middle", "700")
+    f.callout(40, 290, 920, "Le poste connaît l'adresse de son serveur DNS parce que le DHCP la lui a remise (④). Si ce DNS est faux : les adresses IP marchent, mais PAS les noms.", YEL_L, YEL, 14.5)
+    f.text(500, 385, "Test : nslookup nom  →  la réponse doit donner la bonne adresse", 14, MUTED, "middle")
+    f.save(out(d, "dns-resolution.svg"))
+
+
 if __name__ == "__main__":
-    for w in (sys.argv[1:] or ["s07", "s08", "s09", "s10"]):
+    for w in (sys.argv[1:] or ["s07", "s08", "s09", "s10", "s11"]):
         globals()[w](); print("OK", w)
