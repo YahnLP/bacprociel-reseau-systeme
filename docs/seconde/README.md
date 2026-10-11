@@ -24,7 +24,7 @@
 | **S11** | 1er mars 2027 | Donner une adresse à chaque machine (IP) | 🟡 Semi-guidé | [📘 Ouvrir](S11-adresse-ip/README.md) |
 | **S12** | 22 mars 2027 | DHCP, box / routeur et passerelle | 🟡 Semi-guidé | [📘 Ouvrir](S12-dhcp-box/README.md) |
 | **S13** | 29 mars 2027 | DNS et accès à Internet | 🟡 Semi-guidé | [📘 Ouvrir](S13-dns-internet/README.md) |
-| **S14** | 26 avril 2027 | Wi-Fi : installer, sécuriser, bons réflexes | 🟡 Semi-guidé | 🚧 en préparation |
+| **S14** | 26 avril 2027 | Wi-Fi : installer, sécuriser, bons réflexes | 🟡 Semi-guidé | [📘 Ouvrir](S14-wifi/README.md) |
 | **S15** | 3 mai 2027 | Dépanner : méthode de niveau 1 + remédiation | 🟡 Semi-guidé | 🚧 en préparation |
 | **S16** | 17 mai 2027 | PROJET A1 (1/2) : le réseau d'une petite entreprise | 🟡 Semi-guidé | 🚧 en préparation |
 | **S17** | 31 mai 2027 | PROJET A1 (2/2) : tests et dossier | 🟡 Semi-guidé | 🚧 en préparation |

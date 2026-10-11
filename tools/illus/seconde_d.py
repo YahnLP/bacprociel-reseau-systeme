@@ -224,6 +224,71 @@ def s13():
     f.save(out(d, "diagnostic-internet.svg"))
 
 
+def s14():
+    d = "S14-wifi"
+    # 1. SSID / association / DHCP : les 3 étapes
+    f = Fig(940, 370, "Se connecter à un Wi-Fi", "Trois étapes : choisir le SSID, s'authentifier avec la clé, puis obtenir une adresse IP du DHCP.")
+    f.title_bar("Se connecter en Wi-Fi : 3 étapes")
+    ic_laptop(f, 100, 150, "Portable", ""); ic_ap(f, 470, 130, "Borne Wi-Fi", "SSID : ATELIER-CIEL"); ic_box(f, 830, 150, "Box", "DHCP")
+    f.wifi_link = None
+    items = [(170, "1", "Je choisis le réseau", "(le SSID)", IND), (470, "2", "Je donne la clé", "(WPA2 / WPA3)", ORA), (770, "3", "Je reçois une adresse", "(DHCP, comme en S12)", GRN)]
+    for x, n, t, k, c in items:
+        f.rect(x - 130, 215, 260, 70, WHITE, c, 3, 12); f.badge(x - 112, 235, n, c)
+        f.text(x + 10, 243, t, 13, INK, "middle", "700", maxw=210); f.text(x + 10, 268, k, 12, MUTED)
+    f.arrow(155, 150, 410, 130, IND, 3); f.arrow(535, 130, 780, 150, GRN, 3)
+    f.callout(40, 305, 860, "Si l'étape 2 échoue (mauvaise clé), on n'a même PAS d'adresse IP : l'adressage vient après la connexion Wi-Fi.", YEL_L, YEL, 14)
+    f.save(out(d, "etapes-wifi.svg"))
+
+    # 2. 2,4 GHz vs 5 GHz
+    f = Fig(940, 340, "Bandes 2,4 GHz et 5 GHz", "2,4 GHz porte plus loin mais est plus encombré et plus lent ; 5 GHz est plus rapide mais traverse moins bien les obstacles.")
+    f.title_bar("Deux bandes, deux compromis")
+    for x, t, c, lines in [(30, "2,4 GHz", ORA, ["PORTÉE : longue (traverse mieux les murs)", "DÉBIT : plus faible", "ENCOMBREMENT : fort (voisins, micro-ondes, Bluetooth)", "Canaux utiles : 1, 6, 11"]),
+                           (490, "5 GHz", IND, ["PORTÉE : plus courte", "DÉBIT : plus élevé", "ENCOMBREMENT : faible", "Plus de canaux, moins de brouillage"])]:
+        f.rect(x, 60, 420, 210, WHITE, c, 3, 14); f.rect(x, 60, 420, 44, c, c, 3, 14); f.text(x + 210, 90, t, 20, WHITE, "middle", "700")
+        for i, l in enumerate(lines): f.text(x + 18, 134 + i * 34, l, 13.5, INK, "start", "700" if i < 2 else "400", maxw=390)
+    f.callout(30, 285, 880, "Pour un atelier : 5 GHz pour le travail (rapide) ; 2,4 GHz pour les objets connectés et les zones éloignées.", YEL_L, YEL, 14.5)
+    f.save(out(d, "bandes.svg"))
+
+    # 3. canaux 2,4 GHz
+    f = Fig(940, 350, "Canaux 2,4 GHz : 1, 6 et 11", "Les canaux 1, 6 et 11 ne se chevauchent pas : on les choisit pour éviter les interférences entre bornes voisines.")
+    f.title_bar("2,4 GHz : seuls 3 canaux ne se chevauchent pas")
+    f.line(50, 230, 890, 230, LINE, 3)
+    cols = {1: IND, 6: ORA, 11: GRN}
+    import math
+    for ch in range(1, 12):
+        cx = 50 + 40 + (ch - 1) * 75
+        if ch in cols:
+            c = cols[ch]; pts = [(cx - 85 + i * 8.5, 230 - 120 * math.sin(math.pi * i / 20) ** 2) for i in range(21)]
+            f.path("M" + " L".join(f"{x:.1f},{y:.1f}" for x, y in pts), "none", c, 4)
+            f.text(cx, 255, "canal " + str(ch), 14, c, "middle", "700")
+        else:
+            f.text(cx, 255, str(ch), 12, MUTED)
+    f.callout(40, 280, 860, "Deux bornes voisines sur des canaux proches (1 et 2) se gênent : mets-les sur 1, 6 et 11.", YEL_L, YEL, 14)
+    f.save(out(d, "canaux.svg"))
+
+    # 4. force du signal
+    f = Fig(940, 300, "Lire la force du signal", "Le signal se mesure en dBm : plus le nombre est proche de zéro, meilleur est le signal.")
+    f.title_bar("Force du signal (dBm) : plus c'est proche de 0, mieux c'est")
+    bands = [("-30 à -50", "Excellent", GRN, GRN_L), ("-50 à -67", "Très bon", GRN, GRN_L), ("-67 à -70", "Correct (limite)", YEL, YEL_L), ("-70 à -80", "Faible", ORA, ORA_L), ("< -80", "Inutilisable", RED, RED_L)]
+    for i, (v, t, c, fi) in enumerate(bands):
+        x = 30 + i * 180
+        f.rect(x, 70, 172, 120, fi, c, 3, 12); f.text(x + 86, 112, v, 18, c, "middle", "700"); f.text(x + 86, 150, t, 14.5, INK, "middle", "700")
+    f.callout(30, 215, 880, "Objectif en entreprise : au moins -67 dBm partout où l'on travaille. Les murs épais, le métal, l'eau et les miroirs affaiblissent le signal.", YEL_L, YEL, 14)
+    f.save(out(d, "signal.svg"))
+
+    # 5. ouvert vs WPA2 + réseau invité
+    f = Fig(940, 440, "Réseau interne et réseau invité", "Le réseau invité donne Internet aux visiteurs sans leur donner accès aux ordinateurs et serveurs de l'entreprise.")
+    f.title_bar("Réseau interne / réseau invité")
+    ic_box(f, 470, 100, "Box / borne", "")
+    f.rect(30, 190, 420, 220, IND_L, IND, 3, 14); f.text(240, 218, "ATELIER-CIEL  (interne)", 16, IND, "middle", "700")
+    ic_pc(f, 100, 280, "PC", ""); ic_server(f, 200, 275, "Serveur", ""); ic_printer(f, 300, 280, "Imprimante", ""); f.text(240, 380, "WPA2/WPA3 + clé forte : les salariés", 12.5, INK, "middle", "700")
+    f.rect(490, 190, 420, 220, ORA_L, ORA, 3, 14); f.text(700, 218, "ATELIER-INVITES  (invité)", 16, ORA, "middle", "700")
+    ic_phone(f, 600, 285, "Visiteur", ""); ic_laptop(f, 790, 285, "Portable", ""); f.text(700, 380, "clé simple, accès à Internet SEULEMENT", 12.5, INK, "middle", "700")
+    f.arrow(420, 150, 330, 188, IND, 3); f.arrow(520, 150, 610, 188, ORA, 3)
+    f.line(450, 300, 490, 300, RED, 4, dash="5 4"); f.text(470, 330, "mur", 11, RED, "middle", "700")
+    f.save(out(d, "invite.svg"))
+
+
 if __name__ == "__main__":
-    for w in (sys.argv[1:] or ["s11", "s12", "s13"]):
+    for w in (sys.argv[1:] or ["s11", "s12", "s13", "s14"]):
         globals()[w](); print("OK", w)

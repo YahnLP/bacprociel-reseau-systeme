@@ -2,7 +2,7 @@
    Chaque TP : fichier de départ (docs/…/tp/*.json), corrigé (corriges/…), vérifications par le moteur. */
 const L = require('./lib');
 const C = require('./common');
-const { hostIp, hostDhcp, IP } = L;
+const { hostIp, hostDhcp, hostIpWifi, IP } = L;
 const D = 'docs/seconde/', K = 'corriges/seconde/';
 const TPS = [];
 
@@ -120,6 +120,33 @@ TPS.push({
     { label: 'PC2 ouvre www.exemple.fr (par le nom)', run: c => { const r = c.http('PC2', 'http://www.exemple.fr'); return !!r && r.status === 200; } },
   ],
   startShould: ['PC2 ouvre www.exemple.fr (par le nom)'],
+});
+
+/* ---------- S14 : Wi-Fi ---------- */
+TPS.push({
+  id: 's14-wifi', start: D + 'S14-wifi/tp/s14-wifi.json', solution: K + 'S14-wifi-corrige.json',
+  notes: 'S14 – Une borne Wi-Fi neuve (SSID et sécurité d\'usine) derrière une box : à renommer, sécuriser, puis connecter deux portables. LAP3 a une mauvaise clé.',
+  build(sim, h) {
+    const { dev, link, get } = h;
+    C.internet(sim, h, 900, 200); C.box(sim, h, 'BOX', 680, 200);
+    dev('ap-u6', 'AP1', 480, 160); link('AP1', 'eth0', 'BOX', 'lan1');
+    dev('pc-win', 'PC1', 560, 360); link('PC1', 'eth0', 'BOX', 'lan2'); hostDhcp(get('PC1'));
+    dev('laptop', 'LAP1', 250, 330); dev('laptop', 'LAP2', 400, 380); dev('laptop', 'LAP3', 120, 220);
+    const a = get('AP1'); a.ssid = 'AP-USINE'; a.key = ''; a.security = 'Ouvert';
+  },
+  solve(sim, { get }) {
+    const a = get('AP1'); a.ssid = 'ATELIER-CIEL'; a.key = 'Atelier-Ciel#2027'; a.security = 'WPA2';
+    ['LAP1', 'LAP2'].forEach(n => { const l = get(n); l.wifi = { ssid: 'ATELIER-CIEL', key: 'Atelier-Ciel#2027' }; hostDhcp(l); hostIpWifi(l); });
+    const l3 = get('LAP3'); l3.wifi = { ssid: 'ATELIER-CIEL', key: 'mauvaiseCle' }; hostDhcp(l3); hostIpWifi(l3);
+    L.NS.wifiRefresh(sim);
+  },
+  checks: [
+    { label: 'La borne est en WPA2 avec le SSID ATELIER-CIEL', run: c => { const a = c.get('AP1'); return a.security === 'WPA2' && a.ssid === 'ATELIER-CIEL'; } },
+    { label: 'LAP1 est associé et obtient une adresse', run: c => { c.wait(8000); return /^192\.168\.1\./.test(c.ipOf('LAP1')); } },
+    { label: 'LAP1 joint Internet (FAI)', run: c => c.ping('LAP1', '203.0.113.1') },
+    { label: 'LAP2 joint PC1 (filaire)', run: c => c.ping('LAP2', c.ipOf('PC1')) },
+  ],
+  startShould: ['La borne est en WPA2 avec le SSID ATELIER-CIEL', 'LAP1 est associé et obtient une adresse'],
 });
 
 const want = process.argv.slice(2);
