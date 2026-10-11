@@ -1,0 +1,10 @@
+const L=require('../lib');const {Sim,IP}=L.NS?L:{};const NS=L.NS;
+const sim=new NS.Sim();const h=L.mk(sim);const {dev,link,get}=h;
+dev('sw-3560','CORE',300,100);dev('sw-2960','SW1',150,250);dev('pc-win','PC1',100,400);dev('pc-win','PC2',300,400);dev('srv-linux','SRV',500,250);
+link('CORE','Gi0/1','SW1','Gi0/1');link('PC1','eth0','SW1','Fa0/1');link('PC2','eth0','SW1','Fa0/2');link('SRV','ens33','CORE','Fa0/1');
+L.cliRun(get('SW1'),'enable\nconf t\nvlan 10\nvlan 20\ninterface fa0/1\nswitchport mode access\nswitchport access vlan 10\ninterface fa0/2\nswitchport mode access\nswitchport access vlan 20\ninterface gi0/1\nswitchport mode trunk\nend');
+L.cliRun(get('CORE'),'enable\nconf t\nvlan 10\nvlan 20\nvlan 30\nip routing\ninterface gi0/1\nswitchport trunk encapsulation dot1q\nswitchport mode trunk\ninterface fa0/1\nswitchport mode access\nswitchport access vlan 30\ninterface vlan 10\nip address 192.168.10.1 255.255.255.0\nno shutdown\ninterface vlan 20\nip address 192.168.20.1 255.255.255.0\nno shutdown\ninterface vlan 30\nip address 192.168.30.1 255.255.255.0\nno shutdown\nend');
+L.hostIp(get('PC1'),'192.168.10.11','24','192.168.10.1');L.hostIp(get('PC2'),'192.168.20.11','24','192.168.20.1');L.hostIp(get('SRV'),'192.168.30.10','24','192.168.30.1');
+sim.runFor(8000);const c=NS.checker(sim);
+console.log(c.ping('PC1','192.168.20.11'),c.ping('PC1','192.168.30.10'),c.ping('PC2','192.168.30.10'));
+console.log(L.shell(sim,get('CORE'),'show ip route'));

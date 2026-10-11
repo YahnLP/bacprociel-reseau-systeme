@@ -1,0 +1,255 @@
+{
+ "app": "simulateur-reseau",
+ "v": 1,
+ "opts": {
+  "strictCables": false,
+  "stpFast": true
+ },
+ "devices": [
+  {
+   "id": "D1",
+   "type": "pc",
+   "model": "pc-win",
+   "name": "PC1",
+   "x": 100,
+   "y": 80,
+   "powered": true,
+   "ifaces": [
+    {
+     "name": "Ethernet0",
+     "ip": "",
+     "mask": "",
+     "dhcp": true
+    }
+   ],
+   "gw": "",
+   "dns": [],
+   "domain": "",
+   "allowIcmpEcho": true,
+   "wifi": {
+    "ssid": "",
+    "key": ""
+   },
+   "hosts": {},
+   "dhcpd": {
+    "enabled": false,
+    "excluded": [],
+    "pools": []
+   },
+   "dnsd": {
+    "enabled": false,
+    "records": [],
+    "forwarders": []
+   },
+   "httpd": {
+    "enabled": false,
+    "https": false,
+    "pages": {
+     "/": {
+      "type": "text/html; charset=utf-8",
+      "body": "<html><head><title>PC1</title></head><body><h1>Bienvenue sur PC1</h1><p>Serveur web du simulateur.</p></body></html>"
+     }
+    }
+   },
+   "mgmt": {
+    "comms": [],
+    "location": "",
+    "contact": "",
+    "syslogd": false,
+    "trapd": false
+   },
+   "v6": {
+    "ifs": [],
+    "statics": []
+   },
+   "label": "Secrétariat"
+  },
+  {
+   "id": "D2",
+   "type": "pc",
+   "model": "pc-win",
+   "name": "PC2",
+   "x": 100,
+   "y": 250,
+   "powered": true,
+   "ifaces": [
+    {
+     "name": "Ethernet0",
+     "ip": "",
+     "mask": "",
+     "dhcp": true
+    }
+   ],
+   "gw": "",
+   "dns": [],
+   "domain": "",
+   "allowIcmpEcho": true,
+   "wifi": {
+    "ssid": "",
+    "key": ""
+   },
+   "hosts": {},
+   "dhcpd": {
+    "enabled": false,
+    "excluded": [],
+    "pools": []
+   },
+   "dnsd": {
+    "enabled": false,
+    "records": [],
+    "forwarders": []
+   },
+   "httpd": {
+    "enabled": false,
+    "https": false,
+    "pages": {
+     "/": {
+      "type": "text/html; charset=utf-8",
+      "body": "<html><head><title>PC2</title></head><body><h1>Bienvenue sur PC2</h1><p>Serveur web du simulateur.</p></body></html>"
+     }
+    }
+   },
+   "mgmt": {
+    "comms": [],
+    "location": "",
+    "contact": "",
+    "syslogd": false,
+    "trapd": false
+   },
+   "v6": {
+    "ifs": [],
+    "statics": []
+   },
+   "label": "Médecin"
+  },
+  {
+   "id": "D3",
+   "type": "peripheral",
+   "model": "printer",
+   "name": "IMP",
+   "x": 250,
+   "y": 380,
+   "powered": true,
+   "ifaces": [
+    {
+     "name": "LAN",
+     "ip": "",
+     "mask": "",
+     "dhcp": false
+    }
+   ],
+   "gw": "",
+   "dns": [],
+   "domain": "",
+   "allowIcmpEcho": true,
+   "wifi": {
+    "ssid": "",
+    "key": ""
+   },
+   "hosts": {},
+   "dhcpd": {
+    "enabled": false,
+    "excluded": [],
+    "pools": []
+   },
+   "dnsd": {
+    "enabled": false,
+    "records": [],
+    "forwarders": []
+   },
+   "httpd": {
+    "enabled": false,
+    "https": false,
+    "pages": {
+     "/": {
+      "type": "text/html; charset=utf-8",
+      "body": "<html><head><title>IMP</title></head><body><h1>Bienvenue sur IMP</h1><p>Serveur web du simulateur.</p></body></html>"
+     }
+    }
+   },
+   "mgmt": {
+    "comms": [],
+    "location": "",
+    "contact": "",
+    "syslogd": false,
+    "trapd": false
+   },
+   "v6": {
+    "ifs": [],
+    "statics": []
+   },
+   "label": "Imprimante"
+  },
+  {
+   "id": "D4",
+   "type": "switch",
+   "model": "sw-2960",
+   "name": "SW1",
+   "x": 330,
+   "y": 180,
+   "powered": true,
+   "cli": "!\nhostname SW1\n!\nspanning-tree mode pvst\nline con 0\n logging synchronous\nline vty 0 4\n!",
+   "label": "Switch"
+  },
+  {
+   "id": "D5",
+   "type": "server",
+   "model": "srv-linux",
+   "name": "SRV",
+   "x": 560,
+   "y": 180,
+   "powered": true,
+   "ifaces": [
+    {
+     "name": "ens33",
+     "ip": "",
+     "mask": "",
+     "dhcp": false
+    }
+   ],
+   "gw": "",
+   "dns": [],
+   "domain": "",
+   "allowIcmpEcho": true,
+   "wifi": {
+    "ssid": "",
+    "key": ""
+   },
+   "hosts": {},
+   "dhcpd": {
+    "enabled": false,
+    "excluded": [],
+    "pools": []
+   },
+   "dnsd": {
+    "enabled": false,
+    "records": [],
+    "forwarders": []
+   },
+   "httpd": {
+    "enabled": false,
+    "https": false,
+    "pages": {
+     "/": {
+      "type": "text/html; charset=utf-8",
+      "body": "<html><head><title>SRV</title></head><body><h1>Bienvenue sur SRV</h1><p>Serveur web du simulateur.</p></body></html>"
+     }
+    }
+   },
+   "mgmt": {
+    "comms": [],
+    "location": "",
+    "contact": "",
+    "syslogd": false,
+    "trapd": false
+   },
+   "v6": {
+    "ifs": [],
+    "statics": []
+   },
+   "label": "Serveur du cabinet"
+  }
+ ],
+ "links": [],
+ "notes": "Terminale S01 – Mini-chantier de positionnement : cabinet médical. Matériel posé, aucun câble, aucune configuration. À faire : câbler (4 câbles), configurer switch, serveur (DHCP, DNS, web), imprimante fixe ; tester ; sauvegarder."
+}

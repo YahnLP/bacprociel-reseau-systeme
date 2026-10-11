@@ -11,11 +11,11 @@
 
 | Séance | Semaine (CFA) | Thème | Autonomie | Contenu |
 |---|---|---|---|---|
-| **S01** | 24 août 2026 | Diagnostic A3 et retour de PFMP | 🔴 Autonome | 🚧 en préparation |
-| **S02** | 7 septembre 2026 | Lire un dossier d'installation | 🟡 Semi-guidé | 🚧 en préparation |
-| **S03** | 21 septembre 2026 | Préparer un chantier en sécurité | 🟡 Semi-guidé | 🚧 en préparation |
-| **S04** | 5 octobre 2026 | Installer et mesurer : cuivre et fibre | 🔴 Autonome | 🚧 en préparation |
-| **S05** | 19 octobre 2026 | Routage entre VLAN et réseau d'une PME | 🟡 Semi-guidé | 🚧 en préparation |
+| **S01** | 24 août 2026 | Diagnostic A3 et retour de PFMP | 🔴 Autonome | [📘 Ouvrir](S01-diagnostic-retour/README.md) |
+| **S02** | 7 septembre 2026 | Lire un dossier d'installation | 🟡 Semi-guidé | [📘 Ouvrir](S02-dossier-installation/README.md) |
+| **S03** | 21 septembre 2026 | Préparer un chantier en sécurité | 🟡 Semi-guidé | [📘 Ouvrir](S03-preparer-chantier/README.md) |
+| **S04** | 5 octobre 2026 | Installer et mesurer : cuivre et fibre | 🔴 Autonome | [📘 Ouvrir](S04-installer-mesurer/README.md) |
+| **S05** | 19 octobre 2026 | Routage entre VLAN et réseau d'une PME | 🟡 Semi-guidé | [📘 Ouvrir](S05-inter-vlan/README.md) |
 | **S06** | 16 novembre 2026 | Wi-Fi d'entreprise | 🟡 Semi-guidé | 🚧 en préparation |
 | **S07** | 30 novembre 2026 | Mises à jour et sauvegardes | 🔴 Autonome | 🚧 en préparation |
 | **S08** | 4 janvier 2027 | Intégrer de nouveaux équipements | 🔴 Autonome | 🚧 en préparation |
