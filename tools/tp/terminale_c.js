@@ -205,7 +205,7 @@ module.exports = function (TPS, env) {
    ['c', 'Atelier C : l\'atelier ne joint plus le serveur et le bureau n\'ouvre l\'intranet que par adresse', { shutSub: 1, noDns: 1 }, 'R1 : sous-interface gi0/0.20 arrêtée ; pool DHCP BUREAU sans dns-server.']].forEach(([k, titre, f, cause]) => {
     TPS.push({
       id: 't11-' + k, start: D + 'S11-depanner-1/tp/t11-panne-' + k + '.json', solution: K + 'T11-panne-' + k + '-corrige.json',
-      notes: 'Terminale S11 – PME Delmas, ' + titre + '. Causes (réservé à l\'enseignant) : ' + cause,
+      notes: 'Terminale S11 – PME Delmas, ' + titre + '. Deux défauts sont cachés : à toi de les trouver avec la démarche du cours (les quatre tests de la fiche doivent être verts).',
       build(sim, h) { h.sim = sim; dpBuild(h, f); },
       solve(sim, h) {
         if (k === 'a') { cliRun(dv({ sim }, 'SW1'), dpFix.a); h.get('PC-COM').setGateway('192.168.20.1'); }

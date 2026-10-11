@@ -280,5 +280,5 @@
    "type": "straight"
   }
  ],
- "notes": "Terminale S11 – PME Delmas, Atelier B : le poste du bureau n'a plus d'adresse et le nom intranet ne marche pas. Causes (réservé à l'enseignant) : PC-CPT : port Fa0/1 dans le VLAN 30 (au lieu de 10) ; DNS : la fiche intranet pointe vers 192.168.30.11."
+ "notes": "Terminale S11 – PME Delmas, Atelier B : le poste du bureau n'a plus d'adresse et le nom intranet ne marche pas. Deux défauts sont cachés : à toi de les trouver avec la démarche du cours (les quatre tests de la fiche doivent être verts)."
 }

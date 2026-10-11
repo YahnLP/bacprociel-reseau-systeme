@@ -280,5 +280,5 @@
    "type": "straight"
   }
  ],
- "notes": "Terminale S11 – PME Delmas, Atelier A : le poste de l'atelier n'a plus rien (port coupé et mauvaise passerelle). Causes (réservé à l'enseignant) : PC-COM : passerelle erronée (192.168.20.254) et port Fa0/3 désactivé."
+ "notes": "Terminale S11 – PME Delmas, Atelier A : le poste de l'atelier n'a plus rien (port coupé et mauvaise passerelle). Deux défauts sont cachés : à toi de les trouver avec la démarche du cours (les quatre tests de la fiche doivent être verts)."
 }

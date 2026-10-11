@@ -280,5 +280,5 @@
    "type": "straight"
   }
  ],
- "notes": "CORRIGÉ – Terminale S11 – PME Delmas, Atelier C : l'atelier ne joint plus le serveur et le bureau n'ouvre l'intranet que par adresse. Causes (réservé à l'enseignant) : R1 : sous-interface gi0/0.20 arrêtée ; pool DHCP BUREAU sans dns-server."
+ "notes": "CORRIGÉ – Terminale S11 – PME Delmas, Atelier C : l'atelier ne joint plus le serveur et le bureau n'ouvre l'intranet que par adresse. Deux défauts sont cachés : à toi de les trouver avec la démarche du cours (les quatre tests de la fiche doivent être verts)."
 }
