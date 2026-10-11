@@ -21,7 +21,7 @@
 | **S08** | 11 janvier 2027 | Qu'est-ce qu'un réseau ? | 🟢 Guidé | [📘 Ouvrir](S08-quest-ce-qu-un-reseau/README.md) |
 | **S09** | 25 janvier 2027 | Fabriquer un câble RJ45 | 🟢 Guidé | [📘 Ouvrir](S09-cable-rj45/README.md) |
 | **S10** | 8 février 2027 | Raccorder et organiser | 🟢 Guidé | [📘 Ouvrir](S10-raccorder-brasser/README.md) |
-| **S11** | 1er mars 2027 | Donner une adresse à chaque machine (IP) | 🟡 Semi-guidé | 🚧 en préparation |
+| **S11** | 1er mars 2027 | Donner une adresse à chaque machine (IP) | 🟡 Semi-guidé | [📘 Ouvrir](S11-adresse-ip/README.md) |
 | **S12** | 22 mars 2027 | DHCP, box / routeur et passerelle | 🟡 Semi-guidé | 🚧 en préparation |
 | **S13** | 29 mars 2027 | DNS et accès à Internet | 🟡 Semi-guidé | 🚧 en préparation |
 | **S14** | 26 avril 2027 | Wi-Fi : installer, sécuriser, bons réflexes | 🟡 Semi-guidé | 🚧 en préparation |
