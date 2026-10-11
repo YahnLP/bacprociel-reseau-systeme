@@ -24,7 +24,7 @@ def s04():
             (620, "Le matériel", "Processeur, mémoire,\ndisque, écran, réseau…", TEAL_L, TEAL, "La cuisine\nqui prépare")]
     for x, t, b, fi, st, an in cols:
         f.rect(x, 70, 200, 130, fi, st, 3, 14)
-        f.text(x + 100, 102, t, 18, st, "middle", "700")
+        f.text(x + 100, 102, t, 18 if len(t) < 20 else 15.5, st, "middle", "700")
         f.text(x + 100, 132, b, 15, INK)
         f.rect(x + 20, 230, 160, 62, WHITE, st, 2, 31, dash="6 5")
         f.text(x + 100, 255, an, 15, INK, "middle", "600")
@@ -140,9 +140,10 @@ def s05():
         f.rect(x, 150, 110, 40, WHITE, c, 3, 8)
         f.mono(x + 55, 176, "/" + n, 16, c, "middle", "700")
         f.text(x + 55, 210, b, 13, INK)
-    f.line(25 + 20, 224, 25 + 20, 275, GRY_D, 2)
+    f.line(95, 238, 95, 275, GRY_D, 2)
     f.rect(20, 275, 150, 40, TEAL_L, TEAL, 2, 8); f.mono(95, 301, "/home/eleve", 15, TEAL, "middle", "700")
-    f.line(95, 315, 95, 345, GRY_D, 2)
+    f.line(95, 315, 95, 330, GRY_D, 2); f.line(85, 330, 365, 330, GRY_D, 2)
+    for xx in (85, 225, 365): f.line(xx, 330, xx, 345, GRY_D, 2)
     for i, n in enumerate(["Documents", "Téléchargements", "Bureau"]):
         f.rect(20 + i * 140, 345, 130, 32, WHITE, TEAL, 1.5, 6); f.text(85 + i * 140, 366, n, 12.5, INK)
     f.callout(450, 285, 380, "Windows : C:\\Users\\eleve\\Documents\nLinux : /home/eleve/Documents\nLe chemin, c'est la même idée : seul le séparateur change.", GRN_L, GRN, 14.5)

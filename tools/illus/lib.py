@@ -75,7 +75,7 @@ class Fig:
         p = " ".join(f"{x},{y}" for x, y in pts)
         return self.add(f'<polygon points="{p}" fill="{fill}" stroke="{stroke}" stroke-width="{sw}" stroke-linejoin="round"/>')
 
-    def text(self, x, y, t, size=16, fill=INK, anchor="middle", weight="400", family=None, italic=False, maxw=None):
+    def text(self, x, y, t, size=16, fill=INK, anchor="middle", weight="400", family=None, italic=False, maxw=None, halo=None):
         """Texte (multi-lignes avec '\\n'). maxw : retour à la ligne automatique."""
         fam = family or FONT
         if maxw:
@@ -85,6 +85,9 @@ class Fig:
         out = []
         for i, ln in enumerate(lines):
             out.append(f'<tspan x="{x}" dy="{0 if i == 0 else round(size * 1.25, 1)}">{esc(ln)}</tspan>')
+        halo = halo or getattr(self, "halo", None)
+        if halo:  # liseré de la couleur du fond : le texte reste lisible même si une ligne passe derrière
+            self.add(f'<text x="{x}" y="{y}" font-family="{fam}" font-size="{size}" fill="{halo}" stroke="{halo}" stroke-width="5" stroke-linejoin="round" text-anchor="{anchor}" font-weight="{weight}"{st}>{"".join(out)}</text>')
         return self.add(f'<text x="{x}" y="{y}" font-family="{fam}" font-size="{size}" fill="{fill}" text-anchor="{anchor}" font-weight="{weight}"{st}>{"".join(out)}</text>')
 
     def mono(self, x, y, t, size=15, fill=INK, anchor="start", weight="400"):

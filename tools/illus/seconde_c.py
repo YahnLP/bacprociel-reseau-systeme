@@ -55,6 +55,7 @@ def s08():
     f.title_bar("LAN, WAN et Internet : qui est où ?")
     f.rect(30, 55, 580, 330, IND_L, IND, 3, 16, dash="8 6")
     f.text(60, 82, "LAN : mon réseau local (la salle, la maison)", 15, IND, "start", "700")
+    f.halo = IND_L
     for (x, y) in [(100, 140), (100, 310), (290, 160), (290, 290)]:
         f.line(290, 220, x, y, LINE, 3)
     f.line(290, 220, 520, 220, LINE, 3)
@@ -62,6 +63,7 @@ def s08():
     node(f, "pc", 100, 140, "Client", "PC-01"); node(f, "laptop", 100, 310, "Client", "PC-02")
     node(f, "server", 290, 125, "Serveur", "partage"); node(f, "printer", 290, 320, "Imprimante")
     node(f, "box", 520, 220, "Box")
+    f.halo = None
     f.line(558, 220, 760, 220, ORA, 5); f.text(660, 205, "WAN", 14, ORA, "middle", "700")
     node(f, "cloud", 830, 220, "Internet")
     f.text(830, 300, "WAN : le réseau\nétendu (opérateur)", 14, ORA, "middle", "700")
@@ -82,7 +84,7 @@ def s09():
     d = "S09-cable-rj45"
     f = Fig(900, 360, "Le câble RJ45 en coupe", "Quatre paires torsadées : orange, verte, bleue, marron, dans une gaine.")
     f.title_bar("Dans la gaine : 4 paires torsadées")
-    f.rect(40, 150, 100, 70, "#cfd8dc", "#455a64", 3, 30)
+    f.rect(40, 150, 100, 70, "#cfd8dc", "#455a64", 3, 30); f.text(90, 245, "la gaine\n(l'enveloppe)", 13, MUTED, "middle", "700")
     import math
     for i, (c1, c2, y0) in enumerate([("bo", "o", 60), ("bv", "v", 120), ("b", "bb", 180), ("bm", "m", 240)]):
         pass
@@ -176,16 +178,16 @@ def s10():
     for k in range(12):
         f.rect(72 + k * 33, 118, 24, 22, WHITE, "#455a64", 1.5, 2); f.text(84 + k * 33, 112, str(k + 1), 10, INK, "middle", "700")
     f.text(70, 135, "", 1)
-    f.rect(60, 250, 420, 54, TEAL_L, TEAL, 2, 3)
+    f.rect(60, 250, 420, 62, TEAL_L, TEAL, 2, 3)
     for k in range(12):
-        f.rect(72 + k * 33, 275, 24, 22, WHITE, TEAL, 1.5, 2); f.text(84 + k * 33, 270, str(k + 1), 10, INK, "middle", "700")
+        f.rect(72 + k * 33, 275, 24, 22, WHITE, TEAL, 1.5, 2); f.text(84 + k * 33, 307, str(k + 1), 10, INK, "middle", "700")
     # cordons
     for (a, b, col) in [(2, 3, "#e53935"), (5, 6, "#1e88e5"), (8, 9, "#43a047")]:
         xa = 84 + (a - 1) * 33; xb = 84 + (b - 1) * 33
         f.path(f"M{xa},140 C{xa},190 {xb},200 {xb},275", "none", col, 4)
-    f.text(400, 200, "cordons de brassage", 12.5, "#cfd8dc", "middle", "600")
-    f.text(400, 240, "switch", 12.5, "#cfd8dc", "middle", "600")
-    f.text(400, 80, "panneau de brassage", 12.5, "#cfd8dc", "middle", "600")
+    f.text(470, 205, "cordons de brassage", 12.5, "#cfd8dc", "end", "600")
+    f.text(470, 240, "switch", 12.5, "#cfd8dc", "end", "600")
+    f.text(470, 80, "panneau de brassage", 12.5, "#cfd8dc", "end", "600")
     f.callout(530, 70, 340, "Panneau de brassage : l'arrière reçoit les câbles des prises murales ; l'avant offre des ports RJ45 propres et numérotés.", IND_L, IND, 14.5)
     f.callout(530, 170, 340, "Un cordon relie le port du panneau au port du switch. Changer de port = changer de cordon, sans toucher au câble du mur.", GRN_L, GRN, 14.5)
     f.callout(530, 265, 340, "Étiqueter : « P12 » sur la prise murale = « 12 » sur le panneau. Sans étiquette, c'est la panne assurée.", YEL_L, YEL, 14.5)
@@ -202,8 +204,10 @@ def s10():
 
     f = Fig(900, 300, "Deux PC reliés à un switch : se voient-ils ?", "Deux PC reliés à un switch non administrable, sans adresse IP configurée.")
     f.title_bar("Branchés… mais se voient-ils ?")
-    cable(f, 450, 115, 235, 195); cable(f, 450, 115, 665, 195)
+    cable(f, 450, 120, 235, 195); cable(f, 450, 120, 665, 195)
+    f.halo = WHITE
     node(f, "switch", 450, 100, "Switch", "non administrable")
+    f.halo = None
     node(f, "pc", 220, 205, "PC-1"); node(f, "pc", 680, 205, "PC-2")
     f.text(450, 285, "Les voyants sont verts : le « lien » est là. Mais « lien » ne veut pas dire « conversation ».", 14.5, ORA, "middle", "700")
     f.save(out(d, "se-voient-ils.svg"))

@@ -65,7 +65,7 @@ def s11():
     f.save(out(d, "rue.svg"))
 
     # 4. la plage /24
-    f = Fig(940, 330, "Les adresses d'un réseau /24", "De 192.168.1.0 à 192.168.1.255 : .0 est l'adresse du réseau, .1 à .254 sont utilisables, .255 est l'adresse de diffusion.")
+    f = Fig(940, 270, "Les adresses d'un réseau /24", "De 192.168.1.0 à 192.168.1.255 : .0 est l'adresse du réseau, .1 à .254 sont utilisables, .255 est l'adresse de diffusion.")
     f.title_bar("192.168.1.0 /24 : 256 adresses, dont 254 pour les machines")
     f.rect(40, 70, 70, 60, GRY, GRY_D, 2.5, 6); f.mono(75, 107, ".0", 24, MUTED, "middle", "700")
     f.rect(110, 70, 720, 60, GRN_L, GRN, 2.5, 6); f.text(470, 108, ".1 à .254 : adresses utilisables (254)", 20, GRN, "middle", "700")
@@ -103,21 +103,20 @@ def s11():
 
 def s12():
     d = "S12-dhcp-box"
-    # 1. la conversation DHCP (version simplifiée)
-    f = Fig(940, 520, "La conversation DHCP", "Le PC demande une adresse, la box en propose une, le PC l'accepte, la box confirme et note le bail.")
+    # 1. la conversation DHCP (version simplifiée) : diagramme de séquence
+    f = Fig(940, 470, "La conversation DHCP", "Le PC demande une adresse, la box en propose une, le PC l'accepte, la box confirme et note le bail.")
     f.title_bar("DHCP : la box distribue les adresses, en 4 phrases")
-    ic_pc(f, 120, 120, "Nouveau PC", "n'a pas d'adresse"); ic_box(f, 820, 120, "Box", "serveur DHCP")
-    msgs = [("1", "« Je suis nouveau, y a-t-il quelqu'un qui distribue des adresses ? »", "demande (à tout le monde)", 1, IND),
-            ("2", "« Oui, moi ! Je te propose 192.168.1.10 pour 24 h. »", "offre", -1, ORA),
-            ("3", "« Parfait, je prends 192.168.1.10. »", "acceptation", 1, IND),
-            ("4", "« C'est noté : l'adresse est à toi (+ passerelle et DNS). »", "confirmation", -1, ORA)]
-    for i, (n, t, k, dr, c) in enumerate(msgs):
-        y = 232 + i * 68
-        f.badge(60 if dr > 0 else 880, y, n, c)
-        if dr > 0: f.arrow(150, y, 770, y, c, 3)
-        else: f.arrow(770, y, 150, y, c, 3)
-        f.rect(200, y - 40, 540, 30, WHITE, c, 2, 8); f.text(470, y - 20, t, 12.5, INK, "middle", maxw=520)
-        f.text(470, y + 20, k, 12.5, c, "middle", "700")
+    ic_pc(f, 200, 100, "Nouveau PC", "")
+    ic_box(f, 740, 100, "Box (serveur DHCP)", "")
+    f.line(200, 150, 200, 440, GRY_D, 2, dash="6 5"); f.line(740, 150, 740, 440, GRY_D, 2, dash="6 5")
+    msgs = [("1", "demande", "« Je suis nouveau : qui distribue des adresses ? »", 1, IND), ("2", "offre", "« Moi ! Je te propose 192.168.1.10 pour 24 h. »", -1, ORA),
+            ("3", "acceptation", "« Parfait, je prends 192.168.1.10. »", 1, IND), ("4", "confirmation", "« C'est à toi (+ passerelle et DNS). »", -1, ORA)]
+    for i, (n, k, t, dr, c) in enumerate(msgs):
+        y = 205 + i * 62
+        x1, x2 = (210, 730) if dr > 0 else (730, 210)
+        f.arrow(x1, y, x2, y, c, 3)
+        f.rect(250, y - 28, 440, 22, WHITE, WHITE, 0, 0); f.text(470, y - 11, t, 13, INK, "middle", "700", maxw=430)
+        f.badge(60, y, n, c); f.text(90, y + 5, k, 14, c, "start", "700")
     f.save(out(d, "dhcp-conversation.svg"))
 
     # 2. la passerelle
@@ -189,29 +188,29 @@ def s13():
     for x, n, ip, c in cols:
         f.rect(x - 80, 50, 160, 50, WHITE, c, 3, 10); f.text(x, 72, n, 15, c, "middle", "700"); f.mono(x, 92, ip, 11.5, MUTED, "middle")
         f.line(x, 100, x, 500, GRY_D, 2, dash="6 5")
-    msgs = [(0, 1, "1  « Adresse de www.exemple.fr ? »", IND, False), (1, 2, "2  la box interroge le DNS", ORA, False), (2, 1, "3  « c'est 198.51.100.80 »", GRN, True),
+    msgs = [(0, 1, "1  « Adresse de ce nom ? »", IND, False), (1, 2, "2  la box interroge le DNS", ORA, False), (2, 1, "3  « c'est 198.51.100.80 »", GRN, True),
             (1, 0, "4  « c'est 198.51.100.80 »", GRN, True), (0, 3, "5  « Donne-moi la page ! » (via la passerelle)", IND, False), (3, 0, "6  la page web revient", GRN, True)]
     for i, (a_, b_, t, c, dash) in enumerate(msgs):
         y = 145 + i * 58; x1, x2 = cols[a_][0], cols[b_][0]
         f.arrow(x1 + (8 if x2 > x1 else -8), y, x2 - (8 if x2 > x1 else -8), y, c, 3, "6 4" if dash else None)
-        f.text((x1 + x2) / 2, y - 10, t, 12.5, c, "middle", "700", maxw=abs(x2 - x1) - 10)
+        f.halo = WHITE; f.text((x1 + x2) / 2, y - 10, t, 12.5, c, "middle", "700", maxw=abs(x2 - x1) - 10); f.halo = None
     f.rect(40, 468, 860, 40, GRY, GRY_D, 1.5, 8); f.text(470, 494, "Étapes 1 à 4 = le DNS (traduire). Étapes 5 et 6 = le web (aller chercher la page).", 14, INK, "middle", "700")
     f.save(out(d, "chemin-site.svg"))
 
     # 3. NAT en une image
-    f = Fig(940, 430, "Le NAT en une image", "Trois PC en adresses privées sortent sur Internet avec la même adresse publique, celle de la box.")
+    f = Fig(940, 470, "Le NAT en une image", "Trois PC en adresses privées sortent sur Internet avec la même adresse publique, celle de la box.")
     f.title_bar("NAT : toute la maison sort avec UNE adresse publique")
-    f.rect(30, 55, 330, 360, IND_L, IND, 3, 16, dash="8 6"); f.text(195, 82, "Réseau privé (chez toi)", 14.5, IND, "middle", "700")
-    for i, ip in enumerate(["192.168.1.10", "192.168.1.11", "192.168.1.12"]): ic_pc(f, 100, 125 + i * 100, "PC" + str(i + 1), ip)
+    f.rect(30, 55, 330, 400, IND_L, IND, 3, 16, dash="8 6"); f.text(195, 82, "Réseau privé (chez toi)", 14.5, IND, "middle", "700")
+    for i, ip in enumerate(["192.168.1.10", "192.168.1.11", "192.168.1.12"]): ic_pc(f, 100, 120 + i * 112, "PC" + str(i + 1), ip)
     ic_box(f, 440, 220, "Box", "fait le NAT"); ic_cloud(f, 810, 220, "Internet", "")
-    for i in range(3): f.line(150, 125 + i * 100, 395, 215, IND, 2.5)
+    for i in range(3): f.line(150, 120 + i * 112, 395, 215, IND, 2.5)
     f.line(485, 220, 750, 220, ORA, 4)
     f.rect(540, 130, 190, 60, WHITE, ORA, 2.5, 10); f.text(635, 155, "Pour Internet :", 12.5, MUTED, "middle", "700"); f.mono(635, 178, "203.0.113.2", 16, ORA, "middle", "700")
     f.callout(520, 265, 400, "La box note : « PC1 a demandé » → elle remplace son adresse privée par la sienne et, au retour, remet la réponse au bon PC.", YEL_L, YEL, 13.5)
     f.save(out(d, "nat.svg"))
 
     # 4. arbre de diagnostic « pas Internet »
-    f = Fig(940, 440, "J'ai un réseau mais pas Internet : par où commencer ?", "Ping de la box, ping d'une adresse sur Internet, ping d'un nom : trois tests dans l'ordre pour trouver la panne.")
+    f = Fig(940, 400, "J'ai un réseau mais pas Internet : par où commencer ?", "Ping de la box, ping d'une adresse sur Internet, ping d'un nom : trois tests dans l'ordre pour trouver la panne.")
     f.title_bar("« Je n'ai pas Internet » : 3 pings, dans l'ordre")
     steps = [("1", "ping 192.168.1.1", "(la box)", "ÉCHEC → problème de câble, d'adresse ou de DHCP\n(S10, S11, S12)", RED),
              ("2", "ping 203.0.113.1", "(une adresse sur Internet)", "ÉCHEC → passerelle absente ou box sans accès\nau FAI (S12)", RED),
@@ -226,17 +225,23 @@ def s13():
 
 def s14():
     d = "S14-wifi"
-    # 1. SSID / association / DHCP : les 3 étapes
-    f = Fig(940, 370, "Se connecter à un Wi-Fi", "Trois étapes : choisir le SSID, s'authentifier avec la clé, puis obtenir une adresse IP du DHCP.")
-    f.title_bar("Se connecter en Wi-Fi : 3 étapes")
-    ic_laptop(f, 100, 150, "Portable", ""); ic_ap(f, 470, 130, "Borne Wi-Fi", "SSID : ATELIER-CIEL"); ic_box(f, 830, 150, "Box", "DHCP")
-    f.wifi_link = None
-    items = [(170, "1", "Je choisis le réseau", "(le SSID)", IND), (470, "2", "Je donne la clé", "(WPA2 / WPA3)", ORA), (770, "3", "Je reçois une adresse", "(DHCP, comme en S12)", GRN)]
-    for x, n, t, k, c in items:
-        f.rect(x - 130, 215, 260, 70, WHITE, c, 3, 12); f.badge(x - 112, 235, n, c)
-        f.text(x + 10, 243, t, 13, INK, "middle", "700", maxw=210); f.text(x + 10, 268, k, 12, MUTED)
-    f.arrow(155, 150, 410, 130, IND, 3); f.arrow(535, 130, 780, 150, GRN, 3)
-    f.callout(40, 305, 860, "Si l'étape 2 échoue (mauvaise clé), on n'a même PAS d'adresse IP : l'adressage vient après la connexion Wi-Fi.", YEL_L, YEL, 14)
+    # 1. SSID / clé / DHCP : diagramme de séquence
+    f = Fig(940, 520, "Se connecter à un Wi-Fi", "Trois étapes : choisir le SSID annoncé par la borne, donner la clé, puis obtenir une adresse IP du DHCP de la box.")
+    f.title_bar("Se connecter en Wi-Fi : 3 étapes, dans l'ordre")
+    cols = [(150, "Portable", "", IND), (470, "Borne Wi-Fi", "SSID : ATELIER-CIEL", TEAL), (790, "Box (DHCP)", "192.168.1.1", ORA)]
+    for x, n, sub_, c in cols:
+        f.rect(x - 85, 50, 170, 54, WHITE, c, 3, 10); f.text(x, 73, n, 15, c, "middle", "700"); f.mono(x, 94, sub_, 11.5, MUTED, "middle")
+        f.line(x, 104, x, 440, GRY_D, 2, dash="6 5")
+    msgs = [(1, 0, "« Je suis le réseau ATELIER-CIEL »", TEAL, True, "1"), (0, 1, "« Je veux me connecter, voici la clé »", IND, False, "2"), (1, 0, "« Clé correcte : tu es connecté »", GRN, True, "2"),
+            (0, 2, "« Quelle adresse pour moi ? » (via la borne)", IND, False, "3"), (2, 0, "« Prends 192.168.1.12 »", GRN, True, "3")]
+    for i, (a_, b_, t, c, dash, n) in enumerate(msgs):
+        y = 150 + i * 60; x1, x2 = cols[a_][0], cols[b_][0]
+        f.arrow(x1 + (8 if x2 > x1 else -8), y, x2 - (8 if x2 > x1 else -8), y, c, 3, "6 4" if dash else None)
+        f.halo = WHITE; f.text((x1 + x2) / 2, y - 10, t, 12.5, c, "middle", "700", maxw=abs(x2 - x1) - 20); f.halo = None
+        f.badge(40 if i in (0,) else (40 if i in (1, 2) else 40), y, n, [IND, ORA, ORA, GRN, GRN][i] if False else (TEAL if n == "1" else (ORA if n == "2" else GRN)))
+    f.rect(25, 450, 890, 50, YEL_L, YEL, 2, 8)
+    f.text(470, 472, "1 = je choisis le réseau (SSID) · 2 = je donne la clé · 3 = je reçois une adresse (DHCP, comme en S12)", 13.5, INK, "middle", "700")
+    f.text(470, 491, "Si l'étape 2 échoue (mauvaise clé) : pas d'adresse IP, l'adressage vient après la connexion Wi-Fi.", 13, RED, "middle", "700")
     f.save(out(d, "etapes-wifi.svg"))
 
     # 2. 2,4 GHz vs 5 GHz

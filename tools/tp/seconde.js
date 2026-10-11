@@ -149,6 +149,43 @@ TPS.push({
   startShould: ['La borne est en WPA2 avec le SSID ATELIER-CIEL', 'LAP1 est associé et obtient une adresse'],
 });
 
+/* ---------- S15 : cinq pannes à diagnostiquer (rotation) ---------- */
+function reseauPanne(h) {
+  const { dev, link, get } = h;
+  C.internet(null, h, 900, 200); C.box(null, h, 'BOX', 680, 200);
+  dev('sw-8p', 'SW1', 480, 200); link('SW1', 'port1', 'BOX', 'lan1');
+  dev('pc-win', 'PC-REF', 300, 90, 'PC de référence'); dev('pc-win', 'PC-CLIENT', 300, 330, 'PC du client');
+  link('PC-REF', 'eth0', 'SW1', 'port2');
+}
+const PANNE_CHECKS = [
+  { label: 'PC-CLIENT joint la box', run: c => { c.wait(8000); return c.ping('PC-CLIENT', '192.168.1.1'); } },
+  { label: 'PC-CLIENT joint Internet (FAI)', run: c => c.ping('PC-CLIENT', '203.0.113.1') },
+  { label: 'PC-CLIENT ouvre www.exemple.fr', run: c => { const r = c.http('PC-CLIENT', 'http://www.exemple.fr'); return !!r && r.status === 200; } },
+];
+const PANNES = [
+  { n: 1, nom: 'cable', txt: 'panne 1 : PC du client non relié au switch',
+    build(h) { reseauPanne(h); hostDhcp(h.get('PC-REF')); hostDhcp(h.dev('pc-win', 'PC-CLIENT', 300, 330, 'PC du client')); },
+    solve(sim, h) { h.link('PC-CLIENT', 'eth0', 'SW1', 'port3'); hostDhcp(h.get('PC-CLIENT')); } },
+  { n: 2, nom: 'adresse', txt: 'panne 2 : adresse IP fixe fausse (autre réseau)',
+    build(h) { reseauPanne(h); hostDhcp(h.get('PC-REF')); const c = h.dev('pc-win', 'PC-CLIENT', 300, 330, 'PC du client'); h.link('PC-CLIENT', 'eth0', 'SW1', 'port3'); hostIp(c, '192.168.10.30', '24', '192.168.1.1', '192.168.1.1'); },
+    solve(sim, h) { hostIp(h.get('PC-CLIENT'), '192.168.1.30', '24', '192.168.1.1', '192.168.1.1'); } },
+  { n: 3, nom: 'passerelle', txt: 'panne 3 : passerelle fausse',
+    build(h) { reseauPanne(h); hostDhcp(h.get('PC-REF')); const c = h.dev('pc-win', 'PC-CLIENT', 300, 330, 'PC du client'); h.link('PC-CLIENT', 'eth0', 'SW1', 'port3'); hostIp(c, '192.168.1.30', '24', '192.168.1.2', '192.168.1.1'); },
+    solve(sim, h) { hostIp(h.get('PC-CLIENT'), '192.168.1.30', '24', '192.168.1.1', '192.168.1.1'); } },
+  { n: 4, nom: 'dns', txt: 'panne 4 : serveur DNS faux',
+    build(h) { reseauPanne(h); hostDhcp(h.get('PC-REF')); const c = h.dev('pc-win', 'PC-CLIENT', 300, 330, 'PC du client'); h.link('PC-CLIENT', 'eth0', 'SW1', 'port3'); hostIp(c, '192.168.1.30', '24', '192.168.1.1', '192.168.1.5'); },
+    solve(sim, h) { hostIp(h.get('PC-CLIENT'), '192.168.1.30', '24', '192.168.1.1', '192.168.1.1'); } },
+  { n: 5, nom: 'dhcp', txt: 'panne 5 : DHCP de la box désactivé',
+    build(h) { reseauPanne(h); h.get('BOX').dhcpd.enabled = false; hostIp(h.get('PC-REF'), '192.168.1.50', '24', '192.168.1.1', '192.168.1.1'); const c = h.dev('pc-win', 'PC-CLIENT', 300, 330, 'PC du client'); h.link('PC-CLIENT', 'eth0', 'SW1', 'port3'); hostDhcp(c); },
+    solve(sim, h) { h.get('BOX').dhcpd.enabled = true; hostDhcp(h.get('PC-CLIENT')); } },
+].forEach(P => {
+  TPS.push({
+    id: 's15-panne-' + P.n, start: D + 'S15-depannage-n1/tp/s15-panne-' + P.n + '.json', solution: K + 'S15-panne-' + P.n + '-corrige.json',
+    notes: 'S15 – ' + P.txt + '. Réseau : box, FAI, DNS, site www.exemple.fr. Poste de référence PC-REF, poste du client PC-CLIENT.',
+    build(sim, h) { P.build(h); }, solve: P.solve, checks: PANNE_CHECKS, startShould: P.n === 1 || P.n === 2 || P.n === 5 ? PANNE_CHECKS.map(c => c.label) : P.n === 3 ? [PANNE_CHECKS[1].label, PANNE_CHECKS[2].label] : [PANNE_CHECKS[2].label],
+  });
+});
+
 const want = process.argv.slice(2);
 let all = true;
 TPS.filter(t => !want.length || want.includes(t.id)).forEach(t => { all = L.run(t) && all; });
