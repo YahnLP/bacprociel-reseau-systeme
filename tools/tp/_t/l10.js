@@ -1,0 +1,11 @@
+const L=require('../lib');const {Sim,mk,cliRun,hostIp,shell}=L;
+const sim=new Sim();const h=mk(sim);const {dev,link,get}=h;
+dev('sw-8p','SW1',300,100);dev('pc-win','PC1',100,100);dev('srv-linux','SRV1',500,100);dev('pc-linux','PC2',100,250);
+link('PC1','eth0','SW1','port1');link('SRV1','ens33','SW1','port2');link('PC2','ens33','SW1','port3');
+hostIp(get('PC1'),'192.168.10.11','24');hostIp(get('SRV1'),'192.168.10.100','24');hostIp(get('PC2'),'192.168.10.12','24');sim.runFor(3000);
+const s=get('PC1').newSession();let out='',done=false;const io={print:t=>out+=t,done:()=>done=true,clear(){}};
+const go=l=>{done=false;out='';const r=s.exec(l,io);sim.runUntil(()=>done||r!=='async',60000);console.log('>',l);console.log(out)};
+['ssh admin@192.168.10.100','admin','Adm1n!','hostname','ip a','ls','whoami','exit'].forEach(go);
+const s2=get('SRV1').newSession();
+const go2=l=>{done=false;out='';s2.exec(l,io);sim.runUntil(()=>done,30000);console.log('SRV>',l);console.log(out)};
+['ip a','ip addr add 192.168.10.101/24 dev ens33','ip r','systemctl status ssh','systemctl status sshd','cat /etc/hostname','sudo apt update','useradd bob','ls /etc'].forEach(go2);

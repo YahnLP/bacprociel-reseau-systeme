@@ -20,7 +20,7 @@
 | **S07** | 23 novembre 2026 | Relier deux réseaux : le routeur | 🟡 Semi-guidé | [📘 Ouvrir](S07-routeur-routage-statique/README.md) |
 | **S08** | 30 novembre 2026 | VLAN (1) : séparer sans multiplier le matériel | 🟡 Semi-guidé | [📘 Ouvrir](S08-vlan-1/README.md) |
 | **S09** | 14 décembre 2026 | VLAN (2) : deux switchs et lien trunk | 🟡 Semi-guidé | [📘 Ouvrir](S09-vlan-2-trunk/README.md) |
-| **S10** | 11 janvier 2027 | Un serveur Linux et la connexion à distance | 🟡 Semi-guidé | 🚧 en préparation |
+| **S10** | 11 janvier 2027 | Un serveur Linux et la connexion à distance | 🟡 Semi-guidé | [📘 Ouvrir](S10-serveur-linux-ssh/README.md) |
 | **S11** | 25 janvier 2027 | DHCP et DNS sur un serveur | 🟡 Semi-guidé | 🚧 en préparation |
 | **S12** | 8 février 2027 | Serveur web et partage de fichiers | 🟡 Semi-guidé | 🚧 en préparation |
 | **S13** | 15 février 2027 | Cuivre certifié, fibre optique et sécurité | 🟡 Semi-guidé | 🚧 en préparation |

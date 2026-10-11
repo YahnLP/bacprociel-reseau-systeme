@@ -1,0 +1,218 @@
+{
+ "app": "simulateur-reseau",
+ "v": 1,
+ "opts": {
+  "strictCables": false,
+  "stpFast": true
+ },
+ "devices": [
+  {
+   "id": "D1",
+   "type": "pc",
+   "model": "pc-win",
+   "name": "PC1",
+   "x": 120,
+   "y": 100,
+   "powered": true,
+   "ifaces": [
+    {
+     "name": "Ethernet0",
+     "ip": "192.168.10.11",
+     "mask": "255.255.255.0",
+     "dhcp": false
+    }
+   ],
+   "gw": "192.168.10.1",
+   "dns": [],
+   "domain": "",
+   "allowIcmpEcho": true,
+   "wifi": {
+    "ssid": "",
+    "key": ""
+   },
+   "hosts": {},
+   "dhcpd": {
+    "enabled": false,
+    "excluded": [],
+    "pools": []
+   },
+   "dnsd": {
+    "enabled": false,
+    "records": [],
+    "forwarders": []
+   },
+   "httpd": {
+    "enabled": false,
+    "https": false,
+    "pages": {
+     "/": {
+      "type": "text/html; charset=utf-8",
+      "body": "<html><head><title>PC1</title></head><body><h1>Bienvenue sur PC1</h1><p>Serveur web du simulateur.</p></body></html>"
+     }
+    }
+   },
+   "mgmt": {
+    "comms": [],
+    "location": "",
+    "contact": "",
+    "syslogd": false,
+    "trapd": false
+   },
+   "v6": {
+    "ifs": [
+     {
+      "name": "Ethernet0",
+      "autoconf": true,
+      "addrs": []
+     }
+    ],
+    "statics": []
+   },
+   "label": "Poste admin"
+  },
+  {
+   "id": "D2",
+   "type": "switch",
+   "model": "sw-8p",
+   "name": "SW-A",
+   "x": 280,
+   "y": 100,
+   "powered": true,
+   "cli": "!\nhostname SW-A\n!\nline con 0\n logging synchronous\nline vty 0 4\n!",
+   "label": ""
+  },
+  {
+   "id": "D3",
+   "type": "router",
+   "model": "r-1941",
+   "name": "R1",
+   "x": 450,
+   "y": 170,
+   "powered": true,
+   "cli": "!\nhostname R1\n!\ninterface GigabitEthernet0/0\n ip address 192.168.10.1 255.255.255.0\n!\ninterface GigabitEthernet0/1\n ip address 192.168.20.1 255.255.255.0\n!\nline con 0\n logging synchronous\nline vty 0 4\n!",
+   "label": "Routeur"
+  },
+  {
+   "id": "D4",
+   "type": "switch",
+   "model": "sw-8p",
+   "name": "SW-B",
+   "x": 620,
+   "y": 170,
+   "powered": true,
+   "cli": "!\nhostname SW-B\n!\nline con 0\n logging synchronous\nline vty 0 4\n!",
+   "label": ""
+  },
+  {
+   "id": "D5",
+   "type": "server",
+   "model": "srv-linux",
+   "name": "SRV1",
+   "x": 800,
+   "y": 170,
+   "powered": true,
+   "ifaces": [
+    {
+     "name": "ens33",
+     "ip": "192.168.20.100",
+     "mask": "255.255.255.0",
+     "dhcp": false
+    }
+   ],
+   "gw": "192.168.20.1",
+   "dns": [],
+   "domain": "",
+   "allowIcmpEcho": true,
+   "wifi": {
+    "ssid": "",
+    "key": ""
+   },
+   "hosts": {},
+   "dhcpd": {
+    "enabled": false,
+    "excluded": [],
+    "pools": []
+   },
+   "dnsd": {
+    "enabled": false,
+    "records": [],
+    "forwarders": []
+   },
+   "httpd": {
+    "enabled": false,
+    "https": false,
+    "pages": {
+     "/": {
+      "type": "text/html; charset=utf-8",
+      "body": "<html><head><title>SRV1</title></head><body><h1>Bienvenue sur SRV1</h1><p>Serveur web du simulateur.</p></body></html>"
+     }
+    }
+   },
+   "mgmt": {
+    "comms": [],
+    "location": "",
+    "contact": "",
+    "syslogd": false,
+    "trapd": false
+   },
+   "v6": {
+    "ifs": [
+     {
+      "name": "ens33",
+      "autoconf": true,
+      "addrs": []
+     }
+    ],
+    "statics": []
+   },
+   "label": "Serveur Linux"
+  }
+ ],
+ "links": [
+  {
+   "a": [
+    "D1",
+    "Ethernet0"
+   ],
+   "b": [
+    "D2",
+    "Port1"
+   ],
+   "type": "straight"
+  },
+  {
+   "a": [
+    "D2",
+    "Port2"
+   ],
+   "b": [
+    "D3",
+    "GigabitEthernet0/0"
+   ],
+   "type": "straight"
+  },
+  {
+   "a": [
+    "D3",
+    "GigabitEthernet0/1"
+   ],
+   "b": [
+    "D4",
+    "Port1"
+   ],
+   "type": "straight"
+  },
+  {
+   "a": [
+    "D5",
+    "ens33"
+   ],
+   "b": [
+    "D4",
+    "Port2"
+   ],
+   "type": "straight"
+  }
+ ],
+ "notes": ""
+}

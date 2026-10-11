@@ -158,6 +158,35 @@ def s09():
     f.save(out(d, "trunk-principe.svg"))
 
 
+def s10():
+    d = "S10-serveur-linux-ssh"
+    f = Fig(1000, 560, "Ce qui se passe quand on tape ssh", "Le client ouvre une connexion TCP vers le port 22 du serveur, vérifie l'empreinte du serveur, puis s'authentifie par mot de passe ou par clé, et obtient un terminal chiffré.")
+    f.title_bar("Se connecter en SSH : les 4 étapes")
+    cols = [(240, "Poste admin (client)", "ssh eleve@192.168.20.100", IND), (760, "Serveur Linux", "openssh-server – port 22", ORA)]
+    msgs = [(0, 1, "① connexion TCP vers le port 22", IND, False),
+            (1, 0, "② empreinte du serveur (clé d'hôte)", ORA, True),
+            (0, 1, "③ identifiant + mot de passe (ou clé)", IND, False),
+            (1, 0, "④ accès accordé : terminal chiffré", GRN, True)]
+    b = sequence(f, cols, msgs, top=50, step=62)
+    f.callout(60, b + 30, 880, "1re connexion : le client demande « Are you sure you want to continue connecting (yes/no) ? » : il mémorise l'empreinte dans known_hosts. Si elle change plus tard, SSH alerte : le serveur a été réinstallé… ou quelqu'un se fait passer pour lui.", YEL_L, YEL, 14.5)
+    f.save(out(d, "ssh-etapes.svg"))
+
+    f = Fig(1000, 470, "L'arborescence Linux", "Tout part de la racine /. Les dossiers importants pour l'administrateur : /etc pour la configuration, /var/log pour les journaux, /home pour les utilisateurs.")
+    f.title_bar("Linux : tout part de la racine « / »")
+    f.rect(430, 55, 140, 46, IND_L, IND, 3, 10); f.text(500, 85, "/", 22, IND, "middle", "700")
+    dirs = [("/etc", "configuration", ORA_L, ORA, "netplan/ ssh/ hostname"), ("/home", "dossiers des utilisateurs", GRN_L, GRN, "eleve/ admin/"),
+            ("/var/log", "journaux", RED_L, RED, "auth.log syslog"), ("/usr/bin", "programmes", TEAL_L, TEAL, "ls cat ssh"), ("/tmp", "fichiers temporaires", GRY, GRY_D, "effacé au redémarrage")]
+    for i, (n, role, fill, st, ex) in enumerate(dirs):
+        x = 40 + i * 190; y = 190
+        f.line(500, 101, x + 80, y, GRY_D, 2.5)
+        f.rect(x, y, 160, 150, fill, st, 2.5, 12)
+        f.text(x + 80, y + 32, n, 18, st, "middle", "700")
+        f.text(x + 80, y + 62, role, 13.5, INK, "middle", maxw=140)
+        f.mono(x + 80, y + 118, ex, 12, MUTED, "middle")
+    f.callout(40, 375, 920, "Chemin absolu : il commence par « / » (ex. /etc/ssh/sshd_config). Chemin relatif : à partir de là où l'on est (pwd). « ~ » = ton dossier personnel.", YEL_L, YEL, 14.5)
+    f.save(out(d, "arborescence.svg"))
+
+
 if __name__ == "__main__":
-    for w in (sys.argv[1:] or ["s07", "s08", "s09"]):
+    for w in (sys.argv[1:] or ["s07", "s08", "s09", "s10"]):
         globals()[w](); print("OK", w)

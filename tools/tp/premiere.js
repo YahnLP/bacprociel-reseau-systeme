@@ -219,6 +219,26 @@ TPS.push({
   checks: trunkChecks,
   startShould: ['PC1 joint PC3 (Direction, à travers le trunk)', 'PC2 joint PC4 (Atelier, à travers le trunk)'],
 });
+
+/* ---------- S10 : serveur Linux (partie réseau) ---------- */
+function srvBuild(h, gw) {
+  const { dev, link, get } = h;
+  dev('pc-win', 'PC1', 120, 100, 'Poste admin'); dev('sw-8p', 'SW-A', 280, 100); dev('r-1941', 'R1', 450, 170, 'Routeur'); dev('sw-8p', 'SW-B', 620, 170); dev('srv-linux', 'SRV1', 800, 170, 'Serveur Linux');
+  cliRun(get('R1'), 'enable\nconf t\nhostname R1\ninterface gi0/0\nip address 192.168.10.1 255.255.255.0\nno shutdown\nexit\ninterface gi0/1\nip address 192.168.20.1 255.255.255.0\nno shutdown\nend');
+  link('PC1', 'eth0', 'SW-A', 'port1'); link('SW-A', 'port2', 'R1', 'gi0/0'); link('R1', 'gi0/1', 'SW-B', 'port1'); link('SRV1', 'ens33', 'SW-B', 'port2');
+  hostIp(get('PC1'), '192.168.10.11', '24', '192.168.10.1'); hostIp(get('SRV1'), '192.168.20.100', '24', gw);
+}
+TPS.push({
+  id: 'p10-serveur', start: D + 'S10-serveur-linux-ssh/tp/p10-serveur.json', solution: K + 'P10-serveur-corrige.json',
+  notes: 'Première S10 – Le serveur Linux SRV1 (192.168.20.100/24) vient d\'être installé : on le joint depuis le poste admin PC1 (192.168.10.0/24) à travers le routeur R1. Il n\'a pas de passerelle : la réponse ne revient pas.',
+  build(sim, h) { srvBuild(h, null); },
+  solve(sim, h) { h.get('SRV1').setGateway('192.168.20.1'); },
+  checks: [
+    { label: 'PC1 joint SRV1', run: c => c.ping('PC1', '192.168.20.100') },
+    { label: 'SRV1 joint PC1', run: c => c.ping('SRV1', '192.168.10.11') },
+  ],
+  startShould: ['PC1 joint SRV1', 'SRV1 joint PC1'],
+});
 const want = process.argv.slice(2);
 let all = true;
 TPS.filter(t => !want.length || want.includes(t.id)).forEach(t => { all = L.run(t) && all; });
