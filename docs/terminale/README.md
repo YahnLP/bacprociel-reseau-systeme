@@ -24,7 +24,7 @@
 | **S11** | 15 février 2027 | Dépanner (1) : raisonner | 🔴 Autonome | [📘 Ouvrir](S11-depanner-1/README.md) |
 | **S12** | 15 mars 2027 | Dépanner (2) : réparer et rendre compte | 🔴 Autonome | [📘 Ouvrir](S12-depanner-2/README.md) |
 | **S13** | 29 mars 2027 | Recette et accompagnement du client | 🔴 Autonome | [📘 Ouvrir](S13-recette-client/README.md) |
-| **S14** | 5 avril 2027 | Révision et remédiation individualisée | 🔴 Autonome | 🚧 en préparation |
+| **S14** | 5 avril 2027 | Révision et remédiation individualisée | 🔴 Autonome | [📘 Ouvrir](S14-revision-remediation/README.md) |
 | **S15** | 26 avril 2027 | Chantier complet d'entraînement n°1 | 🔴 Autonome | 🚧 en préparation |
 | **S16** | 17 mai 2027 | Chantier complet d'entraînement n°2 | 🔴 Autonome | 🚧 en préparation |
 | **S17** | 24 mai 2027 | Évaluation certificative E31 | 🔴 Autonome | 🚧 en préparation |
