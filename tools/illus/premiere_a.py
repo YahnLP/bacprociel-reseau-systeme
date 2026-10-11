@@ -113,7 +113,28 @@ def s04():
     f.text(470, 580, "Les 3 premiers messages = TCP (transport). GET et 200 OK = HTTP (application).", 14, INK, "middle", "700")
     f.save(out(d, "tcp-http.svg"))
 
+def s05():
+    d = "S05-switch-administrable"
+    f = Fig(980, 570, "Les modes de la console Cisco", "Quatre modes : utilisateur, privilégié, configuration globale, configuration d'interface. enable monte d'un mode, configure terminal aussi, interface aussi ; exit redescend.")
+    f.title_bar("Les modes de la console : on monte, on descend")
+    modes = [("SW>", "Mode utilisateur", "regarder un peu (show limité)", GRY, GRY_D),
+             ("SW#", "Mode privilégié", "tout regarder (show …), sauvegarder", IND_L, IND),
+             ("SW(config)#", "Configuration globale", "nom, mots de passe, routes… (ce qui concerne tout le switch)", TEAL_L, TEAL),
+             ("SW(config-if)#", "Configuration d'une interface (ou d'une ligne)", "description, shutdown, VLAN… (un port à la fois)", ORA_L, ORA)]
+    for i, (p_, t, txt, fill, st) in enumerate(modes):
+        y = 60 + i * 125
+        f.rect(170, y, 640, 85, fill, st, 3, 12)
+        f.mono(190, y + 34, p_, 20, st, "start", "700")
+        f.text(190, y + 60, t, 14, INK, "start", "700", maxw=600); f.text(190, y + 78, txt, 13, INK, "start", maxw=600)
+    cmds = ["enable", "configure terminal", "interface fa0/1"]
+    for i, c in enumerate(cmds):
+        y = 60 + i * 125
+        f.arrow(330, y + 88, 330, y + 122, GRN, 4); f.text(345, y + 110, c, 14, GRN, "start", "700", halo=WHITE)
+        f.arrow(650, y + 122, 650, y + 88, RED, 4); f.text(665, y + 110, "exit", 14, RED, "start", "700", halo=WHITE)
+    f.text(490, 548, "end  (ou Ctrl+Z) : retour direct au mode privilégié", 14, MUTED, "middle", "700")
+    f.save(out(d, "modes-cli.svg"))
+
 
 if __name__ == "__main__":
-    for w in (sys.argv[1:] or ["s01", "s02", "s03", "s04"]):
+    for w in (sys.argv[1:] or ["s01", "s02", "s03", "s04", "s05"]):
         globals()[w](); print("OK", w)

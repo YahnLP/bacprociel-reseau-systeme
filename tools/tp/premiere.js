@@ -59,6 +59,44 @@ TPS.push({
     { label: 'PC1 a une adresse DHCP', run: c => /^192\.168\.1\./.test(c.ipOf('PC1')) },
   ],
 });
+
+/* ---------- S05 : switch administrable (Catalyst 2960) ---------- */
+const show = (c, dev, cmd) => {
+  const s = dev.newSession(); let out = '', done = false; const io = { print: t => { out += t; }, done: () => { done = true; }, clear() { } };
+  const go = l => { done = false; out = ''; s.exec(l, io); c.sim.runUntil(() => done, 60000); };
+  go('enable'); go('Cisco123');
+  go(cmd); return out;
+};
+const swdev = c => Array.from(c.sim.devices.values()).find(d => d.model === 'sw-2960');
+const SW_CFG = 'enable\nconfigure terminal\n';
+TPS.push({
+  id: 'p05-switch', start: D + 'S05-switch-administrable/tp/p05-switch.json', solution: K + 'P05-switch-corrige.json',
+  notes: 'Première S05 – Un switch Cisco 2960 neuf (configuration d\'usine) relie 3 PC et un serveur : à nommer, sécuriser, documenter et administrer à distance.',
+  build(sim, h) {
+    const { dev, link, get } = h;
+    dev('sw-2960', 'SW1', 420, 180, 'Switch de l\'atelier');
+    dev('pc-win', 'PC1', 200, 60, 'Compta'); dev('pc-win', 'PC2', 200, 180, 'Atelier'); dev('pc-win', 'PC3', 200, 300, 'Accueil'); dev('srv-linux', 'SRV1', 650, 180, 'Serveur');
+    link('PC1', 'eth0', 'SW1', 'Fa0/1'); link('PC2', 'eth0', 'SW1', 'Fa0/2'); link('PC3', 'eth0', 'SW1', 'Fa0/3'); link('SRV1', 'ens33', 'SW1', 'Gi0/1');
+    hostIp(get('PC1'), '192.168.10.11', '24', '192.168.10.1'); hostIp(get('PC2'), '192.168.10.12', '24', '192.168.10.1'); hostIp(get('PC3'), '192.168.10.13', '24', '192.168.10.1'); hostIp(get('SRV1'), '192.168.10.100', '24', '192.168.10.1');
+  },
+  solve(sim, h) {
+    cliRun(h.get('SW1'), SW_CFG + 'hostname SW-ATELIER\nenable secret Cisco123\nbanner motd #Acces reserve au personnel#\n' +
+      'interface vlan 1\nip address 192.168.10.2 255.255.255.0\nno shutdown\nexit\nip default-gateway 192.168.10.1\n' +
+      'interface fa0/1\ndescription PC-COMPTA\nexit\ninterface fa0/2\ndescription PC-ATELIER\nexit\ninterface fa0/3\ndescription PC-ACCUEIL\nexit\ninterface gi0/1\ndescription SERVEUR\nexit\n' +
+      'interface range fa0/4 - 24\nshutdown\nexit\n' +
+      'ip domain-name atelier.local\nusername admin privilege 15 secret Adm1n!\ncrypto key generate rsa modulus 1024\nip ssh version 2\n' +
+      'line vty 0 4\ntransport input ssh\nlogin local\nexit\nend\nwrite memory');
+  },
+  checks: [
+    { label: 'Le switch s\'appelle SW-ATELIER', run: c => /hostname SW-ATELIER/.test(show(c, swdev(c), 'show running-config')) },
+    { label: 'Mot de passe enable chiffré (enable secret)', run: c => /enable secret/.test(show(c, swdev(c), 'show running-config')) },
+    { label: 'Les ports utilisés ont une description', run: c => { const r = show(c, swdev(c), 'show running-config'); return /description PC-COMPTA/.test(r) && /description SERVEUR/.test(r); } },
+    { label: 'Les ports libres Fa0/4 à Fa0/24 sont désactivés', run: c => /FastEthernet0\/24\n shutdown/.test(show(c, swdev(c), 'show running-config')) },
+    { label: 'PC1 joint le switch (192.168.10.2)', run: c => { c.wait(3000); return c.ping('PC1', '192.168.10.2'); } },
+    { label: 'PC1 joint toujours le serveur', run: c => c.ping('PC1', '192.168.10.100') },
+  ],
+  startShould: ['Le switch s\'appelle SW-ATELIER', 'Mot de passe enable chiffré (enable secret)', 'Les ports utilisés ont une description', 'Les ports libres Fa0/4 à Fa0/24 sont désactivés', 'PC1 joint le switch (192.168.10.2)'],
+});
 const want = process.argv.slice(2);
 let all = true;
 TPS.filter(t => !want.length || want.includes(t.id)).forEach(t => { all = L.run(t) && all; });
