@@ -43,6 +43,22 @@ TPS.push({
     { label: 'PC1 joint SRV2 (à travers le routeur)', run: c => c.ping('PC1', '192.168.20.100') },
   ],
 });
+
+/* ---------- S04 : protocoles usuels (DHCP, DNS, HTTP/TCP) ---------- */
+TPS.push({
+  id: 'p04-protocoles', start: D + 'S04-protocoles-usuels/tp/p04-protocoles.json', solution: null,
+  notes: 'Première S04 – PC1 branché directement sur la box : on observe DHCP, DNS, TCP et HTTP avec l\'analyseur (www.exemple.fr).',
+  build(sim, h) {
+    const { dev, link, get } = h;
+    C.internet(sim, h, 800, 170); C.box(sim, h, 'BOX', 560, 170);
+    dev('pc-win', 'PC1', 330, 170); link('PC1', 'eth0', 'BOX', 'lan1'); hostDhcp(get('PC1'));
+    dev('pc-linux', 'PC2', 330, 330); link('PC2', 'ens33', 'BOX', 'lan2'); hostDhcp(get('PC2'));
+  },
+  checks: [
+    { label: 'PC1 ouvre www.exemple.fr', run: c => { c.wait(8000); const r = c.http('PC1', 'http://www.exemple.fr'); return !!r && r.status === 200; } },
+    { label: 'PC1 a une adresse DHCP', run: c => /^192\.168\.1\./.test(c.ipOf('PC1')) },
+  ],
+});
 const want = process.argv.slice(2);
 let all = true;
 TPS.filter(t => !want.length || want.includes(t.id)).forEach(t => { all = L.run(t) && all; });

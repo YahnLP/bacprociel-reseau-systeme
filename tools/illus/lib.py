@@ -262,3 +262,20 @@ def wifi_link(f, x1, y1, x2, y2, label=None):
     f.line(x1, y1, x2, y2, TEAL, 3, "3 7")
     if label:
         f.text((x1 + x2) / 2, (y1 + y2) / 2 - 8, label, 13, TEAL, "middle", "600")
+
+
+def sequence(f, cols, msgs, top=50, y0=None, step=50, textsize=12.5):
+    """Diagramme de séquence : cols = [(x, nom, sous-titre, couleur)], msgs = [(a, b, texte, couleur, pointillé)].
+    Les étiquettes sont posées au-dessus de chaque flèche, avec un fond blanc."""
+    y0 = y0 or top + 95
+    bottom = y0 + step * len(msgs) + 10
+    for x, n, sub, c in cols:
+        f.rect(x - 105, top, 210, 50, WHITE, c, 3, 10); f.text(x, top + 22, n, 15, c, "middle", "700")
+        if sub:
+            f.mono(x, top + 41, sub, 11.5, MUTED, "middle")
+        f.line(x, top + 50, x, bottom, GRY_D, 2, dash="6 5")
+    for i, (a_, b_, t, c, dash) in enumerate(msgs):
+        y = y0 + i * step; x1, x2 = cols[a_][0], cols[b_][0]
+        f.arrow(x1 + (8 if x2 > x1 else -8), y, x2 - (8 if x2 > x1 else -8), y, c, 3, "6 4" if dash else None)
+        f.halo = WHITE; f.text((x1 + x2) / 2, y - 9, t, textsize, c, "middle", "700", maxw=abs(x2 - x1) - 14); f.halo = None
+    return bottom

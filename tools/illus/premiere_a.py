@@ -87,7 +87,33 @@ def s03():
     f.line(260, 150, 260, 198, TEAL, 3); f.line(720, 150, 720, 198, ORA, 3)
     f.save(out(d, "mac-ip-saut.svg"))
 
+def s04():
+    d = "S04-protocoles-usuels"
+    f = Fig(940, 470, "DHCP : DORA", "Le client diffuse un Discover, le serveur propose une adresse (Offer), le client la demande (Request), le serveur confirme (ACK).")
+    f.title_bar("DHCP : les quatre messages « DORA »")
+    cols = [(220, "PC (client)", "pas d'adresse : 0.0.0.0", IND), (720, "Serveur DHCP (box)", "192.168.1.1", ORA)]
+    sequence(f, cols, [
+        (0, 1, "1  DISCOVER : « Y a-t-il un serveur DHCP ? » (diffusion)", IND, False),
+        (1, 0, "2  OFFER : « Je te propose 192.168.1.10 »", ORA, True),
+        (0, 1, "3  REQUEST : « Je prends 192.168.1.10, merci »", IND, False),
+        (1, 0, "4  ACK : « C'est à toi, pour 24 h » (+ masque, passerelle, DNS)", ORA, True)], step=75)
+    f.text(470, 440, "Ports : le client écoute sur UDP 68, le serveur sur UDP 67. Messages en diffusion : le client n'a pas encore d'adresse.", 13, MUTED, "middle")
+    f.save(out(d, "dora.svg"))
+    f = Fig(940, 610, "TCP puis HTTP", "Poignée de main TCP en trois temps (SYN, SYN-ACK, ACK), puis requête HTTP GET, réponse 200 OK, puis fermeture.")
+    f.title_bar("Ouvrir une page web : la poignée de main TCP, puis HTTP")
+    cols = [(220, "PC (client)", "192.168.1.10 : port 49499", IND), (720, "Serveur web", "198.51.100.80 : port 80", GRN)]
+    sequence(f, cols, [
+        (0, 1, "SYN  « On se parle ? »", IND, False),
+        (1, 0, "SYN-ACK  « Oui, et toi ? »", GRN, True),
+        (0, 1, "ACK  « Oui » → connexion ouverte", IND, False),
+        (0, 1, "HTTP  GET /  « Donne-moi la page »", IND, False),
+        (1, 0, "HTTP  200 OK  + la page web", GRN, True),
+        (1, 0, "FIN  « J'ai fini »  (puis ACK du client)", GRN, True)], step=70)
+    f.rect(40, 555, 860, 38, GRY, GRY_D, 1.5, 8)
+    f.text(470, 580, "Les 3 premiers messages = TCP (transport). GET et 200 OK = HTTP (application).", 14, INK, "middle", "700")
+    f.save(out(d, "tcp-http.svg"))
+
 
 if __name__ == "__main__":
-    for w in (sys.argv[1:] or ["s01", "s02", "s03"]):
+    for w in (sys.argv[1:] or ["s01", "s02", "s03", "s04"]):
         globals()[w](); print("OK", w)
