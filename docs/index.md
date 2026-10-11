@@ -1,37 +1,103 @@
-# Réseaux et systèmes – Bac Pro CIEL (E31)
+<div class="hero" markdown>
 
-**Cours, TP et ressources** du module **E31 – Mise en œuvre de réseaux informatiques** (unité **U31**) du Bac Pro **Cybersécurité, Informatique et réseaux, Électronique** (CIEL), en alternance à la MFR de Pontonx.
+# Réseaux et systèmes
+
+**Bac Pro CIEL – module E31 (U31)**
+Mise en œuvre de réseaux informatiques – MFR de Pontonx
+
+On n'apprend pas un réseau en le regardant : **on le câble, on le configure, on le casse, on le répare.**
+
+<a class="hero-btn" href="seconde/">🌱 Commencer en Seconde</a>
+<a class="hero-btn alt" href="simulateur/simulateur-reseau.html">🖥️ Ouvrir le simulateur</a>
+
+</div>
 
 > [!NOTE]
 > **Ici, on apprend en faisant.** Chaque notion commence par une manipulation, puis on la **nomme**, on la **comprend**, on la **configure**, on la **dépanne**, on la **documente**. Chaque cours contient des **questions pour vérifier la compréhension**.
 
-## 🗺️ Par où commencer ?
+## 🗺️ Choisis ton année
 
-| Année | Séances | Objectif |
-|---|---|---|
-| [🌱 **Seconde**](seconde/README.md) | 18 | Devenir **autonome** sur le matériel et le réseau de base |
-| [🌿 **Première**](premiere/README.md) | 20 | **Comprendre** ce qui circule et **configurer** des équipements administrables |
-| [🌳 **Terminale**](terminale/README.md) | 19 | Réaliser des **chantiers complets en autonomie** (E31 / U31) |
+<div class="cards" markdown>
+
+<div class="card" markdown>
+<span class="big">🌱</span>
+
+### Seconde
+**18 séances** – Devenir **autonome** sur le matériel et le réseau de base.
+
+[**Ouvrir la progression →**](seconde/README.md){ .go }
+</div>
+
+<div class="card green" markdown>
+<span class="big">🌿</span>
+
+### Première
+**20 séances** – **Comprendre** ce qui circule et **configurer** des équipements administrables.
+
+[**Ouvrir la progression →**](premiere/README.md){ .go }
+</div>
+
+<div class="card amber" markdown>
+<span class="big">🌳</span>
+
+### Terminale
+**19 séances** – Réaliser des **chantiers complets en autonomie** (E31 / U31).
+
+[**Ouvrir la progression →**](terminale/README.md){ .go }
+</div>
+
+</div>
+
+## 🧱 Une séance, c'est quoi ?
+
+<div class="steps" markdown>
+<div markdown>**📋 Fiche séance**<br>Objectifs, déroulé, évaluation, mission en entreprise</div>
+<div markdown>**📖 Cours**<br>Une idée à la fois, avec questions pour vérifier</div>
+<div markdown>**🛠️ TP**<br>Manipulations guidées avec points de contrôle ✅</div>
+<div markdown>**🖥️ Simulateur**<br>Fichiers `.json` à ouvrir hors ligne</div>
+</div>
 
 ## 🧰 Ressources
 
-| Ressource | Pour quoi faire ? |
-|---|---|
-| [🖥️ Simulateur réseau (hors ligne)](simulateur/simulateur-reseau.html) | Câbler, configurer, tester, observer les trames, sans matériel |
-| [📘 Utiliser les TP du simulateur](ressources/simulateur.md) | Ouvrir un fichier de TP, enregistrer, recommencer |
-| [📋 Passeport d'autonomie](ressources/passeport-autonomie.md) | Suivre ce que je sais faire **seul** |
-| [📖 Glossaire](ressources/glossaire.md) | Les mots du métier, expliqués simplement |
-| [🗓️ Plan de formation (Word)](ressources/Plan_formation_BacPro_CIEL_E31_V5_alternance.docx) | Le plan complet sur 3 ans |
+<div class="cards" markdown>
 
-## 🧱 Comment est organisée une séance ?
+<div class="card" markdown>
+### 🖥️ Simulateur réseau
+Câbler, configurer, tester, observer les trames, **sans matériel**.
 
-| Document | Rôle |
-|---|---|
-| **README** | Fiche séance : objectifs, déroulé, évaluation, mission en entreprise |
-| **01-cours** | Les idées une à une, avec questions de compréhension |
-| **02-tp** | Manipulations guidées avec points de contrôle |
-| **tp/** | Fichiers `.json` à ouvrir dans le simulateur |
+[Ouvrir le simulateur](simulateur/simulateur-reseau.html){ .go }
+</div>
+
+<div class="card" markdown>
+### 📘 Utiliser les TP
+Ouvrir un fichier de TP, enregistrer, recommencer.
+
+[Voir le mode d'emploi](ressources/simulateur.md){ .go }
+</div>
+
+<div class="card" markdown>
+### 📋 Passeport d'autonomie
+Suivre ce que je sais faire **seul**.
+
+[Ouvrir le passeport](ressources/passeport-autonomie.md){ .go }
+</div>
+
+<div class="card" markdown>
+### 📖 Glossaire
+Les mots du métier, expliqués simplement.
+
+[Ouvrir le glossaire](ressources/glossaire.md){ .go }
+</div>
+
+<div class="card" markdown>
+### 🗓️ Plan de formation
+Le plan complet sur 3 ans (Word).
+
+[Télécharger](ressources/Plan_formation_BacPro_CIEL_E31_V5_alternance.docx){ .go }
+</div>
+
+</div>
 
 ## ⚖️ Licence
 
-Contenus sous licence **CC BY-NC-SA 4.0**. Le simulateur réseau est distribué sous licence **EUPL 1.2** (voir le dépôt du simulateur).
+Contenus sous licence **CC BY-NC-SA 4.0**. Le simulateur réseau est distribué sous licence **EUPL 1.2**.

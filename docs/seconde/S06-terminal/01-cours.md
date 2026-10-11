@@ -22,7 +22,7 @@
 
 Tu dois **renommer 500 photos** de `IMG_001` à `IMG_500`. Qu'est-ce qui est le plus rapide : le faire à la souris ou écrire **une seule ligne** de texte ?
 
-<details>
+<details markdown="1">
 <summary>Voir la réponse</summary>
 
 Une seule ligne de texte. Le **terminal** permet de **répéter** et d'**automatiser**. Aussi, beaucoup d'équipements (serveurs, switchs, routeurs) **n'ont même pas d'écran graphique** : on ne peut leur parler **qu'en texte**.
@@ -64,7 +64,7 @@ Avant que tu tapes quoi que ce soit, le terminal affiche **un prompt** : il t'at
 
 **Q1.** Dans `eleve@pc01:/etc$`, dans quel dossier es-tu ?
 
-<details><summary>Réponse</summary>
+<details markdown="1"><summary>Réponse</summary>
 
 Dans **`/etc`** (le dossier des réglages du système).
 
@@ -72,7 +72,7 @@ Dans **`/etc`** (le dossier des réglages du système).
 
 **Q2.** Dans `ping -c 3 8.8.8.8`, que sont `-c 3` et `8.8.8.8` ?
 
-<details><summary>Réponse</summary>
+<details markdown="1"><summary>Réponse</summary>
 
 `-c 3` est une **option** (envoyer 3 requêtes) ; `8.8.8.8` est l'**argument** (la machine visée). `ping` est la **commande**.
 
@@ -86,7 +86,7 @@ Dans **`/etc`** (le dossier des réglages du système).
 
 Tu es dans `/home/eleve`. Tu veux aller dans `Documents/cours`. Tu peux taper **deux phrases différentes** qui aboutissent au même endroit. Lesquelles ?
 
-<details><summary>Voir la réponse</summary>
+<details markdown="1"><summary>Voir la réponse</summary>
 
 `cd /home/eleve/Documents/cours` (chemin **absolu**) et `cd Documents/cours` (chemin **relatif** : à partir d'**où je suis**).
 
@@ -128,7 +128,7 @@ Tu es dans `/home/eleve`. Tu veux aller dans `Documents/cours`. Tu peux taper **
 
 **Q3.** Tu es dans `/home/eleve/Documents/cours`. Comment remontes-tu dans `Documents` ?
 
-<details><summary>Réponse</summary>
+<details markdown="1"><summary>Réponse</summary>
 
 `cd ..`
 
@@ -136,7 +136,7 @@ Tu es dans `/home/eleve`. Tu veux aller dans `Documents/cours`. Tu peux taper **
 
 **Q4.** Tu es dans `/home/eleve`. Écris **une commande** qui copie `rapport.txt` dans le dossier `sauvegarde`.
 
-<details><summary>Réponse</summary>
+<details markdown="1"><summary>Réponse</summary>
 
 Sous Linux : `cp rapport.txt sauvegarde/`. Sous Windows : `copy rapport.txt sauvegarde\`.
 
@@ -144,7 +144,7 @@ Sous Linux : `cp rapport.txt sauvegarde/`. Sous Windows : `copy rapport.txt sauv
 
 **Q5.** Pourquoi `rm` est-il plus dangereux que « Supprimer » dans l'explorateur ?
 
-<details><summary>Réponse</summary>
+<details markdown="1"><summary>Réponse</summary>
 
 Il n'y a **pas de corbeille** : le fichier est effacé **immédiatement**, sans demande de confirmation.
 
@@ -211,7 +211,7 @@ $ ping -c 2 192.168.10.11
 
 **Q6.** Quelle commande te donne l'adresse IP de ta machine sous Windows ? Sous Linux ?
 
-<details><summary>Réponse</summary>
+<details markdown="1"><summary>Réponse</summary>
 
 `ipconfig` sous Windows ; `ip a` sous Linux.
 
@@ -219,7 +219,7 @@ $ ping -c 2 192.168.10.11
 
 **Q7.** `ping` répond avec « Réponse de 192.168.10.12 ». Qu'est-ce que ça te prouve ?
 
-<details><summary>Réponse</summary>
+<details markdown="1"><summary>Réponse</summary>
 
 Que ta machine **peut joindre** 192.168.10.12 : câble, carte réseau et adresses sont (au moins en partie) corrects.
 

@@ -55,7 +55,7 @@ Unités centrales **de récupération** (une par binôme), tournevis cruciforme,
 
 ## 🧑‍🏫 Notes pour l'enseignant
 
-<details><summary>Points d'attention</summary>
+<details markdown="1"><summary>Points d'attention</summary>
 
 - Faire **débrancher** avant toute ouverture ; vérifier avant les élèves qu'aucun condensateur ou alimentation ne présente de danger (PC de récupération **sans** alimentation ouverte).
 - Interdire d'ouvrir le **bloc d'alimentation** lui-même.

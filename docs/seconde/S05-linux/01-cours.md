@@ -21,7 +21,7 @@
 
 Cite **trois appareils ou services** autour de toi qui, selon toi, pourraient fonctionner avec Linux.
 
-<details>
+<details markdown="1">
 <summary>Voir des réponses possibles</summary>
 
 Ta **box Internet**, ton **téléphone Android**, la plupart des **sites web** que tu consultes, les **supercalculateurs**, les **NAS**, beaucoup de **caméras**, de **télévisions connectées**, de **voitures**… Linux fait tourner l'immense majorité des serveurs d'Internet.
@@ -52,7 +52,7 @@ Ta **box Internet**, ton **téléphone Android**, la plupart des **sites web** q
 
 **Q1.** « Linux et Ubuntu, c'est la même chose ? » Que réponds-tu ?
 
-<details>
+<details markdown="1">
 <summary>Réponse</summary>
 
 Pas exactement. **Linux** est le **noyau**. **Ubuntu** est une **distribution** qui utilise ce noyau, avec un bureau, des logiciels et un installateur.
@@ -61,7 +61,7 @@ Pas exactement. **Linux** est le **noyau**. **Ubuntu** est une **distribution** 
 
 **Q2.** Pourquoi les entreprises mettent-elles souvent **Linux** sur leurs serveurs ?
 
-<details>
+<details markdown="1">
 <summary>Réponse</summary>
 
 Il est **gratuit**, **stable**, **sécurisé**, **léger** et on peut **tout automatiser** en lignes de commande. Pas de licence par serveur à payer.
@@ -93,7 +93,7 @@ Quand tu installes Ubuntu, tu obtiens un **bureau** (l'interface graphique) qui 
 
 Sous Windows, on trouve `C:\Users\toi\Documents`. Il y a des **lettres** de lecteur : `C:`, `D:`. **Sous Linux, il n'y a pas de lettres de lecteur.** Comment peut-on alors tout ranger ?
 
-<details>
+<details markdown="1">
 <summary>Voir la réponse</summary>
 
 Tout est rangé dans **un seul grand arbre**, qui part d'une **racine** notée `/`. Une clé USB branchée **apparaît à l'intérieur de l'arbre** (par exemple dans `/media/ton-nom/CLE`) au lieu d'avoir sa propre lettre.
@@ -128,7 +128,7 @@ Tout est rangé dans **un seul grand arbre**, qui part d'une **racine** notée `
 
 **Q3.** Où se trouve le dossier **Documents** de l'utilisateur `lea` ?
 
-<details>
+<details markdown="1">
 <summary>Réponse</summary>
 
 `/home/lea/Documents`
@@ -137,7 +137,7 @@ Tout est rangé dans **un seul grand arbre**, qui part d'une **racine** notée `
 
 **Q4.** Tu veux changer un réglage système. Dans quel dossier ira-t-on probablement le chercher ?
 
-<details>
+<details markdown="1">
 <summary>Réponse</summary>
 
 Dans **`/etc`** (les fichiers de configuration).
@@ -146,7 +146,7 @@ Dans **`/etc`** (les fichiers de configuration).
 
 **Q5.** Pourquoi demande-t-on le mot de passe quand on utilise `sudo` ?
 
-<details>
+<details markdown="1">
 <summary>Réponse</summary>
 
 Pour **vérifier que c'est bien la bonne personne** qui demande des droits d'administrateur, comme le contrôle de l'UAC de Windows. Cela évite qu'un programme ou une personne fasse n'importe quoi sans autorisation.
@@ -161,7 +161,7 @@ Pour **vérifier que c'est bien la bonne personne** qui demande des droits d'adm
 
 Sous Windows, tu télécharges souvent un fichier `.exe` sur un site. **Quel est le risque ?**
 
-<details>
+<details markdown="1">
 <summary>Voir la réponse</summary>
 
 On peut télécharger un **faux site** ou un **logiciel piégé**. Rien ne **garantit** qu'il est authentique.
@@ -191,7 +191,7 @@ sudo apt upgrade         # 3) METTRE À JOUR les logiciels déjà installés
 
 **Q6.** Quelle commande installe le logiciel **vlc** ?
 
-<details>
+<details markdown="1">
 <summary>Réponse</summary>
 
 `sudo apt install vlc`
@@ -200,7 +200,7 @@ sudo apt upgrade         # 3) METTRE À JOUR les logiciels déjà installés
 
 **Q7.** Tu viens d'allumer ta VM, tu veux tout mettre à jour. Quelles commandes, dans quel ordre ?
 
-<details>
+<details markdown="1">
 <summary>Réponse</summary>
 
 `sudo apt update` puis `sudo apt upgrade`.
@@ -209,7 +209,7 @@ sudo apt upgrade         # 3) METTRE À JOUR les logiciels déjà installés
 
 **Q8.** Pourquoi est-ce plus sûr qu'un `.exe` trouvé sur Internet ?
 
-<details>
+<details markdown="1">
 <summary>Réponse</summary>
 
 Les paquets viennent de **dépôts officiels** de la distribution, **signés** (vérifiés). Le risque d'un faux logiciel est beaucoup plus faible.

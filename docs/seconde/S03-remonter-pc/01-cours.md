@@ -17,7 +17,7 @@
 
 Le PC est **éteint**, le disque contient Windows. Tu appuies sur le bouton. **Qui lance Windows ?** Windows ne peut pas se lancer **lui-même** : il n'est pas encore démarré.
 
-<details><summary>Voir la réponse</summary>
+<details markdown="1"><summary>Voir la réponse</summary>
 
 C'est un **petit programme gravé sur la carte mère** qui s'exécute en premier : le **BIOS** (ou son successeur, l'**UEFI**). Il vérifie le matériel puis **cherche un système** à lancer.
 
@@ -44,7 +44,7 @@ flowchart LR
 
 **Q1.** Pourquoi la date du PC se remet à zéro quand la pile est vide ?
 
-<details><summary>Réponse</summary>
+<details markdown="1"><summary>Réponse</summary>
 
 Parce que la **pile** alimente la petite mémoire qui garde l'heure et les réglages du BIOS quand le PC est débranché.
 
@@ -52,7 +52,7 @@ Parce que la **pile** alimente la petite mémoire qui garde l'heure et les régl
 
 **Q2.** Un PC affiche « No operating system found ». Que sais-tu déjà ?
 
-<details><summary>Réponse</summary>
+<details markdown="1"><summary>Réponse</summary>
 
 Le **BIOS fonctionne** (il affiche un message), mais il **ne trouve pas de système** : mauvais ordre de démarrage, disque non branché, ou pas de système installé.
 
@@ -80,7 +80,7 @@ Au tout début du démarrage, **avant** Windows, il faut **taper plusieurs fois*
 
 **Q3.** Pour installer un système depuis une clé USB, que faut-il changer ?
 
-<details><summary>Réponse</summary>
+<details markdown="1"><summary>Réponse</summary>
 
 L'**ordre de démarrage**, pour que la **clé USB** passe **avant** le disque (ou utiliser le menu de démarrage rapide).
 
@@ -125,7 +125,7 @@ L'**ordre de démarrage**, pour que la **clé USB** passe **avant** le disque (o
 
 **Q4.** Le PC ne montre aucun signe de vie (aucun voyant, aucun ventilateur). Quelles sont les **deux premières** vérifications ?
 
-<details><summary>Réponse</summary>
+<details markdown="1"><summary>Réponse</summary>
 
 1) Le **câble secteur** est-il branché et la prise alimentée ? 2) L'**interrupteur de l'alimentation** est-il sur « I » ?
 
@@ -133,7 +133,7 @@ L'**ordre de démarrage**, pour que la **clé USB** passe **avant** le disque (o
 
 **Q5.** Pourquoi ne change-t-on qu'**une seule chose à la fois** pendant un dépannage ?
 
-<details><summary>Réponse</summary>
+<details markdown="1"><summary>Réponse</summary>
 
 Pour **savoir ce qui a corrigé** (ou **aggravé**) le problème. Si on change trois choses et que ça marche, on ne sait pas laquelle était la cause.
 

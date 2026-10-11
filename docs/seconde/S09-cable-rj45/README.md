@@ -60,7 +60,7 @@ Câble Cat 5e ou 6 (UTP), connecteurs RJ45 (prévoir **2 à 3 fois** plus que n�
 
 ## 🧑‍🏫 Notes pour l'enseignant
 
-<details><summary>Points d'attention</summary>
+<details markdown="1"><summary>Points d'attention</summary>
 
 - Le **câble droit en T568B** est le plus courant. Le T568A existe : un câble avec un bout en T568A et l'autre en T568B est **croisé** (peu utile aujourd'hui car les ports sont auto-MDIX). Ne pas trop insister.
 - Les erreurs fréquentes : **gaine non engagée** (câble qui sort), **fils non aplatis**, **fils trop longs** (le connecteur ne ferme pas), **ordre faux**. Prévoir un test dès le **premier** câble.

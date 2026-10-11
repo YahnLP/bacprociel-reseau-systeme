@@ -51,7 +51,7 @@
 
 ## 🧑‍🏫 Notes pour l'enseignant
 
-<details><summary>Points d'attention</summary>
+<details markdown="1"><summary>Points d'attention</summary>
 
 - Prévoir l'**accès à la baie** (porte ouverte, sous surveillance) et un **plan du bâtiment** de la salle.
 - Les élèves confondent **switch, routeur et box** : le cours donne une règle simple (*le switch relie les machines d'un même réseau ; le routeur relie des réseaux différents ; la box fait les deux, plus le Wi-Fi*).

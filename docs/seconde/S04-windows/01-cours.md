@@ -24,7 +24,7 @@ Tu as un PC avec un processeur, de la mémoire, un disque, un écran, un clavier
 
 **Question :** que s'affiche-t-il à l'écran, et pourquoi ?
 
-<details>
+<details markdown="1">
 <summary>Voir la réponse</summary>
 
 Presque rien d'utile : un message du BIOS / UEFI, puis « *No operating system found* » (aucun système trouvé). Le matériel sait **faire** des choses (calculer, stocker, afficher), mais **personne ne lui dit quoi faire**. Il manque le chef d'orchestre : le **système d'exploitation**.
@@ -56,7 +56,7 @@ Un client n'entre jamais dans la cuisine. De la même façon, un programme ne pa
 
 **Q1.** Ton téléphone est-il un ordinateur avec un système d'exploitation ?
 
-<details>
+<details markdown="1">
 <summary>Réponse</summary>
 
 Oui. Il tourne sous **Android** ou **iOS**. Mêmes principes : applications au-dessus, système au milieu, matériel (écran tactile, batterie, antenne) en dessous.
@@ -65,7 +65,7 @@ Oui. Il tourne sous **Android** ou **iOS**. Mêmes principes : applications au-d
 
 **Q2.** Complète : « Word demande au ______ d'enregistrer le fichier sur le ______. »
 
-<details>
+<details markdown="1">
 <summary>Réponse</summary>
 
 « Word demande au **système d'exploitation** d'enregistrer le fichier sur le **disque** (SSD). »
@@ -82,7 +82,7 @@ Oui. Il tourne sous **Android** ou **iOS**. Mêmes principes : applications au-d
 
 Pour installer Windows sur un PC vide, il faut apporter Windows d'une façon ou d'une autre. **Comment le faire entrer dans la machine, alors que la machine n'a encore aucun système pour lire quoi que ce soit ?**
 
-<details>
+<details markdown="1">
 <summary>Voir la réponse</summary>
 
 On **démarre l'ordinateur directement depuis une clé USB** (ou un DVD) qui contient un petit programme d'installation. Ce n'est pas le système d'exploitation qui lit la clé : c'est le **BIOS / UEFI** (le tout premier programme du PC, vu en S03) qui sait démarrer sur un autre support que le disque.
@@ -109,7 +109,7 @@ On **démarre l'ordinateur directement depuis une clé USB** (ou un DVD) qui con
 
 **Q4.** Le PC redémarre et réaffiche son ancien Windows au lieu de l'installateur. Quelle est la cause la plus probable, et que fais-tu ?
 
-<details>
+<details markdown="1">
 <summary>Réponse</summary>
 
 Le PC démarre toujours sur le **disque** en premier. On retourne dans le **BIOS / UEFI** (ou on ouvre le menu de démarrage rapide) pour choisir la **clé USB** en premier.
@@ -118,7 +118,7 @@ Le PC démarre toujours sur le **disque** en premier. On retourne dans le **BIOS
 
 **Q5.** Pourquoi doit-on sauvegarder **avant** et pas après l'installation ?
 
-<details>
+<details markdown="1">
 <summary>Réponse</summary>
 
 Parce que l'installateur peut **effacer** la partition qui contenait les fichiers. Après, il est trop tard (ou très compliqué).
@@ -154,7 +154,7 @@ Avant d'installer, tu choisis **où** Windows va s'installer. Un disque se déco
 
 **Q6.** Pendant la copie des fichiers, l'écran reste noir pendant 2 minutes. Que fais-tu ?
 
-<details>
+<details markdown="1">
 <summary>Réponse</summary>
 
 **Rien.** On attend. Couper l'alimentation en pleine installation peut laisser un Windows à moitié installé, à recommencer entièrement. Un technicien patient est un bon technicien.
@@ -163,7 +163,7 @@ Avant d'installer, tu choisis **où** Windows va s'installer. Un disque se déco
 
 **Q7.** Remets dans l'ordre : *Copier les fichiers – Démarrer sur la clé – Mettre à jour – Choisir le disque.*
 
-<details>
+<details markdown="1">
 <summary>Réponse</summary>
 
 1. Démarrer sur la clé → 2. Choisir le disque → 3. Copier les fichiers → 4. Mettre à jour.
@@ -183,7 +183,7 @@ Avant d'installer, tu choisis **où** Windows va s'installer. Un disque se déco
 
 **Pourquoi ne pas donner à tout le monde un compte administrateur ?** Réfléchis une minute.
 
-<details>
+<details markdown="1">
 <summary>Voir la réponse</summary>
 
 Parce qu'un **virus** ou une **mauvaise manipulation** peut alors tout casser : un programme lancé par un compte administrateur a **tous les droits**. Avec un compte standard, les dégâts restent limités. C'est le principe du **moindre privilège** : donner à chacun **juste** ce dont il a besoin.
@@ -223,7 +223,7 @@ Un Windows **non mis à jour** contient des failles de sécurité connues de tou
 
 **Q8.** Un PC neuf n'a pas Internet après l'installation. Dans le Gestionnaire de périphériques, tu vois « Contrôleur Ethernet » avec un triangle jaune. Explique ce qui se passe, puis dis comment tu pourrais régler le problème **sans Internet**.
 
-<details>
+<details markdown="1">
 <summary>Réponse</summary>
 
 Windows **voit** la carte réseau mais n'a **pas son pilote** : sans pilote, pas de connexion. Sans Internet, on **télécharge le pilote sur un autre ordinateur** (site du constructeur, modèle exact), on le met sur **une clé USB**, puis on l'installe sur le PC. Puis Windows Update pourra faire le reste.
@@ -232,7 +232,7 @@ Windows **voit** la carte réseau mais n'a **pas son pilote** : sans pilote, pas
 
 **Q9.** Un utilisateur te demande « le mot de passe administrateur du poste pour installer un jeu ». Que réponds-tu ?
 
-<details>
+<details markdown="1">
 <summary>Réponse</summary>
 
 Qu'on **ne donne pas** l'accès administrateur à un utilisateur standard : c'est le technicien (ou le responsable) qui installe les logiciels **autorisés**. On explique poliment que c'est pour **protéger son poste et ceux de l'entreprise**.

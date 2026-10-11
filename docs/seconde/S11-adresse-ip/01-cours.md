@@ -22,7 +22,7 @@ Deux PC reliés par un switch, voyants verts… et **ils ne se parlaient pas**. 
 
 **Question :** pourquoi cette absence d'adresse suffit-elle à les empêcher de se parler ?
 
-<details><summary>Voir la réponse</summary>
+<details markdown="1"><summary>Voir la réponse</summary>
 
 Sur un réseau, les données voyagent sous forme de **paquets**, comme des **lettres**. Une lettre **sans adresse** d'expéditeur ni de destinataire **ne peut pas être livrée** : le switch ne sait pas à qui la remettre, et le destinataire ne sait pas à qui répondre. Chaque machine doit avoir **une adresse unique**.
 
@@ -47,7 +47,7 @@ Sur un réseau, les données voyagent sous forme de **paquets**, comme des **let
 
 Un ordinateur ne comprend que **deux états** : le courant passe (**1**) ou ne passe pas (**0**). Comment peut-il représenter le nombre **192** avec seulement des 0 et des 1 ?
 
-<details><summary>Voir la réponse</summary>
+<details markdown="1"><summary>Voir la réponse</summary>
 
 En utilisant **plusieurs interrupteurs côte à côte** (8 pour un octet), chacun ayant **une valeur** : 128, 64, 32, 16, 8, 4, 2, 1. On **additionne** les valeurs des interrupteurs **allumés**.
 
@@ -76,7 +76,7 @@ Donc **168 = 10101000**.
 
 **Q1.** Quelle valeur représente `00001010` ?
 
-<details><summary>Réponse</summary>
+<details markdown="1"><summary>Réponse</summary>
 
 8 + 2 = **10**.
 
@@ -84,7 +84,7 @@ Donc **168 = 10101000**.
 
 **Q2.** Écris **255** et **0** en binaire.
 
-<details><summary>Réponse</summary>
+<details markdown="1"><summary>Réponse</summary>
 
 255 = `11111111` ; 0 = `00000000`.
 
@@ -92,7 +92,7 @@ Donc **168 = 10101000**.
 
 **Q3.** Pourquoi une adresse IP ne contient-elle jamais le nombre 256 ?
 
-<details><summary>Réponse</summary>
+<details markdown="1"><summary>Réponse</summary>
 
 Parce qu'un octet ne peut pas dépasser **255** (tous les interrupteurs allumés).
 
@@ -147,7 +147,7 @@ Les adresses **privées** servent dans les réseaux locaux. **Beaucoup de résea
 
 **Q4.** Dans `192.168.1.0/24`, combien de machines peut-on brancher ?
 
-<details><summary>Réponse</summary>
+<details markdown="1"><summary>Réponse</summary>
 
 **254** (de `.1` à `.254`) ; `.0` et `.255` sont réservées.
 
@@ -155,7 +155,7 @@ Les adresses **privées** servent dans les réseaux locaux. **Beaucoup de résea
 
 **Q5.** 192.168.5.20 et 192.168.5.200 sont-elles dans le même réseau ? Et 192.168.5.20 et 192.168.50.20 ?
 
-<details><summary>Réponse</summary>
+<details markdown="1"><summary>Réponse</summary>
 
 Oui pour la première paire (`192.168.5` identique). **Non** pour la seconde (`192.168.5` ≠ `192.168.50`).
 
@@ -163,7 +163,7 @@ Oui pour la première paire (`192.168.5` identique). **Non** pour la seconde (`1
 
 **Q6.** L'adresse `192.168.1.255` peut-elle être donnée à un PC ? Pourquoi ?
 
-<details><summary>Réponse</summary>
+<details markdown="1"><summary>Réponse</summary>
 
 **Non** : c'est l'adresse de **diffusion** du réseau (message destiné à toutes les machines). L'attribuer à un PC créerait la confusion.
 
@@ -171,7 +171,7 @@ Oui pour la première paire (`192.168.5` identique). **Non** pour la seconde (`1
 
 **Q7.** `172.20.4.5` est-elle une adresse privée ? Et `8.8.8.8` ?
 
-<details><summary>Réponse</summary>
+<details markdown="1"><summary>Réponse</summary>
 
 `172.20.4.5` : **oui** (plage 172.16 à 172.31). `8.8.8.8` : **non** (publique).
 
@@ -248,7 +248,7 @@ Dans le simulateur, voici **trois erreurs d'adressage** courantes (TP : chasse a
 
 **Q8.** PC1 (`192.168.1.11`) pingue PC2 configuré `192.168.11.12` : message « échec général ». Pourquoi ?
 
-<details><summary>Réponse</summary>
+<details markdown="1"><summary>Réponse</summary>
 
 PC2 est dans **un autre réseau** (`192.168.11.x`, alors que PC1 est en `192.168.1.x`). PC1 ne sait pas où envoyer le paquet : il n'a pas de passerelle.
 
@@ -256,7 +256,7 @@ PC2 est dans **un autre réseau** (`192.168.11.x`, alors que PC1 est en `192.168
 
 **Q9.** PC1 ne peut pas pinguer PC2 (Windows), mais PC2 pingue PC1 sans problème. Quelle est la cause la plus probable ?
 
-<details><summary>Réponse</summary>
+<details markdown="1"><summary>Réponse</summary>
 
 Le **pare-feu de PC2** bloque les pings entrants. Le chemin physique et l'adressage sont corrects (puisque PC2 → PC1 fonctionne).
 

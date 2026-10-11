@@ -57,7 +57,7 @@
 
 ## 🧑‍🏫 Notes pour l'enseignant
 
-<details><summary>Points d'attention</summary>
+<details markdown="1"><summary>Points d'attention</summary>
 
 - Prévoir des **modules keystone à outil de pose (110)** ou **sans outil**, selon l'équipement. Fournir un **schéma de câblage** collé sur le module.
 - **L'énigme** : volontairement non résolue en S10. Les PC sont branchés, mais **sans adresse IP configurée** (ou dans des réseaux différents). Laissez les élèves **émettre des hypothèses** (câble ? switch ? Windows ?) puis les noter : on y reviendra en S11.

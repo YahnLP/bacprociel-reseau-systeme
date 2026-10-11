@@ -62,7 +62,7 @@
 
 ## 🧑‍🏫 Notes pour l'enseignant
 
-<details>
+<details markdown="1">
 <summary>Points d'attention</summary>
 
 - Sur une **machine virtuelle**, « effacer le disque » est sans risque : c'est un fichier. Profitez-en pour **rappeler le contraste** avec le PC réel de S04 (sauvegarde d'abord).

@@ -65,7 +65,7 @@
 
 ## 🧑‍🏫 Notes pour l'enseignant
 
-<details>
+<details markdown="1">
 <summary>Points d'attention</summary>
 
 - Les scripts de chasse au trésor sont générés par `tools/tresor/gen.py` : la chaîne d'indices est identique sous Linux et Windows. Le texte n'a **pas d'accents** (compatibilité de l'invite de commandes). Le mot final est **CABLAGE**.

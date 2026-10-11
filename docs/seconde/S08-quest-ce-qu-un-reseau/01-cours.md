@@ -17,7 +17,7 @@
 
 Tu es dans une salle avec 12 PC et **une seule imprimante**. Tout le monde peut imprimer dessus. **Comment est-ce possible**, alors que l'imprimante est branchée à un seul endroit ?
 
-<details><summary>Voir la réponse</summary>
+<details markdown="1"><summary>Voir la réponse</summary>
 
 Tous les PC et l'imprimante sont **reliés entre eux par un réseau** : ils s'envoient des données. L'imprimante reçoit les demandes d'impression **par le réseau** et non par un câble direct avec chaque PC.
 
@@ -53,7 +53,7 @@ Quand tu ouvres un site depuis un PC de la salle, la donnée traverse **un chemi
 
 **Q1.** Un PC n'a plus de réseau. Cite **trois endroits** du trajet où chercher.
 
-<details><summary>Réponse</summary>
+<details markdown="1"><summary>Réponse</summary>
 
 Le **cordon** entre le PC et la prise, la **prise murale / le câble**, le **panneau de brassage** (cordon débranché), le **port du switch**, le **switch** lui-même (éteint ?), la **box**… On suit le trajet **pas à pas**.
 
@@ -106,7 +106,7 @@ Le **débit** est la quantité de données transmises **par seconde**. On le com
 
 **Q2.** Ton téléphone ouvre un site : client ou serveur ? Et le site ?
 
-<details><summary>Réponse</summary>
+<details markdown="1"><summary>Réponse</summary>
 
 Le téléphone est le **client** (il demande) ; la machine qui héberge le site est le **serveur** (il répond).
 
@@ -114,7 +114,7 @@ Le téléphone est le **client** (il demande) ; la machine qui héberge le site 
 
 **Q3.** Complète : « Le ______ relie les machines d'un même réseau ; le ______ relie des réseaux différents. »
 
-<details><summary>Réponse</summary>
+<details markdown="1"><summary>Réponse</summary>
 
 « Le **switch** relie les machines d'un même réseau ; le **routeur** relie des réseaux différents. »
 
@@ -122,7 +122,7 @@ Le téléphone est le **client** (il demande) ; la machine qui héberge le site 
 
 **Q4.** Un lien annonce 100 Mb/s. Combien fait-il en Gb/s ?
 
-<details><summary>Réponse</summary>
+<details markdown="1"><summary>Réponse</summary>
 
 0,1 Gb/s (1 Gb/s = 1000 Mb/s).
 
@@ -151,7 +151,7 @@ Un schéma est **la carte** du réseau : il sert à **comprendre**, **dépanner*
 
 **Q5.** Ton schéma montre un PC relié directement à la box, mais en réalité il passe par un switch. Quelle est la conséquence ?
 
-<details><summary>Réponse</summary>
+<details markdown="1"><summary>Réponse</summary>
 
 Au moment d'une panne, on cherchera au **mauvais endroit** (on ne pensera pas à vérifier le switch). Un schéma **faux** fait perdre du temps.
 

@@ -73,7 +73,7 @@
 
 ## 🧑‍🏫 Notes pour l'enseignant
 
-<details>
+<details markdown="1">
 <summary>Points d'attention (cliquer pour déplier)</summary>
 
 - **Compte local à l'installation de Windows 11** : la procédure pour éviter l'obligation d'un compte Microsoft change selon la version de l'ISO. Testez-la **avant** la séance sur l'image utilisée (câble réseau débranché pendant la configuration initiale, puis, selon la version, la commande indiquée dans la fiche TP). En cas de doute, utilisez une image préparée ou une machine virtuelle dont le fichier de réponses crée un compte local.

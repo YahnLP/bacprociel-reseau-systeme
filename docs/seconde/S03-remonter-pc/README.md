@@ -51,7 +51,7 @@
 
 ## 🧑‍🏫 Notes pour l'enseignant
 
-<details><summary>Points d'attention</summary>
+<details markdown="1"><summary>Points d'attention</summary>
 
 - Faire **photographier l'état initial** avant démontage pour pouvoir remonter.
 - Le BIOS/UEFI diffère selon la marque : donner la **touche d'entrée** (Suppr, F2, F10, Échap) par modèle.

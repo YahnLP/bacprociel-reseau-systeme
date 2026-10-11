@@ -18,7 +18,7 @@
 
 Pourquoi ne branche-t-on pas directement le câble qui sort du mur sur le PC, en y sertissant un RJ45 ?
 
-<details><summary>Voir la réponse</summary>
+<details markdown="1"><summary>Voir la réponse</summary>
 
 Un câble **dans le mur** est **rigide** (un seul fil dur par conducteur) et **ne doit pas être plié ni déplacé** : il casserait. On le termine donc dans un **module** fixe (la prise), et l'utilisateur branche un **cordon souple** (fils multibrins) entre la prise et le PC.
 
@@ -50,7 +50,7 @@ Un câble **dans le mur** est **rigide** (un seul fil dur par conducteur) et **n
 
 **Q1.** Pourquoi le câble du mur est-il rigide et le cordon souple ?
 
-<details><summary>Réponse</summary>
+<details markdown="1"><summary>Réponse</summary>
 
 Le câble du mur est **posé une fois** (rigide, plus stable) ; le cordon **bouge** tous les jours (souple, résiste aux manipulations).
 
@@ -82,7 +82,7 @@ Une baie sans étiquette est **un plat de spaghettis**. Quand un utilisateur app
 
 **Q2.** La prise « B2-14 » est branchée sur le port 14 du panneau. Quel cordon la relie au switch ?
 
-<details><summary>Réponse</summary>
+<details markdown="1"><summary>Réponse</summary>
 
 Un **cordon de brassage** entre le **port 14 du panneau** et un **port du switch** (par exemple 12). On note `P14 → SW1/12` sur le cordon.
 
@@ -116,7 +116,7 @@ Des voyants **verts** prouvent que le **câble** et les **cartes réseau** se vo
 
 **Q3.** Un voyant est éteint sur le port du switch alors que le PC est branché et allumé. Quelles sont tes hypothèses, dans l'ordre ?
 
-<details><summary>Réponse</summary>
+<details markdown="1"><summary>Réponse</summary>
 
 1) Le **cordon** n'est pas bien enclenché. 2) Le **câble** est défectueux. 3) Le **port** du switch ou la **carte réseau** du PC est en cause. On teste avec **un autre cordon** puis **un autre port**.
 
@@ -124,7 +124,7 @@ Des voyants **verts** prouvent que le **câble** et les **cartes réseau** se vo
 
 **Q4.** Les voyants sont verts mais les deux PC ne se voient pas. Le câble est-il en cause ?
 
-<details><summary>Réponse</summary>
+<details markdown="1"><summary>Réponse</summary>
 
 Probablement **pas** : les voyants montrent que le lien physique est établi. La cause est **ailleurs** (nous la trouverons en S11).
 

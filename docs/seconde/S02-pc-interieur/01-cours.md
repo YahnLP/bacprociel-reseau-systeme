@@ -17,7 +17,7 @@
 
 Tu écris un devoir sur ton PC. Tu l'**enregistres**, puis tu **éteins brutalement** le PC avant d'avoir enregistré les 5 dernières lignes. **Qu'est-ce qui est perdu, et pourquoi pas le reste ?**
 
-<details><summary>Voir la réponse</summary>
+<details markdown="1"><summary>Voir la réponse</summary>
 
 Les **5 dernières lignes** sont perdues, car elles n'étaient que dans la **RAM** (mémoire de travail, vidée à l'extinction). Le reste a été **enregistré sur le disque** (SSD/HDD) qui conserve les données **même éteint**.
 
@@ -43,7 +43,7 @@ Les **5 dernières lignes** sont perdues, car elles n'étaient que dans la **RAM
 
 **Q1.** Un PC est lent quand on ouvre beaucoup d'onglets. Quelle pièce est probablement trop petite ?
 
-<details><summary>Réponse</summary>
+<details markdown="1"><summary>Réponse</summary>
 
 La **RAM** (le bureau est trop petit pour tout poser).
 
@@ -51,7 +51,7 @@ La **RAM** (le bureau est trop petit pour tout poser).
 
 **Q2.** Un PC est plein : « plus d'espace pour enregistrer des photos ». Quelle pièce est en cause ?
 
-<details><summary>Réponse</summary>
+<details markdown="1"><summary>Réponse</summary>
 
 Le **stockage** (SSD/HDD) : l'armoire est pleine.
 
@@ -89,7 +89,7 @@ Un processeur **chauffe**. Sans refroidissement, il ralentit puis s'arrête pour
 
 **Q3.** À quoi sert la pile de la carte mère ?
 
-<details><summary>Réponse</summary>
+<details markdown="1"><summary>Réponse</summary>
 
 À **garder l'heure** et les réglages du BIOS quand le PC est éteint et débranché.
 
@@ -97,7 +97,7 @@ Un processeur **chauffe**. Sans refroidissement, il ralentit puis s'arrête pour
 
 **Q4.** Un PC s'éteint tout seul après 10 minutes d'utilisation, et le ventilateur est couvert de poussière. Quelle est ta piste ?
 
-<details><summary>Réponse</summary>
+<details markdown="1"><summary>Réponse</summary>
 
 **Surchauffe** : le processeur se protège en coupant le PC. On **nettoie** le ventilateur/radiateur et on vérifie la pâte thermique.
 

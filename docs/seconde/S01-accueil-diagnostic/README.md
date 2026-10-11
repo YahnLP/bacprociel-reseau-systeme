@@ -49,7 +49,7 @@ Diagnostic **non noté**. Le résultat est reporté dans le [Passeport d'autonom
 
 ## 🧑‍🏫 Notes pour l'enseignant
 
-<details>
+<details markdown="1">
 <summary>Points d'attention</summary>
 
 - Séance d'**accueil bienveillante** : l'objectif est que **chaque élève réussisse quelque chose** (brancher, ouvrir un site) et reparte en ayant envie de revenir.

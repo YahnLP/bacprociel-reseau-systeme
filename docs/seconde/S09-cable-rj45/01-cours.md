@@ -18,7 +18,7 @@
 
 Tu regardes un câble réseau coupé : tu y vois **8 fils colorés, tordus deux par deux**. **Pourquoi ne pas les laisser droits ?**
 
-<details><summary>Voir la réponse</summary>
+<details markdown="1"><summary>Voir la réponse</summary>
 
 Un fil qui transporte un signal capte les **parasites** (moteurs, néons, câbles voisins). En **tordant deux fils ensemble**, le parasite agit **de la même façon sur les deux** et il **s'annule** à l'arrivée, car on regarde la **différence** entre eux. Plus la torsade est serrée, plus le câble est protégé.
 
@@ -41,7 +41,7 @@ Il y a **4 paires** : **orange**, **verte**, **bleue**, **marron**. Dans chaque 
 
 **Q1.** À quoi servent les torsades ?
 
-<details><summary>Réponse</summary>
+<details markdown="1"><summary>Réponse</summary>
 
 À **limiter les parasites** : les perturbations s'annulent entre les deux fils d'une paire.
 
@@ -49,7 +49,7 @@ Il y a **4 paires** : **orange**, **verte**, **bleue**, **marron**. Dans chaque 
 
 **Q2.** Tu dois relier deux bâtiments distants de 150 m avec un câble cuivre. Est-ce possible ?
 
-<details><summary>Réponse</summary>
+<details markdown="1"><summary>Réponse</summary>
 
 **Non**, au-delà de 100 m le signal est trop affaibli. Il faut un **switch intermédiaire** ou une **fibre optique**.
 
@@ -83,7 +83,7 @@ Il y a **4 paires** : **orange**, **verte**, **bleue**, **marron**. Dans chaque 
 
 **Q3.** Cite l'ordre de gauche à droite des 4 premières couleurs en T568B.
 
-<details><summary>Réponse</summary>
+<details markdown="1"><summary>Réponse</summary>
 
 Blanc-orange, orange, blanc-vert, bleu.
 
@@ -91,7 +91,7 @@ Blanc-orange, orange, blanc-vert, bleu.
 
 **Q4.** Pourquoi est-ce gênant d'utiliser des ordres différents à chaque bout du câble ?
 
-<details><summary>Réponse</summary>
+<details markdown="1"><summary>Réponse</summary>
 
 Les paires ne correspondent plus : le signal n'arrive pas sur les bons contacts. Le câble sera **mal fonctionnel ou inutilisable**.
 
@@ -137,7 +137,7 @@ Un **testeur de câble** envoie un signal sur chaque fil, **l'un après l'autre*
 
 **Q5.** Le testeur allume 1, 2, 3, 5, 6, 7, 8 mais pas le 4. Quel est le diagnostic ?
 
-<details><summary>Réponse</summary>
+<details markdown="1"><summary>Réponse</summary>
 
 **Coupure** sur le fil 4 (bleu) : il n'est probablement pas bien en contact. On **recoupe et on resertit**.
 
@@ -145,7 +145,7 @@ Un **testeur de câble** envoie un signal sur chaque fil, **l'un après l'autre*
 
 **Q6.** Pourquoi teste-t-on un câble **même s'il a l'air bien serti** ?
 
-<details><summary>Réponse</summary>
+<details markdown="1"><summary>Réponse</summary>
 
 Parce qu'un défaut **ne se voit pas à l'œil nu** (un fil peut manquer le contact). Le test **prouve** que le câble est bon.
 

@@ -21,14 +21,14 @@ theme:
     - media: "(prefers-color-scheme: light)"
       scheme: default
       primary: indigo
-      accent: indigo
+      accent: cyan
       toggle:
         icon: material/weather-sunny
         name: "Passer au mode nuit"
     - media: "(prefers-color-scheme: dark)"
       scheme: slate
-      primary: black
-      accent: green
+      primary: indigo
+      accent: cyan
       toggle:
         icon: material/weather-night
         name: "Passer au mode jour"
@@ -40,6 +40,9 @@ theme:
     - toc.follow
     - content.code.copy
     - search.highlight
+    - search.suggest
+    - navigation.footer
+    - content.tabs.link
 
 plugins:
   - search:
@@ -77,3 +80,6 @@ markdown_extensions:
 
 extra_css:
   - xtra/extra.css
+
+extra_javascript:
+  - xtra/extra.js

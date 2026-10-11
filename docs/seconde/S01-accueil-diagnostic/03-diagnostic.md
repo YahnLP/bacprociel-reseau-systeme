@@ -29,7 +29,7 @@ Entoure ce que tu **as déjà fait** :
 2. As-tu déjà eu une **panne** Internet à la maison ? Qu'as-tu fait ? ______________
 3. Qu'est-ce qui te **fait peur** dans ce métier ? Qu'est-ce qui te **plaît** ? ______________
 
-<details><summary>Réponses du QCM (pour te corriger après)</summary>
+<details markdown="1"><summary>Réponses du QCM (pour te corriger après)</summary>
 
 1A · 2B · 3B · 4A · 5A · 6B · 7A · 8B · 9B · 10A
 

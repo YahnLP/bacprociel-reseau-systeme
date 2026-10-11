@@ -57,7 +57,7 @@
 
 ## 🧑‍🏫 Notes pour l'enseignant
 
-<details><summary>Points d'attention</summary>
+<details markdown="1"><summary>Points d'attention</summary>
 
 - **On n'aborde que le /24** : pas de /25, pas de calcul de sous-réseaux (Première, S06).
 - L'**activité des 8 cartes** est **essentielle** pour donner du sens : ne pas la sauter. Cartes recto/verso (0 / 1) ou 8 interrupteurs à dessiner.

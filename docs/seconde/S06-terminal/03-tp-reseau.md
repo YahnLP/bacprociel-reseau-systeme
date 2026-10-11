@@ -28,7 +28,7 @@ Dans le terminal de **PC-WIN** (Windows) puis de **PC-LINUX** (Linux), tape les 
 
 ❓ **Les deux postes ont-ils la même adresse IP ? Pourquoi serait-ce un problème ?**
 
-<details><summary>Aide</summary>
+<details markdown="1"><summary>Aide</summary>
 
 Non : **chaque machine doit avoir une adresse unique** sur le réseau, comme chaque maison a son numéro dans une rue. Deux machines avec la même adresse se « perdent » mutuellement le courrier (on le verra en S11).
 
@@ -50,7 +50,7 @@ Non : **chaque machine doit avoir une adresse unique** sur le réseau, comme cha
 
 ❓ **Que viens-tu de comprendre sur le lien entre câble et `ping` ?** ______________________
 
-<details><summary>Aide</summary>
+<details markdown="1"><summary>Aide</summary>
 
 Sans câble, la machine **ne peut plus recevoir ni répondre** : le `ping` échoue (« Délai d'attente dépassé » ou « Hôte de destination inaccessible »). **Le ping vérifie toute la chaîne** : câble, carte réseau, adresses. C'est le premier test d'un dépannage.
 

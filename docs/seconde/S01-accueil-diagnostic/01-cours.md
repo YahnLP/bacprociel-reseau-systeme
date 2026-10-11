@@ -8,7 +8,7 @@
 
 Quand tu envoies un message à un ami, **qu'est-ce qui permet qu'il arrive** ? Cite tout ce que tu penses nécessaire.
 
-<details><summary>Voir une réponse possible</summary>
+<details markdown="1"><summary>Voir une réponse possible</summary>
 
 Ton téléphone, une **antenne** ou une **borne Wi-Fi**, une **box**, des **câbles**, des **serveurs**, des **adresses**, des **règles de communication**… Tout ce que **tu ne vois pas** est installé et entretenu par des **techniciens réseau**.
 
@@ -62,7 +62,7 @@ C'est un contrat entre toi et l'établissement : **je n'installe rien sans accor
 
 **Q1.** Pourquoi doit-on débrancher le PC du secteur **et pas seulement l'éteindre** avant de l'ouvrir ?
 
-<details><summary>Réponse</summary>
+<details markdown="1"><summary>Réponse</summary>
 
 Parce qu'un PC éteint reste **alimenté en veille** (la carte mère reste sous tension). Une manipulation dedans peut **abîmer** les composants ou **blesser**.
 
@@ -70,7 +70,7 @@ Parce qu'un PC éteint reste **alimenté en veille** (la carte mère reste sous 
 
 **Q2.** Un élève marche sur de la moquette puis attrape une carte mère. Quel est le risque ?
 
-<details><summary>Réponse</summary>
+<details markdown="1"><summary>Réponse</summary>
 
 Une **décharge électrostatique** peut **détruire** un composant sans qu'on voie rien. Il fallait toucher le boîtier métallique ou porter un bracelet antistatique.
 
@@ -101,7 +101,7 @@ Un technicien **reconnaît les connecteurs** comme un mécanicien reconnaît les
 
 **Q3.** Sur un switch, un port a son voyant éteint alors qu'un PC y est « branché ». Cite deux causes possibles.
 
-<details><summary>Réponse</summary>
+<details markdown="1"><summary>Réponse</summary>
 
 Le **câble** est débranché ou **défectueux**, le PC est **éteint**, ou le port est **abîmé**. On commence toujours par vérifier **le câble et les voyants**.
 
