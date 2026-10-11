@@ -226,4 +226,16 @@ module.exports = function (TPS, env) {
     checks: dpChecks.concat([{ label: 'Le switch de remplacement est sauvegardé (startup-config)', run: c => /hostname SW1/.test(scfg(c, 'SW1')) && /switchport trunk|mode trunk/.test(scfg(c, 'SW1')) }]),
     startShould: dpChecks.map(x => x.label).concat(['Le switch de remplacement est sauvegardé (startup-config)']),
   });
+
+  /* ---------- S13 : recette du Wi-Fi du cabinet Garcia (une réserve cachée) ---------- */
+  TPS.push({
+    id: 't13-recette', start: D + 'S13-recette-client/tp/t13-recette.json', solution: K + 'T13-recette-corrige.json',
+    notes: 'Terminale S13 – Recette du Wi-Fi du cabinet Garcia : l\'installation est terminée, il reste à la recevoir avec le client. À faire : dérouler le cahier de recette, noter les écarts (réserves), proposer la correction, refaire les tests.',
+    build(sim, h) {
+      h.sim = sim; wfBuild(h); const { link } = h; link('AP-INT', 'eth0', 'SW1', 'Fa0/10'); link('AP-INV', 'eth0', 'SW1', 'Fa0/11');
+      cliRun(h.get('SW1'), WF_SW); cliRun(h.get('R1'), WF_R.replace('interface gi0/0.30\nip access-group INVITES-IN in\n', '')); wfWifi(sim, h);
+    },
+    solve(sim, h) { cliRun(dv({ sim }, 'R1'), 'enable\nconf t\ninterface gi0/0.30\nip access-group INVITES-IN in\nend\nwrite memory'); },
+    checks: wfChecks, startShould: ['Les invités ne joignent PAS le serveur interne'],
+  });
 };

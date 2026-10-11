@@ -147,6 +147,25 @@ def s12():
     f.save(out(d, "escalade.svg"))
 
 
+
+def s13():
+    d = "S13-recette-client"
+    f = Fig(1000, 470, "Une recette : trois issues possibles", "Pour chaque test, le résultat obtenu est comparé à l'attendu. Conforme : le test est validé. Écart mineur : réserve avec date de levée. Écart bloquant : la réception est refusée tant qu'il n'est pas corrigé.")
+    f.title_bar("Recette : le résultat obtenu est comparé à l'attendu")
+    f.rect(30, 70, 250, 110, IND_L, IND, 3, 12); f.text(155, 105, "Test n° 7", 18, IND, "middle", "700"); f.text(155, 135, "Attendu : « les invités ne", 13.5, INK); f.text(155, 156, "joignent pas le serveur »", 13.5, INK)
+    f.arrow(285, 125, 345, 125, MUTED, 3); f.text(315, 112, "obtenu ?", 12.5, MUTED, "middle", "700")
+    iss = [("Conforme", "obtenu = attendu", "Test validé", GRN_L, GRN, 70), ("Réserve", "écart mineur, le client peut", "utiliser l'installation", YEL_L, "#b28704", 175), ("Non conforme", "écart bloquant : on ne", "reçoit pas l'installation", RED_L, RED, 280)]
+    for t, a, b, fill, st, y in iss:
+        f.rect(360, y, 610, 95, fill, st, 3, 12)
+        f.text(385, y + 36, t, 20, st, "start", "700"); f.text(385, y + 62, a, 14, INK, "start"); f.text(385, y + 82, b, 14, INK, "start")
+    f.text(760, 110, "→ on le note, on passe au suivant", 14, INK, "middle", "700")
+    f.text(760, 215, "→ réserve écrite, avec une date de levée", 14, INK, "middle", "700")
+    f.text(760, 320, "→ correction puis nouveau test", 14, INK, "middle", "700")
+    f.rect(30, 400, 940, 50, GRY, GRY_D, 1.5, 10)
+    f.text(500, 431, "Le procès-verbal de réception liste les tests, les réserves et est signé par le client ET le prestataire.", 14, INK, "middle", "700")
+    f.save(out(d, "recette-3-issues.svg"))
+
+
 if __name__ == "__main__":
-    for w_ in (sys.argv[1:] or ["s06", "s07", "s08", "s09", "s10", "s11", "s12"]):
+    for w_ in (sys.argv[1:] or ["s06", "s07", "s08", "s09", "s10", "s11", "s12", "s13"]):
         globals()[w_](); print("OK", w_)
