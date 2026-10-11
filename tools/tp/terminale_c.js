@@ -56,4 +56,38 @@ module.exports = function (TPS, env) {
     },
     checks: wfChecks, startShould: wfChecks.map(x => x.label).filter(x => /LAP-PERS|Le personnel|serveur interne|LAP-INV reçoit/.test(x)),
   });
+
+  /* ---------- S07 : mises à jour et sauvegardes (atelier Bonnet) ---------- */
+  const SV_CFG = 'enable\nconfigure terminal\nhostname SW-ATELIER\nenable secret Pme#2027\nbanner motd #Atelier Bonnet - acces reserve#\nvlan 10\nname BUREAU\nvlan 20\nname ATELIER\nexit\ninterface range fa0/1 - 2\nswitchport mode access\nswitchport access vlan 10\nexit\ninterface range fa0/3 - 4\nswitchport mode access\nswitchport access vlan 20\nend';
+  function svBuild(h) {
+    const { dev, link, get } = h;
+    dev('sw-2960', 'SW1', 330, 180, 'Switch de l\'atelier'); dev('pc-win', 'PC-A', 80, 60, 'Bureau'); dev('pc-win', 'PC-B', 80, 300, 'Atelier');
+    link('PC-A', 'eth0', 'SW1', 'Fa0/1'); link('PC-B', 'eth0', 'SW1', 'Fa0/3');
+    hostIp(get('PC-A'), '192.168.1.11', '24'); hostIp(get('PC-B'), '192.168.1.12', '24');
+  }
+  TPS.push({
+    id: 't07-sauvegarde', start: D + 'S07-maj-sauvegardes/tp/t07-sauvegarde.json', solution: K + 'T07-sauvegarde-corrige.json',
+    notes: 'Terminale S07 – Le switch de l\'atelier Bonnet est configuré et fonctionne… mais la configuration n\'a JAMAIS été sauvegardée (running-config seulement). À faire : le constater (show startup-config), sauvegarder, vérifier.',
+    build(sim, h) { svBuild(h); cliRun(h.get('SW1'), SV_CFG); },
+    solve(sim, h) { cliRun(dv({ sim }, 'SW1'), 'enable\nPme#2027\nwrite memory'); },
+    checks: [
+      { label: 'Les postes de VLAN différents ne se joignent pas (VLAN actifs)', run: c => !c.ping('PC-A', '192.168.1.12') },
+      { label: 'La configuration est sauvegardée (hostname dans la startup-config)', run: c => /hostname SW-ATELIER/.test(scfg(c, 'SW1')) },
+      { label: 'Le mot de passe enable est dans la startup-config', run: c => /enable secret/.test(scfg(c, 'SW1')) },
+      { label: 'Les deux VLAN sont dans la startup-config', run: c => /vlan 20/i.test(scfg(c, 'SW1')) && /switchport access vlan 20/.test(scfg(c, 'SW1')) },
+    ],
+    startShould: ['La configuration est sauvegardée (hostname dans la startup-config)', 'Le mot de passe enable est dans la startup-config', 'Les deux VLAN sont dans la startup-config'],
+  });
+  TPS.push({
+    id: 't07-restauration', start: D + 'S07-maj-sauvegardes/tp/t07-restauration.json', solution: K + 'T07-restauration-corrige.json',
+    notes: 'Terminale S07 – Le switch de l\'atelier Bonnet est mort ; voici son remplaçant, VIERGE. À faire : restaurer la configuration à partir de la sauvegarde fournie dans le TP (copier-coller), vérifier, sauvegarder.',
+    build(sim, h) { svBuild(h); },
+    solve(sim, h) { cliRun(dv({ sim }, 'SW1'), SV_CFG + '\nwrite memory'); },
+    checks: [
+      { label: 'Les postes de VLAN différents ne se joignent pas (VLAN actifs)', run: c => !c.ping('PC-A', '192.168.1.12') },
+      { label: 'Le switch porte son nom SW-ATELIER', run: c => /hostname SW-ATELIER/.test(cfg(c, 'SW1')) },
+      { label: 'La configuration restaurée est sauvegardée', run: c => /hostname SW-ATELIER/.test(scfg(c, 'SW1')) && /switchport access vlan 20/.test(scfg(c, 'SW1')) },
+    ],
+    startShould: ['Les postes de VLAN différents ne se joignent pas (VLAN actifs)', 'Le switch porte son nom SW-ATELIER', 'La configuration restaurée est sauvegardée'],
+  });
 };
