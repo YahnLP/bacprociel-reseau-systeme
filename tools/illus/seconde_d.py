@@ -101,6 +101,74 @@ def s11():
     f.save(out(d, "messages-ping.svg"))
 
 
+def s12():
+    d = "S12-dhcp-box"
+    # 1. la conversation DHCP (version simplifiée)
+    f = Fig(940, 520, "La conversation DHCP", "Le PC demande une adresse, la box en propose une, le PC l'accepte, la box confirme et note le bail.")
+    f.title_bar("DHCP : la box distribue les adresses, en 4 phrases")
+    ic_pc(f, 120, 120, "Nouveau PC", "n'a pas d'adresse"); ic_box(f, 820, 120, "Box", "serveur DHCP")
+    msgs = [("1", "« Je suis nouveau, y a-t-il quelqu'un qui distribue des adresses ? »", "demande (à tout le monde)", 1, IND),
+            ("2", "« Oui, moi ! Je te propose 192.168.1.10 pour 24 h. »", "offre", -1, ORA),
+            ("3", "« Parfait, je prends 192.168.1.10. »", "acceptation", 1, IND),
+            ("4", "« C'est noté : l'adresse est à toi (+ passerelle et DNS). »", "confirmation", -1, ORA)]
+    for i, (n, t, k, dr, c) in enumerate(msgs):
+        y = 232 + i * 68
+        f.badge(60 if dr > 0 else 880, y, n, c)
+        if dr > 0: f.arrow(150, y, 770, y, c, 3)
+        else: f.arrow(770, y, 150, y, c, 3)
+        f.rect(200, y - 40, 540, 30, WHITE, c, 2, 8); f.text(470, y - 20, t, 12.5, INK, "middle", maxw=520)
+        f.text(470, y + 20, k, 12.5, c, "middle", "700")
+    f.save(out(d, "dhcp-conversation.svg"))
+
+    # 2. la passerelle
+    f = Fig(940, 400, "La passerelle par défaut", "Pour joindre une machine du même réseau, le PC l'atteint directement ; pour sortir du réseau, il envoie tout à la passerelle, la box.")
+    f.title_bar("La passerelle = la porte de sortie du réseau")
+    f.rect(30, 55, 520, 335, IND_L, IND, 3, 16, dash="8 6"); f.text(290, 85, "Mon réseau local 192.168.1.0/24", 15, IND, "middle", "700")
+    ic_pc(f, 110, 170, "PC1", "192.168.1.10"); ic_pc(f, 110, 310, "PC2", "192.168.1.11"); ic_box(f, 430, 220, "Box", "passerelle 192.168.1.1")
+    f.arrow(200, 300, 200, 190, GRN, 4); f.text(215, 250, "même réseau : direct", 13, GRN, "start", "700")
+    f.arrow(170, 175, 375, 215, ORA, 4)
+    f.text(270, 150, "autre réseau : « à la passerelle »", 13, ORA, "middle", "700")
+    ic_cloud(f, 760, 220, "Internet", "203.0.113.1, sites web…")
+    f.line(480, 220, 685, 220, LINE, 4)
+    f.callout(580, 290, 340, "Sans passerelle, un PC parle à son réseau… mais jamais à Internet.", YEL_L, YEL, 13.5)
+    f.save(out(d, "passerelle.svg"))
+
+    # 3. plage DHCP
+    f = Fig(940, 300, "Le plan d'adresses d'une box", "Dans 192.168.1.0/24 : .1 la box, .2 à .9 réservées, .10 à .100 distribuées par le DHCP, .101 à .254 pour les équipements fixes.")
+    f.title_bar("Qui a quelle adresse ? Le plan d'adressage de la box")
+    segs = [(".0", 40, 40, GRY, MUTED), (".1", 80, 40, ORA_L, ORA), (".2 – .9", 120, 90, YEL_L, "#b28704"), (".10 – .100", 210, 330, GRN_L, GRN), (".101 – .254", 540, 300, IND_L, IND), (".255", 840, 60, GRY, MUTED)]
+    for t, x, w, fi, c in segs:
+        f.rect(x, 70, w, 60, fi, c, 2.5, 4); f.text(x + w / 2, 107, t, 15 if w > 60 else 12, c, "middle", "700")
+    labs = [(60, "réseau"), (100, "box"), (165, "postes fixes\nspéciaux"), (375, "DHCP : distribuées\nautomatiquement"), (690, "serveurs, imprimantes,\nadresses fixes"), (870, "diffusion")]
+    for i, (x, t) in enumerate(labs): f.text(x, 160 + (24 if i == 1 else 0), t, 12.5, INK, "middle", "700")
+    f.callout(40, 215, 860, "Règle d'or : une adresse fixe ne doit JAMAIS être dans la plage DHCP, sinon la box peut la donner à un autre PC → doublon !", RED_L, RED, 14.5)
+    f.save(out(d, "plage-dhcp.svg"))
+
+    # 4. lire ipconfig /all
+    f = Fig(940, 440, "Lire ipconfig /all", "Chaque ligne de ipconfig /all : adresse IPv4, masque, passerelle par défaut, serveur DHCP, bail, serveur DNS.")
+    f.title_bar("Lire le résultat de « ipconfig /all »")
+    f.rect(30, 55, 520, 360, "#0b1220", "#0b1220", 1, 10)
+    lines = [("DHCP activé . . . . . . . . : Oui", YEL), ("Adresse IPv4 . . . . . . . : 192.168.1.10", GRN), ("Masque de sous-réseau . . : 255.255.255.0", IND_M),
+             ("Passerelle par défaut . . : 192.168.1.1", ORA), ("Serveur DHCP . . . . . . . : 192.168.1.1", YEL), ("Bail obtenu . . . . . . . . : 30 sept. 08:00", "#cfd8dc"),
+             ("Bail expirant . . . . . . : 1er oct. 08:00", "#cfd8dc"), ("Serveurs DNS . . . . . . . : 192.168.1.1", "#80deea")]
+    ys = []
+    for i, (t, c) in enumerate(lines):
+        y = 100 + i * 42; ys.append(y); f.mono(45, y, t, 13.5, c, "start", "700")
+    notes = ["Adresse donnée\nautomatiquement ?", "MON adresse", "où coupe le réseau", "LA PORTE DE SORTIE", "qui m'a donné l'adresse", "début du prêt", "fin du prêt (il faut renouveler)", "qui traduit les noms (S13)"]
+    for y, t in zip(ys, notes):
+        f.line(552, y - 5, 590, y - 5, LINE, 2, arrow=True); f.text(600, y, t.replace("\n", " "), 14, INK, "start", "700")
+    f.save(out(d, "lire-ipconfig.svg"))
+
+    # 5. bail
+    f = Fig(940, 220, "Le bail DHCP", "L'adresse est prêtée pour une durée limitée : le bail. Le poste la renouvelle avant la fin, sinon la box peut la reprendre.")
+    f.title_bar("Une adresse DHCP est PRÊTÉE (bail)")
+    f.line(80, 130, 860, 130, LINE, 6)
+    for x, t, c in [(80, "obtenu\n(08:00)", GRN), (470, "mi-bail :\nle PC demande\nà renouveler", IND), (860, "fin du bail\n(le lendemain)", RED)]:
+        f.circle(x, 130, 13, c, c, 2); f.text(x, 175, t, 13, INK, "middle", "700")
+    f.callout(100, 60, 740, "ipconfig /release : je rends l'adresse  -  ipconfig /renew : j'en redemande une", YEL_L, YEL, 14)
+    f.save(out(d, "bail.svg"))
+
+
 if __name__ == "__main__":
-    for w in (sys.argv[1:] or ["s11"]):
+    for w in (sys.argv[1:] or ["s11", "s12"]):
         globals()[w](); print("OK", w)

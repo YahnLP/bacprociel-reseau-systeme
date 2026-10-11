@@ -89,13 +89,6 @@ Les mots du métier, expliqués simplement.
 [Ouvrir le glossaire](ressources/glossaire.md){ .go }
 </div>
 
-<div class="card" markdown>
-### 🗓️ Plan de formation
-Le plan complet sur 3 ans (Word).
-
-[Télécharger](ressources/Plan_formation_BacPro_CIEL_E31_V5_alternance.docx){ .go }
-</div>
-
 </div>
 
 ## ⚖️ Licence

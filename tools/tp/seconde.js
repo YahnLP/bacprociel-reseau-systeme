@@ -78,6 +78,28 @@ TPS.push({
   startShould: ['PC1 joint PC2'],
 });
 
+/* ---------- S12 : DHCP, box et passerelle ---------- */
+TPS.push({
+  id: 's12-dhcp-box', start: D + 'S12-dhcp-box/tp/s12-dhcp-box.json', solution: K + 'S12-dhcp-box-corrige.json',
+  notes: 'S12 – Un petit réseau derrière une box : PC1, PC3 et PC4 en DHCP ; PC2 configuré à la main sans passerelle (il ne sort pas sur Internet).',
+  build(sim, h) {
+    const { dev, link, get } = h;
+    C.internet(sim, h, 900, 200); C.box(sim, h, 'BOX', 680, 200);
+    dev('sw-8p', 'SW1', 480, 200); link('SW1', 'port1', 'BOX', 'lan1');
+    dev('pc-win', 'PC1', 300, 70); dev('pc-win', 'PC2', 300, 200); dev('pc-linux', 'PC3', 300, 330); dev('laptop', 'PC4', 480, 360);
+    link('PC1', 'eth0', 'SW1', 'port2'); link('PC2', 'eth0', 'SW1', 'port3'); link('PC3', 'ens33', 'SW1', 'port4'); link('PC4', 'ethernet0', 'SW1', 'port5');
+    hostDhcp(get('PC1')); hostIp(get('PC2'), '192.168.1.50'); hostDhcp(get('PC3')); hostDhcp(get('PC4'));
+  },
+  solve(sim, { get }) { hostIp(get('PC2'), '192.168.1.50', '24', '192.168.1.1', '192.168.1.1'); },
+  checks: [
+    { label: 'PC1 a une adresse (DHCP de la box)', run: c => { c.wait(8000); return /^192\.168\.1\./.test(c.ipOf('PC1')); } },
+    { label: 'PC1 joint Internet (FAI)', run: c => c.ping('PC1', '203.0.113.1') },
+    { label: 'PC2 joint PC1 (même réseau)', run: c => c.ping('PC2', c.ipOf('PC1')) },
+    { label: 'PC2 joint Internet (FAI)', run: c => c.ping('PC2', '203.0.113.1') },
+  ],
+  startShould: ['PC2 joint Internet (FAI)'],
+});
+
 const want = process.argv.slice(2);
 let all = true;
 TPS.filter(t => !want.length || want.includes(t.id)).forEach(t => { all = L.run(t) && all; });
