@@ -328,8 +328,8 @@
    "powered": true,
    "cli": "!\nhostname AP1\n!\nline con 0\n logging synchronous\nline vty 0 4\n!",
    "ap": {
-    "ssid": "ARCHI-INVITES",
-    "key": "Invites#2027",
+    "ssid": "LYCEE-WIFI",
+    "key": "ciel2026",
     "security": "WPA2"
    },
    "label": "Borne Wi-Fi"
@@ -361,8 +361,8 @@
    "domain": "",
    "allowIcmpEcho": true,
    "wifi": {
-    "ssid": "ARCHI-INVITES",
-    "key": "Invites#2027"
+    "ssid": "",
+    "key": ""
    },
    "hosts": {},
    "dhcpd": {
@@ -393,13 +393,7 @@
     "trapd": false
    },
    "v6": {
-    "ifs": [
-     {
-      "name": "Wi-Fi",
-      "autoconf": true,
-      "addrs": []
-     }
-    ],
+    "ifs": [],
     "statics": []
    },
    "label": "Portable invité"

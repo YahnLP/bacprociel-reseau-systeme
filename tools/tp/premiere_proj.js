@@ -14,8 +14,11 @@ module.exports = function (TPS, env) {
     dev('printer', 'IMP', 250, 400, 'Imprimante'); dev('srv-linux', 'SRV', 560, 400, 'Serveur'); dev('sw-2960', 'SW1', 330, 220, 'Switch');
     dev('r-2911', 'R1', 560, 60, 'Routeur'); dev('ap-u6', 'AP1', 560, 250, 'Borne Wi-Fi'); dev('laptop', 'LAP-INV', 760, 250, 'Portable invité');
     ['PC-DIR', 'PC-AT1', 'PC-AT2'].forEach(n => hostDhcp(get(n)));
-    const a = get('AP1'); a.ssid = 'ARCHI-INVITES'; a.key = 'Invites#2027'; a.security = 'WPA2';
-    const l = get('LAP-INV'); l.wifi = { ssid: 'ARCHI-INVITES', key: 'Invites#2027' }; hostDhcp(l); hostIpWifi(l); L.NS.wifiRefresh(h.sim || {});
+    const l = get('LAP-INV'); hostDhcp(l); hostIpWifi(l);
+  }
+  function wifi(sim, h) {
+    const a = h.get('AP1'); a.ssid = 'ARCHI-INVITES'; a.key = 'Invites#2027'; a.security = 'WPA2';
+    const l = h.get('LAP-INV'); l.wifi = { ssid: 'ARCHI-INVITES', key: 'Invites#2027' }; hostDhcp(l); hostIpWifi(l); L.NS.wifiRefresh(sim);
   }
   function solve(sim, h, f) {
     f = f || {};
@@ -34,8 +37,8 @@ module.exports = function (TPS, env) {
     d.addPool({ name: 'INVITES', net: ip4('192.168.50.64'), mask: m26, router: ip4('192.168.50.65'), dns: [ip4('192.168.50.34')], domain: 'archiplus.local', lease: 3600, start: ip4('192.168.50.70'), end: ip4('192.168.50.120') });
     d.enabled = true;
     s.dnsd.records = [{ name: 'intranet.archiplus.local', type: 'A', data: '192.168.50.34' }, { name: 'imprimante.archiplus.local', type: 'A', data: '192.168.50.35' }]; s.dnsd.start();
-    s.httpd.pages = s.httpd.pages || {};
     s.httpd.start();
+    wifi(sim, h);
   }
   const sh = (c, n, cmd) => shell(c.sim, swn(c, n), cmd);
   const checks = [
@@ -64,7 +67,7 @@ module.exports = function (TPS, env) {
     notes: 'Première S18 – Le projet ArchiPlus est installé mais 3 pannes ont été glissées : un port du switch dans le mauvais VLAN, le relais DHCP manquant côté Direction, une règle DNS oubliée dans l\'ACL des invités.',
     build(sim, h) { h.sim = sim; build(h); solve(sim, h, PANNE); },
     solve(sim, h) {
-      cliRun(h.get('SW1'), 'enable\nconf t\ninterface fa0/10\nswitchport access vlan 20\nend\nwrite memory');
+      cliRun(h.get('SW1'), 'enable\nArchi#2027\nconf t\ninterface fa0/10\nswitchport access vlan 20\nend\nwrite memory');
       cliRun(h.get('R1'), 'enable\nconf t\ninterface gi0/0\nip helper-address 192.168.50.34\nexit\nip access-list extended INVITES-IN\n25 permit udp 192.168.50.64 0.0.0.63 host 192.168.50.34 eq 53\nend\nwrite memory');
       sim.runFor(3000); ['PC-DIR', 'PC-AT2'].forEach(n => L.shell(sim, h.get(n), 'ipconfig /renew'));
     },

@@ -25,12 +25,12 @@
 | **S12** | 8 février 2027 | Serveur web et partage de fichiers | 🟡 Semi-guidé | [📘 Ouvrir](S12-web-partage/README.md) |
 | **S13** | 15 février 2027 | Cuivre certifié, fibre optique et sécurité | 🟡 Semi-guidé | [📘 Ouvrir](S13-cuivre-fibre-securite/README.md) |
 | **S14** | 15 mars 2027 | Sécurité de base d'un réseau | 🟡 Semi-guidé | [📘 Ouvrir](S14-securite-base/README.md) |
-| **S15** | 5 avril 2027 | Révision, remédiation et lancement du projet | 🟡 Semi-guidé | 🚧 en préparation |
-| **S16** | 3 mai 2027 | PROJET A2 (1/3) : étude et préparation | 🟡 Semi-guidé | 🚧 en préparation |
-| **S17** | 10 mai 2027 | PROJET A2 (2/3) : réalisation et configuration | 🟡 Semi-guidé | 🚧 en préparation |
-| **S18** | 31 mai 2027 | PROJET A2 (3/3) : recette et dossier | 🟡 Semi-guidé | 🚧 en préparation |
-| **S19** | 14 juin 2027 | Soutenance A2 | 🟡 Semi-guidé | 🚧 en préparation |
-| **S20** | 21 juin 2027 | Bilan A2 et préparation de la PFMP | 🟡 Semi-guidé | 🚧 en préparation |
+| **S15** | 5 avril 2027 | Révision, remédiation et lancement du projet | 🟡 Semi-guidé | [📘 Ouvrir](S15-revision-lancement/README.md) |
+| **S16** | 3 mai 2027 | PROJET A2 (1/3) : étude et préparation | 🟡 Semi-guidé | [📘 Ouvrir](S16-projet-1-etude/README.md) |
+| **S17** | 10 mai 2027 | PROJET A2 (2/3) : réalisation et configuration | 🟡 Semi-guidé | [📘 Ouvrir](S17-projet-2-realisation/README.md) |
+| **S18** | 31 mai 2027 | PROJET A2 (3/3) : recette et dossier | 🟡 Semi-guidé | [📘 Ouvrir](S18-projet-3-recette/README.md) |
+| **S19** | 14 juin 2027 | Soutenance A2 | 🟡 Semi-guidé | [📘 Ouvrir](S19-soutenance/README.md) |
+| **S20** | 21 juin 2027 | Bilan A2 et préparation de la PFMP | 🟡 Semi-guidé | [📘 Ouvrir](S20-bilan/README.md) |
 
 ## 🧭 Autonomie : comment lire les pastilles
 
