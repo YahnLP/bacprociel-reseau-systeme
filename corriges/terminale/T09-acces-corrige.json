@@ -1,0 +1,498 @@
+{
+ "app": "simulateur-reseau",
+ "v": 1,
+ "opts": {
+  "strictCables": false,
+  "stpFast": true
+ },
+ "devices": [
+  {
+   "id": "D1",
+   "type": "router",
+   "model": "inet",
+   "name": "FAI",
+   "x": 900,
+   "y": 200,
+   "powered": true,
+   "cli": "!\nhostname FAI\n!\nip dhcp pool WANPUB\n network 203.0.113.0 255.255.255.248\n default-router 203.0.113.1\n dns-server 198.51.100.53\n!\ninterface GigabitEthernet0/0\n ip address 203.0.113.1 255.255.255.248\n!\ninterface GigabitEthernet0/1\n ip address 198.51.100.1 255.255.255.0\n!\ninterface GigabitEthernet0/2\n ip address 203.0.113.2 255.255.255.248\n!\ninterface GigabitEthernet0/3\n no ip address\n shutdown\n!\ninterface GigabitEthernet0/4\n no ip address\n shutdown\n!\ninterface GigabitEthernet0/5\n no ip address\n shutdown\n!\nline con 0\n logging synchronous\nline vty 0 4\n!",
+   "label": "Internet (FAI)"
+  },
+  {
+   "id": "D2",
+   "type": "switch",
+   "model": "sw-8p",
+   "name": "SW-FAI",
+   "x": 1080,
+   "y": 200,
+   "powered": true,
+   "cli": "!\nhostname SW-FAI\n!\nline con 0\n logging synchronous\nline vty 0 4\n!",
+   "label": ""
+  },
+  {
+   "id": "D3",
+   "type": "server",
+   "model": "srv-linux",
+   "name": "DNS-FAI",
+   "x": 1240,
+   "y": 110,
+   "powered": true,
+   "ifaces": [
+    {
+     "name": "ens33",
+     "ip": "198.51.100.53",
+     "mask": "255.255.255.0",
+     "dhcp": false
+    }
+   ],
+   "gw": "198.51.100.1",
+   "dns": [],
+   "domain": "",
+   "allowIcmpEcho": true,
+   "wifi": {
+    "ssid": "",
+    "key": ""
+   },
+   "hosts": {},
+   "dhcpd": {
+    "enabled": false,
+    "excluded": [],
+    "pools": []
+   },
+   "dnsd": {
+    "enabled": true,
+    "records": [
+     {
+      "name": "www.exemple.fr",
+      "type": "A",
+      "data": "198.51.100.80"
+     }
+    ],
+    "forwarders": []
+   },
+   "httpd": {
+    "enabled": false,
+    "https": false,
+    "pages": {
+     "/": {
+      "type": "text/html; charset=utf-8",
+      "body": "<html><head><title>DNS-FAI</title></head><body><h1>Bienvenue sur DNS-FAI</h1><p>Serveur web du simulateur.</p></body></html>"
+     }
+    }
+   },
+   "mgmt": {
+    "comms": [],
+    "location": "",
+    "contact": "",
+    "syslogd": false,
+    "trapd": false
+   },
+   "v6": {
+    "ifs": [
+     {
+      "name": "ens33",
+      "autoconf": true,
+      "addrs": []
+     }
+    ],
+    "statics": []
+   },
+   "label": "DNS public"
+  },
+  {
+   "id": "D4",
+   "type": "server",
+   "model": "srv-linux",
+   "name": "WWW",
+   "x": 1240,
+   "y": 300,
+   "powered": true,
+   "ifaces": [
+    {
+     "name": "ens33",
+     "ip": "198.51.100.80",
+     "mask": "255.255.255.0",
+     "dhcp": false
+    }
+   ],
+   "gw": "198.51.100.1",
+   "dns": [],
+   "domain": "",
+   "allowIcmpEcho": true,
+   "wifi": {
+    "ssid": "",
+    "key": ""
+   },
+   "hosts": {},
+   "dhcpd": {
+    "enabled": false,
+    "excluded": [],
+    "pools": []
+   },
+   "dnsd": {
+    "enabled": false,
+    "records": [],
+    "forwarders": []
+   },
+   "httpd": {
+    "enabled": true,
+    "https": false,
+    "pages": {
+     "/": {
+      "type": "text/html; charset=utf-8",
+      "body": "<html><head><title>exemple.fr</title></head><body><h1>Bienvenue sur exemple.fr</h1><p>Si tu lis cette page, ton réseau fonctionne.</p></body></html>",
+      "_custom": true
+     }
+    }
+   },
+   "mgmt": {
+    "comms": [],
+    "location": "",
+    "contact": "",
+    "syslogd": false,
+    "trapd": false
+   },
+   "v6": {
+    "ifs": [
+     {
+      "name": "ens33",
+      "autoconf": true,
+      "addrs": []
+     }
+    ],
+    "statics": []
+   },
+   "label": "www.exemple.fr"
+  },
+  {
+   "id": "D5",
+   "type": "pc",
+   "model": "pc-win",
+   "name": "DISTANT",
+   "x": 1100,
+   "y": 380,
+   "powered": true,
+   "ifaces": [
+    {
+     "name": "Ethernet0",
+     "ip": "198.51.100.100",
+     "mask": "255.255.255.0",
+     "dhcp": false
+    }
+   ],
+   "gw": "198.51.100.1",
+   "dns": [],
+   "domain": "",
+   "allowIcmpEcho": true,
+   "wifi": {
+    "ssid": "",
+    "key": ""
+   },
+   "hosts": {},
+   "dhcpd": {
+    "enabled": false,
+    "excluded": [],
+    "pools": []
+   },
+   "dnsd": {
+    "enabled": false,
+    "records": [],
+    "forwarders": []
+   },
+   "httpd": {
+    "enabled": false,
+    "https": false,
+    "pages": {
+     "/": {
+      "type": "text/html; charset=utf-8",
+      "body": "<html><head><title>DISTANT</title></head><body><h1>Bienvenue sur DISTANT</h1><p>Serveur web du simulateur.</p></body></html>"
+     }
+    }
+   },
+   "mgmt": {
+    "comms": [],
+    "location": "",
+    "contact": "",
+    "syslogd": false,
+    "trapd": false
+   },
+   "v6": {
+    "ifs": [
+     {
+      "name": "Ethernet0",
+      "autoconf": true,
+      "addrs": []
+     }
+    ],
+    "statics": []
+   },
+   "label": "Technicien à distance"
+  },
+  {
+   "id": "D6",
+   "type": "switch",
+   "model": "sw-8p",
+   "name": "SW-FAI2",
+   "x": 1100,
+   "y": 300,
+   "powered": true,
+   "cli": "!\nhostname SW-FAI2\n!\nline con 0\n logging synchronous\nline vty 0 4\n!",
+   "label": ""
+  },
+  {
+   "id": "D7",
+   "type": "router",
+   "model": "r-2911",
+   "name": "R1",
+   "x": 600,
+   "y": 200,
+   "powered": true,
+   "cli": "!\nhostname R1\n!\nip domain-name garage.local\nusername tech privilege 15 secret Tech#2027\ninterface GigabitEthernet0/0\n ip address 203.0.113.3 255.255.255.248\n ip nat outside\n!\ninterface GigabitEthernet0/1\n ip address 192.168.1.1 255.255.255.0\n ip nat inside\n!\ninterface GigabitEthernet0/2\n no ip address\n shutdown\n!\nip route 0.0.0.0 0.0.0.0 203.0.113.2\n!\nip nat inside source list 1 interface GigabitEthernet0/0 overload\nip nat inside source static tcp 192.168.1.10 80 203.0.113.3 8080\n!\naccess-list 1 permit 192.168.1.0 0.0.0.255\n!\nline con 0\n logging synchronous\nline vty 0 4\n password Telnet123\n login\n login local\n transport input ssh\n!",
+   "startup": "!\nhostname R1\n!\nip domain-name garage.local\nusername tech privilege 15 secret Tech#2027\ninterface GigabitEthernet0/0\n ip address 203.0.113.3 255.255.255.248\n ip nat outside\n!\ninterface GigabitEthernet0/1\n ip address 192.168.1.1 255.255.255.0\n ip nat inside\n!\ninterface GigabitEthernet0/2\n no ip address\n shutdown\n!\nip route 0.0.0.0 0.0.0.0 203.0.113.2\n!\nip nat inside source list 1 interface GigabitEthernet0/0 overload\nip nat inside source static tcp 192.168.1.10 80 203.0.113.3 8080\n!\naccess-list 1 permit 192.168.1.0 0.0.0.255\n!\nline con 0\n logging synchronous\nline vty 0 4\n password Telnet123\n login\n login local\n transport input ssh\n!",
+   "label": "Routeur de l'entreprise"
+  },
+  {
+   "id": "D8",
+   "type": "switch",
+   "model": "sw-2960",
+   "name": "SW1",
+   "x": 400,
+   "y": 200,
+   "powered": true,
+   "cli": "!\nhostname SW1\n!\nspanning-tree mode pvst\nline con 0\n logging synchronous\nline vty 0 4\n!",
+   "label": ""
+  },
+  {
+   "id": "D9",
+   "type": "pc",
+   "model": "pc-win",
+   "name": "PC-ADM",
+   "x": 150,
+   "y": 100,
+   "powered": true,
+   "ifaces": [
+    {
+     "name": "Ethernet0",
+     "ip": "192.168.1.50",
+     "mask": "255.255.255.0",
+     "dhcp": false
+    }
+   ],
+   "gw": "192.168.1.1",
+   "dns": [
+    "198.51.100.53"
+   ],
+   "domain": "",
+   "allowIcmpEcho": true,
+   "wifi": {
+    "ssid": "",
+    "key": ""
+   },
+   "hosts": {},
+   "dhcpd": {
+    "enabled": false,
+    "excluded": [],
+    "pools": []
+   },
+   "dnsd": {
+    "enabled": false,
+    "records": [],
+    "forwarders": []
+   },
+   "httpd": {
+    "enabled": false,
+    "https": false,
+    "pages": {
+     "/": {
+      "type": "text/html; charset=utf-8",
+      "body": "<html><head><title>PC-ADM</title></head><body><h1>Bienvenue sur PC-ADM</h1><p>Serveur web du simulateur.</p></body></html>"
+     }
+    }
+   },
+   "mgmt": {
+    "comms": [],
+    "location": "",
+    "contact": "",
+    "syslogd": false,
+    "trapd": false
+   },
+   "v6": {
+    "ifs": [
+     {
+      "name": "Ethernet0",
+      "autoconf": true,
+      "addrs": []
+     }
+    ],
+    "statics": []
+   },
+   "label": "Poste admin"
+  },
+  {
+   "id": "D10",
+   "type": "server",
+   "model": "srv-linux",
+   "name": "SRV",
+   "x": 150,
+   "y": 300,
+   "powered": true,
+   "ifaces": [
+    {
+     "name": "ens33",
+     "ip": "192.168.1.10",
+     "mask": "255.255.255.0",
+     "dhcp": false
+    }
+   ],
+   "gw": "192.168.1.1",
+   "dns": [],
+   "domain": "",
+   "allowIcmpEcho": true,
+   "wifi": {
+    "ssid": "",
+    "key": ""
+   },
+   "hosts": {},
+   "dhcpd": {
+    "enabled": false,
+    "excluded": [],
+    "pools": []
+   },
+   "dnsd": {
+    "enabled": false,
+    "records": [],
+    "forwarders": []
+   },
+   "httpd": {
+    "enabled": true,
+    "https": false,
+    "pages": {
+     "/": {
+      "type": "text/html; charset=utf-8",
+      "body": "<html><body><h1>Intranet du garage Dupuy</h1></body></html>",
+      "_custom": true
+     }
+    }
+   },
+   "mgmt": {
+    "comms": [],
+    "location": "",
+    "contact": "",
+    "syslogd": false,
+    "trapd": false
+   },
+   "v6": {
+    "ifs": [
+     {
+      "name": "ens33",
+      "autoconf": true,
+      "addrs": []
+     }
+    ],
+    "statics": []
+   },
+   "label": "Serveur web interne"
+  }
+ ],
+ "links": [
+  {
+   "a": [
+    "D1",
+    "GigabitEthernet0/1"
+   ],
+   "b": [
+    "D2",
+    "Port1"
+   ],
+   "type": "straight"
+  },
+  {
+   "a": [
+    "D3",
+    "ens33"
+   ],
+   "b": [
+    "D2",
+    "Port2"
+   ],
+   "type": "straight"
+  },
+  {
+   "a": [
+    "D4",
+    "ens33"
+   ],
+   "b": [
+    "D2",
+    "Port3"
+   ],
+   "type": "straight"
+  },
+  {
+   "a": [
+    "D7",
+    "GigabitEthernet0/0"
+   ],
+   "b": [
+    "D1",
+    "GigabitEthernet0/2"
+   ],
+   "type": "cross"
+  },
+  {
+   "a": [
+    "D7",
+    "GigabitEthernet0/1"
+   ],
+   "b": [
+    "D8",
+    "FastEthernet0/24"
+   ],
+   "type": "straight"
+  },
+  {
+   "a": [
+    "D9",
+    "Ethernet0"
+   ],
+   "b": [
+    "D8",
+    "FastEthernet0/1"
+   ],
+   "type": "straight"
+  },
+  {
+   "a": [
+    "D10",
+    "ens33"
+   ],
+   "b": [
+    "D8",
+    "FastEthernet0/2"
+   ],
+   "type": "straight"
+  },
+  {
+   "a": [
+    "D6",
+    "Port1"
+   ],
+   "b": [
+    "D2",
+    "Port4"
+   ],
+   "type": "cross"
+  },
+  {
+   "a": [
+    "D5",
+    "Ethernet0"
+   ],
+   "b": [
+    "D6",
+    "Port2"
+   ],
+   "type": "straight"
+  }
+ ],
+ "notes": "CORRIGÉ – Terminale S09 – Garage Dupuy : le routeur est en place (accès Internet par NAT) mais l'administration se fait en telnet (sans chiffrement) et le serveur web interne n'est pas joignable de l'extérieur. À faire : passer en SSH, désactiver telnet, publier le site par une redirection de port 8080 → 80, tester depuis « Technicien à distance »."
+}

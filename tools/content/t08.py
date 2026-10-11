@@ -42,7 +42,7 @@ S = dict(
  ],
  retenir=["**6 étapes :** où, adresse, VLAN, brancher, tester, documenter.", "**Adresse fixe hors plage DHCP.**", "**Objets connectés → VLAN dédié, mot de passe changé.**", "**PoE** : un câble pour réseau + courant ; vérifier le **budget en watts**.", "**La documentation est la dernière étape** : intégration non documentée = intégration non terminée."],
  tp_titre="Cabinet Lemoine : intégrer imprimante et NAS", tp_format="binôme", tp_temps="3 h 30",
- mission="Le **cabinet d'architectes Lemoine** reçoit une **imprimante réseau** et un **NAS**. Tu les intègrent dans un **VLAN dédié**, avec des **adresses réservées**, tu **testes**, puis tu rédiges la **fiche d'intégration** d'une caméra IP et d'une carte ESP32.",
+ mission="Le **cabinet d'architectes Lemoine** reçoit une **imprimante réseau** et un **NAS**. Tu les intègres dans un **VLAN dédié**, avec des **adresses réservées**, tu **testes**, puis tu rédiges la **fiche d'intégration** d'une caméra IP et d'une carte ESP32.",
  memo_titre="Intégrer un équipement",
  tp="""**Binôme :** ____________ / ____________
 

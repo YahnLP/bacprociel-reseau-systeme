@@ -118,4 +118,36 @@ module.exports = function (TPS, env) {
     notes: 'Terminale S08 – Cabinet Lemoine : deux postes, une imprimante réseau et un NAS posés sur le plan, aucun câble, switch cœur (niveau 3) vierge. À faire : câbler, créer le VLAN OBJETS (40), adresser l\'imprimante et le NAS en statique hors plage DHCP, tester, documenter.',
     build(sim, h) { inBuild(h); }, solve: inSolve, checks: inChecks, startShould: inChecks.map(x => x.label),
   });
+
+  /* ---------- S09 : accès à distance sécurisé (garage Dupuy) ---------- */
+  function adBuild(h) {
+    const { dev, link, get } = h;
+    C.internet(h.sim, h, 900, 200);
+    dev('pc-win', 'DISTANT', 1100, 380, 'Technicien à distance'); dev('sw-8p', 'SW-FAI2', 1100, 300); 
+    dev('r-2911', 'R1', 600, 200, 'Routeur de l\'entreprise'); dev('sw-2960', 'SW1', 400, 200); dev('pc-win', 'PC-ADM', 150, 100, 'Poste admin'); dev('srv-linux', 'SRV', 150, 300, 'Serveur web interne');
+    link('R1', 'gi0/0', 'FAI', 'gi0/2'); link('R1', 'gi0/1', 'SW1', 'Fa0/24'); link('PC-ADM', 'eth0', 'SW1', 'Fa0/1'); link('SRV', 'ens33', 'SW1', 'Fa0/2');
+    link('SW-FAI2', 'port1', 'SW-FAI', 'port4'); link('DISTANT', 'eth0', 'SW-FAI2', 'port2');
+    hostIp(get('PC-ADM'), '192.168.1.50', '24', '192.168.1.1', '198.51.100.53'); hostIp(get('SRV'), '192.168.1.10', '24', '192.168.1.1');
+    hostIp(get('DISTANT'), '198.51.100.100', '24', '198.51.100.1');
+    get('SRV').httpd.pages['/'] = { type: 'text/html; charset=utf-8', body: '<html><body><h1>Intranet du garage Dupuy</h1></body></html>', _custom: true }; get('SRV').httpd.start();
+    cliRun(get('FAI'), 'enable\nconf t\ninterface gi0/2\nip address 203.0.113.2 255.255.255.248\nno shutdown\nend');
+  }
+  const AD_R_BASE = 'enable\nconfigure terminal\nhostname R1\ninterface gi0/0\nip address 203.0.113.3 255.255.255.248\nip nat outside\nno shutdown\nexit\ninterface gi0/1\nip address 192.168.1.1 255.255.255.0\nip nat inside\nno shutdown\nexit\nip route 0.0.0.0 0.0.0.0 203.0.113.2\naccess-list 1 permit 192.168.1.0 0.0.0.255\nip nat inside source list 1 interface gi0/0 overload\n';
+  const AD_R_SSH = 'ip domain-name garage.local\nusername tech privilege 15 secret Tech#2027\ncrypto key generate rsa modulus 1024\nip ssh version 2\nline vty 0 4\ntransport input ssh\nlogin local\nexit\n';
+  const AD_R_FWD = 'ip nat inside source static tcp 192.168.1.10 80 203.0.113.3 8080\n';
+  TPS.push({
+    id: 't09-acces', start: D + 'S09-acces-distance/tp/t09-acces.json', solution: K + 'T09-acces-corrige.json',
+    notes: 'Terminale S09 – Garage Dupuy : le routeur est en place (accès Internet par NAT) mais l\'administration se fait en telnet (sans chiffrement) et le serveur web interne n\'est pas joignable de l\'extérieur. À faire : passer en SSH, désactiver telnet, publier le site par une redirection de port 8080 → 80, tester depuis « Technicien à distance ».',
+    build(sim, h) { h.sim = sim; adBuild(h); cliRun(h.get('R1'), AD_R_BASE + 'line vty 0 4\npassword Telnet123\nlogin\nend\nwrite memory'); },
+    solve(sim, h) { cliRun(dv({ sim }, 'R1'), 'enable\nconfigure terminal\n' + AD_R_SSH + AD_R_FWD + 'end\nwrite memory'); },
+    checks: [
+      { label: 'Le réseau interne accède à Internet (NAT)', run: c => { c.wait(8000); const r = c.http('PC-ADM', 'http://www.exemple.fr'); return !!r && r.status === 200; } },
+      { label: 'Le routeur n\'accepte que SSH (transport input ssh)', run: c => /transport input ssh/.test(cfg(c, 'R1')) },
+      { label: 'Un compte nominatif existe sur le routeur (username tech)', run: c => /username tech/.test(cfg(c, 'R1')) },
+      { label: 'Le technicien à distance ouvre le site interne par le port 8080', run: c => { const r = c.http('DISTANT', 'http://203.0.113.3:8080'); return !!r && r.status === 200; } },
+      { label: 'Le technicien à distance n\'atteint PAS le serveur par le port 80', run: c => { const r = c.http('DISTANT', 'http://203.0.113.3'); return !r || r.status !== 200; } },
+      { label: 'Configuration sauvegardée', run: c => /transport input ssh/.test(scfg(c, 'R1')) },
+    ],
+    startShould: ['Le routeur n\'accepte que SSH (transport input ssh)', 'Un compte nominatif existe sur le routeur (username tech)', 'Le technicien à distance ouvre le site interne par le port 8080', 'Configuration sauvegardée'],
+  });
 };

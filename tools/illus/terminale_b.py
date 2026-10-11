@@ -64,6 +64,30 @@ def s08():
     f.save(out(d, "vlan-objets.svg"))
 
 
+
+def s09():
+    d = "S09-acces-distance"
+    f = Fig(1000, 470, "Trois façons d'entrer dans un réseau à distance", "Le SSH chiffre l'administration ; la redirection de port expose un service sur Internet ; le VPN crée un tunnel chiffré vers le réseau interne.")
+    f.title_bar("Trois façons d'accéder à distance, trois niveaux de risque")
+    cols = [("SSH", "Je me connecte à UN équipement", "(administration)", "Chiffré. Compte nominatif.", "Telnet = en clair : à bannir.", TEAL_L, TEAL),
+            ("Redirection de port", "J'expose UN service sur Internet", "(ex. site web port 8080)", "Visible de tout le monde.", "Chaque port ouvert = un risque.", ORA_L, ORA),
+            ("VPN", "J'entre DANS le réseau interne", "(tunnel chiffré)", "Comme si j'étais au bureau.", "Le plus sûr pour la télémaintenance.", IND_L, IND)]
+    for i, (t, a, b, c, dd, fill, st) in enumerate(cols):
+        x = 30 + i * 322
+        f.rect(x, 75, 300, 280, fill, st, 3, 14)
+        f.text(x + 150, 112, t, 21, st, "middle", "700")
+        f.text(x + 150, 160, a, 14.5, INK, "middle", "700"); f.text(x + 150, 183, b, 13.5, MUTED)
+        f.rect(x + 20, 205, 260, 3, st, st, 0, 1)
+        f.text(x + 150, 240, c, 14, INK); f.text(x + 150, 272, dd, 14, INK, "middle", "700")
+        f.text(x + 150, 325, "Niveau de sécurité", 12.5, MUTED)
+        for k in range(3):
+            f.rect(x + 90 + k * 40, 335, 34, 10, st if k <= (1 if i != 1 else 0) + (1 if i == 2 else 0) else GRY, st if k <= (1 if i != 1 else 0) + (1 if i == 2 else 0) else GRY_D, 1, 3)
+    f.rect(30, 385, 940, 62, YEL_L, YEL, 2, 10)
+    f.text(500, 410, "Règle de télémaintenance : un compte par technicien, une autorisation écrite du client,", 14.5, INK)
+    f.text(500, 434, "un accès limité dans le temps et une trace dans le journal.", 14.5, INK)
+    f.save(out(d, "acces-distance.svg"))
+
+
 if __name__ == "__main__":
-    for w_ in (sys.argv[1:] or ["s06", "s07", "s08"]):
+    for w_ in (sys.argv[1:] or ["s06", "s07", "s08", "s09"]):
         globals()[w_](); print("OK", w_)
