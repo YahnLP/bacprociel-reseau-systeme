@@ -175,4 +175,44 @@ module.exports = function (TPS, env) {
     ],
     startShould: ['SUP interroge le switch en SNMP (snmpget sysName)', 'SUP lit l\'emplacement du switch (snmpget sysLocation)', 'Le switch envoie ses journaux vers SUP (logging host)', 'Les alertes (traps SNMP) sont envoyées vers SUP', 'Configuration sauvegardée'],
   });
+
+  /* ---------- S11 : dépanner (1) – PME Delmas, trois ateliers de pannes ---------- */
+  function dpBuild(h, f) {
+    f = f || {};
+    const { dev, link, get } = h;
+    dev('sw-2960', 'SW1', 330, 180, 'Switch'); dev('r-2911', 'R1', 330, 20, 'Routeur'); dev('pc-win', 'PC-CPT', 80, 60, 'Bureau'); dev('pc-win', 'PC-COM', 80, 300, 'Atelier'); dev('srv-linux', 'SRV', 600, 180, 'Serveur intranet');
+    link('PC-CPT', 'eth0', 'SW1', 'Fa0/1'); link('SRV', 'ens33', 'SW1', 'Fa0/2'); link('PC-COM', 'eth0', 'SW1', 'Fa0/3'); link('R1', 'gi0/0', 'SW1', 'Fa0/24');
+    hostDhcp(get('PC-CPT'));
+    hostIp(get('PC-COM'), '192.168.20.11', '24', f.gw || '192.168.20.1', '192.168.30.10'); hostIp(get('SRV'), '192.168.30.10', '24', '192.168.30.1', '192.168.30.10');
+    const s = get('SRV'); s.dnsd.records = [{ name: 'intranet.delmas.local', type: 'A', data: f.dnsIp || '192.168.30.10' }]; s.dnsd.start();
+    s.httpd.pages['/'] = { type: 'text/html; charset=utf-8', body: '<html><body><h1>Intranet Delmas</h1></body></html>', _custom: true }; s.httpd.start();
+    cliRun(get('SW1'), 'enable\nconfigure terminal\nhostname SW1\nvlan 10\nname BUREAU\nvlan 20\nname ATELIER\nvlan 30\nname SERVEURS\nexit\ninterface fa0/1\nswitchport mode access\nswitchport access vlan ' + (f.vlanCpt || 10) + '\nexit\ninterface fa0/2\nswitchport mode access\nswitchport access vlan 30\nexit\ninterface fa0/3\nswitchport mode access\nswitchport access vlan 20\n' + (f.shutCom ? 'shutdown\n' : '') + 'exit\ninterface fa0/24\nswitchport mode trunk\nend\nwrite memory');
+    cliRun(get('R1'), 'enable\nconfigure terminal\nhostname R1\ninterface gi0/0\nno shutdown\nexit\ninterface gi0/0.10\nencapsulation dot1Q 10\nip address 192.168.10.1 255.255.255.0\nexit\ninterface gi0/0.20\nencapsulation dot1Q 20\nip address 192.168.20.1 255.255.255.0\n' + (f.shutSub ? 'shutdown\n' : '') + 'exit\ninterface gi0/0.30\nencapsulation dot1Q 30\nip address 192.168.30.1 255.255.255.0\nexit\nip dhcp excluded-address 192.168.10.1 192.168.10.49\nip dhcp pool BUREAU\nnetwork 192.168.10.0 255.255.255.0\ndefault-router 192.168.10.1\n' + (f.noDns ? '' : 'dns-server 192.168.30.10\n') + 'exit\nend\nwrite memory');
+  }
+  const dpChecks = [
+    { label: 'PC-CPT obtient une adresse du réseau Bureau (192.168.10.x)', run: c => { c.wait(10000); return /^192\.168\.10\.\d+$/.test(c.ipOf('PC-CPT')); } },
+    { label: 'PC-CPT ouvre http://intranet.delmas.local', run: c => { const r = c.http('PC-CPT', 'http://intranet.delmas.local'); return !!r && r.status === 200; } },
+    { label: 'PC-COM ouvre http://intranet.delmas.local', run: c => { const r = c.http('PC-COM', 'http://intranet.delmas.local'); return !!r && r.status === 200; } },
+    { label: 'PC-COM joint le serveur (192.168.30.10)', run: c => c.ping('PC-COM', '192.168.30.10') },
+  ];
+  const dpFix = {
+    a: 'enable\nconf t\ninterface fa0/3\nno shutdown\nend\nwrite memory',
+    b: 'enable\nconf t\ninterface fa0/1\nswitchport access vlan 10\nend\nwrite memory',
+    c: 'enable\nconf t\ninterface gi0/0.20\nno shutdown\nexit\nip dhcp pool BUREAU\ndns-server 192.168.30.10\nend\nwrite memory',
+  };
+  [['a', 'Atelier A : le poste de l\'atelier n\'a plus rien (port coupé et mauvaise passerelle)', { shutCom: 1, gw: '192.168.20.254' }, 'PC-COM : passerelle erronée (192.168.20.254) et port Fa0/3 désactivé.'],
+   ['b', 'Atelier B : le poste du bureau n\'a plus d\'adresse et le nom intranet ne marche pas', { vlanCpt: 30, dnsIp: '192.168.30.11' }, 'PC-CPT : port Fa0/1 dans le VLAN 30 (au lieu de 10) ; DNS : la fiche intranet pointe vers 192.168.30.11.'],
+   ['c', 'Atelier C : l\'atelier ne joint plus le serveur et le bureau n\'ouvre l\'intranet que par adresse', { shutSub: 1, noDns: 1 }, 'R1 : sous-interface gi0/0.20 arrêtée ; pool DHCP BUREAU sans dns-server.']].forEach(([k, titre, f, cause]) => {
+    TPS.push({
+      id: 't11-' + k, start: D + 'S11-depanner-1/tp/t11-panne-' + k + '.json', solution: K + 'T11-panne-' + k + '-corrige.json',
+      notes: 'Terminale S11 – PME Delmas, ' + titre + '. Causes (réservé à l\'enseignant) : ' + cause,
+      build(sim, h) { h.sim = sim; dpBuild(h, f); },
+      solve(sim, h) {
+        if (k === 'a') { cliRun(dv({ sim }, 'SW1'), dpFix.a); h.get('PC-COM').setGateway('192.168.20.1'); }
+        if (k === 'b') { cliRun(dv({ sim }, 'SW1'), dpFix.b); const s = h.get('SRV'); s.dnsd.records = [{ name: 'intranet.delmas.local', type: 'A', data: '192.168.30.10' }]; const p = h.get('PC-CPT'); p.applyIp(p.ifaceList()[0].name, { dhcp: true }); }
+        if (k === 'c') { cliRun(dv({ sim }, 'R1'), dpFix.c); const p = h.get('PC-CPT'); p.applyIp(p.ifaceList()[0].name, { dhcp: true }); }
+      },
+      checks: dpChecks, startShould: k === 'a' ? [dpChecks[2].label, dpChecks[3].label] : k === 'b' ? [dpChecks[0].label, dpChecks[1].label, dpChecks[2].label] : [dpChecks[1].label, dpChecks[2].label, dpChecks[3].label],
+    });
+  });
 };

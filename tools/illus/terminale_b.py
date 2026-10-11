@@ -105,6 +105,27 @@ def s10():
     f.save(out(d, "cycle-incident.svg"))
 
 
+
+def s11():
+    d = "S11-depanner-1"
+    f = Fig(1000, 480, "L'échelle des tests : du poste vers le serveur", "Six tests dans l'ordre : sa propre carte, son adresse, la passerelle, une adresse au-delà du routeur, le serveur, puis le nom. Le premier test qui échoue désigne la zone en cause.")
+    f.title_bar("L'échelle des tests : on monte marche par marche")
+    steps = [("1", "Mon câble / ma carte", "voyant, ipconfig : lien actif ?", "câble, port, carte"),
+             ("2", "Mon adresse", "ipconfig : 169.254 ? bon réseau ?", "DHCP, VLAN, IP fixe"),
+             ("3", "Ma passerelle", "ping de la passerelle", "VLAN, masque, passerelle"),
+             ("4", "Un autre réseau", "ping d'une adresse derrière le routeur", "routage, sous-interface"),
+             ("5", "Le serveur (adresse)", "ping + page par adresse IP", "ACL, serveur"),
+             ("6", "Le serveur (nom)", "page par son nom", "DNS")]
+    for i, (n, t, a, z) in enumerate(steps):
+        y = 70 + i * 66
+        x = 40 + i * 30
+        f.rect(x, y, 560, 56, [TEAL_L, TEAL_L, IND_L, IND_L, ORA_L, ORA_L][i], [TEAL, TEAL, IND, IND, ORA, ORA][i], 2.5, 10)
+        f.badge(x + 26, y + 28, n, [TEAL, TEAL, IND, IND, ORA, ORA][i], 14)
+        f.text(x + 52, y + 24, t, 15.5, INK, "start", "700"); f.text(x + 52, y + 44, a, 12.5, MUTED, "start")
+        f.text(x + 575, y + 33, "si KO : " + z, 13.5, RED, "start", "700")
+    f.save(out(d, "echelle-tests.svg"))
+
+
 if __name__ == "__main__":
-    for w_ in (sys.argv[1:] or ["s06", "s07", "s08", "s09", "s10"]):
+    for w_ in (sys.argv[1:] or ["s06", "s07", "s08", "s09", "s10", "s11"]):
         globals()[w_](); print("OK", w_)
