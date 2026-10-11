@@ -3,7 +3,7 @@
 # Réseaux et systèmes
 
 **Bac Pro CIEL – module E31 (U31)**
-Mise en œuvre de réseaux informatiques – MFR de Pontonx
+Mise en œuvre de réseaux informatiques – Yahn LE PRETTRE, Enseignant à la MFR de Pontonx
 
 On n'apprend pas un réseau en le regardant : **on le câble, on le configure, on le casse, on le répare.**
 

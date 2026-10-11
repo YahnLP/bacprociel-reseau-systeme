@@ -101,3 +101,5 @@
   border-radius: 50%; color: #fff; font-weight: 800; background: linear-gradient(135deg, var(--c1), var(--c2)); }
 
 @media print { .md-typeset details > * { display: block !important; } .md-header, .md-tabs { background: none; } }
+
+.md-header__button.md-logo img,.md-header__button.md-logo svg{height:1.6rem;width:1.6rem}
