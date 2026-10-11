@@ -186,6 +186,60 @@ const PANNES = [
   });
 });
 
+
+/* ---------- S16–S17 : projet A1, l'atelier de 4 postes ---------- */
+function atelier(h) {
+  const { dev } = h;
+  C.internet(null, h, 900, 200); C.box(null, h, 'BOX', 680, 200);
+  dev('sw-8p', 'SW1', 480, 200, 'Switch de l\'atelier');
+  dev('pc-win', 'PC1', 260, 40, 'Poste 1'); dev('pc-win', 'PC2', 260, 140, 'Poste 2'); dev('pc-win', 'PC3', 260, 260, 'Poste 3'); dev('pc-win', 'PC4', 260, 360, 'Poste 4');
+  dev('printer', 'IMP1', 480, 380, 'Imprimante'); dev('ap-u6', 'AP1', 680, 380, 'Borne Wi-Fi'); dev('laptop', 'LAP-INV', 680, 500, 'Portable invité');
+}
+function atelierCables(h) {
+  const { link } = h;
+  link('SW1', 'port1', 'BOX', 'lan1');
+  ['PC1', 'PC2', 'PC3', 'PC4'].forEach((n, k) => link(n, 'eth0', 'SW1', 'port' + (2 + k)));
+  link('IMP1', 'lan', 'SW1', 'port6'); link('AP1', 'eth0', 'BOX', 'lan2');
+}
+function atelierConfig(sim, h, ipImp) {
+  const { get } = h;
+  ['PC1', 'PC2', 'PC3', 'PC4'].forEach(n => hostDhcp(get(n)));
+  hostIp(get('IMP1'), ipImp, '24', '192.168.1.1');
+  const a = get('AP1'); a.ssid = 'ATELIER-INVITES'; a.key = 'Invites#2027'; a.security = 'WPA2';
+  const l = get('LAP-INV'); l.wifi = { ssid: 'ATELIER-INVITES', key: 'Invites#2027' }; hostDhcp(l); hostIpWifi(l); L.NS.wifiRefresh(sim);
+}
+const A1_CHECKS = [
+  { label: 'Les 4 postes ont une adresse 192.168.1.x (DHCP)', run: c => { c.wait(8000); return ['PC1', 'PC2', 'PC3', 'PC4'].every(n => /^192\.168\.1\./.test(c.ipOf(n))); } },
+  { label: 'L\'imprimante est en 192.168.1.150 (hors plage DHCP)', run: c => c.ipOf('IMP1') === '192.168.1.150' },
+  { label: 'PC1 joint l\'imprimante', run: c => c.ping('PC1', '192.168.1.150') },
+  { label: 'PC4 joint l\'imprimante', run: c => c.ping('PC4', '192.168.1.150') },
+  { label: 'PC3 ouvre www.exemple.fr', run: c => { const r = c.http('PC3', 'http://www.exemple.fr'); return !!r && r.status === 200; } },
+  { label: 'Le portable invité obtient une adresse en Wi-Fi', run: c => /^192\.168\.1\./.test(c.ipOf('LAP-INV')) },
+  { label: 'Le portable invité ouvre www.exemple.fr', run: c => { const r = c.http('LAP-INV', 'http://www.exemple.fr'); return !!r && r.status === 200; } },
+];
+TPS.push({
+  id: 's16-atelier', start: D + 'S16-projet-a1-1/tp/projet-a1-depart.json', solution: K + 'S16-projet-a1-corrige.json',
+  notes: 'Projet A1 – L\'atelier : box, switch, 4 postes, imprimante, borne Wi-Fi invité. Équipements placés mais non câblés ni configurés : à câbler, adresser, tester.',
+  build(sim, h) { atelier(h); },
+  solve(sim, h) { atelierCables(h); atelierConfig(sim, h, '192.168.1.150'); },
+  checks: A1_CHECKS, startShould: A1_CHECKS.map(c => c.label),
+});
+
+
+TPS.push({
+  id: 's17-panne-imprimante', start: D + 'S17-projet-a1-2/tp/projet-a1-panne-imprimante.json', solution: K + 'S17-panne-imprimante-corrige.json',
+  notes: 'Projet A1, jalon de recette – panne introduite : l\'imprimante a une adresse fixe dans un autre réseau (192.168.10.150).',
+  build(sim, h) { atelier(h); atelierCables(h); atelierConfig(sim, h, '192.168.10.150'); },
+  solve(sim, h) { hostIp(h.get('IMP1'), '192.168.1.150', '24', '192.168.1.1'); },
+  checks: A1_CHECKS, startShould: ['L\'imprimante est en 192.168.1.150 (hors plage DHCP)', 'PC1 joint l\'imprimante', 'PC4 joint l\'imprimante'],
+});
+TPS.push({
+  id: 's17-panne-poste', start: D + 'S17-projet-a1-2/tp/projet-a1-panne-poste.json', solution: K + 'S17-panne-poste-corrige.json',
+  notes: 'Projet A1, jalon de recette – panne introduite : le poste 4 n\'est pas relié au switch.',
+  build(sim, h) { atelier(h); const { link } = h; link('SW1', 'port1', 'BOX', 'lan1'); ['PC1', 'PC2', 'PC3'].forEach((n, k) => link(n, 'eth0', 'SW1', 'port' + (2 + k))); link('IMP1', 'lan', 'SW1', 'port6'); link('AP1', 'eth0', 'BOX', 'lan2'); atelierConfig(sim, h, '192.168.1.150'); },
+  solve(sim, h) { h.link('PC4', 'eth0', 'SW1', 'port5'); },
+  checks: A1_CHECKS, startShould: ['Les 4 postes ont une adresse 192.168.1.x (DHCP)', 'PC4 joint l\'imprimante'],
+});
 const want = process.argv.slice(2);
 let all = true;
 TPS.filter(t => !want.length || want.includes(t.id)).forEach(t => { all = L.run(t) && all; });

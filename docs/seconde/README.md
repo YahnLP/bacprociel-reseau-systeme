@@ -26,9 +26,9 @@
 | **S13** | 29 mars 2027 | DNS et accès à Internet | 🟡 Semi-guidé | [📘 Ouvrir](S13-dns-internet/README.md) |
 | **S14** | 26 avril 2027 | Wi-Fi : installer, sécuriser, bons réflexes | 🟡 Semi-guidé | [📘 Ouvrir](S14-wifi/README.md) |
 | **S15** | 3 mai 2027 | Dépanner : méthode de niveau 1 + remédiation | 🟡 Semi-guidé | [📘 Ouvrir](S15-depannage-n1/README.md) |
-| **S16** | 17 mai 2027 | PROJET A1 (1/2) : le réseau d'une petite entreprise | 🟡 Semi-guidé | 🚧 en préparation |
-| **S17** | 31 mai 2027 | PROJET A1 (2/2) : tests et dossier | 🟡 Semi-guidé | 🚧 en préparation |
-| **S18** | 21 juin 2027 | Soutenance et bilan A1 | 🟡 Semi-guidé | 🚧 en préparation |
+| **S16** | 17 mai 2027 | PROJET A1 (1/2) : le réseau d'une petite entreprise | 🟡 Semi-guidé | [📘 Ouvrir](S16-projet-a1-1/README.md) |
+| **S17** | 31 mai 2027 | PROJET A1 (2/2) : tests et dossier | 🟡 Semi-guidé | [📘 Ouvrir](S17-projet-a1-2/README.md) |
+| **S18** | 21 juin 2027 | Soutenance et bilan A1 | 🟡 Semi-guidé | [📘 Ouvrir](S18-soutenance-bilan/README.md) |
 
 ## 🧭 Autonomie : comment lire les pastilles
 
