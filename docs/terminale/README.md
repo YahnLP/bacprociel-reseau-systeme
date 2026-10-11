@@ -16,7 +16,7 @@
 | **S03** | 21 septembre 2026 | Préparer un chantier en sécurité | 🟡 Semi-guidé | [📘 Ouvrir](S03-preparer-chantier/README.md) |
 | **S04** | 5 octobre 2026 | Installer et mesurer : cuivre et fibre | 🔴 Autonome | [📘 Ouvrir](S04-installer-mesurer/README.md) |
 | **S05** | 19 octobre 2026 | Routage entre VLAN et réseau d'une PME | 🟡 Semi-guidé | [📘 Ouvrir](S05-inter-vlan/README.md) |
-| **S06** | 16 novembre 2026 | Wi-Fi d'entreprise | 🟡 Semi-guidé | 🚧 en préparation |
+| **S06** | 16 novembre 2026 | Wi-Fi d'entreprise | 🟡 Semi-guidé | [📘 Ouvrir](S06-wifi-entreprise/README.md) |
 | **S07** | 30 novembre 2026 | Mises à jour et sauvegardes | 🔴 Autonome | 🚧 en préparation |
 | **S08** | 4 janvier 2027 | Intégrer de nouveaux équipements | 🔴 Autonome | 🚧 en préparation |
 | **S09** | 18 janvier 2027 | Accès à distance sécurisé | 🔴 Autonome | 🚧 en préparation |

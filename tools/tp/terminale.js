@@ -56,6 +56,7 @@ TPS.push({
 });
 
 require('./terminale_b')(TPS, { L, D, K, hostIp, hostDhcp, hostIpWifi, cliRun, shell, IP, ip4, m24, dv, ios, cfg, scfg, PW, C });
+require('./terminale_c')(TPS, { L, D, K, hostIp, hostDhcp, hostIpWifi, cliRun, shell, IP, ip4, m24, dv, ios, cfg, scfg, PW, C });
 const want = process.argv.slice(2);
 let all = true;
 TPS.filter(t => !want.length || want.includes(t.id)).forEach(t => { all = L.run(t) && all; });

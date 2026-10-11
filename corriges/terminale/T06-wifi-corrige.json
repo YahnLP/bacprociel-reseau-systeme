@@ -1,0 +1,392 @@
+{
+ "app": "simulateur-reseau",
+ "v": 1,
+ "opts": {
+  "strictCables": false,
+  "stpFast": true
+ },
+ "devices": [
+  {
+   "id": "D1",
+   "type": "switch",
+   "model": "sw-2960",
+   "name": "SW1",
+   "x": 330,
+   "y": 200,
+   "powered": true,
+   "cli": "!\nhostname SW1\n!\nspanning-tree mode pvst\nvlan 10\n name GESTION\n!\nvlan 20\n name WIFI-PERSONNEL\n!\nvlan 30\n name WIFI-INVITES\n!\ninterface FastEthernet0/1\n switchport access vlan 10\n switchport mode access\n!\ninterface FastEthernet0/2\n switchport access vlan 10\n switchport mode access\n!\ninterface FastEthernet0/10\n switchport access vlan 20\n switchport mode access\n!\ninterface FastEthernet0/11\n switchport access vlan 30\n switchport mode access\n!\ninterface FastEthernet0/24\n switchport mode trunk\n!\nline con 0\n logging synchronous\nline vty 0 4\n!",
+   "startup": "!\nhostname SW1\n!\nspanning-tree mode pvst\nvlan 10\n name GESTION\n!\nvlan 20\n name WIFI-PERSONNEL\n!\nvlan 30\n name WIFI-INVITES\n!\ninterface FastEthernet0/1\n switchport access vlan 10\n switchport mode access\n!\ninterface FastEthernet0/2\n switchport access vlan 10\n switchport mode access\n!\ninterface FastEthernet0/10\n switchport access vlan 20\n switchport mode access\n!\ninterface FastEthernet0/11\n switchport access vlan 30\n switchport mode access\n!\ninterface FastEthernet0/24\n switchport mode trunk\n!\nline con 0\n logging synchronous\nline vty 0 4\n!",
+   "label": "Switch"
+  },
+  {
+   "id": "D2",
+   "type": "router",
+   "model": "r-2911",
+   "name": "R1",
+   "x": 330,
+   "y": 40,
+   "powered": true,
+   "cli": "!\nhostname R1\n!\nip dhcp excluded-address 192.168.20.1 192.168.20.9\nip dhcp excluded-address 192.168.30.1 192.168.30.9\nip dhcp pool PERSONNEL\n network 192.168.20.0 255.255.255.0\n default-router 192.168.20.1\n!\nip dhcp pool INVITES\n network 192.168.30.0 255.255.255.0\n default-router 192.168.30.1\n!\ninterface GigabitEthernet0/0\n no ip address\n!\ninterface GigabitEthernet0/1\n no ip address\n shutdown\n!\ninterface GigabitEthernet0/2\n no ip address\n shutdown\n!\ninterface GigabitEthernet0/0.10\n encapsulation dot1Q 10\n ip address 192.168.10.1 255.255.255.0\n!\ninterface GigabitEthernet0/0.20\n encapsulation dot1Q 20\n ip address 192.168.20.1 255.255.255.0\n!\ninterface GigabitEthernet0/0.30\n encapsulation dot1Q 30\n ip address 192.168.30.1 255.255.255.0\n ip access-group INVITES-IN in\n!\nip access-list extended INVITES-IN\n deny ip 192.168.30.0 0.0.0.255 192.168.10.0 0.0.0.255\n deny ip 192.168.30.0 0.0.0.255 192.168.20.0 0.0.0.255\n permit ip any any\n!\nline con 0\n logging synchronous\nline vty 0 4\n!",
+   "startup": "!\nhostname R1\n!\nip dhcp excluded-address 192.168.20.1 192.168.20.9\nip dhcp excluded-address 192.168.30.1 192.168.30.9\nip dhcp pool PERSONNEL\n network 192.168.20.0 255.255.255.0\n default-router 192.168.20.1\n!\nip dhcp pool INVITES\n network 192.168.30.0 255.255.255.0\n default-router 192.168.30.1\n!\ninterface GigabitEthernet0/0\n no ip address\n!\ninterface GigabitEthernet0/1\n no ip address\n shutdown\n!\ninterface GigabitEthernet0/2\n no ip address\n shutdown\n!\ninterface GigabitEthernet0/0.10\n encapsulation dot1Q 10\n ip address 192.168.10.1 255.255.255.0\n!\ninterface GigabitEthernet0/0.20\n encapsulation dot1Q 20\n ip address 192.168.20.1 255.255.255.0\n!\ninterface GigabitEthernet0/0.30\n encapsulation dot1Q 30\n ip address 192.168.30.1 255.255.255.0\n ip access-group INVITES-IN in\n!\nip access-list extended INVITES-IN\n deny ip 192.168.30.0 0.0.0.255 192.168.10.0 0.0.0.255\n deny ip 192.168.30.0 0.0.0.255 192.168.20.0 0.0.0.255\n permit ip any any\n!\nline con 0\n logging synchronous\nline vty 0 4\n!",
+   "label": "Routeur"
+  },
+  {
+   "id": "D3",
+   "type": "pc",
+   "model": "pc-win",
+   "name": "PC-GES",
+   "x": 80,
+   "y": 200,
+   "powered": true,
+   "ifaces": [
+    {
+     "name": "Ethernet0",
+     "ip": "192.168.10.11",
+     "mask": "255.255.255.0",
+     "dhcp": false
+    }
+   ],
+   "gw": "192.168.10.1",
+   "dns": [],
+   "domain": "",
+   "allowIcmpEcho": true,
+   "wifi": {
+    "ssid": "",
+    "key": ""
+   },
+   "hosts": {},
+   "dhcpd": {
+    "enabled": false,
+    "excluded": [],
+    "pools": []
+   },
+   "dnsd": {
+    "enabled": false,
+    "records": [],
+    "forwarders": []
+   },
+   "httpd": {
+    "enabled": false,
+    "https": false,
+    "pages": {
+     "/": {
+      "type": "text/html; charset=utf-8",
+      "body": "<html><head><title>PC-GES</title></head><body><h1>Bienvenue sur PC-GES</h1><p>Serveur web du simulateur.</p></body></html>"
+     }
+    }
+   },
+   "mgmt": {
+    "comms": [],
+    "location": "",
+    "contact": "",
+    "syslogd": false,
+    "trapd": false
+   },
+   "v6": {
+    "ifs": [
+     {
+      "name": "Ethernet0",
+      "autoconf": true,
+      "addrs": []
+     }
+    ],
+    "statics": []
+   },
+   "label": "Poste gestion"
+  },
+  {
+   "id": "D4",
+   "type": "server",
+   "model": "srv-linux",
+   "name": "SRV",
+   "x": 80,
+   "y": 340,
+   "powered": true,
+   "ifaces": [
+    {
+     "name": "ens33",
+     "ip": "192.168.10.10",
+     "mask": "255.255.255.0",
+     "dhcp": false
+    }
+   ],
+   "gw": "192.168.10.1",
+   "dns": [],
+   "domain": "",
+   "allowIcmpEcho": true,
+   "wifi": {
+    "ssid": "",
+    "key": ""
+   },
+   "hosts": {},
+   "dhcpd": {
+    "enabled": false,
+    "excluded": [],
+    "pools": []
+   },
+   "dnsd": {
+    "enabled": false,
+    "records": [],
+    "forwarders": []
+   },
+   "httpd": {
+    "enabled": false,
+    "https": false,
+    "pages": {
+     "/": {
+      "type": "text/html; charset=utf-8",
+      "body": "<html><head><title>SRV</title></head><body><h1>Bienvenue sur SRV</h1><p>Serveur web du simulateur.</p></body></html>"
+     }
+    }
+   },
+   "mgmt": {
+    "comms": [],
+    "location": "",
+    "contact": "",
+    "syslogd": false,
+    "trapd": false
+   },
+   "v6": {
+    "ifs": [
+     {
+      "name": "ens33",
+      "autoconf": true,
+      "addrs": []
+     }
+    ],
+    "statics": []
+   },
+   "label": "Serveur interne"
+  },
+  {
+   "id": "D5",
+   "type": "ap",
+   "model": "ap-u6",
+   "name": "AP-INT",
+   "x": 600,
+   "y": 120,
+   "powered": true,
+   "cli": "!\nhostname AP-INT\n!\nline con 0\n logging synchronous\nline vty 0 4\n!",
+   "ap": {
+    "ssid": "GARCIA-PERSONNEL",
+    "key": "Perso#Garcia27",
+    "security": "WPA2"
+   },
+   "label": "Borne personnel"
+  },
+  {
+   "id": "D6",
+   "type": "ap",
+   "model": "ap-u6",
+   "name": "AP-INV",
+   "x": 600,
+   "y": 300,
+   "powered": true,
+   "cli": "!\nhostname AP-INV\n!\nline con 0\n logging synchronous\nline vty 0 4\n!",
+   "ap": {
+    "ssid": "GARCIA-INVITES",
+    "key": "Invites2027",
+    "security": "WPA2"
+   },
+   "label": "Borne invités"
+  },
+  {
+   "id": "D7",
+   "type": "pc",
+   "model": "laptop",
+   "name": "LAP-PERS",
+   "x": 820,
+   "y": 120,
+   "powered": true,
+   "ifaces": [
+    {
+     "name": "Ethernet0",
+     "ip": "",
+     "mask": "",
+     "dhcp": true
+    },
+    {
+     "name": "Wi-Fi",
+     "ip": "",
+     "mask": "",
+     "dhcp": true
+    }
+   ],
+   "gw": "",
+   "dns": [],
+   "domain": "",
+   "allowIcmpEcho": true,
+   "wifi": {
+    "ssid": "GARCIA-PERSONNEL",
+    "key": "Perso#Garcia27"
+   },
+   "hosts": {},
+   "dhcpd": {
+    "enabled": false,
+    "excluded": [],
+    "pools": []
+   },
+   "dnsd": {
+    "enabled": false,
+    "records": [],
+    "forwarders": []
+   },
+   "httpd": {
+    "enabled": false,
+    "https": false,
+    "pages": {
+     "/": {
+      "type": "text/html; charset=utf-8",
+      "body": "<html><head><title>LAP-PERS</title></head><body><h1>Bienvenue sur LAP-PERS</h1><p>Serveur web du simulateur.</p></body></html>"
+     }
+    }
+   },
+   "mgmt": {
+    "comms": [],
+    "location": "",
+    "contact": "",
+    "syslogd": false,
+    "trapd": false
+   },
+   "v6": {
+    "ifs": [
+     {
+      "name": "Wi-Fi",
+      "autoconf": true,
+      "addrs": []
+     }
+    ],
+    "statics": []
+   },
+   "label": "Portable du personnel"
+  },
+  {
+   "id": "D8",
+   "type": "pc",
+   "model": "laptop",
+   "name": "LAP-INV",
+   "x": 820,
+   "y": 300,
+   "powered": true,
+   "ifaces": [
+    {
+     "name": "Ethernet0",
+     "ip": "",
+     "mask": "",
+     "dhcp": true
+    },
+    {
+     "name": "Wi-Fi",
+     "ip": "",
+     "mask": "",
+     "dhcp": true
+    }
+   ],
+   "gw": "",
+   "dns": [],
+   "domain": "",
+   "allowIcmpEcho": true,
+   "wifi": {
+    "ssid": "GARCIA-INVITES",
+    "key": "Invites2027"
+   },
+   "hosts": {},
+   "dhcpd": {
+    "enabled": false,
+    "excluded": [],
+    "pools": []
+   },
+   "dnsd": {
+    "enabled": false,
+    "records": [],
+    "forwarders": []
+   },
+   "httpd": {
+    "enabled": false,
+    "https": false,
+    "pages": {
+     "/": {
+      "type": "text/html; charset=utf-8",
+      "body": "<html><head><title>LAP-INV</title></head><body><h1>Bienvenue sur LAP-INV</h1><p>Serveur web du simulateur.</p></body></html>"
+     }
+    }
+   },
+   "mgmt": {
+    "comms": [],
+    "location": "",
+    "contact": "",
+    "syslogd": false,
+    "trapd": false
+   },
+   "v6": {
+    "ifs": [
+     {
+      "name": "Wi-Fi",
+      "autoconf": true,
+      "addrs": []
+     }
+    ],
+    "statics": []
+   },
+   "label": "Portable invité"
+  }
+ ],
+ "links": [
+  {
+   "a": [
+    "D3",
+    "Ethernet0"
+   ],
+   "b": [
+    "D1",
+    "FastEthernet0/1"
+   ],
+   "type": "straight"
+  },
+  {
+   "a": [
+    "D4",
+    "ens33"
+   ],
+   "b": [
+    "D1",
+    "FastEthernet0/2"
+   ],
+   "type": "straight"
+  },
+  {
+   "a": [
+    "D2",
+    "GigabitEthernet0/0"
+   ],
+   "b": [
+    "D1",
+    "FastEthernet0/24"
+   ],
+   "type": "straight"
+  },
+  {
+   "a": [
+    "D5",
+    "Eth0"
+   ],
+   "b": [
+    "D1",
+    "FastEthernet0/10"
+   ],
+   "type": "cross"
+  },
+  {
+   "a": [
+    "D6",
+    "Eth0"
+   ],
+   "b": [
+    "D1",
+    "FastEthernet0/11"
+   ],
+   "type": "cross"
+  }
+ ],
+ "notes": "CORRIGÉ – Terminale S06 – Cabinet Garcia : deux bornes (une par SSID, donc une par VLAN). Matériel posé, bornes non branchées, switch et routeur vierges. À faire : câbler les bornes, VLAN 10/20/30, sous-interfaces, DHCP par VLAN, ACL invités, SSID et clés."
+}
