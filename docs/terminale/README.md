@@ -20,7 +20,7 @@
 | **S07** | 30 novembre 2026 | Mises à jour et sauvegardes | 🔴 Autonome | [📘 Ouvrir](S07-maj-sauvegardes/README.md) |
 | **S08** | 4 janvier 2027 | Intégrer de nouveaux équipements | 🔴 Autonome | [📘 Ouvrir](S08-integrer-equipements/README.md) |
 | **S09** | 18 janvier 2027 | Accès à distance sécurisé | 🔴 Autonome | [📘 Ouvrir](S09-acces-distance/README.md) |
-| **S10** | 1er février 2027 | Superviser et tracer les incidents | 🔴 Autonome | 🚧 en préparation |
+| **S10** | 1er février 2027 | Superviser et tracer les incidents | 🔴 Autonome | [📘 Ouvrir](S10-supervision-tickets/README.md) |
 | **S11** | 15 février 2027 | Dépanner (1) : raisonner | 🔴 Autonome | 🚧 en préparation |
 | **S12** | 15 mars 2027 | Dépanner (2) : réparer et rendre compte | 🔴 Autonome | 🚧 en préparation |
 | **S13** | 29 mars 2027 | Recette et accompagnement du client | 🔴 Autonome | 🚧 en préparation |

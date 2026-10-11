@@ -88,6 +88,23 @@ def s09():
     f.save(out(d, "acces-distance.svg"))
 
 
+
+def s10():
+    d = "S10-supervision-tickets"
+    f = Fig(1000, 440, "De l'alerte à la clôture du ticket", "Un équipement tombe en panne, l'outil de supervision détecte et alerte, un ticket est ouvert, le technicien diagnostique, répare et clôture en notant la cause et l'action.")
+    f.title_bar("Du capteur au ticket : le cycle d'un incident")
+    et = [("1", "Détecter", "Le switch ne répond", "plus (SNMP / ping)", TEAL_L, TEAL), ("2", "Alerter", "L'outil prévient :", "e-mail, tableau de bord", IND_L, IND),
+          ("3", "Ouvrir", "un ticket :", "symptôme, heure, lieu", YEL_L, "#b28704"), ("4", "Diagnostiquer", "hypothèses, tests,", "cause trouvée", ORA_L, ORA),
+          ("5", "Réparer", "action menée,", "retour à la normale", RED_L, RED), ("6", "Clôturer", "ticket complété,", "client prévenu", GRN_L, GRN)]
+    for i, (n, t, a, b, fill, st) in enumerate(et):
+        x = 25 + (i % 3) * 320; y = 75 + (i // 3) * 165
+        f.rect(x, y, 300, 140, fill, st, 3, 14); f.badge(x + 34, y + 36, n, st, 16)
+        f.text(x + 170, y + 42, t, 20, INK, "middle", "700"); f.text(x + 150, y + 85, a, 14.5, INK); f.text(x + 150, y + 108, b, 14.5, INK)
+    f.rect(25, 400, 950, 30, GRY, GRY_D, 1.5, 8)
+    f.text(500, 421, "Un ticket bien rempli = symptôme + cause + action : c'est la mémoire de l'entreprise.", 14, INK, "middle", "700")
+    f.save(out(d, "cycle-incident.svg"))
+
+
 if __name__ == "__main__":
-    for w_ in (sys.argv[1:] or ["s06", "s07", "s08", "s09"]):
+    for w_ in (sys.argv[1:] or ["s06", "s07", "s08", "s09", "s10"]):
         globals()[w_](); print("OK", w_)

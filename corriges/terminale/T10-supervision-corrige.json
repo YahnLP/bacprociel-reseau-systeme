@@ -1,0 +1,250 @@
+{
+ "app": "simulateur-reseau",
+ "v": 1,
+ "opts": {
+  "strictCables": false,
+  "stpFast": true
+ },
+ "devices": [
+  {
+   "id": "D1",
+   "type": "switch",
+   "model": "sw-2960",
+   "name": "SW-IMPRIMERIE",
+   "x": 330,
+   "y": 180,
+   "powered": true,
+   "cli": "!\nhostname SW-IMPRIMERIE\n!\nspanning-tree mode pvst\ninterface Vlan1\n ip address 192.168.1.2 255.255.255.0\n!\nservice sequence-numbers\nlogging host 192.168.1.5\nsnmp-server location Atelier - baie 1\nsnmp-server contact support@laporte-imprimerie.fr\nsnmp-server community supervision RO\nsnmp-server enable traps\nsnmp-server host 192.168.1.5 traps version 2c supervision\n!\nline con 0\n logging synchronous\nline vty 0 4\n!",
+   "startup": "!\nhostname SW-IMPRIMERIE\n!\nspanning-tree mode pvst\ninterface Vlan1\n ip address 192.168.1.2 255.255.255.0\n!\nservice sequence-numbers\nlogging host 192.168.1.5\nsnmp-server location Atelier - baie 1\nsnmp-server contact support@laporte-imprimerie.fr\nsnmp-server community supervision RO\nsnmp-server enable traps\nsnmp-server host 192.168.1.5 traps version 2c supervision\n!\nline con 0\n logging synchronous\nline vty 0 4\n!",
+   "label": "Switch"
+  },
+  {
+   "id": "D2",
+   "type": "server",
+   "model": "srv-linux",
+   "name": "SUP",
+   "x": 80,
+   "y": 60,
+   "powered": true,
+   "ifaces": [
+    {
+     "name": "ens33",
+     "ip": "192.168.1.5",
+     "mask": "255.255.255.0",
+     "dhcp": false
+    }
+   ],
+   "gw": "192.168.1.1",
+   "dns": [],
+   "domain": "",
+   "allowIcmpEcho": true,
+   "wifi": {
+    "ssid": "",
+    "key": ""
+   },
+   "hosts": {},
+   "dhcpd": {
+    "enabled": false,
+    "excluded": [],
+    "pools": []
+   },
+   "dnsd": {
+    "enabled": false,
+    "records": [],
+    "forwarders": []
+   },
+   "httpd": {
+    "enabled": false,
+    "https": false,
+    "pages": {
+     "/": {
+      "type": "text/html; charset=utf-8",
+      "body": "<html><head><title>SUP</title></head><body><h1>Bienvenue sur SUP</h1><p>Serveur web du simulateur.</p></body></html>"
+     }
+    }
+   },
+   "mgmt": {
+    "comms": [],
+    "location": "",
+    "contact": "",
+    "syslogd": false,
+    "trapd": false
+   },
+   "v6": {
+    "ifs": [
+     {
+      "name": "ens33",
+      "autoconf": true,
+      "addrs": []
+     }
+    ],
+    "statics": []
+   },
+   "label": "Poste de supervision"
+  },
+  {
+   "id": "D3",
+   "type": "pc",
+   "model": "pc-win",
+   "name": "PC-1",
+   "x": 80,
+   "y": 300,
+   "powered": true,
+   "ifaces": [
+    {
+     "name": "Ethernet0",
+     "ip": "192.168.1.50",
+     "mask": "255.255.255.0",
+     "dhcp": false
+    }
+   ],
+   "gw": "192.168.1.1",
+   "dns": [],
+   "domain": "",
+   "allowIcmpEcho": true,
+   "wifi": {
+    "ssid": "",
+    "key": ""
+   },
+   "hosts": {},
+   "dhcpd": {
+    "enabled": false,
+    "excluded": [],
+    "pools": []
+   },
+   "dnsd": {
+    "enabled": false,
+    "records": [],
+    "forwarders": []
+   },
+   "httpd": {
+    "enabled": false,
+    "https": false,
+    "pages": {
+     "/": {
+      "type": "text/html; charset=utf-8",
+      "body": "<html><head><title>PC-1</title></head><body><h1>Bienvenue sur PC-1</h1><p>Serveur web du simulateur.</p></body></html>"
+     }
+    }
+   },
+   "mgmt": {
+    "comms": [],
+    "location": "",
+    "contact": "",
+    "syslogd": false,
+    "trapd": false
+   },
+   "v6": {
+    "ifs": [
+     {
+      "name": "Ethernet0",
+      "autoconf": true,
+      "addrs": []
+     }
+    ],
+    "statics": []
+   },
+   "label": "Poste"
+  },
+  {
+   "id": "D4",
+   "type": "peripheral",
+   "model": "printer",
+   "name": "IMP",
+   "x": 600,
+   "y": 300,
+   "powered": true,
+   "ifaces": [
+    {
+     "name": "LAN",
+     "ip": "192.168.1.20",
+     "mask": "255.255.255.0",
+     "dhcp": false
+    }
+   ],
+   "gw": "192.168.1.1",
+   "dns": [],
+   "domain": "",
+   "allowIcmpEcho": true,
+   "wifi": {
+    "ssid": "",
+    "key": ""
+   },
+   "hosts": {},
+   "dhcpd": {
+    "enabled": false,
+    "excluded": [],
+    "pools": []
+   },
+   "dnsd": {
+    "enabled": false,
+    "records": [],
+    "forwarders": []
+   },
+   "httpd": {
+    "enabled": false,
+    "https": false,
+    "pages": {
+     "/": {
+      "type": "text/html; charset=utf-8",
+      "body": "<html><head><title>IMP</title></head><body><h1>Bienvenue sur IMP</h1><p>Serveur web du simulateur.</p></body></html>"
+     }
+    }
+   },
+   "mgmt": {
+    "comms": [],
+    "location": "",
+    "contact": "",
+    "syslogd": false,
+    "trapd": false
+   },
+   "v6": {
+    "ifs": [
+     {
+      "name": "LAN",
+      "autoconf": true,
+      "addrs": []
+     }
+    ],
+    "statics": []
+   },
+   "label": "Imprimante"
+  }
+ ],
+ "links": [
+  {
+   "a": [
+    "D2",
+    "ens33"
+   ],
+   "b": [
+    "D1",
+    "FastEthernet0/1"
+   ],
+   "type": "straight"
+  },
+  {
+   "a": [
+    "D3",
+    "Ethernet0"
+   ],
+   "b": [
+    "D1",
+    "FastEthernet0/2"
+   ],
+   "type": "straight"
+  },
+  {
+   "a": [
+    "D4",
+    "LAN"
+   ],
+   "b": [
+    "D1",
+    "FastEthernet0/3"
+   ],
+   "type": "straight"
+  }
+ ],
+ "notes": "CORRIGÉ – Terminale S10 – Imprimerie Laporte : switch administrable (192.168.1.2) et poste de supervision SUP (192.168.1.5). À faire : activer SNMP (communauté de lecture), envoyer les journaux vers SUP, interroger le switch depuis SUP (snmpget/snmpwalk), observer une alerte quand un câble est débranché, sauvegarder."
+}

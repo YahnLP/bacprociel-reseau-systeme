@@ -150,4 +150,29 @@ module.exports = function (TPS, env) {
     ],
     startShould: ['Le routeur n\'accepte que SSH (transport input ssh)', 'Un compte nominatif existe sur le routeur (username tech)', 'Le technicien à distance ouvre le site interne par le port 8080', 'Configuration sauvegardée'],
   });
+
+  /* ---------- S10 : supervision (imprimerie Laporte) ---------- */
+  function suBuild(h) {
+    const { dev, link, get } = h;
+    dev('sw-2960', 'SW1', 330, 180, 'Switch'); dev('srv-linux', 'SUP', 80, 60, 'Poste de supervision'); dev('pc-win', 'PC-1', 80, 300, 'Poste'); dev('printer', 'IMP', 600, 300, 'Imprimante');
+    link('SUP', 'ens33', 'SW1', 'Fa0/1'); link('PC-1', 'eth0', 'SW1', 'Fa0/2'); link('IMP', get('IMP').ifaceList()[0].port.name, 'SW1', 'Fa0/3');
+    hostIp(get('SUP'), '192.168.1.5', '24', '192.168.1.1'); hostIp(get('PC-1'), '192.168.1.50', '24', '192.168.1.1'); hostIp(get('IMP'), '192.168.1.20', '24', '192.168.1.1');
+    cliRun(get('SW1'), 'enable\nconfigure terminal\nhostname SW-IMPRIMERIE\ninterface vlan 1\nip address 192.168.1.2 255.255.255.0\nno shutdown\nend\nwrite memory');
+  }
+  const SU_CFG = 'enable\nconfigure terminal\nsnmp-server community supervision RO\nsnmp-server location Atelier - baie 1\nsnmp-server contact support@laporte-imprimerie.fr\nsnmp-server host 192.168.1.5 version 2c supervision\nsnmp-server enable traps\nlogging host 192.168.1.5\nlogging trap informational\nservice sequence-numbers\nend\nwrite memory';
+  const suSh = (c, dst, cmd) => shell(c.sim, dv(c, dst), cmd);
+  TPS.push({
+    id: 't10-supervision', start: D + 'S10-supervision-tickets/tp/t10-supervision.json', solution: K + 'T10-supervision-corrige.json',
+    notes: 'Terminale S10 – Imprimerie Laporte : switch administrable (192.168.1.2) et poste de supervision SUP (192.168.1.5). À faire : activer SNMP (communauté de lecture), envoyer les journaux vers SUP, interroger le switch depuis SUP (snmpget/snmpwalk), observer une alerte quand un câble est débranché, sauvegarder.',
+    build(sim, h) { suBuild(h); },
+    solve(sim, h) { cliRun(dv({ sim }, 'SW1'), SU_CFG); },
+    checks: [
+      { label: 'SUP interroge le switch en SNMP (snmpget sysName)', run: c => /SW-IMPRIMERIE/.test(suSh(c, 'SUP', 'snmpget -v2c -c supervision 192.168.1.2 1.3.6.1.2.1.1.5.0')) },
+      { label: 'SUP lit l\'emplacement du switch (snmpget sysLocation)', run: c => /baie 1/.test(suSh(c, 'SUP', 'snmpget -v2c -c supervision 192.168.1.2 1.3.6.1.2.1.1.6.0')) },
+      { label: 'Le switch envoie ses journaux vers SUP (logging host)', run: c => /logging host 192\.168\.1\.5/.test(cfg(c, 'SW1')) },
+      { label: 'Les alertes (traps SNMP) sont envoyées vers SUP', run: c => /snmp-server host 192\.168\.1\.5/.test(cfg(c, 'SW1')) },
+      { label: 'Configuration sauvegardée', run: c => /snmp-server community supervision/.test(scfg(c, 'SW1')) },
+    ],
+    startShould: ['SUP interroge le switch en SNMP (snmpget sysName)', 'SUP lit l\'emplacement du switch (snmpget sysLocation)', 'Le switch envoie ses journaux vers SUP (logging host)', 'Les alertes (traps SNMP) sont envoyées vers SUP', 'Configuration sauvegardée'],
+  });
 };
