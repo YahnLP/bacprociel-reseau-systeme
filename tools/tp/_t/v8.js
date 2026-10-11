@@ -1,0 +1,14 @@
+const L=require('../lib');const {Sim,mk,cliRun,hostIp,shell}=L;
+const sim=new Sim();const h=mk(sim);const {dev,link,get}=h;
+dev('sw-2960','SW1',400,180);['PC1','PC2','PC3','PC4'].forEach((n,k)=>{dev('pc-win',n,150,50+k*90);link(n,'eth0','SW1','Fa0/'+(k+1));hostIp(get(n),'192.168.1.'+(11+k),'24')});
+sim.runFor(5000);
+const sw=get('SW1');
+const rs=(cmds)=>{const s=sw.newSession();let out='',done=false;const io={print:t=>out+=t,done:()=>done=true,clear(){}};cmds.forEach(c=>{done=false;out='';s.exec(c,io);sim.runUntil(()=>done,60000);console.log('>',c);console.log(out)})};
+rs(['enable','show vlan brief']);
+console.log(shell(sim,get('PC1'),'ping 192.168.1.13').split('\n').slice(0,4).join('\n'));
+cliRun(sw,'enable\nconf t\nvlan 10\nname DIRECTION\nvlan 20\nname ATELIER\ninterface range fa0/1 - 2\nswitchport mode access\nswitchport access vlan 10\nexit\ninterface range fa0/3 - 4\nswitchport mode access\nswitchport access vlan 20\nend');
+sim.runFor(5000);
+rs(['enable','show vlan brief','show interfaces status','show interfaces fa0/1 switchport','show mac address-table']);
+console.log(shell(sim,get('PC1'),'ping 192.168.1.12').split('\n').slice(0,4).join('\n'));
+console.log(shell(sim,get('PC1'),'ping 192.168.1.13').split('\n').slice(0,4).join('\n'));
+console.log(shell(sim,get('PC3'),'ping 192.168.1.14').split('\n').slice(0,4).join('\n'));

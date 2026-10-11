@@ -71,6 +71,67 @@ def s07():
     f.save(out(d, "decision-routeur.svg"))
 
 
+def s08():
+    d = "S08-vlan-1"
+    # --- avant / après
+    f = Fig(1000, 470, "Un switch, deux réseaux séparés avec les VLAN",
+            "À gauche, tous les postes sont dans le même réseau de diffusion. À droite, les VLAN 10 et 20 découpent le même switch en deux réseaux qui ne se voient plus.")
+    f.title_bar("Les VLAN : un seul boîtier, plusieurs réseaux séparés")
+    for ox, titre, sep in ((20, "SANS VLAN : tout le monde se voit", False), (520, "AVEC VLAN : Direction | Atelier", True)):
+        f.rect(ox, 55, 460, 395, WHITE, GRY_D, 2, 14, dash="6 5")
+        f.text(ox + 230, 85, titre, 17, RED if not sep else GRN, "middle", "700")
+        cx = ox + 230
+        f.rect(cx - 170, 220, 340, 50, TEAL_L, TEAL, 3, 8)
+        f.text(cx, 247, "SWITCH", 15, TEAL, "middle", "700")
+        cols = [(IND, IND_L, "Direction"), (IND, IND_L, "Direction"), (ORA, ORA_L, "Atelier"), (ORA, ORA_L, "Atelier")]
+        xs = [cx - 135, cx - 45, cx + 45, cx + 135]
+        for i, x in enumerate(xs):
+            c, cl, lab = cols[i]
+            col, colL = (c, cl) if sep else (GRY_D, GRY)
+            f.rect(x - 22 + 0, 262 - 0, 0, 0)
+            f.line(x, 270, x, 330, col, 3)
+            f.rect(x - 28, 330, 56, 38, colL, col, 3, 6)
+            f.text(x, 354, f"PC{i+1}", 14, col, "middle", "700")
+            f.text(x, 392, lab, 13, col, "middle", "600")
+            f.rect(x - 7, 258, 14, 12, col, col, 1, 2)
+        if sep:
+            f.rect(cx - 90, 135, 80, 36, IND_L, IND, 2.5, 8); f.text(cx - 50, 159, "VLAN 10", 14, IND, "middle", "700")
+            f.rect(cx + 10, 135, 80, 36, ORA_L, ORA, 2.5, 8); f.text(cx + 50, 159, "VLAN 20", 14, ORA, "middle", "700")
+            f.line(cx - 50, 171, xs[0], 256, IND, 2, "4 4"); f.line(cx - 50, 171, xs[1], 256, IND, 2, "4 4")
+            f.line(cx + 50, 171, xs[2], 256, ORA, 2, "4 4"); f.line(cx + 50, 171, xs[3], 256, ORA, 2, "4 4")
+            f.text(cx, 118, "deux « switchs virtuels » dans un boîtier", 14, MUTED, "middle")
+            f.text(cx, 432, "Un message de diffusion de PC1 n'atteint pas PC3 ni PC4", 14, GRN, "middle", "700")
+        else:
+            f.text(cx, 160, "un seul réseau de diffusion", 15, RED, "middle", "700")
+            f.text(cx, 182, "(un broadcast arrive chez tous les postes)", 13.5, MUTED, "middle")
+            f.text(cx, 432, "L'atelier voit les postes de la Direction", 14, RED, "middle", "700")
+    f.save(out(d, "vlan-principe.svg"))
+
+    # --- ports du switch
+    f = Fig(1000, 400, "Affectation des ports aux VLAN", "Sur le switch, les ports Fa0/1 et Fa0/2 sont dans le VLAN 10, Fa0/3 et Fa0/4 dans le VLAN 20, les autres restent dans le VLAN 1.")
+    f.title_bar("Chaque port appartient à UN VLAN (mode « access »)")
+    f.rect(40, 70, 920, 110, TEAL_L, TEAL, 3, 10)
+    f.text(60, 95, "Switch Catalyst 2960 – face avant", 14, TEAL, "start", "700")
+    for i in range(12):
+        x = 70 + i * 72
+        vl = 10 if i < 2 else 20 if i < 4 else 1
+        c, cl = (IND, IND_L) if vl == 10 else (ORA, ORA_L) if vl == 20 else (GRY_D, GRY)
+        f.rect(x, 115, 56, 44, cl, c, 2.5, 5)
+        f.text(x + 28, 133, f"Fa0/{i+1}", 12.5, c, "middle", "700")
+        f.text(x + 28, 150, f"VLAN {vl}", 12, c, "middle", "600")
+    f.text(70 + 12 * 72 + 4, 140, "…", 20, MUTED, "start", "700")
+    f.rect(40, 215, 920, 160, WHITE, LINE, 2, 10)
+    f.text(60, 240, "SW1# show vlan brief", 15, INK, "start", "700", family="monospace")
+    rows = [("VLAN", "Nom", "Ports"), ("1", "default", "Fa0/5 … Fa0/24, Gi0/1, Gi0/2"), ("10", "DIRECTION", "Fa0/1, Fa0/2"), ("20", "ATELIER", "Fa0/3, Fa0/4")]
+    for i, (a, b, c_) in enumerate(rows):
+        y = 272 + i * 28
+        col = INK if i == 0 else IND if a == "10" else ORA if a == "20" else MUTED
+        w = "700" if i == 0 else "400"
+        f.mono(70, y, a, 15, col, "start", w); f.mono(150, y, b, 15, col, "start", w); f.mono(380, y, c_, 15, col, "start", w)
+    f.line(60, 280, 940, 280, GRY_D, 1)
+    f.save(out(d, "ports-vlan.svg"))
+
+
 if __name__ == "__main__":
-    for w in (sys.argv[1:] or ["s07"]):
+    for w in (sys.argv[1:] or ["s07", "s08"]):
         globals()[w](); print("OK", w)

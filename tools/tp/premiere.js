@@ -147,6 +147,44 @@ TPS.push({
   ],
   startShould: ['PC1 joint sa passerelle R1', 'R1 joint R2 (10.0.0.2)', 'PC1 joint SRV1', 'SRV1 joint PC2', 'R1 a une route statique vers 192.168.20.0'],
 });
+
+/* ---------- S08 : VLAN (1) ---------- */
+const VLAN_OK = 'enable\nconfigure terminal\nvlan 10\nname DIRECTION\nvlan 20\nname ATELIER\ninterface range fa0/1 - 2\nswitchport mode access\nswitchport access vlan 10\nexit\ninterface range fa0/3 - 4\nswitchport mode access\nswitchport access vlan 20\nend\nwrite memory';
+function vlanBuild(h, ips) {
+  const { dev, link, get } = h;
+  dev('sw-2960', 'SW1', 440, 190, 'Switch (atelier)');
+  const noms = [['PC1', 'Direction 1'], ['PC2', 'Direction 2'], ['PC3', 'Atelier 1'], ['PC4', 'Atelier 2']];
+  noms.forEach(([n, l], k) => { dev('pc-win', n, 180, 40 + k * 100, l); link(n, 'eth0', 'SW1', 'Fa0/' + (k + 1)); hostIp(get(n), ips[k], '24'); });
+}
+const vsh = (c, cmd) => show(c, swdev(c), cmd);
+TPS.push({
+  id: 'p08-vlan', start: D + 'S08-vlan-1/tp/p08-vlan.json', solution: K + 'P08-vlan-corrige.json',
+  notes: 'Première S08 – Quatre PC sur un switch 2960 d\'usine : tout le monde est dans le VLAN 1 et se voit. À séparer : Direction (PC1, PC2) et Atelier (PC3, PC4).',
+  build(sim, h) { vlanBuild(h, ['192.168.1.11', '192.168.1.12', '192.168.1.13', '192.168.1.14']); },
+  solve(sim, h) { cliRun(h.get('SW1'), VLAN_OK); },
+  checks: [
+    { label: 'PC1 joint PC2 (Direction)', run: c => c.ping('PC1', '192.168.1.12') },
+    { label: 'PC3 joint PC4 (Atelier)', run: c => c.ping('PC3', '192.168.1.14') },
+    { label: 'PC1 ne joint PAS PC3 (VLAN différents)', run: c => !c.ping('PC1', '192.168.1.13') },
+    { label: 'VLAN 10 DIRECTION et VLAN 20 ATELIER existent', run: c => { const r = vsh(c, 'show vlan brief'); return /10\s+DIRECTION\s+active\s+Fa0\/1, Fa0\/2/.test(r) && /20\s+ATELIER\s+active\s+Fa0\/3, Fa0\/4/.test(r); } },
+  ],
+  startShould: ['PC1 ne joint PAS PC3 (VLAN différents)', 'VLAN 10 DIRECTION et VLAN 20 ATELIER existent'],
+});
+TPS.push({
+  id: 'p08-vlan-panne', start: D + 'S08-vlan-1/tp/p08-vlan-panne.json', solution: K + 'P08-vlan-panne-corrige.json',
+  notes: 'Première S08 – Dépannage : VLAN 10 et 20 créés, mais deux ports sont mal affectés (Fa0/2 est dans le VLAN 20 ; Fa0/4 est resté dans le VLAN 1).',
+  build(sim, h) {
+    vlanBuild(h, ['192.168.1.11', '192.168.1.12', '192.168.1.13', '192.168.1.14']);
+    cliRun(h.get('SW1'), 'enable\nconfigure terminal\nvlan 10\nname DIRECTION\nvlan 20\nname ATELIER\ninterface fa0/1\nswitchport mode access\nswitchport access vlan 10\nexit\ninterface fa0/2\nswitchport mode access\nswitchport access vlan 20\nexit\ninterface fa0/3\nswitchport mode access\nswitchport access vlan 20\nend');
+  },
+  solve(sim, h) { cliRun(h.get('SW1'), 'enable\nconfigure terminal\ninterface fa0/2\nswitchport access vlan 10\nexit\ninterface fa0/4\nswitchport mode access\nswitchport access vlan 20\nend\nwrite memory'); },
+  checks: [
+    { label: 'PC1 joint PC2 (Direction)', run: c => c.ping('PC1', '192.168.1.12') },
+    { label: 'PC3 joint PC4 (Atelier)', run: c => c.ping('PC3', '192.168.1.14') },
+    { label: 'PC1 ne joint PAS PC3', run: c => !c.ping('PC1', '192.168.1.13') },
+  ],
+  startShould: ['PC1 joint PC2 (Direction)', 'PC3 joint PC4 (Atelier)'],
+});
 const want = process.argv.slice(2);
 let all = true;
 TPS.filter(t => !want.length || want.includes(t.id)).forEach(t => { all = L.run(t) && all; });
