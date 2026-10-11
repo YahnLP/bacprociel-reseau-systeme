@@ -119,6 +119,34 @@ TPS.push({
   ],
   startShould: ['PC1 joint PC2 (sous-réseau A)', 'PC2 joint PC1 (sous-réseau A)'],
 });
+
+/* ---------- S07 : routeur et routage statique ---------- */
+const R_CFG = 'enable\nconfigure terminal\n';
+const rshow = (c, name, cmd) => { const d = c.sim.devices.values ? Array.from(c.sim.devices.values()).find(x => x.name === name) : null; const s = d.newSession(); let out = '', done = false; const io = { print: t => { out += t; }, done: () => { done = true; }, clear() { } }; const go = l => { done = false; out = ''; s.exec(l, io); c.sim.runUntil(() => done, 60000); }; go('enable'); go(cmd); return out; };
+TPS.push({
+  id: 'p07-routage', start: D + 'S07-routeur-routage-statique/tp/p07-routage.json', solution: K + 'P07-routage-corrige.json',
+  notes: 'Première S07 – Deux agences reliées par deux routeurs : LAN A 192.168.10.0/24 (R1), LAN B 192.168.20.0/24 (R2), lien 10.0.0.0/30. Les routeurs sont neufs : interfaces éteintes, pas de route.',
+  build(sim, h) {
+    const { dev, link, get } = h;
+    dev('pc-win', 'PC1', 100, 80, 'PC1'); dev('pc-win', 'PC2', 100, 260, 'PC2'); dev('sw-8p', 'SW-A', 280, 170, 'Switch A');
+    dev('r-1941', 'R1', 450, 170, 'R1 (agence)'); dev('r-1941', 'R2', 700, 170, 'R2 (siège)'); dev('sw-8p', 'SW-B', 880, 170, 'Switch B'); dev('srv-linux', 'SRV1', 1050, 170, 'Serveur');
+    link('PC1', 'eth0', 'SW-A', 'port1'); link('PC2', 'eth0', 'SW-A', 'port2'); link('SW-A', 'port3', 'R1', 'gi0/0');
+    link('R1', 'gi0/1', 'R2', 'gi0/1'); link('R2', 'gi0/0', 'SW-B', 'port1'); link('SRV1', 'ens33', 'SW-B', 'port2');
+    hostIp(get('PC1'), '192.168.10.11', '24', '192.168.10.1'); hostIp(get('PC2'), '192.168.10.12', '24', '192.168.10.1'); hostIp(get('SRV1'), '192.168.20.100', '24', '192.168.20.1');
+  },
+  solve(sim, h) {
+    cliRun(h.get('R1'), R_CFG + 'hostname R1\ninterface gi0/0\nip address 192.168.10.1 255.255.255.0\nno shutdown\nexit\ninterface gi0/1\nip address 10.0.0.1 255.255.255.252\nno shutdown\nexit\nip route 192.168.20.0 255.255.255.0 10.0.0.2\nend\nwrite memory');
+    cliRun(h.get('R2'), R_CFG + 'hostname R2\ninterface gi0/0\nip address 192.168.20.1 255.255.255.0\nno shutdown\nexit\ninterface gi0/1\nip address 10.0.0.2 255.255.255.252\nno shutdown\nexit\nip route 192.168.10.0 255.255.255.0 10.0.0.1\nend\nwrite memory');
+  },
+  checks: [
+    { label: 'PC1 joint sa passerelle R1', run: c => c.ping('PC1', '192.168.10.1') },
+    { label: 'R1 joint R2 (10.0.0.2)', run: c => /!!|Success rate is [1-9]/.test(rshow(c, 'R1', 'ping 10.0.0.2')) },
+    { label: 'PC1 joint SRV1', run: c => c.ping('PC1', '192.168.20.100') },
+    { label: 'SRV1 joint PC2', run: c => c.ping('SRV1', '192.168.10.12') },
+    { label: 'R1 a une route statique vers 192.168.20.0', run: c => /^S\s+192\.168\.20\.0/m.test(rshow(c, 'R1', 'show ip route')) },
+  ],
+  startShould: ['PC1 joint sa passerelle R1', 'R1 joint R2 (10.0.0.2)', 'PC1 joint SRV1', 'SRV1 joint PC2', 'R1 a une route statique vers 192.168.20.0'],
+});
 const want = process.argv.slice(2);
 let all = true;
 TPS.filter(t => !want.length || want.includes(t.id)).forEach(t => { all = L.run(t) && all; });

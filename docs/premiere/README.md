@@ -17,7 +17,7 @@
 | **S04** | 12 octobre 2026 | Protocoles usuels vus de l'intérieur | 🟡 Semi-guidé | [📘 Ouvrir](S04-protocoles-usuels/README.md) |
 | **S05** | 19 octobre 2026 | Switch administrable : prise en main | 🟡 Semi-guidé | [📘 Ouvrir](S05-switch-administrable/README.md) |
 | **S06** | 2 novembre 2026 | Découper un réseau en sous-réseaux | 🟡 Semi-guidé | [📘 Ouvrir](S06-sous-reseaux/README.md) |
-| **S07** | 23 novembre 2026 | Relier deux réseaux : le routeur | 🟡 Semi-guidé | 🚧 en préparation |
+| **S07** | 23 novembre 2026 | Relier deux réseaux : le routeur | 🟡 Semi-guidé | [📘 Ouvrir](S07-routeur-routage-statique/README.md) |
 | **S08** | 30 novembre 2026 | VLAN (1) : séparer sans multiplier le matériel | 🟡 Semi-guidé | 🚧 en préparation |
 | **S09** | 14 décembre 2026 | VLAN (2) : deux switchs et lien trunk | 🟡 Semi-guidé | 🚧 en préparation |
 | **S10** | 11 janvier 2027 | Un serveur Linux et la connexion à distance | 🟡 Semi-guidé | 🚧 en préparation |
