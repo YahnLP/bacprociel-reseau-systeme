@@ -1,0 +1,174 @@
+{
+ "app": "simulateur-reseau",
+ "v": 1,
+ "opts": {
+  "strictCables": false,
+  "stpFast": true
+ },
+ "devices": [
+  {
+   "id": "D1",
+   "type": "switch",
+   "model": "sw-8p",
+   "name": "SW1",
+   "x": 400,
+   "y": 130,
+   "powered": true,
+   "cli": "!\nhostname SW1\n!\nline con 0\n logging synchronous\nline vty 0 4\n!",
+   "label": ""
+  },
+  {
+   "id": "D2",
+   "type": "pc",
+   "model": "pc-win",
+   "name": "PC1",
+   "x": 230,
+   "y": 300,
+   "powered": true,
+   "ifaces": [
+    {
+     "name": "Ethernet0",
+     "ip": "192.168.1.11",
+     "mask": "255.255.255.0",
+     "dhcp": false
+    }
+   ],
+   "gw": "",
+   "dns": [],
+   "domain": "",
+   "allowIcmpEcho": true,
+   "wifi": {
+    "ssid": "",
+    "key": ""
+   },
+   "hosts": {},
+   "dhcpd": {
+    "enabled": false,
+    "excluded": [],
+    "pools": []
+   },
+   "dnsd": {
+    "enabled": false,
+    "records": [],
+    "forwarders": []
+   },
+   "httpd": {
+    "enabled": false,
+    "https": false,
+    "pages": {
+     "/": {
+      "type": "text/html; charset=utf-8",
+      "body": "<html><head><title>PC1</title></head><body><h1>Bienvenue sur PC1</h1><p>Serveur web du simulateur.</p></body></html>"
+     }
+    }
+   },
+   "mgmt": {
+    "comms": [],
+    "location": "",
+    "contact": "",
+    "syslogd": false,
+    "trapd": false
+   },
+   "v6": {
+    "ifs": [
+     {
+      "name": "Ethernet0",
+      "autoconf": true,
+      "addrs": []
+     }
+    ],
+    "statics": []
+   },
+   "label": ""
+  },
+  {
+   "id": "D3",
+   "type": "pc",
+   "model": "pc-win",
+   "name": "PC2",
+   "x": 570,
+   "y": 300,
+   "powered": true,
+   "ifaces": [
+    {
+     "name": "Ethernet0",
+     "ip": "192.168.1.12",
+     "mask": "255.255.255.0",
+     "dhcp": false
+    }
+   ],
+   "gw": "",
+   "dns": [],
+   "domain": "",
+   "allowIcmpEcho": true,
+   "wifi": {
+    "ssid": "",
+    "key": ""
+   },
+   "hosts": {},
+   "dhcpd": {
+    "enabled": false,
+    "excluded": [],
+    "pools": []
+   },
+   "dnsd": {
+    "enabled": false,
+    "records": [],
+    "forwarders": []
+   },
+   "httpd": {
+    "enabled": false,
+    "https": false,
+    "pages": {
+     "/": {
+      "type": "text/html; charset=utf-8",
+      "body": "<html><head><title>PC2</title></head><body><h1>Bienvenue sur PC2</h1><p>Serveur web du simulateur.</p></body></html>"
+     }
+    }
+   },
+   "mgmt": {
+    "comms": [],
+    "location": "",
+    "contact": "",
+    "syslogd": false,
+    "trapd": false
+   },
+   "v6": {
+    "ifs": [
+     {
+      "name": "Ethernet0",
+      "autoconf": true,
+      "addrs": []
+     }
+    ],
+    "statics": []
+   },
+   "label": ""
+  }
+ ],
+ "links": [
+  {
+   "a": [
+    "D2",
+    "Ethernet0"
+   ],
+   "b": [
+    "D1",
+    "Port1"
+   ],
+   "type": "straight"
+  },
+  {
+   "a": [
+    "D3",
+    "Ethernet0"
+   ],
+   "b": [
+    "D1",
+    "Port2"
+   ],
+   "type": "straight"
+  }
+ ],
+ "notes": "CORRIGÉ – S10 – Deux PC reliés à un switch non administrable : voyants OK, mais se voient-ils ? (réponse en S11)"
+}

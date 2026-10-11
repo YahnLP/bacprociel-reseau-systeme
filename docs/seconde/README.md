@@ -11,16 +11,16 @@
 
 | Séance | Semaine (CFA) | Thème | Autonomie | Contenu |
 |---|---|---|---|---|
-| **S01** | 31 août 2026 | Accueil, règles et diagnostic | 🟢 Guidé | 🚧 en préparation |
-| **S02** | 14 septembre 2026 | Le PC de l'intérieur | 🟢 Guidé | 🚧 en préparation |
-| **S03** | 28 septembre 2026 | Remonter un PC et le faire démarrer | 🟢 Guidé | 🚧 en préparation |
+| **S01** | 31 août 2026 | Accueil, règles et diagnostic | 🟢 Guidé | [📘 Ouvrir](S01-accueil-diagnostic/README.md) |
+| **S02** | 14 septembre 2026 | Le PC de l'intérieur | 🟢 Guidé | [📘 Ouvrir](S02-pc-interieur/README.md) |
+| **S03** | 28 septembre 2026 | Remonter un PC et le faire démarrer | 🟢 Guidé | [📘 Ouvrir](S03-remonter-pc/README.md) |
 | **S04** | 12 octobre 2026 | Installer et prendre en main Windows | 🟢 Guidé | [📘 Ouvrir](S04-windows/README.md) |
 | **S05** | 2 novembre 2026 | Découvrir Linux | 🟢 Guidé | [📘 Ouvrir](S05-linux/README.md) |
 | **S06** | 23 novembre 2026 | Le terminal : premiers pas | 🟢 Guidé | [📘 Ouvrir](S06-terminal/README.md) |
 | **S07** | 7 décembre 2026 | Voyage à Paris (pas de séance U31) | — | ✈️ Voyage à Paris |
-| **S08** | 11 janvier 2027 | Qu'est-ce qu'un réseau ? | 🟢 Guidé | 🚧 en préparation |
-| **S09** | 25 janvier 2027 | Fabriquer un câble RJ45 | 🟢 Guidé | 🚧 en préparation |
-| **S10** | 8 février 2027 | Raccorder et organiser | 🟢 Guidé | 🚧 en préparation |
+| **S08** | 11 janvier 2027 | Qu'est-ce qu'un réseau ? | 🟢 Guidé | [📘 Ouvrir](S08-quest-ce-qu-un-reseau/README.md) |
+| **S09** | 25 janvier 2027 | Fabriquer un câble RJ45 | 🟢 Guidé | [📘 Ouvrir](S09-cable-rj45/README.md) |
+| **S10** | 8 février 2027 | Raccorder et organiser | 🟢 Guidé | [📘 Ouvrir](S10-raccorder-brasser/README.md) |
 | **S11** | 1er mars 2027 | Donner une adresse à chaque machine (IP) | 🟡 Semi-guidé | 🚧 en préparation |
 | **S12** | 22 mars 2027 | DHCP, box / routeur et passerelle | 🟡 Semi-guidé | 🚧 en préparation |
 | **S13** | 29 mars 2027 | DNS et accès à Internet | 🟡 Semi-guidé | 🚧 en préparation |

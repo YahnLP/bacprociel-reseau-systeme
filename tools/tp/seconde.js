@@ -1,12 +1,14 @@
-/* TP du simulateur – Seconde. Lancer : node tools/tp/seconde.js [id ...] */
+/* TP du simulateur – Seconde. Lancer : node tools/tp/seconde.js [id ...]
+   Chaque TP : fichier de départ (docs/…/tp/*.json), corrigé (corriges/…), vérifications par le moteur. */
 const L = require('./lib');
-const { hostIp, hostDhcp } = L;
-const D = 'docs/seconde/', C = 'corriges/seconde/';
+const C = require('./common');
+const { hostIp, hostDhcp, IP } = L;
+const D = 'docs/seconde/', K = 'corriges/seconde/';
 const TPS = [];
 
-/* S06 – le terminal réseau : deux postes déjà configurés, à interroger */
+/* ---------- S06 : le terminal réseau ---------- */
 TPS.push({
-  id: 's06-terminal', start: D + 'S06-terminal/tp/s06-terminal-reseau.json', solution: C + 'S06-terminal-reseau-corrige.json',
+  id: 's06-terminal', start: D + 'S06-terminal/tp/s06-terminal-reseau.json', solution: K + 'S06-terminal-reseau-corrige.json',
   notes: 'S06 – Premières commandes réseau : hostname, ipconfig / ip a, ping.',
   build(sim, { dev, link, get }) {
     dev('sw-8p', 'SW1', 400, 130); dev('pc-win', 'PC-WIN', 220, 320); dev('pc-linux', 'PC-LINUX', 580, 320);
@@ -14,6 +16,66 @@ TPS.push({
     hostIp(get('PC-WIN'), '192.168.10.11'); hostIp(get('PC-LINUX'), '192.168.10.12');
   },
   checks: [{ label: 'PC-WIN joint PC-LINUX', run: c => c.ping('PC-WIN', '192.168.10.12') }, { label: 'PC-LINUX joint PC-WIN', run: c => c.ping('PC-LINUX', '192.168.10.11') }],
+});
+
+/* ---------- S08 : le réseau de la salle (tout fonctionne, on observe) ---------- */
+TPS.push({
+  id: 's08-reseau-salle', start: D + 'S08-quest-ce-qu-un-reseau/tp/s08-reseau-salle.json', solution: null,
+  notes: 'S08 – Le réseau de la salle : on observe, on suit les câbles, on dessine le schéma.',
+  build(sim, h) {
+    const { dev, link, get } = h;
+    C.internet(sim, h, 900, 200); C.box(sim, h, 'BOX', 680, 200);
+    dev('sw-8p', 'SW1', 480, 200); link('SW1', 'port1', 'BOX', 'lan1');
+    dev('pc-win', 'PC1', 330, 80); dev('pc-win', 'PC2', 330, 320); dev('laptop', 'PC3', 480, 340); dev('printer', 'IMP1', 480, 60);
+    link('PC1', 'eth0', 'SW1', 'port2'); link('PC2', 'eth0', 'SW1', 'port3'); link('PC3', 'ethernet0', 'SW1', 'port4'); link('IMP1', 'lan', 'SW1', 'port5');
+    ['PC1', 'PC2', 'PC3', 'IMP1'].forEach(n => hostDhcp(get(n)));
+  },
+  checks: [
+    { label: 'PC1 a une adresse (DHCP de la box)', run: c => { c.wait(8000); return /^192\.168\.1\./.test(c.ipOf('PC1')); } },
+    { label: 'PC1 joint Internet (FAI)', run: c => c.ping('PC1', '203.0.113.1') },
+    { label: 'PC3 ouvre le site www.exemple.fr', run: c => { const r = c.http('PC3', 'http://www.exemple.fr'); return !!r && r.status === 200; } },
+  ],
+});
+
+/* ---------- S10 : deux PC sur un switch, rien de configuré ---------- */
+TPS.push({
+  id: 's10-deux-pc', start: D + 'S10-raccorder-brasser/tp/s10-deux-pc-switch.json', solution: K + 'S10-deux-pc-switch-corrige.json',
+  notes: 'S10 – Deux PC reliés à un switch non administrable : voyants OK, mais se voient-ils ? (réponse en S11)',
+  build(sim, { dev, link }) {
+    dev('sw-8p', 'SW1', 400, 130); dev('pc-win', 'PC1', 230, 300); dev('pc-win', 'PC2', 570, 300);
+    link('PC1', 'eth0', 'SW1', 'port1'); link('PC2', 'eth0', 'SW1', 'port2');
+  },
+  solve(sim, { get }) { hostIp(get('PC1'), '192.168.1.11'); hostIp(get('PC2'), '192.168.1.12'); },
+  checks: [{ label: 'PC1 joint PC2', run: c => c.ping('PC1', '192.168.1.12') }],
+  startShould: ['PC1 joint PC2'],
+});
+
+/* ---------- S11 : adressage IP statique ---------- */
+TPS.push({
+  id: 's11-adressage', start: D + 'S11-adresse-ip/tp/s11-adressage-vierge.json', solution: K + 'S11-adressage-corrige.json',
+  notes: 'S11 – Trois postes sur un switch, aucune adresse : plan d\'adressage 192.168.1.0/24 à configurer et à tester.',
+  build(sim, { dev, link }) {
+    dev('sw-8p', 'SW1', 400, 130); dev('pc-win', 'PC1', 200, 310); dev('pc-linux', 'PC2', 400, 330); dev('laptop', 'PC3', 600, 310);
+    link('PC1', 'eth0', 'SW1', 'port1'); link('PC2', 'ens33', 'SW1', 'port2'); link('PC3', 'ethernet0', 'SW1', 'port3');
+  },
+  solve(sim, { get }) { hostIp(get('PC1'), '192.168.1.11'); hostIp(get('PC2'), '192.168.1.12'); hostIp(get('PC3'), '192.168.1.13'); },
+  checks: [{ label: 'PC1 joint PC2', run: c => c.ping('PC1', '192.168.1.12') }, { label: 'PC1 joint PC3', run: c => c.ping('PC1', '192.168.1.13') }, { label: 'PC3 joint PC2', run: c => c.ping('PC3', '192.168.1.12') }],
+  startShould: ['PC1 joint PC2', 'PC1 joint PC3', 'PC3 joint PC2'],
+});
+TPS.push({
+  id: 's11-erreurs', start: D + 'S11-adresse-ip/tp/s11-erreurs.json', solution: K + 'S11-erreurs-corrige.json',
+  notes: 'S11 – Quatre postes configurés, trois erreurs d\'adressage à trouver : adresse hors réseau, mauvais masque, doublon.',
+  build(sim, { dev, link, get }) {
+    dev('sw-8p', 'SW1', 400, 130); dev('pc-win', 'PC1', 130, 320); dev('pc-win', 'PC2', 330, 340); dev('pc-win', 'PC3', 530, 340); dev('pc-win', 'PC4', 730, 320);
+    ['PC1', 'PC2', 'PC3', 'PC4'].forEach((n, i) => link(n, 'eth0', 'SW1', 'port' + (i + 1)));
+    hostIp(get('PC1'), '192.168.1.11');           // référence : correct
+    hostIp(get('PC2'), '192.168.11.12');          // erreur 1 : faute de frappe, autre réseau
+    hostIp(get('PC3'), '192.168.1.200', '25');    // erreur 2 : masque trop long
+    hostIp(get('PC4'), '192.168.1.11');           // erreur 3 : même adresse que PC1
+  },
+  solve(sim, { get }) { hostIp(get('PC2'), '192.168.1.12'); hostIp(get('PC3'), '192.168.1.13'); hostIp(get('PC4'), '192.168.1.14'); },
+  checks: [{ label: 'PC1 joint PC2', run: c => c.ping('PC1', '192.168.1.12') }, { label: 'PC1 joint PC3', run: c => c.ping('PC1', '192.168.1.13') }, { label: 'PC1 joint PC4', run: c => c.ping('PC1', '192.168.1.14') }, { label: 'PC4 joint PC2', run: c => c.ping('PC4', '192.168.1.12') }],
+  startShould: ['PC1 joint PC2'],
 });
 
 const want = process.argv.slice(2);
