@@ -166,6 +166,27 @@ def s13():
     f.save(out(d, "recette-3-issues.svg"))
 
 
+
+def s15():
+    f = Fig(1000, 380, "Un chantier de 3 heures : répartir son temps", "Barre de temps de 3 heures : étudier 20 minutes, préparer 20, installer 40, configurer 50, tester et corriger 30, documenter et rédiger la recette 20.")
+    f.title_bar("3 heures de chantier : le temps se prépare")
+    ph = [("Étudier", 20, TEAL_L, TEAL, "dossier, besoins"), ("Préparer", 20, IND_L, IND, "matériel, plan"), ("Installer", 40, YEL_L, "#b28704", "câbles, étiquettes"), ("Configurer", 50, ORA_L, ORA, "VLAN, routage, Wi-Fi"), ("Tester", 30, RED_L, RED, "corriger"), ("Recette", 20, GRN_L, GRN, "documenter")]
+    x = 30; tot = 940; mins = sum(p[1] for p in ph)
+    for t, m, fill, st, sub in ph:
+        w = tot * m / mins
+        f.rect(x, 90, w - 4, 110, fill, st, 3, 10)
+        f.text(x + w / 2 - 2, 130, t, 15 if w > 100 else 13, INK, "middle", "700"); f.text(x + w / 2 - 2, 156, str(m) + " min", 14, st, "middle", "700")
+        f.text(x + w / 2 - 2, 182, sub, 11.5, MUTED)
+        x += w
+    f.text(500, 245, "Si une étape déborde, je le note et je passe à la suite : un chantier à 80 % documenté vaut mieux qu'un chantier à 100 % sans trace.", 14, INK, "middle", "700")
+    f.rect(30, 280, 940, 70, YEL_L, YEL, 2, 10)
+    f.text(500, 308, "À chaque étape, je me demande : qu'est-ce que je dois PROUVER à l'évaluateur ?", 14.5, INK, "middle", "700")
+    f.text(500, 334, "Une capture d'écran, une commande de vérification, une ligne dans mon compte rendu.", 14.5, INK)
+    for d in ("S15-chantier-1", "S16-chantier-2"):
+        os.makedirs(os.path.join(ROOT, d, "images"), exist_ok=True)
+        f.save(out(d, "chantier-3h.svg"))
+
+
 if __name__ == "__main__":
-    for w_ in (sys.argv[1:] or ["s06", "s07", "s08", "s09", "s10", "s11", "s12", "s13"]):
+    for w_ in (sys.argv[1:] or ["s06", "s07", "s08", "s09", "s10", "s11", "s12", "s13", "s15"]):
         globals()[w_](); print("OK", w_)

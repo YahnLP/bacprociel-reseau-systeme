@@ -238,4 +238,87 @@ module.exports = function (TPS, env) {
     solve(sim, h) { cliRun(dv({ sim }, 'R1'), 'enable\nconf t\ninterface gi0/0.30\nip access-group INVITES-IN in\nend\nwrite memory'); },
     checks: wfChecks, startShould: ['Les invités ne joignent PAS le serveur interne'],
   });
+
+  /* ---------- S15 : chantier d'entraînement n°1 – Cabinet dentaire Vidal (de zéro) ---------- */
+  function chBuild(h) {
+    const { dev, link, get } = h;
+    C.internet(h.sim, h, 900, 200);
+    dev('r-2911', 'R1', 600, 200, 'Routeur'); dev('sw-2960', 'SW1', 400, 200, 'Switch'); dev('pc-win', 'PC-SECR', 120, 60, 'Secrétariat'); dev('pc-win', 'PC-DENT', 120, 200, 'Cabinet dentaire');
+    dev('printer', 'IMP', 120, 340, 'Imprimante'); dev('ap-u6', 'AP1', 400, 380, 'Borne Wi-Fi'); dev('laptop', 'LAP-INV', 600, 380, 'Portable patient');
+    hostDhcp(get('PC-SECR')); hostDhcp(get('PC-DENT')); hostDhcp(get('LAP-INV')); hostIpWifi(get('LAP-INV'));
+    cliRun(get('FAI'), 'enable\nconf t\ninterface gi0/2\nip address 203.0.113.2 255.255.255.248\nno shutdown\nend');
+  }
+  const CH_SW = 'enable\nconfigure terminal\nhostname SW-VIDAL\nenable secret Vidal#2027\nvlan 10\nname SOINS\nvlan 20\nname PATIENTS\nexit\ninterface range fa0/1 - 3\nswitchport mode access\nswitchport access vlan 10\nexit\ninterface fa0/10\nswitchport mode access\nswitchport access vlan 20\nexit\ninterface fa0/24\nswitchport mode trunk\nend\nwrite memory';
+  const CH_R = 'enable\nconfigure terminal\nhostname R-VIDAL\ninterface gi0/0\nip address 203.0.113.3 255.255.255.248\nip nat outside\nno shutdown\nexit\ninterface gi0/1\nno shutdown\nexit\ninterface gi0/1.10\nencapsulation dot1Q 10\nip address 192.168.10.1 255.255.255.0\nip nat inside\nexit\ninterface gi0/1.20\nencapsulation dot1Q 20\nip address 192.168.20.1 255.255.255.0\nip nat inside\nip access-group PATIENTS-IN in\nexit\nip route 0.0.0.0 0.0.0.0 203.0.113.2\nip dhcp excluded-address 192.168.10.1 192.168.10.49\nip dhcp excluded-address 192.168.20.1 192.168.20.9\nip dhcp pool SOINS\nnetwork 192.168.10.0 255.255.255.0\ndefault-router 192.168.10.1\ndns-server 198.51.100.53\nexit\nip dhcp pool PATIENTS\nnetwork 192.168.20.0 255.255.255.0\ndefault-router 192.168.20.1\ndns-server 198.51.100.53\nexit\nip access-list extended PATIENTS-IN\npermit udp any eq 68 any eq 67\ndeny ip 192.168.20.0 0.0.0.255 192.168.10.0 0.0.0.255\npermit ip any any\nexit\naccess-list 1 permit 192.168.0.0 0.0.255.255\nip nat inside source list 1 interface gi0/0 overload\nend\nwrite memory';
+  function chSolve(sim, h) {
+    const { link, get } = h;
+    link('R1', 'gi0/0', 'FAI', 'gi0/2'); link('R1', 'gi0/1', 'SW1', 'Fa0/24'); link('PC-SECR', 'eth0', 'SW1', 'Fa0/1'); link('PC-DENT', 'eth0', 'SW1', 'Fa0/2'); link('IMP', get('IMP').ifaceList()[0].port.name, 'SW1', 'Fa0/3'); link('AP1', 'eth0', 'SW1', 'Fa0/10');
+    cliRun(get('SW1'), CH_SW); cliRun(get('R1'), CH_R);
+    hostIp(get('IMP'), '192.168.10.20', '24', '192.168.10.1');
+    const a = get('AP1'); a.ssid = 'VIDAL-PATIENTS'; a.key = 'Patients#2027'; a.security = 'WPA2';
+    const l = get('LAP-INV'); l.wifi = { ssid: 'VIDAL-PATIENTS', key: 'Patients#2027' }; L.NS.wifiRefresh(sim);
+  }
+  const chChecks = [
+    { label: 'PC-SECR reçoit une adresse du réseau Soins (192.168.10.50 et +)', run: c => { c.wait(12000); return /^192\.168\.10\.(5\d|[6-9]\d|\d{3})$/.test(c.ipOf('PC-SECR')); } },
+    { label: 'PC-DENT ouvre www.exemple.fr (Internet par nom)', run: c => { const r = c.http('PC-DENT', 'http://www.exemple.fr'); return !!r && r.status === 200; } },
+    { label: 'PC-SECR joint l\'imprimante (192.168.10.20)', run: c => c.ping('PC-SECR', '192.168.10.20') },
+    { label: 'LAP-INV (patients) reçoit une adresse 192.168.20.x par le Wi-Fi', run: c => /^192\.168\.20\.\d+$/.test(c.ipOf('LAP-INV')) },
+    { label: 'LAP-INV (patients) ouvre www.exemple.fr', run: c => { const r = c.http('LAP-INV', 'http://www.exemple.fr'); return !!r && r.status === 200; } },
+    { label: 'LAP-INV (patients) ne joint PAS l\'imprimante', run: c => !c.ping('LAP-INV', '192.168.10.20') },
+    { label: 'Switch : mot de passe enable et configuration sauvegardée', run: c => /enable secret/.test(scfg(c, 'SW1')) && /hostname SW-VIDAL/.test(scfg(c, 'SW1')) },
+    { label: 'Routeur : configuration sauvegardée', run: c => /hostname R-VIDAL/.test(scfg(c, 'R1')) && /nat inside source/.test(scfg(c, 'R1')) },
+  ];
+  TPS.push({
+    id: 't15-chantier', start: D + 'S15-chantier-1/tp/t15-chantier-depart.json', solution: K + 'T15-chantier-corrige.json',
+    notes: 'Terminale S15 – Chantier d\'entraînement n°1 : cabinet dentaire Vidal. Matériel posé, aucun câble, aucune configuration. À réaliser : câbler, configurer switch (VLAN), routeur (inter-VLAN, DHCP, NAT, filtrage), Wi-Fi patients ; tester ; documenter ; sauvegarder.',
+    build(sim, h) { h.sim = sim; chBuild(h); }, solve: chSolve, checks: chChecks, startShould: chChecks.map(x => x.label).filter(x => !/ne joint PAS/.test(x)),
+  });
+
+  /* ---------- S16 : chantier d'entraînement n°2 – le cabinet Vidal rappelle (3 pannes) ---------- */
+  TPS.push({
+    id: 't16-chantier', start: D + 'S16-chantier-2/tp/t16-chantier-depart.json', solution: K + 'T16-chantier-corrige.json',
+    notes: 'Terminale S16 – Chantier d\'entraînement n°2 : le cabinet Vidal rappelle, trois mois après l\'installation. Plusieurs choses ne fonctionnent plus. À faire : diagnostiquer avec méthode, corriger, prouver le retour à la normale (8 tests), sauvegarder, rédiger le compte rendu d\'intervention.',
+    build(sim, h) {
+      h.sim = sim; chBuild(h); chSolve(sim, h);
+      cliRun(dv({ sim }, 'SW1'), 'enable\nVidal#2027\nconf t\ninterface fa0/3\nswitchport access vlan 20\nend\nwrite memory');
+      cliRun(dv({ sim }, 'R1'), 'enable\nconf t\nno access-list 1\naccess-list 1 permit 192.168.10.0 0.0.0.255\nend\nwrite memory');
+      h.get('LAP-INV').wifi = { ssid: 'VIDAL-PATIENTS', key: 'Patient#2027' }; L.NS.wifiRefresh(sim);
+    },
+    solve(sim, h) {
+      cliRun(dv({ sim }, 'SW1'), 'enable\nVidal#2027\nconf t\ninterface fa0/3\nswitchport access vlan 10\nend\nwrite memory');
+      cliRun(dv({ sim }, 'R1'), 'enable\nconf t\nno access-list 1\naccess-list 1 permit 192.168.0.0 0.0.255.255\nend\nwrite memory');
+      const l = h.get('LAP-INV'); l.wifi = { ssid: 'VIDAL-PATIENTS', key: 'Patients#2027' }; L.NS.wifiRefresh(sim);
+      l.applyIp(l.ifaceList().find(i => i.port && i.port.media === 'wifi').name, { dhcp: true });
+    },
+    checks: chChecks, startShould: ['PC-SECR joint l\'imprimante (192.168.10.20)', 'LAP-INV (patients) reçoit une adresse 192.168.20.x par le Wi-Fi', 'LAP-INV (patients) ouvre www.exemple.fr'],
+  });
+
+  /* ---------- S17 : sujet type d'évaluation – Étude notariale Pasquier (même matériel, autre cahier des charges) ---------- */
+  const px = t => t.replace(/192\.168\.0\.0 0\.0\.255\.255/g, '172.16.0.0 0.0.255.255').replace(/192\.168\.10\./g, '172.16.11.').replace(/192\.168\.20\./g, '172.16.21.').replace(/192\.168\.10\b/g, '172.16.11').replace(/192\.168\.20\b/g, '172.16.21')
+    .replace(/vlan 10/g, 'vlan 11').replace(/vlan 20/g, 'vlan 21').replace(/dot1Q 10/g, 'dot1Q 11').replace(/dot1Q 20/g, 'dot1Q 21').replace(/gi0\/1\.10/g, 'gi0/1.11').replace(/gi0\/1\.20/g, 'gi0/1.21')
+    .replace(/SW-VIDAL/g, 'SW-PASQUIER').replace(/R-VIDAL/g, 'R-PASQUIER').replace(/Vidal#2027/g, 'Pasquier#2027').replace(/name SOINS/g, 'name BUREAUX').replace(/name PATIENTS/g, 'name VISITEURS').replace(/pool SOINS/g, 'pool BUREAUX').replace(/pool PATIENTS/g, 'pool VISITEURS').replace(/PATIENTS-IN/g, 'VISITEURS-IN')
+    .replace(/excluded-address 172\.16\.11\.1 172\.16\.11\.49/g, 'excluded-address 172.16.11.1 172.16.11.99').replace(/excluded-address 172\.16\.21\.1 172\.16\.21\.9/g, 'excluded-address 172.16.21.1 172.16.21.99');
+  function pqSolve(sim, h) {
+    const { link, get } = h;
+    link('R1', 'gi0/0', 'FAI', 'gi0/2'); link('R1', 'gi0/1', 'SW1', 'Fa0/24'); link('PC-SECR', 'eth0', 'SW1', 'Fa0/1'); link('PC-DENT', 'eth0', 'SW1', 'Fa0/2'); link('IMP', get('IMP').ifaceList()[0].port.name, 'SW1', 'Fa0/3'); link('AP1', 'eth0', 'SW1', 'Fa0/10');
+    cliRun(get('SW1'), px(CH_SW)); cliRun(get('R1'), px(CH_R));
+    hostIp(get('IMP'), '172.16.11.20', '24', '172.16.11.1');
+    const a = get('AP1'); a.ssid = 'PASQUIER-VISITEURS'; a.key = 'Visiteurs#2027'; a.security = 'WPA2';
+    const l = get('LAP-INV'); l.wifi = { ssid: 'PASQUIER-VISITEURS', key: 'Visiteurs#2027' }; L.NS.wifiRefresh(sim);
+  }
+  const pqChecks = [
+    { label: 'PC-SECR reçoit une adresse du réseau Bureaux (172.16.11.100 et +)', run: c => { c.wait(12000); return /^172\.16\.11\.(1\d\d|[2-9]\d\d)$/.test(c.ipOf('PC-SECR')); } },
+    { label: 'PC-DENT ouvre www.exemple.fr', run: c => { const r = c.http('PC-DENT', 'http://www.exemple.fr'); return !!r && r.status === 200; } },
+    { label: 'PC-SECR joint l\'imprimante (172.16.11.20)', run: c => c.ping('PC-SECR', '172.16.11.20') },
+    { label: 'LAP-INV (visiteurs) reçoit une adresse 172.16.21.x par le Wi-Fi', run: c => /^172\.16\.21\.\d+$/.test(c.ipOf('LAP-INV')) },
+    { label: 'LAP-INV (visiteurs) ouvre www.exemple.fr', run: c => { const r = c.http('LAP-INV', 'http://www.exemple.fr'); return !!r && r.status === 200; } },
+    { label: 'LAP-INV (visiteurs) ne joint PAS l\'imprimante', run: c => !c.ping('LAP-INV', '172.16.11.20') },
+    { label: 'Switch : enable secret et configuration sauvegardée', run: c => /hostname SW-PASQUIER/.test(scfg(c, 'SW1')) && /enable secret/.test(scfg(c, 'SW1')) },
+    { label: 'Routeur : configuration sauvegardée', run: c => /hostname R-PASQUIER/.test(scfg(c, 'R1')) && /nat inside source/.test(scfg(c, 'R1')) },
+  ];
+  TPS.push({
+    id: 't17-sujet', start: D + 'S17-evaluation-e31/tp/t17-sujet-depart.json', solution: K + 'T17-sujet-corrige.json',
+    notes: 'Terminale S17 – Sujet type : Étude notariale Pasquier. Matériel posé, aucun câble, aucune configuration. Le cahier des charges (autres réseaux, VLAN, SSID, noms) est dans le dossier remis par l\'enseignant.',
+    build(sim, h) { h.sim = sim; chBuild(h); h.get('PC-DENT').label = 'Poste du notaire'; h.get('LAP-INV').label = 'Portable visiteur'; }, solve: pqSolve, checks: pqChecks, startShould: pqChecks.map(x => x.label).filter(x => !/ne joint PAS/.test(x)),
+  });
 };

@@ -1,0 +1,571 @@
+{
+ "app": "simulateur-reseau",
+ "v": 1,
+ "opts": {
+  "strictCables": false,
+  "stpFast": true
+ },
+ "devices": [
+  {
+   "id": "D1",
+   "type": "router",
+   "model": "inet",
+   "name": "FAI",
+   "x": 900,
+   "y": 200,
+   "powered": true,
+   "cli": "!\nhostname FAI\n!\nip dhcp pool WANPUB\n network 203.0.113.0 255.255.255.248\n default-router 203.0.113.1\n dns-server 198.51.100.53\n!\ninterface GigabitEthernet0/0\n ip address 203.0.113.1 255.255.255.248\n!\ninterface GigabitEthernet0/1\n ip address 198.51.100.1 255.255.255.0\n!\ninterface GigabitEthernet0/2\n ip address 203.0.113.2 255.255.255.248\n!\ninterface GigabitEthernet0/3\n no ip address\n shutdown\n!\ninterface GigabitEthernet0/4\n no ip address\n shutdown\n!\ninterface GigabitEthernet0/5\n no ip address\n shutdown\n!\nline con 0\n logging synchronous\nline vty 0 4\n!",
+   "label": "Internet (FAI)"
+  },
+  {
+   "id": "D2",
+   "type": "switch",
+   "model": "sw-8p",
+   "name": "SW-FAI",
+   "x": 1080,
+   "y": 200,
+   "powered": true,
+   "cli": "!\nhostname SW-FAI\n!\nline con 0\n logging synchronous\nline vty 0 4\n!",
+   "label": ""
+  },
+  {
+   "id": "D3",
+   "type": "server",
+   "model": "srv-linux",
+   "name": "DNS-FAI",
+   "x": 1240,
+   "y": 110,
+   "powered": true,
+   "ifaces": [
+    {
+     "name": "ens33",
+     "ip": "198.51.100.53",
+     "mask": "255.255.255.0",
+     "dhcp": false
+    }
+   ],
+   "gw": "198.51.100.1",
+   "dns": [],
+   "domain": "",
+   "allowIcmpEcho": true,
+   "wifi": {
+    "ssid": "",
+    "key": ""
+   },
+   "hosts": {},
+   "dhcpd": {
+    "enabled": false,
+    "excluded": [],
+    "pools": []
+   },
+   "dnsd": {
+    "enabled": true,
+    "records": [
+     {
+      "name": "www.exemple.fr",
+      "type": "A",
+      "data": "198.51.100.80"
+     }
+    ],
+    "forwarders": []
+   },
+   "httpd": {
+    "enabled": false,
+    "https": false,
+    "pages": {
+     "/": {
+      "type": "text/html; charset=utf-8",
+      "body": "<html><head><title>DNS-FAI</title></head><body><h1>Bienvenue sur DNS-FAI</h1><p>Serveur web du simulateur.</p></body></html>"
+     }
+    }
+   },
+   "mgmt": {
+    "comms": [],
+    "location": "",
+    "contact": "",
+    "syslogd": false,
+    "trapd": false
+   },
+   "v6": {
+    "ifs": [
+     {
+      "name": "ens33",
+      "autoconf": true,
+      "addrs": []
+     }
+    ],
+    "statics": []
+   },
+   "label": "DNS public"
+  },
+  {
+   "id": "D4",
+   "type": "server",
+   "model": "srv-linux",
+   "name": "WWW",
+   "x": 1240,
+   "y": 300,
+   "powered": true,
+   "ifaces": [
+    {
+     "name": "ens33",
+     "ip": "198.51.100.80",
+     "mask": "255.255.255.0",
+     "dhcp": false
+    }
+   ],
+   "gw": "198.51.100.1",
+   "dns": [],
+   "domain": "",
+   "allowIcmpEcho": true,
+   "wifi": {
+    "ssid": "",
+    "key": ""
+   },
+   "hosts": {},
+   "dhcpd": {
+    "enabled": false,
+    "excluded": [],
+    "pools": []
+   },
+   "dnsd": {
+    "enabled": false,
+    "records": [],
+    "forwarders": []
+   },
+   "httpd": {
+    "enabled": true,
+    "https": false,
+    "pages": {
+     "/": {
+      "type": "text/html; charset=utf-8",
+      "body": "<html><head><title>exemple.fr</title></head><body><h1>Bienvenue sur exemple.fr</h1><p>Si tu lis cette page, ton réseau fonctionne.</p></body></html>",
+      "_custom": true
+     }
+    }
+   },
+   "mgmt": {
+    "comms": [],
+    "location": "",
+    "contact": "",
+    "syslogd": false,
+    "trapd": false
+   },
+   "v6": {
+    "ifs": [
+     {
+      "name": "ens33",
+      "autoconf": true,
+      "addrs": []
+     }
+    ],
+    "statics": []
+   },
+   "label": "www.exemple.fr"
+  },
+  {
+   "id": "D5",
+   "type": "router",
+   "model": "r-2911",
+   "name": "R-VIDAL",
+   "x": 600,
+   "y": 200,
+   "powered": true,
+   "cli": "!\nhostname R-VIDAL\n!\nip dhcp excluded-address 192.168.10.1 192.168.10.49\nip dhcp excluded-address 192.168.20.1 192.168.20.9\nip dhcp pool SOINS\n network 192.168.10.0 255.255.255.0\n default-router 192.168.10.1\n dns-server 198.51.100.53\n!\nip dhcp pool PATIENTS\n network 192.168.20.0 255.255.255.0\n default-router 192.168.20.1\n dns-server 198.51.100.53\n!\ninterface GigabitEthernet0/0\n ip address 203.0.113.3 255.255.255.248\n ip nat outside\n!\ninterface GigabitEthernet0/1\n no ip address\n!\ninterface GigabitEthernet0/2\n no ip address\n shutdown\n!\ninterface GigabitEthernet0/1.10\n encapsulation dot1Q 10\n ip address 192.168.10.1 255.255.255.0\n ip nat inside\n!\ninterface GigabitEthernet0/1.20\n encapsulation dot1Q 20\n ip address 192.168.20.1 255.255.255.0\n ip access-group PATIENTS-IN in\n ip nat inside\n!\nip route 0.0.0.0 0.0.0.0 203.0.113.2\n!\nip nat inside source list 1 interface GigabitEthernet0/0 overload\n!\nip access-list extended PATIENTS-IN\n permit udp any eq bootpc any eq bootps\n deny ip 192.168.20.0 0.0.0.255 192.168.10.0 0.0.0.255\n permit ip any any\naccess-list 1 permit 192.168.10.0 0.0.0.255\n!\nline con 0\n logging synchronous\nline vty 0 4\n!",
+   "startup": "!\nhostname R-VIDAL\n!\nip dhcp excluded-address 192.168.10.1 192.168.10.49\nip dhcp excluded-address 192.168.20.1 192.168.20.9\nip dhcp pool SOINS\n network 192.168.10.0 255.255.255.0\n default-router 192.168.10.1\n dns-server 198.51.100.53\n!\nip dhcp pool PATIENTS\n network 192.168.20.0 255.255.255.0\n default-router 192.168.20.1\n dns-server 198.51.100.53\n!\ninterface GigabitEthernet0/0\n ip address 203.0.113.3 255.255.255.248\n ip nat outside\n!\ninterface GigabitEthernet0/1\n no ip address\n!\ninterface GigabitEthernet0/2\n no ip address\n shutdown\n!\ninterface GigabitEthernet0/1.10\n encapsulation dot1Q 10\n ip address 192.168.10.1 255.255.255.0\n ip nat inside\n!\ninterface GigabitEthernet0/1.20\n encapsulation dot1Q 20\n ip address 192.168.20.1 255.255.255.0\n ip access-group PATIENTS-IN in\n ip nat inside\n!\nip route 0.0.0.0 0.0.0.0 203.0.113.2\n!\nip nat inside source list 1 interface GigabitEthernet0/0 overload\n!\nip access-list extended PATIENTS-IN\n permit udp any eq bootpc any eq bootps\n deny ip 192.168.20.0 0.0.0.255 192.168.10.0 0.0.0.255\n permit ip any any\naccess-list 1 permit 192.168.10.0 0.0.0.255\n!\nline con 0\n logging synchronous\nline vty 0 4\n!",
+   "label": "Routeur"
+  },
+  {
+   "id": "D6",
+   "type": "switch",
+   "model": "sw-2960",
+   "name": "SW-VIDAL",
+   "x": 400,
+   "y": 200,
+   "powered": true,
+   "cli": "!\nhostname SW-VIDAL\n!\nenable secret Vidal#2027\n!\nspanning-tree mode pvst\nvlan 10\n name SOINS\n!\nvlan 20\n name PATIENTS\n!\ninterface FastEthernet0/1\n switchport access vlan 10\n switchport mode access\n!\ninterface FastEthernet0/2\n switchport access vlan 10\n switchport mode access\n!\ninterface FastEthernet0/3\n switchport access vlan 20\n switchport mode access\n!\ninterface FastEthernet0/10\n switchport access vlan 20\n switchport mode access\n!\ninterface FastEthernet0/24\n switchport mode trunk\n!\nline con 0\n logging synchronous\nline vty 0 4\n!",
+   "startup": "!\nhostname SW-VIDAL\n!\nenable secret Vidal#2027\n!\nspanning-tree mode pvst\nvlan 10\n name SOINS\n!\nvlan 20\n name PATIENTS\n!\ninterface FastEthernet0/1\n switchport access vlan 10\n switchport mode access\n!\ninterface FastEthernet0/2\n switchport access vlan 10\n switchport mode access\n!\ninterface FastEthernet0/3\n switchport access vlan 20\n switchport mode access\n!\ninterface FastEthernet0/10\n switchport access vlan 20\n switchport mode access\n!\ninterface FastEthernet0/24\n switchport mode trunk\n!\nline con 0\n logging synchronous\nline vty 0 4\n!",
+   "label": "Switch"
+  },
+  {
+   "id": "D7",
+   "type": "pc",
+   "model": "pc-win",
+   "name": "PC-SECR",
+   "x": 120,
+   "y": 60,
+   "powered": true,
+   "ifaces": [
+    {
+     "name": "Ethernet0",
+     "ip": "",
+     "mask": "",
+     "dhcp": true
+    }
+   ],
+   "gw": "",
+   "dns": [],
+   "domain": "",
+   "allowIcmpEcho": true,
+   "wifi": {
+    "ssid": "",
+    "key": ""
+   },
+   "hosts": {},
+   "dhcpd": {
+    "enabled": false,
+    "excluded": [],
+    "pools": []
+   },
+   "dnsd": {
+    "enabled": false,
+    "records": [],
+    "forwarders": []
+   },
+   "httpd": {
+    "enabled": false,
+    "https": false,
+    "pages": {
+     "/": {
+      "type": "text/html; charset=utf-8",
+      "body": "<html><head><title>PC-SECR</title></head><body><h1>Bienvenue sur PC-SECR</h1><p>Serveur web du simulateur.</p></body></html>"
+     }
+    }
+   },
+   "mgmt": {
+    "comms": [],
+    "location": "",
+    "contact": "",
+    "syslogd": false,
+    "trapd": false
+   },
+   "v6": {
+    "ifs": [
+     {
+      "name": "Ethernet0",
+      "autoconf": true,
+      "addrs": []
+     }
+    ],
+    "statics": []
+   },
+   "label": "Secrétariat"
+  },
+  {
+   "id": "D8",
+   "type": "pc",
+   "model": "pc-win",
+   "name": "PC-DENT",
+   "x": 120,
+   "y": 200,
+   "powered": true,
+   "ifaces": [
+    {
+     "name": "Ethernet0",
+     "ip": "",
+     "mask": "",
+     "dhcp": true
+    }
+   ],
+   "gw": "",
+   "dns": [],
+   "domain": "",
+   "allowIcmpEcho": true,
+   "wifi": {
+    "ssid": "",
+    "key": ""
+   },
+   "hosts": {},
+   "dhcpd": {
+    "enabled": false,
+    "excluded": [],
+    "pools": []
+   },
+   "dnsd": {
+    "enabled": false,
+    "records": [],
+    "forwarders": []
+   },
+   "httpd": {
+    "enabled": false,
+    "https": false,
+    "pages": {
+     "/": {
+      "type": "text/html; charset=utf-8",
+      "body": "<html><head><title>PC-DENT</title></head><body><h1>Bienvenue sur PC-DENT</h1><p>Serveur web du simulateur.</p></body></html>"
+     }
+    }
+   },
+   "mgmt": {
+    "comms": [],
+    "location": "",
+    "contact": "",
+    "syslogd": false,
+    "trapd": false
+   },
+   "v6": {
+    "ifs": [
+     {
+      "name": "Ethernet0",
+      "autoconf": true,
+      "addrs": []
+     }
+    ],
+    "statics": []
+   },
+   "label": "Cabinet dentaire"
+  },
+  {
+   "id": "D9",
+   "type": "peripheral",
+   "model": "printer",
+   "name": "IMP",
+   "x": 120,
+   "y": 340,
+   "powered": true,
+   "ifaces": [
+    {
+     "name": "LAN",
+     "ip": "192.168.10.20",
+     "mask": "255.255.255.0",
+     "dhcp": false
+    }
+   ],
+   "gw": "192.168.10.1",
+   "dns": [],
+   "domain": "",
+   "allowIcmpEcho": true,
+   "wifi": {
+    "ssid": "",
+    "key": ""
+   },
+   "hosts": {},
+   "dhcpd": {
+    "enabled": false,
+    "excluded": [],
+    "pools": []
+   },
+   "dnsd": {
+    "enabled": false,
+    "records": [],
+    "forwarders": []
+   },
+   "httpd": {
+    "enabled": false,
+    "https": false,
+    "pages": {
+     "/": {
+      "type": "text/html; charset=utf-8",
+      "body": "<html><head><title>IMP</title></head><body><h1>Bienvenue sur IMP</h1><p>Serveur web du simulateur.</p></body></html>"
+     }
+    }
+   },
+   "mgmt": {
+    "comms": [],
+    "location": "",
+    "contact": "",
+    "syslogd": false,
+    "trapd": false
+   },
+   "v6": {
+    "ifs": [
+     {
+      "name": "LAN",
+      "autoconf": true,
+      "addrs": []
+     }
+    ],
+    "statics": []
+   },
+   "label": "Imprimante"
+  },
+  {
+   "id": "D10",
+   "type": "ap",
+   "model": "ap-u6",
+   "name": "AP1",
+   "x": 400,
+   "y": 380,
+   "powered": true,
+   "cli": "!\nhostname AP1\n!\nline con 0\n logging synchronous\nline vty 0 4\n!",
+   "ap": {
+    "ssid": "VIDAL-PATIENTS",
+    "key": "Patients#2027",
+    "security": "WPA2"
+   },
+   "label": "Borne Wi-Fi"
+  },
+  {
+   "id": "D11",
+   "type": "pc",
+   "model": "laptop",
+   "name": "LAP-INV",
+   "x": 600,
+   "y": 380,
+   "powered": true,
+   "ifaces": [
+    {
+     "name": "Ethernet0",
+     "ip": "",
+     "mask": "",
+     "dhcp": true
+    },
+    {
+     "name": "Wi-Fi",
+     "ip": "",
+     "mask": "",
+     "dhcp": true
+    }
+   ],
+   "gw": "",
+   "dns": [],
+   "domain": "",
+   "allowIcmpEcho": true,
+   "wifi": {
+    "ssid": "VIDAL-PATIENTS",
+    "key": "Patient#2027"
+   },
+   "hosts": {},
+   "dhcpd": {
+    "enabled": false,
+    "excluded": [],
+    "pools": []
+   },
+   "dnsd": {
+    "enabled": false,
+    "records": [],
+    "forwarders": []
+   },
+   "httpd": {
+    "enabled": false,
+    "https": false,
+    "pages": {
+     "/": {
+      "type": "text/html; charset=utf-8",
+      "body": "<html><head><title>LAP-INV</title></head><body><h1>Bienvenue sur LAP-INV</h1><p>Serveur web du simulateur.</p></body></html>"
+     }
+    }
+   },
+   "mgmt": {
+    "comms": [],
+    "location": "",
+    "contact": "",
+    "syslogd": false,
+    "trapd": false
+   },
+   "v6": {
+    "ifs": [
+     {
+      "name": "Wi-Fi",
+      "autoconf": true,
+      "addrs": []
+     }
+    ],
+    "statics": []
+   },
+   "label": "Portable patient"
+  }
+ ],
+ "links": [
+  {
+   "a": [
+    "D1",
+    "GigabitEthernet0/1"
+   ],
+   "b": [
+    "D2",
+    "Port1"
+   ],
+   "type": "straight"
+  },
+  {
+   "a": [
+    "D3",
+    "ens33"
+   ],
+   "b": [
+    "D2",
+    "Port2"
+   ],
+   "type": "straight"
+  },
+  {
+   "a": [
+    "D4",
+    "ens33"
+   ],
+   "b": [
+    "D2",
+    "Port3"
+   ],
+   "type": "straight"
+  },
+  {
+   "a": [
+    "D5",
+    "GigabitEthernet0/0"
+   ],
+   "b": [
+    "D1",
+    "GigabitEthernet0/2"
+   ],
+   "type": "cross"
+  },
+  {
+   "a": [
+    "D5",
+    "GigabitEthernet0/1"
+   ],
+   "b": [
+    "D6",
+    "FastEthernet0/24"
+   ],
+   "type": "straight"
+  },
+  {
+   "a": [
+    "D7",
+    "Ethernet0"
+   ],
+   "b": [
+    "D6",
+    "FastEthernet0/1"
+   ],
+   "type": "straight"
+  },
+  {
+   "a": [
+    "D8",
+    "Ethernet0"
+   ],
+   "b": [
+    "D6",
+    "FastEthernet0/2"
+   ],
+   "type": "straight"
+  },
+  {
+   "a": [
+    "D9",
+    "LAN"
+   ],
+   "b": [
+    "D6",
+    "FastEthernet0/3"
+   ],
+   "type": "straight"
+  },
+  {
+   "a": [
+    "D10",
+    "Eth0"
+   ],
+   "b": [
+    "D6",
+    "FastEthernet0/10"
+   ],
+   "type": "cross"
+  }
+ ],
+ "notes": "Terminale S16 – Chantier d'entraînement n°2 : le cabinet Vidal rappelle, trois mois après l'installation. Plusieurs choses ne fonctionnent plus. À faire : diagnostiquer avec méthode, corriger, prouver le retour à la normale (8 tests), sauvegarder, rédiger le compte rendu d'intervention."
+}

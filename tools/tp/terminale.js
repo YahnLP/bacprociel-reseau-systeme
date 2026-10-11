@@ -6,7 +6,7 @@ const { hostIp, hostDhcp, hostIpWifi, cliRun, shell, IP } = L;
 const D = 'docs/terminale/', K = 'corriges/terminale/';
 const TPS = [];
 const ip4 = x => IP.parse(x), m24 = IP.parseMask('24');
-const dv = (c, n) => { const a = Array.from(c.sim.devices.values()); return a.find(d => d.name === n) || a.find(d => (d.label || '') === n || (d.origName || '') === n) || (n === 'SW1' ? a.find(d => d.model === 'sw-2960') : null); };
+const dv = (c, n) => { const a = Array.from(c.sim.devices.values()); return a.find(d => d.name === n) || a.find(d => (d.label || '') === n || (d.origName || '') === n) || (n === 'SW1' ? a.find(d => d.model === 'sw-2960') : n === 'R1' ? a.find(d => d.model === 'r-2911') : null); };
 /* exécute une commande sur un équipement Cisco en essayant des mots de passe enable */
 const ios = (c, name, cmd, pws) => {
   const d = dv(c, name);
@@ -18,7 +18,7 @@ const ios = (c, name, cmd, pws) => {
   }
   return '';
 };
-const PW = ['Cabinet#2026', 'Archi#2027', 'Cisco123', 'cisco', 'Pme#2027'];
+const PW = ['Cabinet#2026', 'Archi#2027', 'Cisco123', 'cisco', 'Pme#2027', 'Vidal#2027', 'Marchand#2027', 'Pasquier#2027'];
 const cfg = (c, n) => ios(c, n, 'show running-config', PW);
 const scfg = (c, n) => ios(c, n, 'show startup-config', PW);
 
