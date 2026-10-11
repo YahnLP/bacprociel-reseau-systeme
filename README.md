@@ -1,6 +1,6 @@
 # Réseaux et systèmes – Bac Pro CIEL (E31)
 
-Cours, TP et ressources du module **E31 « Mise en œuvre de réseaux informatiques »** du Bac Pro CIEL (Seconde, Première, Terminale), MFR de Pontonx.
+Cours, TP et ressources du module **E31 « Mise en œuvre de réseaux informatiques »** du Bac Pro CIEL (Seconde, Première, Terminale). Auteur : Yahn LE PRETTRE – licence CC BY-NC-SA 4.0.
 
 📖 **Site (GitHub Pages) :** <https://yahnlp.github.io/bacprociel-reseau-systeme/>
 

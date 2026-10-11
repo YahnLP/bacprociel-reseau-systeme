@@ -6,8 +6,9 @@ repo_url: "https://github.com/YahnLP/bacprociel-reseau-systeme"
 edit_uri: "edit/main/docs/"
 
 copyright: |
+  © Yahn LE PRETTRE ·
   <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.fr">Licence CC BY-NC-SA 4.0</a>
-  · MFR de Pontonx · Hébergé sur GitHub Pages
+  · Hébergé sur GitHub Pages
 
 docs_dir: docs
 
