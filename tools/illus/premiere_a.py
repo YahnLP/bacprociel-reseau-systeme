@@ -134,7 +134,45 @@ def s05():
     f.text(490, 548, "end  (ou Ctrl+Z) : retour direct au mode privilégié", 14, MUTED, "middle", "700")
     f.save(out(d, "modes-cli.svg"))
 
+def s06():
+    d = "S06-sous-reseaux"
+    # 1. découpage d'un /24 en 4 x /26
+    f = Fig(980, 380, "Un /24 découpé en quatre /26", "Le réseau 192.168.1.0/24 (256 adresses) est découpé en quatre sous-réseaux de 64 adresses : .0, .64, .128 et .192.")
+    f.title_bar("192.168.1.0 /24  →  quatre sous-réseaux /26")
+    f.rect(40, 62, 900, 44, GRY, GRY_D, 2, 8); f.text(490, 91, "le 4ᵉ nombre va de 0 à 255 : 256 adresses", 16, INK, "middle", "700")
+    cols = [IND_L, TEAL_L, ORA_L, GRN_L]; sts = [IND, TEAL, ORA, GRN]
+    for k in range(4):
+        x = 40 + k * 225
+        f.rect(x, 130, 225, 150, cols[k], sts[k], 3, 10)
+        f.text(x + 112, 160, f"Sous-réseau {chr(65 + k)}", 18, sts[k], "middle", "700")
+        f.mono(x + 112, 188, f"192.168.1.{64 * k} /26", 15, INK, "middle", "700")
+        f.text(x + 112, 214, f"machines : .{64 * k + 1} à .{64 * k + 62}", 14, INK)
+        f.text(x + 112, 236, f"diffusion : .{64 * k + 63}", 14, INK)
+        f.text(x + 112, 262, "62 machines", 14, sts[k], "middle", "700")
+    for k in range(5):
+        f.text(40 + k * 225, 304, str(64 * k), 14, MUTED, "middle", "700")
+    f.callout(40, 320, 900, "Chaque sous-réseau a son adresse de réseau (1ère) et sa diffusion (dernière) : 64 − 2 = 62 machines utilisables.", YEL_L, YEL, 14.5)
+    f.save(out(d, "decoupage-26.svg"))
+    # 2. emprunter des bits
+    f = Fig(980, 480, "Emprunter des bits à la partie machine", "Le masque /24 devient /26 : on emprunte les deux premiers bits du dernier octet à la partie machine. Ces deux bits désignent le numéro du sous-réseau.")
+    f.title_bar("Du /24 au /26 : on emprunte 2 bits à la partie machine")
+    f.text(40, 80, "4ᵉ octet du MASQUE (8 bits) : 1 = fait partie du réseau, 0 = fait partie de la machine", 15, INK, "start", "700")
+    def octet(y, nres, titre):
+        f.text(40, y - 12, titre, 15, MUTED, "start", "700")
+        for i in range(8):
+            r = i < nres; x = 40 + i * 70
+            f.rect(x, y, 62, 48, IND_L if r else ORA_L, IND if r else ORA, 2.5, 8)
+            f.text(x + 31, y + 33, "1" if r else "0", 24, IND if r else ORA, "middle", "700")
+        f.text(40 + nres * 35, y + 70, f"{nres} bits empruntés" if nres else "", 14, IND, "middle", "700") if nres else None
+        f.text(40 + nres * 70 + (8 - nres) * 35, y + 70, f"{8 - nres} bits machine", 14, ORA, "middle", "700")
+    octet(120, 0, "/24 : masque 255.255.255.0 → tout le 4ᵉ octet = machine")
+    octet(250, 2, "/26 : masque 255.255.255.192 → 2 bits « sous-réseau » + 6 bits machine")
+    f.rect(40 + 0 * 70 - 4, 246, 144, 56, "none", RED, 3, 10)
+    f.text(40, 362, "dans l'adresse, ces 2 bits donnent le sous-réseau : 00 = A · 01 = B · 10 = C · 11 = D", 14, RED, "start", "700")
+    f.callout(40, 385, 900, "2 bits empruntés → 2² = 4 sous-réseaux. Il reste 6 bits machine → 2⁶ − 2 = 62 machines par sous-réseau. 192 = 128 + 64 = 11000000.", YEL_L, YEL, 14.5)
+    f.save(out(d, "emprunt-bits.svg"))
+
 
 if __name__ == "__main__":
-    for w in (sys.argv[1:] or ["s01", "s02", "s03", "s04", "s05"]):
+    for w in (sys.argv[1:] or ["s01", "s02", "s03", "s04", "s05", "s06"]):
         globals()[w](); print("OK", w)

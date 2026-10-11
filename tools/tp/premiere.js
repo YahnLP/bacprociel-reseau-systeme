@@ -97,6 +97,28 @@ TPS.push({
   ],
   startShould: ['Le switch s\'appelle SW-ATELIER', 'Mot de passe enable chiffré (enable secret)', 'Les ports utilisés ont une description', 'Les ports libres Fa0/4 à Fa0/24 sont désactivés', 'PC1 joint le switch (192.168.10.2)'],
 });
+
+/* ---------- S06 : sous-réseaux ---------- */
+TPS.push({
+  id: 'p06-sousreseaux', start: D + 'S06-sous-reseaux/tp/p06-sousreseaux.json', solution: K + 'P06-sousreseaux-corrige.json',
+  notes: 'Première S06 – Le réseau 192.168.1.0/24 est découpé en /26 : PC1 et PC2 dans le sous-réseau A (192.168.1.0/26), PC3 et PC4 dans le B (192.168.1.64/26). Deux erreurs : PC2 a une adresse du sous-réseau B ; PC4 a un mauvais masque (/24).',
+  build(sim, h) {
+    const { dev, link, get } = h;
+    dev('sw-8p', 'SW1', 420, 180, 'Switch');
+    dev('pc-win', 'PC1', 200, 60, 'PC1 (A)'); dev('pc-win', 'PC2', 200, 180, 'PC2 (A)'); dev('pc-win', 'PC3', 200, 300, 'PC3 (B)'); dev('pc-win', 'PC4', 640, 180, 'PC4 (B)');
+    ['PC1', 'PC2', 'PC3', 'PC4'].forEach((n, k) => link(n, 'eth0', 'SW1', 'port' + (k + 1)));
+    hostIp(get('PC1'), '192.168.1.10', '26'); hostIp(get('PC2'), '192.168.1.70', '26'); hostIp(get('PC3'), '192.168.1.71', '26'); hostIp(get('PC4'), '192.168.1.80', '24');
+  },
+  solve(sim, h) { hostIp(h.get('PC2'), '192.168.1.20', '26'); hostIp(h.get('PC4'), '192.168.1.80', '26'); },
+  checks: [
+    { label: 'PC1 joint PC2 (sous-réseau A)', run: c => c.ping('PC1', c.ipOf('PC2')) },
+    { label: 'PC2 joint PC1 (sous-réseau A)', run: c => c.ping('PC2', c.ipOf('PC1')) },
+    { label: 'PC3 joint PC4 (sous-réseau B)', run: c => c.ping('PC3', c.ipOf('PC4')) },
+    { label: 'PC4 joint PC3 (sous-réseau B)', run: c => c.ping('PC4', c.ipOf('PC3')) },
+    { label: 'PC1 ne joint PAS PC3 (sous-réseaux séparés, pas de routeur)', run: c => !c.ping('PC1', '192.168.1.71') },
+  ],
+  startShould: ['PC1 joint PC2 (sous-réseau A)', 'PC2 joint PC1 (sous-réseau A)'],
+});
 const want = process.argv.slice(2);
 let all = true;
 TPS.filter(t => !want.length || want.includes(t.id)).forEach(t => { all = L.run(t) && all; });

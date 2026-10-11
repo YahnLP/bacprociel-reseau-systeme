@@ -14,9 +14,9 @@
 | **S01** | 31 août 2026 | Diagnostic A2 et retour de PFMP | 🟢 Guidé | [📘 Ouvrir](S01-diagnostic-retour/README.md) |
 | **S02** | 14 septembre 2026 | Remise à niveau et découverte du simulateur | 🟢 Guidé | [📘 Ouvrir](S02-remise-a-niveau-simulateur/README.md) |
 | **S03** | 28 septembre 2026 | Les couches : comprendre ce qui circule | 🟡 Semi-guidé | [📘 Ouvrir](S03-couches-wireshark/README.md) |
-| **S04** | 12 octobre 2026 | Protocoles usuels vus de l'intérieur | 🟡 Semi-guidé | 🚧 en préparation |
-| **S05** | 19 octobre 2026 | Switch administrable : prise en main | 🟡 Semi-guidé | 🚧 en préparation |
-| **S06** | 2 novembre 2026 | Découper un réseau en sous-réseaux | 🟡 Semi-guidé | 🚧 en préparation |
+| **S04** | 12 octobre 2026 | Protocoles usuels vus de l'intérieur | 🟡 Semi-guidé | [📘 Ouvrir](S04-protocoles-usuels/README.md) |
+| **S05** | 19 octobre 2026 | Switch administrable : prise en main | 🟡 Semi-guidé | [📘 Ouvrir](S05-switch-administrable/README.md) |
+| **S06** | 2 novembre 2026 | Découper un réseau en sous-réseaux | 🟡 Semi-guidé | [📘 Ouvrir](S06-sous-reseaux/README.md) |
 | **S07** | 23 novembre 2026 | Relier deux réseaux : le routeur | 🟡 Semi-guidé | 🚧 en préparation |
 | **S08** | 30 novembre 2026 | VLAN (1) : séparer sans multiplier le matériel | 🟡 Semi-guidé | 🚧 en préparation |
 | **S09** | 14 décembre 2026 | VLAN (2) : deux switchs et lien trunk | 🟡 Semi-guidé | 🚧 en préparation |
