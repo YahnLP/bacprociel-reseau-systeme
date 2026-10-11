@@ -11,9 +11,9 @@
 
 | Séance | Semaine (CFA) | Thème | Autonomie | Contenu |
 |---|---|---|---|---|
-| **S01** | 31 août 2026 | Diagnostic A2 et retour de PFMP | 🟢 Guidé | 🚧 en préparation |
-| **S02** | 14 septembre 2026 | Remise à niveau et découverte du simulateur | 🟢 Guidé | 🚧 en préparation |
-| **S03** | 28 septembre 2026 | Les couches : comprendre ce qui circule | 🟡 Semi-guidé | 🚧 en préparation |
+| **S01** | 31 août 2026 | Diagnostic A2 et retour de PFMP | 🟢 Guidé | [📘 Ouvrir](S01-diagnostic-retour/README.md) |
+| **S02** | 14 septembre 2026 | Remise à niveau et découverte du simulateur | 🟢 Guidé | [📘 Ouvrir](S02-remise-a-niveau-simulateur/README.md) |
+| **S03** | 28 septembre 2026 | Les couches : comprendre ce qui circule | 🟡 Semi-guidé | [📘 Ouvrir](S03-couches-wireshark/README.md) |
 | **S04** | 12 octobre 2026 | Protocoles usuels vus de l'intérieur | 🟡 Semi-guidé | 🚧 en préparation |
 | **S05** | 19 octobre 2026 | Switch administrable : prise en main | 🟡 Semi-guidé | 🚧 en préparation |
 | **S06** | 2 novembre 2026 | Découper un réseau en sous-réseaux | 🟡 Semi-guidé | 🚧 en préparation |
