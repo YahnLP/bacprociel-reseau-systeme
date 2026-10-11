@@ -62,6 +62,7 @@
 <details markdown="1"><summary>Points d'attention</summary>
 
 - **Le TP** est conçu sur un routeur (NAT en surcharge + redirection `ip nat inside source static tcp … 8080`). Le poste « Technicien à distance » est branché côté Internet pour tester **de l'extérieur**.
+- **Limite du simulateur :** `transport input ssh` est **mémorisé** (visible dans `show running-config`) mais **non appliqué** : telnet reste possible. À dire aux élèves ; sur du matériel réel du plateau, le tester.
 - **Authentification SSH par clé** : présentée **à l'oral** ; le simulateur ne gère pas les clés. Elle peut être travaillée sur le **serveur Ubuntu** du plateau (voir Première S10).
 - **VPN** : le référentiel demande d'**utiliser un VPN déjà configuré**, pas de le monter. Le simulateur propose des VPN (menu dédié) mais ce n'est pas testé dans ce TP : voir la fiche écrite en partie F.
 - **Bureau à distance (RDP)** : mentionné ; ne jamais l'exposer directement sur Internet (cible n°1 des attaques).

@@ -13,7 +13,7 @@ S = dict(
  deroule=[("0 h 00 – 0 h 20", "**Accroche** : « Une caméra de surveillance est piratée parce qu'elle était visible depuis Internet. Comment ? »", "Classe"), ("0 h 20 – 0 h 50", "**Mini-cours** : SSH, telnet, redirection de port", "Classe"), ("0 h 50 – 2 h 00", "**TP A–C** : passer en SSH, tester", "Binôme"), ("2 h 00 – 2 h 15", "Pause", ""), ("2 h 15 – 2 h 45", "**Mini-cours** : VPN, télémaintenance", "Classe"), ("2 h 45 – 3 h 30", "**TP D–E** : publier le site, tester de l'extérieur", "Binôme"), ("3 h 30 – 4 h 00", "**TP F** : fiche de télémaintenance", "Individuel")],
  materiel=["Le fichier `t09-acces.json`.", "Optionnel : accès à un VPN déjà configuré sur le plateau (observation), sinon la partie VPN est travaillée **sur fiche**.", "[Aide-mémoire](03-aide-memoire.md) imprimé."],
  eval=[("**Simulateur : 6 contrôles automatiques** (SSH, NAT, redirection, sauvegarde)", "Formatif"), ("**Fiche de télémaintenance** remplie", "Grille : autorisation, compte, périmètre, durée, trace")],
- notes=["**Le TP** est conçu sur un routeur (NAT en surcharge + redirection `ip nat inside source static tcp … 8080`). Le poste « Technicien à distance » est branché côté Internet pour tester **de l'extérieur**.", "**Authentification SSH par clé** : présentée **à l'oral** ; le simulateur ne gère pas les clés. Elle peut être travaillée sur le **serveur Ubuntu** du plateau (voir Première S10).", "**VPN** : le référentiel demande d'**utiliser un VPN déjà configuré**, pas de le monter. Le simulateur propose des VPN (menu dédié) mais ce n'est pas testé dans ce TP : voir la fiche écrite en partie F.", "**Bureau à distance (RDP)** : mentionné ; ne jamais l'exposer directement sur Internet (cible n°1 des attaques).", "**Panne de 2e tour** : si les élèves publient `80` au lieu de `8080`, le test « port 80 non joignable » échoue : bonne occasion de discuter du risque d'exposer un port standard."],
+ notes=["**Le TP** est conçu sur un routeur (NAT en surcharge + redirection `ip nat inside source static tcp … 8080`). Le poste « Technicien à distance » est branché côté Internet pour tester **de l'extérieur**.", "**Limite du simulateur :** `transport input ssh` est **mémorisé** (visible dans `show running-config`) mais **non appliqué** : telnet reste possible. À dire aux élèves ; sur du matériel réel du plateau, le tester.", "**Authentification SSH par clé** : présentée **à l'oral** ; le simulateur ne gère pas les clés. Elle peut être travaillée sur le **serveur Ubuntu** du plateau (voir Première S10).", "**VPN** : le référentiel demande d'**utiliser un VPN déjà configuré**, pas de le monter. Le simulateur propose des VPN (menu dédié) mais ce n'est pas testé dans ce TP : voir la fiche écrite en partie F.", "**Bureau à distance (RDP)** : mentionné ; ne jamais l'exposer directement sur Internet (cible n°1 des attaques).", "**Panne de 2e tour** : si les élèves publient `80` au lieu de `8080`, le test « port 80 non joignable » échoue : bonne occasion de discuter du risque d'exposer un port standard."],
  corriges_extra=", `T09-acces-corrige.json`",
  cours_titre="Accéder à distance, en sécurité",
  sauras=["expliquer pourquoi **telnet** est dangereux et **SSH** protégé ;", "configurer **SSH** sur un routeur ;", "**publier** un service par redirection de port et **en citer les risques** ;", "dire à quoi sert un **VPN** ;", "**appliquer** les règles de télémaintenance."],
@@ -66,7 +66,7 @@ Sur `R1` : **domaine**, **compte nominatif** `tech` (mot de passe `Tech#2027`), 
 
 ✅ **Points de contrôle :**
 - depuis `PC-ADM` : `ssh tech@192.168.1.1` fonctionne ;
-- `telnet 192.168.1.1` est **refusé** ;
+- `telnet 192.168.1.1` : **sur du matériel réel**, il serait refusé ; **le simulateur n'applique pas cette règle** (il mémorise seulement la configuration) : tu **vérifies donc la ligne `transport input ssh`** dans `show running-config` ;
 - `show running-config` contient `transport input ssh`.
 
 ❓ **Pourquoi `login local` (et pas un simple mot de passe de ligne) ?** ______________
@@ -149,7 +149,7 @@ Autorisation · Compte nominatif · Périmètre · Durée · Fermeture · Journa
 """,
  corrige="""Fichier : `T09-acces-corrige.json`.
 
-**Partie A** : Internet fonctionne (NAT en surcharge) ; depuis `DISTANT`, le port 8080 ne répond pas ; telnet fonctionne et le mot de passe est visible en clair (dans une capture).
+**Partie A** : Internet fonctionne (NAT en surcharge) ; depuis `DISTANT`, le port 8080 ne répond pas ; telnet fonctionne et le mot de passe y est transmis en clair (visible dans une capture).
 
 **Partie B** : `ip domain-name`, `username tech privilege 15 secret …`, `crypto key generate rsa modulus 1024`, `ip ssh version 2`, `line vty 0 4` + `transport input ssh` + `login local`, `write memory`. `login local` : chaque technicien utilise **son** compte.
 
@@ -159,7 +159,7 @@ Autorisation · Compte nominatif · Périmètre · Durée · Fermeture · Journa
 
 **Partie F** : la fiche doit comporter une autorisation écrite, un compte nominatif, un VPN ou SSH justifié, une durée d'une semaine, la suppression du compte à la fin, et une trace dans le journal.
 
-**Contrôles automatiques** : 6/6 verts sur le corrigé.""",
+**Contrôles automatiques** : 6/6 verts sur le corrigé (le refus de telnet n'est vérifié que par la configuration).""",
 )
 if __name__ == "__main__":
     seance("S09", S)

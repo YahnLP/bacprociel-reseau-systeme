@@ -2,7 +2,7 @@
 
 Fichier : `T09-acces-corrige.json`.
 
-**Partie A** : Internet fonctionne (NAT en surcharge) ; depuis `DISTANT`, le port 8080 ne répond pas ; telnet fonctionne et le mot de passe est visible en clair (dans une capture).
+**Partie A** : Internet fonctionne (NAT en surcharge) ; depuis `DISTANT`, le port 8080 ne répond pas ; telnet fonctionne et le mot de passe y est transmis en clair (visible dans une capture).
 
 **Partie B** : `ip domain-name`, `username tech privilege 15 secret …`, `crypto key generate rsa modulus 1024`, `ip ssh version 2`, `line vty 0 4` + `transport input ssh` + `login local`, `write memory`. `login local` : chaque technicien utilise **son** compte.
 
@@ -12,4 +12,4 @@ Fichier : `T09-acces-corrige.json`.
 
 **Partie F** : la fiche doit comporter une autorisation écrite, un compte nominatif, un VPN ou SSH justifié, une durée d'une semaine, la suppression du compte à la fin, et une trace dans le journal.
 
-**Contrôles automatiques** : 6/6 verts sur le corrigé.
+**Contrôles automatiques** : 6/6 verts sur le corrigé (le refus de telnet n'est vérifié que par la configuration).
