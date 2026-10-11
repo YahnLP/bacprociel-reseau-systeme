@@ -365,6 +365,43 @@ def s13():
     f.save(out(d, "bilan-optique.svg"))
 
 
+def s14():
+    d = "S14-securite-base"
+    f = Fig(1000, 480, "La sécurité par couches", "Plusieurs barrières successives : accès physique, réseau, équipements, systèmes et utilisateurs. Si une barrière cède, la suivante protège encore.")
+    f.title_bar("Défense en profondeur : plusieurs barrières, pas une seule")
+    couches = [("Utilisateurs", "sensibilisation, mots de passe longs, pas de partage de compte", RED_L, RED),
+               ("Systèmes", "mises à jour, pare-feu du poste, services inutiles coupés", ORA_L, ORA),
+               ("Équipements réseau", "mots de passe forts, SSH (pas Telnet), ports libres coupés, sauvegarde", YEL_L, "#b28704"),
+               ("Réseau", "VLAN, filtrage (ACL) entre les zones, Wi-Fi invités séparé", GRN_L, GRN),
+               ("Accès physique", "local technique et baie fermés à clé, badge, caméra", IND_L, IND)]
+    for i, (t, sub, fill, st) in enumerate(couches):
+        w = 900 - i * 80; x = 50 + i * 40; y = 60 + i * 76
+        f.rect(x, y, w, 66, fill, st, 3, 14)
+        f.text(x + 22, y + 28, t, 18, st, "start", "700")
+        f.text(x + 22, y + 52, sub, 14, INK, "start")
+    f.save(out(d, "defense-profondeur.svg"))
+
+    f = Fig(1000, 470, "Comment le routeur lit une liste de filtrage (ACL)", "Le routeur compare chaque paquet aux règles de haut en bas ; la première règle qui correspond s'applique, puis il s'arrête. Une règle « refuser tout » termine la liste.")
+    f.title_bar("Une ACL se lit de haut en bas : la 1re règle qui correspond gagne")
+    rules = [("10", "permit", "tcp  192.168.10.0/24  →  192.168.20.100  port 80", GRN, GRN_L), ("20", "permit", "tcp  192.168.10.0/24  →  192.168.20.100  port 443", GRN, GRN_L), ("30", "deny", "ip  tout  →  tout", RED, RED_L)]
+    f.text(40, 70, "Liste « WEB-ONLY » appliquée en entrée sur l'interface côté postes", 15, INK, "start", "700")
+    for i, (n, act, txt, c, cl) in enumerate(rules):
+        y = 90 + i * 60
+        f.rect(40, y, 560, 48, cl, c, 2.5, 8)
+        f.badge(70, y + 24, n, c, 15); f.text(100, y + 31, act, 17, c, "start", "700"); f.mono(190, y + 30, txt, 13, INK, "start")
+    f.text(40, 290, "Tests depuis un poste du réseau 192.168.10.0/24 :", 15, INK, "start", "700")
+    tests = [("Navigateur vers le serveur (port 80)", "→ règle 10", "AUTORISÉ", GRN), ("Ping vers le serveur (ICMP)", "→ règle 30", "REFUSÉ", RED), ("Accès SSH vers le serveur (port 22)", "→ règle 30", "REFUSÉ", RED)]
+    for i, (t, r, v, c) in enumerate(tests):
+        y = 305 + i * 44
+        f.text(60, y + 28, t, 14.5, INK, "start"); f.text(420, y + 28, r, 14, MUTED, "start", "700")
+        f.rect(520, y + 8, 110, 30, c, c, 0, 15); f.text(575, y + 29, v, 13.5, WHITE, "middle", "700")
+    f.rect(660, 90, 300, 168, YEL_L, YEL, 2.5, 12)
+    f.text(810, 118, "Bon à savoir", 16, "#8a6d00", "middle", "700")
+    for i, t in enumerate(("• chaque ACL se termine par un", "  « deny » implicite (même caché)", "• l'ordre des règles compte", "• on place l'ACL le plus près", "  possible de la source")):
+        f.text(676, 148 + i * 22, t, 13.5, INK, "start")
+    f.save(out(d, "acl-lecture.svg"))
+
+
 if __name__ == "__main__":
-    for w in (sys.argv[1:] or ["s07", "s08", "s09", "s10", "s11", "s12", "s13"]):
+    for w in (sys.argv[1:] or ["s07", "s08", "s09", "s10", "s11", "s12", "s13", "s14"]):
         globals()[w](); print("OK", w)

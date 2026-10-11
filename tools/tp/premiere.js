@@ -340,6 +340,40 @@ TPS.push({
   checks: cabChecks,
   startShould: ['PC1 joint PC2 (même switch)', 'PC3 joint PC4 (même switch)', 'PC1 joint PC3 (à travers le lien entre switchs)', 'PC2 joint PC4 (à travers le lien entre switchs)'],
 });
+
+/* ---------- S14 : sécurité de base ---------- */
+function secBuild(h) {
+  const { dev, link, get } = h;
+  dev('pc-win', 'PC1', 100, 80, 'Poste atelier'); dev('pc-win', 'PC2', 100, 270, 'Poste compta'); dev('sw-2960', 'SW1', 270, 170, 'Switch');
+  dev('r-1941', 'R1', 450, 170, 'Routeur'); dev('sw-8p', 'SWB', 620, 170); dev('srv-linux', 'SRV1', 790, 170, 'Serveur web');
+  link('PC1', 'eth0', 'SW1', 'Fa0/1'); link('PC2', 'eth0', 'SW1', 'Fa0/2'); link('SW1', 'Gi0/1', 'R1', 'gi0/0'); link('R1', 'gi0/1', 'SWB', 'port1'); link('SRV1', 'ens33', 'SWB', 'port2');
+  cliRun(get('R1'), 'enable\nconf t\nhostname R1\ninterface gi0/0\nip address 192.168.10.1 255.255.255.0\nno shutdown\nexit\ninterface gi0/1\nip address 192.168.20.1 255.255.255.0\nno shutdown\nend');
+  cliRun(get('SW1'), 'enable\nconf t\nhostname SW1\ninterface vlan 1\nip address 192.168.10.2 255.255.255.0\nno shutdown\nexit\nip default-gateway 192.168.10.1\nline vty 0 4\npassword cisco\nlogin\ntransport input all\nend');
+  hostIp(get('PC1'), '192.168.10.11', '24', '192.168.10.1'); hostIp(get('PC2'), '192.168.10.12', '24', '192.168.10.1'); hostIp(get('SRV1'), '192.168.20.100', '24', '192.168.20.1');
+  get('SRV1').httpd.start();
+}
+const rcfg = (c, n) => rshow(c, n, 'show running-config');
+const showPw = (c, dev, cmd) => { for (const pw of ['Cisco123', 'cisco']) { const s = dev.newSession(); let out = '', done = false; const io = { print: t => { out += t; }, done: () => { done = true; }, clear() { } }; const go = l => { done = false; out = ''; s.exec(l, io); c.sim.runUntil(() => done, 60000); }; go('enable'); go(pw); go(cmd); if (out.trim() && !/Invalid|Access denied|Bad secrets/.test(out)) return out; } return ''; };
+const swcfg = c => showPw(c, swn(c, 'SW1'), 'show running-config');
+const SEC_SW = 'enable\nconfigure terminal\nenable secret Cisco123\nbanner motd #Acces reserve au personnel autorise#\nip domain-name mecapro.local\nusername admin privilege 15 secret Adm1n!\ncrypto key generate rsa modulus 1024\nip ssh version 2\nline vty 0 4\ntransport input ssh\nlogin local\nexit\ninterface range fa0/3 - 24\nshutdown\nend\nwrite memory';
+const SEC_R = 'enable\nconfigure terminal\nip access-list extended WEB-ONLY\npermit tcp 192.168.10.0 0.0.0.255 host 192.168.20.100 eq 80\npermit tcp 192.168.10.0 0.0.0.255 host 192.168.20.100 eq 443\ndeny ip any any log\nexit\ninterface gi0/0\nip access-group WEB-ONLY in\nend\nwrite memory';
+const secChecks = [
+  { label: 'Switch : mot de passe enable chiffré (enable secret)', run: c => /enable secret/.test(swcfg(c)) },
+  { label: 'Switch : SSH seulement sur les lignes distantes', run: c => /transport input ssh/.test(swcfg(c)) },
+  { label: 'Switch : bannière d\'avertissement', run: c => /banner motd/.test(swcfg(c)) },
+  { label: 'Switch : ports Fa0/3 à Fa0/24 désactivés', run: c => /FastEthernet0\/24\n shutdown/.test(swcfg(c)) },
+  { label: 'Switch : configuration sauvegardée', run: c => /hostname SW1/.test(showPw(c, swn(c, 'SW1'), 'show startup-config')) && /transport input ssh/.test(showPw(c, swn(c, 'SW1'), 'show startup-config')) },
+  { label: 'PC1 ouvre le site web du serveur', run: c => { const r = c.http('PC1', 'http://192.168.20.100'); return !!r && r.status === 200; } },
+  { label: 'PC1 ne peut PAS faire un ping vers le serveur (filtré)', run: c => !c.ping('PC1', '192.168.20.100') },
+];
+TPS.push({
+  id: 'p14-securite', start: D + 'S14-securite-base/tp/p14-securite.json', solution: K + 'P14-securite-corrige.json',
+  notes: 'Première S14 – Un mini-réseau « à auditer » : le switch n\'a pas de mot de passe enable, Telnet est autorisé avec un mot de passe en clair, tous ses ports actifs, pas de bannière ; le routeur laisse tout passer vers le serveur web. À durcir (switch + ACL) puis à sauvegarder.',
+  build(sim, h) { secBuild(h); },
+  solve(sim, h) { cliRun(h.get('SW1'), SEC_SW); cliRun(h.get('R1'), SEC_R); },
+  checks: secChecks,
+  startShould: secChecks.filter(x => !/ouvre le site/.test(x.label)).map(x => x.label),
+});
 const want = process.argv.slice(2);
 let all = true;
 TPS.filter(t => !want.length || want.includes(t.id)).forEach(t => { all = L.run(t) && all; });

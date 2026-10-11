@@ -1,0 +1,14 @@
+const L=require('../lib');const {Sim,mk,cliRun,hostIp,shell}=L;
+const sim=new Sim();const h=mk(sim);const {dev,link,get}=h;
+dev('pc-win','PC1',100,100);dev('sw-8p','SWA',250,100);dev('r-1941','R1',420,100);dev('sw-8p','SWB',590,100);dev('srv-linux','SRV1',740,100);
+link('PC1','eth0','SWA','port1');link('SWA','port2','R1','gi0/0');link('R1','gi0/1','SWB','port1');link('SRV1','ens33','SWB','port2');
+cliRun(get('R1'),'enable\nconf t\ninterface gi0/0\nip address 192.168.10.1 255.255.255.0\nno shutdown\nexit\ninterface gi0/1\nip address 192.168.20.1 255.255.255.0\nno shutdown\nend');
+hostIp(get('PC1'),'192.168.10.11','24','192.168.10.1');hostIp(get('SRV1'),'192.168.20.100','24','192.168.20.1');
+get('SRV1').httpd.start();sim.runFor(4000);
+console.log(shell(sim,get('PC1'),'ping 192.168.20.100').split('\n').slice(1,3).join('\n'));
+const r=get('R1');const s=r.newSession();let out='',done=false;const io={print:t=>out+=t,done:()=>done=true,clear(){}};
+const go=l=>{done=false;out='';s.exec(l,io);sim.runUntil(()=>done,60000);if(out.trim())console.log('>',l,'\n'+out)};
+['enable','conf t','ip access-list extended WEB-ONLY','permit tcp 192.168.10.0 0.0.0.255 host 192.168.20.100 eq 80','permit tcp 192.168.10.0 0.0.0.255 host 192.168.20.100 eq 443','deny ip any any log','exit','interface gi0/0','ip access-group WEB-ONLY in','end','show access-lists','show ip interface gi0/0'].forEach(go);
+console.log(shell(sim,get('PC1'),'ping 192.168.20.100').split('\n').slice(1,3).join('\n'));
+console.log(shell(sim,get('PC1'),'curl http://192.168.20.100').slice(0,80));
+go('show access-lists');

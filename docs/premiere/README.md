@@ -24,7 +24,7 @@
 | **S11** | 25 janvier 2027 | DHCP et DNS sur un serveur | 🟡 Semi-guidé | [📘 Ouvrir](S11-dhcp-dns-serveur/README.md) |
 | **S12** | 8 février 2027 | Serveur web et partage de fichiers | 🟡 Semi-guidé | [📘 Ouvrir](S12-web-partage/README.md) |
 | **S13** | 15 février 2027 | Cuivre certifié, fibre optique et sécurité | 🟡 Semi-guidé | [📘 Ouvrir](S13-cuivre-fibre-securite/README.md) |
-| **S14** | 15 mars 2027 | Sécurité de base d'un réseau | 🟡 Semi-guidé | 🚧 en préparation |
+| **S14** | 15 mars 2027 | Sécurité de base d'un réseau | 🟡 Semi-guidé | [📘 Ouvrir](S14-securite-base/README.md) |
 | **S15** | 5 avril 2027 | Révision, remédiation et lancement du projet | 🟡 Semi-guidé | 🚧 en préparation |
 | **S16** | 3 mai 2027 | PROJET A2 (1/3) : étude et préparation | 🟡 Semi-guidé | 🚧 en préparation |
 | **S17** | 10 mai 2027 | PROJET A2 (2/3) : réalisation et configuration | 🟡 Semi-guidé | 🚧 en préparation |
