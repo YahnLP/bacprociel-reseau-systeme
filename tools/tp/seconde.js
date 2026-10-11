@@ -100,6 +100,28 @@ TPS.push({
   startShould: ['PC2 joint Internet (FAI)'],
 });
 
+/* ---------- S13 : DNS, NAT, panne DNS ---------- */
+TPS.push({
+  id: 's13-dns', start: D + 'S13-dns-internet/tp/s13-dns.json', solution: K + 'S13-dns-corrige.json',
+  notes: 'S13 – Du nom à l\'adresse : PC1 et PC3 en DHCP, PC2 a un DNS erroné (il joint Internet par adresse, mais pas les sites par nom).',
+  build(sim, h) {
+    const { dev, link, get } = h;
+    C.internet(sim, h, 900, 200); C.box(sim, h, 'BOX', 680, 200);
+    dev('sw-8p', 'SW1', 480, 200); link('SW1', 'port1', 'BOX', 'lan1');
+    dev('pc-win', 'PC1', 300, 70); dev('pc-win', 'PC2', 300, 200); dev('pc-linux', 'PC3', 300, 330);
+    link('PC1', 'eth0', 'SW1', 'port2'); link('PC2', 'eth0', 'SW1', 'port3'); link('PC3', 'ens33', 'SW1', 'port4');
+    hostDhcp(get('PC1')); hostIp(get('PC2'), '192.168.1.50', '24', '192.168.1.1', '198.51.100.99'); hostDhcp(get('PC3'));
+  },
+  solve(sim, { get }) { hostIp(get('PC2'), '192.168.1.50', '24', '192.168.1.1', '192.168.1.1'); },
+  checks: [
+    { label: 'PC1 ouvre www.exemple.fr', run: c => { c.wait(8000); const r = c.http('PC1', 'http://www.exemple.fr'); return !!r && r.status === 200; } },
+    { label: 'PC3 ouvre www.exemple.fr', run: c => { const r = c.http('PC3', 'http://www.exemple.fr'); return !!r && r.status === 200; } },
+    { label: 'PC2 joint le site par son adresse', run: c => c.ping('PC2', '198.51.100.80') },
+    { label: 'PC2 ouvre www.exemple.fr (par le nom)', run: c => { const r = c.http('PC2', 'http://www.exemple.fr'); return !!r && r.status === 200; } },
+  ],
+  startShould: ['PC2 ouvre www.exemple.fr (par le nom)'],
+});
+
 const want = process.argv.slice(2);
 let all = true;
 TPS.filter(t => !want.length || want.includes(t.id)).forEach(t => { all = L.run(t) && all; });

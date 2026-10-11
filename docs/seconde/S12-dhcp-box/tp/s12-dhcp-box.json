@@ -171,7 +171,7 @@
    "x": 680,
    "y": 200,
    "powered": true,
-   "cli": "!\nhostname BOX\n!\nip routing\nip dhcp pool LAN\n network 192.168.1.0 255.255.255.0\n default-router 192.168.1.1\n dns-server 192.168.1.1\n!\ninterface WAN\n no switchport\n ip address 203.0.113.2 255.255.255.248\n ip nat outside\n!\ninterface Vlan1\n ip address 192.168.1.1 255.255.255.0\n ip nat inside\n!\n!\nip nat inside source list null interface WAN overload\n!\nline con 0\n logging synchronous\nline vty 0 4\n!",
+   "cli": "!\nhostname BOX\n!\nip routing\nip name-server 198.51.100.53\nip dhcp pool LAN\n network 192.168.1.0 255.255.255.0\n default-router 192.168.1.1\n dns-server 192.168.1.1\n!\ninterface WAN\n no switchport\n ip address 203.0.113.2 255.255.255.248\n ip nat outside\n!\ninterface Vlan1\n ip address 192.168.1.1 255.255.255.0\n ip nat inside\n!\nip route 0.0.0.0 0.0.0.0 203.0.113.1\n!\nip nat inside source list null interface WAN overload\n!\nline con 0\n logging synchronous\nline vty 0 4\n!",
    "label": ""
   },
   {

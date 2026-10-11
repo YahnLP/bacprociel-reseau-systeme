@@ -169,6 +169,61 @@ def s12():
     f.save(out(d, "bail.svg"))
 
 
+def s13():
+    d = "S13-dns-internet"
+    # 1. annuaire
+    f = Fig(940, 365, "Le DNS, l'annuaire d'Internet", "Le DNS transforme un nom facile à retenir comme www.exemple.fr en adresse IP utilisable par les machines.")
+    f.title_bar("Le DNS : l'annuaire d'Internet")
+    f.rect(40, 70, 380, 200, IND_L, IND, 3, 14); f.text(230, 100, "Ce que TU tapes", 17, IND, "middle", "700")
+    f.mono(230, 160, "www.exemple.fr", 22, INK, "middle", "700"); f.text(230, 200, "facile à retenir, mais\nles machines ne comprennent pas", 14, MUTED)
+    f.rect(520, 70, 380, 200, ORA_L, ORA, 3, 14); f.text(710, 100, "Ce que la machine utilise", 17, ORA, "middle", "700")
+    f.mono(710, 160, "198.51.100.80", 24, INK, "middle", "700"); f.text(710, 200, "une adresse IP", 14, MUTED)
+    f.arrow(425, 150, 515, 150, GRN, 5); f.text(470, 128, "DNS", 17, GRN, "middle", "700"); f.text(470, 180, "traduit", 13, GRN, "middle", "700")
+    f.callout(40, 285, 860, "Comme dans ton téléphone : tu cherches « Maman », le répertoire trouve le numéro. Le DNS fait pareil pour les sites.", YEL_L, YEL, 14.5)
+    f.save(out(d, "dns-annuaire.svg"))
+
+    # 2. chemin d'une requête : diagramme de séquence
+    f = Fig(940, 520, "Du nom à la page web", "PC, box, DNS du FAI et serveur web : le PC demande l'adresse au DNS via la box, puis demande la page au serveur.")
+    f.title_bar("Comment mon PC atteint un site web")
+    cols = [(110, "Mon PC", "192.168.1.10", IND), (350, "Box", "192.168.1.1", ORA), (590, "DNS du FAI", "198.51.100.53", TEAL), (830, "www.exemple.fr", "198.51.100.80", IND)]
+    for x, n, ip, c in cols:
+        f.rect(x - 80, 50, 160, 50, WHITE, c, 3, 10); f.text(x, 72, n, 15, c, "middle", "700"); f.mono(x, 92, ip, 11.5, MUTED, "middle")
+        f.line(x, 100, x, 500, GRY_D, 2, dash="6 5")
+    msgs = [(0, 1, "1  « Adresse de www.exemple.fr ? »", IND, False), (1, 2, "2  la box interroge le DNS", ORA, False), (2, 1, "3  « c'est 198.51.100.80 »", GRN, True),
+            (1, 0, "4  « c'est 198.51.100.80 »", GRN, True), (0, 3, "5  « Donne-moi la page ! » (via la passerelle)", IND, False), (3, 0, "6  la page web revient", GRN, True)]
+    for i, (a_, b_, t, c, dash) in enumerate(msgs):
+        y = 145 + i * 58; x1, x2 = cols[a_][0], cols[b_][0]
+        f.arrow(x1 + (8 if x2 > x1 else -8), y, x2 - (8 if x2 > x1 else -8), y, c, 3, "6 4" if dash else None)
+        f.text((x1 + x2) / 2, y - 10, t, 12.5, c, "middle", "700", maxw=abs(x2 - x1) - 10)
+    f.rect(40, 468, 860, 40, GRY, GRY_D, 1.5, 8); f.text(470, 494, "Étapes 1 à 4 = le DNS (traduire). Étapes 5 et 6 = le web (aller chercher la page).", 14, INK, "middle", "700")
+    f.save(out(d, "chemin-site.svg"))
+
+    # 3. NAT en une image
+    f = Fig(940, 430, "Le NAT en une image", "Trois PC en adresses privées sortent sur Internet avec la même adresse publique, celle de la box.")
+    f.title_bar("NAT : toute la maison sort avec UNE adresse publique")
+    f.rect(30, 55, 330, 360, IND_L, IND, 3, 16, dash="8 6"); f.text(195, 82, "Réseau privé (chez toi)", 14.5, IND, "middle", "700")
+    for i, ip in enumerate(["192.168.1.10", "192.168.1.11", "192.168.1.12"]): ic_pc(f, 100, 125 + i * 100, "PC" + str(i + 1), ip)
+    ic_box(f, 440, 220, "Box", "fait le NAT"); ic_cloud(f, 810, 220, "Internet", "")
+    for i in range(3): f.line(150, 125 + i * 100, 395, 215, IND, 2.5)
+    f.line(485, 220, 750, 220, ORA, 4)
+    f.rect(540, 130, 190, 60, WHITE, ORA, 2.5, 10); f.text(635, 155, "Pour Internet :", 12.5, MUTED, "middle", "700"); f.mono(635, 178, "203.0.113.2", 16, ORA, "middle", "700")
+    f.callout(520, 265, 400, "La box note : « PC1 a demandé » → elle remplace son adresse privée par la sienne et, au retour, remet la réponse au bon PC.", YEL_L, YEL, 13.5)
+    f.save(out(d, "nat.svg"))
+
+    # 4. arbre de diagnostic « pas Internet »
+    f = Fig(940, 440, "J'ai un réseau mais pas Internet : par où commencer ?", "Ping de la box, ping d'une adresse sur Internet, ping d'un nom : trois tests dans l'ordre pour trouver la panne.")
+    f.title_bar("« Je n'ai pas Internet » : 3 pings, dans l'ordre")
+    steps = [("1", "ping 192.168.1.1", "(la box)", "ÉCHEC → problème de câble, d'adresse ou de DHCP\n(S10, S11, S12)", RED),
+             ("2", "ping 203.0.113.1", "(une adresse sur Internet)", "ÉCHEC → passerelle absente ou box sans accès\nau FAI (S12)", RED),
+             ("3", "ping www.exemple.fr", "(un nom)", "ÉCHEC alors que le 2 marche → panne DNS\n(vérifier le serveur DNS : ipconfig /all)", RED)]
+    for i, (n, c, k, r, col) in enumerate(steps):
+        y = 65 + i * 105
+        f.badge(60, y + 40, n, IND, 16); f.rect(95, y, 330, 85, WHITE, IND, 2.5, 10); f.mono(110, y + 35, c, 17, IND, "start", "700"); f.text(110, y + 62, k, 13.5, MUTED, "start")
+        f.rect(450, y, 460, 85, RED_L, col, 2.5, 10); f.text(465, y + 32, r, 13.5, INK, "start", "700", maxw=435)
+        if i < 2: f.text(260, y + 100, "OK ↓", 12, GRN, "middle", "700")
+    f.save(out(d, "diagnostic-internet.svg"))
+
+
 if __name__ == "__main__":
-    for w in (sys.argv[1:] or ["s11", "s12"]):
+    for w in (sys.argv[1:] or ["s11", "s12", "s13"]):
         globals()[w](); print("OK", w)

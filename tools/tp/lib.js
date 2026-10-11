@@ -37,6 +37,8 @@ function shell(sim, dev, line) {
 }
 
 function save(sim, file, extra) {
+  // La box apprend son DNS amont par DHCP WAN : on le fige (ip name-server) pour qu'il survive à l'enregistrement.
+  sim.devices.forEach(d => { if (d.model === 'box' && d.dnsServers && d.dnsServers.length) d.dhcpDns = false; if (d.model === 'box') d.statics.forEach(r => { delete r.dhcp; }); });
   const full = path.join(REPO, file);
   fs.mkdirSync(path.dirname(full), { recursive: true });
   fs.writeFileSync(full, JSON.stringify(NS.saveTopology(sim, extra), null, 1) + '\n');

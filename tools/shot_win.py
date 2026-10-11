@@ -18,7 +18,7 @@ with sync_playwright() as p:
     if a.tab:
         win.locator(f"text={a.tab}").first.click(); pg.wait_for_timeout(400)
     for c in a.cmd:
-        pg.keyboard.type(c); pg.keyboard.press("Enter"); pg.wait_for_timeout(6000 if c.startswith("ping") else 800)
+        pg.keyboard.type(c); pg.keyboard.press("Enter"); pg.wait_for_timeout(8000 if c.split()[0] in ("ping", "nslookup", "tracert") else 1500)
     os.makedirs(os.path.dirname(os.path.abspath(a.out)), exist_ok=True)
     win.screenshot(path=a.out); b.close()
 print("ok", a.out)
