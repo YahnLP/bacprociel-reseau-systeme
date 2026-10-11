@@ -1,0 +1,1169 @@
+[
+ {
+  "year": "seconde",
+  "n": 1,
+  "code": "S01",
+  "slug": "accueil-diagnostic",
+  "s": "S1",
+  "type": "diag",
+  "tag": "ACCUEIL · DIAG",
+  "theme": "Accueil, règles et diagnostic",
+  "auto": "Guidé",
+  "acts": [
+   "Présenter le métier, le module E31 et le « Passeport d'autonomie » (ce que chaque élève saura faire seul en fin de seconde)",
+   "Règles du plateau technique : sécurité électrique de base, décharges électrostatiques (ESD), rangement, charte informatique",
+   "Visite guidée de la salle : baie, switch, box/routeur, serveur. Jeu « repère les ports » (USB, HDMI, RJ45, alimentation) sur un PC, un switch et une box",
+   "QCM diagnostique ludique (informatique, réseau, vocabulaire) + mini-manipulation de positionnement : brancher un PC et ouvrir un site web"
+  ],
+  "ref": "C09 (risques repérés) · C10",
+  "ev": [
+   "Diagnostic non noté",
+   "Positionnement initial reporté dans le Passeport ; remédiation individualisée dès S2 si besoin"
+  ],
+  "date": "2026-08-31",
+  "ent": "Noter le matériel informatique et réseau visible dans l'entreprise (postes, imprimante, box, switch) et demander qui s'en occupe."
+ },
+ {
+  "year": "seconde",
+  "n": 2,
+  "code": "S02",
+  "slug": "pc-interieur",
+  "s": "S2",
+  "theme": "Le PC de l'intérieur",
+  "auto": "Guidé",
+  "acts": [
+   "Ouvrir une unité centrale de récupération et identifier : carte mère, processeur, RAM, stockage (HDD / SSD), alimentation, ventilation, carte réseau",
+   "Rôle de chaque élément par analogie simple (cerveau, mémoire de travail, rangement)",
+   "Gestes de sécurité : bracelet antistatique, débranchement, manipulation des composants"
+  ],
+  "ref": "C09 · ordinateurs (niv. 2) · outillage (niv. 3)",
+  "ev": [
+   "Fiche « Anatomie d'un PC » (photos légendées) – formatif"
+  ],
+  "date": "2026-09-14",
+  "ent": "Relever la marque et le modèle du poste utilisé (processeur, mémoire, stockage) et le décrire en 5 lignes."
+ },
+ {
+  "year": "seconde",
+  "n": 3,
+  "code": "S03",
+  "slug": "remonter-pc",
+  "s": "S3",
+  "theme": "Remonter un PC et le faire démarrer",
+  "auto": "Guidé",
+  "acts": [
+   "Démontage / remontage complet en binôme avec fiche pas à pas : RAM, SSD, câbles d'alimentation, connecteurs de façade",
+   "Premier démarrage ; BIOS / UEFI : lire les informations matériel, régler date et heure, ordre de démarrage",
+   "Pannes simples à repérer : RAM mal enclenchée, câble d'alimentation oublié, mauvais ordre de démarrage"
+  ],
+  "ref": "C09 · outillage (niv. 3) · ordinateurs (niv. 2)",
+  "ev": [
+   "Remontage chronométré avec checklist (observé, formatif)"
+  ],
+  "date": "2026-09-28",
+  "ent": "Observer, si possible, une intervention sur du matériel informatique ; sinon repérer où sont rangés les câbles et les pièces de rechange."
+ },
+ {
+  "year": "seconde",
+  "n": 4,
+  "code": "S04",
+  "slug": "windows",
+  "s": "S4",
+  "theme": "Installer et prendre en main Windows",
+  "auto": "Guidé",
+  "acts": [
+   "Rôle d'un système d'exploitation ; installation de Windows depuis une clé préparée (poste de TP ou machine virtuelle), étape par étape",
+   "Comptes, pilotes, mises à jour, Gestionnaire de périphériques, informations système",
+   "Livrer un poste « prêt à l'emploi » (checklist de livraison)"
+  ],
+  "ref": "C09 · C10 · Windows (niv. 2)",
+  "ev": [
+   "Checklist « poste prêt à l'emploi » validée"
+  ],
+  "date": "2026-10-12",
+  "ent": "Noter la version de Windows des postes et l'état des mises à jour ; demander comment un poste neuf est préparé."
+ },
+ {
+  "year": "seconde",
+  "n": 5,
+  "code": "S05",
+  "slug": "linux",
+  "s": "S5",
+  "theme": "Découvrir Linux",
+  "auto": "Guidé",
+  "acts": [
+   "Installer Debian ou Ubuntu en machine virtuelle ; bureau, arborescence, utilisateurs",
+   "Installer un logiciel et mettre à jour le système (gestionnaire de paquets apt)",
+   "Tableau comparatif Windows / Linux construit par les élèves"
+  ],
+  "ref": "C09 · C10 · UNIX (niv. 2) · mises à jour",
+  "ev": [
+   "Checklist installation + mise à jour ; tableau comparatif (formatif)"
+  ],
+  "date": "2026-11-02",
+  "ent": "Repérer si l'entreprise utilise Linux (serveur, NAS, box, objets connectés) ; sinon poser la question à un collègue."
+ },
+ {
+  "year": "seconde",
+  "n": 6,
+  "code": "S06",
+  "slug": "terminal",
+  "s": "S6",
+  "theme": "Le terminal : premiers pas",
+  "auto": "Guidé",
+  "acts": [
+   "Terminal Windows (cmd / PowerShell) et Linux (bash) : se déplacer, lister, créer, copier, supprimer, obtenir de l'aide (man, /?)",
+   "Premières commandes système : hostname, whoami, afficher la configuration réseau (ipconfig / ip a)",
+   "« Chasse au trésor » guidée dans l'arborescence ; chaque élève rédige sa fiche mémo de commandes"
+  ],
+  "ref": "C10 · lignes de commande (niv. 3)",
+  "ev": [
+   "Défi terminal (formatif) ; fiche mémo personnelle"
+  ],
+  "date": "2026-11-23",
+  "ent": "Observer les commandes ou outils qu'un collègue utilise pour diagnostiquer (ipconfig, ping…) et noter une situation."
+ },
+ {
+  "year": "seconde",
+  "n": 7,
+  "code": "S07",
+  "slug": "voyage-paris",
+  "s": "S7",
+  "type": "off",
+  "tag": "VOYAGE",
+  "theme": "Voyage à Paris (pas de séance U31)",
+  "auto": "—",
+  "acts": [
+   "Semaine de voyage de la classe : pas de séance en salle",
+   "Mission d'observation pendant le voyage : photographier les équipements réseau rencontrés (bornes Wi-Fi, prises RJ45, caméras, panneaux de brassage visibles). Restitution de 15 min en début de S8"
+  ],
+  "ref": "C09 · C10",
+  "ev": [
+   "Photos légendées présentées en S8 (non noté)"
+  ],
+  "date": "2026-12-07"
+ },
+ {
+  "year": "seconde",
+  "n": 8,
+  "code": "S08",
+  "slug": "quest-ce-qu-un-reseau",
+  "s": "S8",
+  "theme": "Qu'est-ce qu'un réseau ?",
+  "auto": "Guidé",
+  "acts": [
+   "Partir de l'existant : suivre le trajet physique prise murale → panneau de brassage → switch → routeur → Internet dans le bâtiment",
+   "Vocabulaire : client, serveur, switch, routeur, box, borne Wi-Fi, LAN / WAN / Internet, débit",
+   "Dessiner le schéma du réseau de la salle (papier, puis logiciel de schéma type draw.io)"
+  ],
+  "ref": "C06 · C09 · schémas réseaux (niv. 3) · architectures (niv. 2)",
+  "ev": [
+   "Schéma légendé du réseau de la salle (formatif)"
+  ],
+  "date": "2027-01-11",
+  "ent": "Faire un schéma, même approximatif, du réseau de l'entreprise : box, switch, postes, imprimantes."
+ },
+ {
+  "year": "seconde",
+  "n": 9,
+  "code": "S09",
+  "slug": "cable-rj45",
+  "s": "S9",
+  "theme": "Fabriquer un câble RJ45",
+  "auto": "Guidé",
+  "acts": [
+   "Paires torsadées, catégories (Cat5e / Cat6), longueur maximale, câble droit",
+   "Norme T568B : sertir un connecteur RJ45, tester au testeur de câble, lire les défauts (inversion, coupure, court-circuit)",
+   "Sécurité de l'outillage (pince à sertir, dénudeur)"
+  ],
+  "ref": "C09 · raccordement (niv. 3) · appareils de mesure (niv. 3)",
+  "ev": [
+   "Câble conforme (grille : ordre des paires, sertissage, test OK) – formatif noté"
+  ],
+  "date": "2027-01-25",
+  "ent": "Observer les câbles et prises réseau de l'entreprise : types de prises, étiquetage, baie ou coffret."
+ },
+ {
+  "year": "seconde",
+  "n": 10,
+  "code": "S10",
+  "slug": "raccorder-brasser",
+  "s": "S10",
+  "theme": "Raccorder et organiser",
+  "auto": "Guidé",
+  "acts": [
+   "Monter une prise murale RJ45 (module keystone), brasser sur un panneau 19\", étiqueter",
+   "Relier 2 PC à un switch non administrable ; interpréter les voyants (lien / activité) et la vitesse 100 / 1000 Mb/s",
+   "Premier test : « les deux PC se voient-ils ? » On constate, sans encore savoir pourquoi → réponse en S10"
+  ],
+  "ref": "C09 · raccordement (niv. 3) · éléments actifs (niv. 3)",
+  "ev": [
+   "Prise + brassage + test de continuité validés (grille)"
+  ],
+  "date": "2027-02-08",
+  "ent": "Repérer le panneau de brassage ou la baie de l'entreprise (photo si autorisée) et lire les étiquettes."
+ },
+ {
+  "year": "seconde",
+  "n": 11,
+  "code": "S11",
+  "slug": "adresse-ip",
+  "s": "S11",
+  "theme": "Donner une adresse à chaque machine (IP)",
+  "auto": "Semi-guidé",
+  "acts": [
+   "Activité préalable « un octet = 8 interrupteurs » (lien avec le binaire vu en U32 et maths, S1)",
+   "Adresse IPv4 en décimal pointé ; masque 255.255.255.0 (/24) uniquement ; adresse de réseau, de diffusion, plage utilisable ; adresses privées",
+   "Configurer une IP statique sous Windows et Linux ; tester avec ping ; observer les erreurs (doublon d'IP, mauvais masque) ; pare-feu Windows et ping"
+  ],
+  "ref": "C06 · C09 · IPv4 (niv. 3)",
+  "ev": [
+   "Tableau d'adressage + 3 postes configurés et validés par ping (formatif noté)"
+  ],
+  "date": "2027-03-01",
+  "ent": "Avec l'accord du tuteur, relever l'adresse IP, le masque et la passerelle d'un poste (ipconfig)."
+ },
+ {
+  "year": "seconde",
+  "n": 12,
+  "code": "S12",
+  "slug": "dhcp-box",
+  "s": "S12",
+  "theme": "DHCP, box / routeur et passerelle",
+  "auto": "Semi-guidé",
+  "acts": [
+   "Pourquoi automatiser l'adressage : le DHCP (demande / offre, version simplifiée) ; ipconfig /all, release / renew",
+   "Accéder à l'interface d'une box / d'un routeur de TP : changer le mot de passe administrateur, régler la plage DHCP, réserver une adresse",
+   "La passerelle par défaut : schéma PC → box → Internet"
+  ],
+  "ref": "C09 · C10 · éléments actifs (niv. 3) · IPv4 (niv. 3)",
+  "ev": [
+   "TP configuration d'un routeur de petite structure (grille)"
+  ],
+  "date": "2027-03-22",
+  "ent": "Demander au tuteur quel équipement distribue les adresses (box, serveur) et comment on y accède."
+ },
+ {
+  "year": "seconde",
+  "n": 13,
+  "code": "S13",
+  "slug": "dns-internet",
+  "s": "S13",
+  "theme": "DNS et accès à Internet",
+  "auto": "Semi-guidé",
+  "acts": [
+   "Noms et adresses : le DNS ; nslookup ; ping d'un nom ; traceroute pour « voir » le chemin (sans analyse détaillée)",
+   "Adresse privée / publique ; NAT en une image (pourquoi toutes les machines sortent avec la même adresse publique)",
+   "Panne DNS provoquée : « j'ai Internet mais pas les sites »"
+  ],
+  "ref": "C06 · C09 · IPv4 (niv. 3) · modèles IP (niv. 1, intuition)",
+  "ev": [
+   "Schéma « Comment mon PC atteint un site web » + mini-QCM (formatif)"
+  ],
+  "date": "2027-03-29",
+  "ent": "Avec l'accord du tuteur, tester nslookup ou ping sur un nom et noter le serveur DNS utilisé."
+ },
+ {
+  "year": "seconde",
+  "n": 14,
+  "code": "S14",
+  "slug": "wifi",
+  "s": "S14",
+  "theme": "Wi-Fi : installer, sécuriser, bons réflexes",
+  "auto": "Semi-guidé",
+  "acts": [
+   "Borne / routeur Wi-Fi : SSID, bandes 2,4 et 5 GHz, canaux, portée, obstacles (en lien avec les ondes vues en physique-chimie)",
+   "Sécuriser : WPA2 / WPA3 personnel, mot de passe administrateur, WPS désactivé, réseau invité",
+   "Connecter ordinateur et smartphone ; mesurer la couverture avec une application d'analyse Wi-Fi",
+   "Mots de passe, mises à jour, pare-feu : les bons réflexes (en lien avec la cyberhygiène vue en U32)"
+  ],
+  "ref": "C09 · C10 · bonnes pratiques sécurité (niv. 2)",
+  "ev": [
+   "TP : borne configurée et sécurisée, grille de contrôle"
+  ],
+  "date": "2027-04-26",
+  "ent": "Relever le nom du Wi-Fi de l'entreprise et son type de sécurité (interne / invités). Ne jamais relever les mots de passe."
+ },
+ {
+  "year": "seconde",
+  "n": 15,
+  "code": "S15",
+  "slug": "depannage-n1",
+  "s": "S15",
+  "type": "rem",
+  "tag": "DÉPANNAGE · REMÉD.",
+  "theme": "Dépanner : méthode de niveau 1 + remédiation",
+  "auto": "Semi-guidé",
+  "acts": [
+   "Méthode « du câble vers le service » : voyants / câble → adresse IP → ping de la passerelle → ping Internet (par IP) → ping d'un nom (DNS)",
+   "Ateliers en rotation : 5 pannes provoquées (câble défectueux, IP statique erronée, mauvais masque, DHCP arrêté, mot de passe Wi-Fi) ; remplir une fiche d'intervention",
+   "Les 2 dernières heures : remédiation individualisée d'après le Passeport d'autonomie"
+  ],
+  "ref": "C06 · C10 · diagnostic (R5)",
+  "ev": [
+   "Dépannage d'une panne en autonomie + fiche d'intervention (formatif noté)"
+  ],
+  "date": "2027-05-03",
+  "ent": "Noter une panne informatique ou réseau vécue en entreprise : symptôme, cause, solution (fiche d'intervention)."
+ },
+ {
+  "year": "seconde",
+  "n": 16,
+  "code": "S16",
+  "slug": "projet-1",
+  "s": "S16",
+  "type": "projet",
+  "tag": "PROJET",
+  "theme": "PROJET A1 (1/2) : le réseau d'une petite entreprise",
+  "auto": "Semi-guidé",
+  "acts": [
+   "Scénario : un atelier de 4 postes, 1 imprimante, 1 box / routeur, 1 switch, Wi-Fi invité. Cahier des charges d'une page fourni",
+   "Lire le plan du local, établir le schéma réseau et le plan d'adressage (/24)",
+   "Fabriquer les câbles, brasser, configurer routeur, DHCP et Wi-Fi",
+   "Partager un dossier et une imprimante réseau avec des droits adaptés (fiche guidée : comptes, droits, partage Windows en groupe de travail)"
+  ],
+  "ref": "C06 · C09 · C10",
+  "ev": [
+   "Suivi par grille d'avancement (par binôme)"
+  ],
+  "date": "2027-05-17",
+  "ent": "Avancer le dossier du projet : compléter le schéma et le tableau d'adressage."
+ },
+ {
+  "year": "seconde",
+  "n": 17,
+  "code": "S17",
+  "slug": "projet-2",
+  "s": "S17",
+  "type": "projet",
+  "tag": "PROJET",
+  "theme": "PROJET A1 (2/2) : tests et dossier",
+  "auto": "Semi-guidé",
+  "acts": [
+   "Dérouler la grille de tests (liens, IP, accès Internet, partage, Wi-Fi) ; traiter 1 panne introduite par le professeur",
+   "Dossier : schéma, tableau d'adressage, checklist de recette complétée",
+   "Préparer la présentation orale (5 min)"
+  ],
+  "ref": "C06 · C09 · C10",
+  "ev": [
+   "Jalon noté : recette du projet"
+  ],
+  "date": "2027-05-31",
+  "ent": "Finaliser le dossier et répéter l'oral (5 min) avec le tuteur ou un collègue."
+ },
+ {
+  "year": "seconde",
+  "n": 18,
+  "code": "S18",
+  "slug": "soutenance-bilan",
+  "s": "S18",
+  "type": "projet",
+  "tag": "SOUTENANCE",
+  "theme": "Soutenance et bilan A1",
+  "auto": "Semi-guidé",
+  "acts": [
+   "Démonstration (5 à 7 min) + questions",
+   "Validation du Passeport d'autonomie ; bilan individuel des acquis et des points à retravailler",
+   "Fiche bilan A1 transmise à l'entreprise tutrice pour préparer la PFMP"
+  ],
+  "ref": "C06 · C09 · C10",
+  "ev": [
+   "Grille critériée (démonstration, schéma, tests, oral)",
+   "Passeport d'autonomie validé"
+  ],
+  "date": "2027-06-21",
+  "ent": "Faire lire la fiche bilan au tuteur ; choisir 2 activités (installation, dépannage…) à documenter l'an prochain."
+ },
+ {
+  "year": "premiere",
+  "n": 1,
+  "code": "S01",
+  "slug": "diagnostic-retour",
+  "s": "S1",
+  "type": "diag",
+  "tag": "DIAG · RETOUR PFMP",
+  "theme": "Diagnostic A2 et retour de PFMP",
+  "auto": "Guidé",
+  "acts": [
+   "Atelier de positionnement (1 h 30 chrono) : câbler 3 postes, adresser, tester, dépanner 1 panne",
+   "Retour de PFMP : matériels, outils et documents vus en entreprise ; compléter le livret d'activités",
+   "Fiche individuelle de remédiation pour S2"
+  ],
+  "ref": "C06 · C09 · C10",
+  "ev": [
+   "Diagnostic non noté ; fiche de remédiation"
+  ],
+  "date": "2026-08-31",
+  "ent": "Documenter une activité réseau vue en entreprise (installation, configuration ou dépannage) pour le livret."
+ },
+ {
+  "year": "premiere",
+  "n": 2,
+  "code": "S02",
+  "slug": "remise-a-niveau-simulateur",
+  "s": "S2",
+  "type": "rem",
+  "tag": "REMISE À NIVEAU",
+  "theme": "Remise à niveau et découverte du simulateur",
+  "auto": "Guidé",
+  "acts": [
+   "Ateliers par niveau d'après le diagnostic : câblage, IP, DHCP, Wi-Fi",
+   "Prise en main d'un simulateur (Packet Tracer ou Filius) : placer, câbler, configurer des PC, vérifier par ping, exporter un schéma"
+  ],
+  "ref": "C06 · C09",
+  "ev": [
+   "Réseau de 3 postes + switch réalisé en réel et en simulateur (formatif)"
+  ],
+  "date": "2026-09-14",
+  "ent": "Reproduire le réseau de l'entreprise dans le simulateur ou sur un schéma."
+ },
+ {
+  "year": "premiere",
+  "n": 3,
+  "code": "S03",
+  "slug": "couches-wireshark",
+  "s": "S3",
+  "theme": "Les couches : comprendre ce qui circule",
+  "auto": "Semi-guidé",
+  "acts": [
+   "Analogie du courrier ; modèle TCP/IP en 4 couches (OSI à 7 couches : vocabulaire seulement)",
+   "Encapsulation : une trame, un paquet, un message ; adresse MAC / adresse IP",
+   "Première capture Wireshark d'un ping : retrouver les adresses MAC et IP (filtre icmp)"
+  ],
+  "ref": "C06 · modèles en couches (niv. 1) · IPv4 (niv. 3)",
+  "ev": [
+   "Fiche « qui fait quoi, à quelle couche » (QCM + schéma)"
+  ],
+  "date": "2026-09-28",
+  "ent": "Identifier les services utilisés au quotidien (messagerie, site web, partage) et le protocole correspondant."
+ },
+ {
+  "year": "premiere",
+  "n": 4,
+  "code": "S04",
+  "slug": "protocoles-usuels",
+  "s": "S4",
+  "theme": "Protocoles usuels vus de l'intérieur",
+  "auto": "Semi-guidé",
+  "acts": [
+   "ARP, DHCP, DNS, HTTP / HTTPS : à quoi ils servent, quels ports (53, 67/68, 80, 443, 22)",
+   "TCP et UDP : la différence en une image",
+   "Captures fournies puis personnelles avec filtres simples (arp, dhcp, dns, http) ; repérer une information en clair (HTTP) ou chiffrée (HTTPS)"
+  ],
+  "ref": "C06 · C09 · protocoles usuels IPv4 (niv. 3)",
+  "ev": [
+   "TP : retrouver 4 protocoles dans une capture (formatif noté)"
+  ],
+  "date": "2026-10-12",
+  "ent": "Demander quels services réseau fonctionnent dans l'entreprise (DHCP, DNS, messagerie, partage) et sur quel équipement."
+ },
+ {
+  "year": "premiere",
+  "n": 5,
+  "code": "S05",
+  "slug": "switch-administrable",
+  "s": "S5",
+  "theme": "Switch administrable : prise en main",
+  "auto": "Semi-guidé",
+  "acts": [
+   "Se connecter par le port console (câble console, logiciel de terminal) ; modes utilisateur / privilégié / configuration",
+   "Commandes de base : show (version, configuration, état des ports), nom d'équipement, mot de passe, adresse de gestion, sauvegarde de la configuration",
+   "Chaque élève rédige sa fiche mémo des commandes (autorisée en TP)"
+  ],
+  "ref": "C10 · lignes de commande (niv. 3) · éléments actifs (niv. 3)",
+  "ev": [
+   "TP : switch nommé, sécurisé, adressé, configuration sauvegardée (grille)"
+  ],
+  "date": "2026-10-19",
+  "ent": "Relever la marque et le modèle des switchs et routeurs de l'entreprise et la façon de s'y connecter (web, console, SSH)."
+ },
+ {
+  "year": "premiere",
+  "n": 6,
+  "code": "S06",
+  "slug": "sous-reseaux",
+  "s": "S6",
+  "theme": "Découper un réseau en sous-réseaux",
+  "auto": "Semi-guidé",
+  "acts": [
+   "Rappel du masque ; découpage d'un /24 en 2 ou 4 sous-réseaux (/25, /26) ; adresses de réseau, de diffusion, plage utilisable",
+   "Méthode du tableau des puissances de 2 (à la main), puis vérification avec un outil",
+   "Plan d'adressage d'une petite PME (Direction, Atelier, Invités)"
+  ],
+  "ref": "C06 · C09 · IPv4 (niv. 3)",
+  "ev": [
+   "Exercices progressifs + plan d'adressage (formatif noté)"
+  ],
+  "date": "2026-11-02",
+  "ent": "Relever le plan d'adressage de l'entreprise (réseaux, masques, passerelle) et vérifier qu'il est documenté."
+ },
+ {
+  "year": "premiere",
+  "n": 7,
+  "code": "S07",
+  "slug": "routeur-routage-statique",
+  "s": "S7",
+  "theme": "Relier deux réseaux : le routeur",
+  "auto": "Semi-guidé",
+  "acts": [
+   "Rôle du routeur ; interface et passerelle ; table de routage (show ip route)",
+   "Route statique : relier 2 puis 3 réseaux ; ping entre réseaux",
+   "Erreurs fréquentes (passerelle absente, route retour manquante) ; simulateur puis maquette réelle"
+  ],
+  "ref": "C06 · C10 · C09 · architectures (niv. 2)",
+  "ev": [
+   "TP « relier 2 réseaux » (grille)"
+  ],
+  "date": "2026-11-23",
+  "ent": "Repérer le routeur ou pare-feu qui relie le réseau à Internet ; noter sa passerelle."
+ },
+ {
+  "year": "premiere",
+  "n": 8,
+  "code": "S08",
+  "slug": "vlan-1",
+  "s": "S8",
+  "theme": "VLAN (1) : séparer sans multiplier le matériel",
+  "auto": "Semi-guidé",
+  "acts": [
+   "Pourquoi segmenter (sécurité, diffusion) ; VLAN et ports « access » ; créer et affecter",
+   "Vérifier (show vlan) ; constater l'isolement entre 2 VLAN",
+   "Exemple : Direction / Atelier / Invités sur un seul switch"
+  ],
+  "ref": "C06 · C10 · architectures tertiaires (niv. 2) · lignes de commande (niv. 3)",
+  "ev": [
+   "TP VLAN en simulateur puis sur switch réel (formatif)"
+  ],
+  "date": "2026-11-30",
+  "ent": "Demander si l'entreprise utilise des VLAN (invités, caméras, téléphonie) et lesquels."
+ },
+ {
+  "year": "premiere",
+  "n": 9,
+  "code": "S09",
+  "slug": "vlan-2-trunk",
+  "s": "S9",
+  "theme": "VLAN (2) : deux switchs et lien trunk",
+  "auto": "Semi-guidé",
+  "acts": [
+   "Relier 2 switchs par un lien trunk (principe ; étiquette 802.1Q observée en capture) ; mêmes VLAN sur les 2 switchs",
+   "Plan d'adressage par VLAN ; documenter (tableau VLAN / ports / adresses)",
+   "Le routage entre VLAN est seulement présenté en démonstration : il est traité en A3"
+  ],
+  "ref": "C06 · C10 · architectures tertiaires (niv. 2)",
+  "ev": [
+   "TP + tableau de documentation (formatif noté)"
+  ],
+  "date": "2026-12-14",
+  "ent": "Compléter le tableau VLAN / ports de l'entreprise si le tuteur l'autorise."
+ },
+ {
+  "year": "premiere",
+  "n": 10,
+  "code": "S10",
+  "slug": "serveur-linux-ssh",
+  "s": "S10",
+  "theme": "Un serveur Linux et la connexion à distance",
+  "auto": "Semi-guidé",
+  "acts": [
+   "Installer Debian en mode serveur (sans interface graphique) en machine virtuelle ; IP fixe, utilisateurs, mises à jour",
+   "Se connecter en SSH depuis Windows et Linux ; copier un fichier (scp)",
+   "Lire les journaux de connexion"
+  ],
+  "ref": "C10 · connexion à distance (niv. 3) · serveurs (niv. 2)",
+  "ev": [
+   "TP : serveur prêt + connexion SSH (grille)"
+  ],
+  "date": "2027-01-11",
+  "ent": "Se connecter en SSH ou à distance sur un équipement (avec accord et encadrement) ; noter les droits de connexion."
+ },
+ {
+  "year": "premiere",
+  "n": 11,
+  "code": "S11",
+  "slug": "dhcp-dns-serveur",
+  "s": "S11",
+  "theme": "DHCP et DNS sur un serveur",
+  "auto": "Semi-guidé",
+  "acts": [
+   "Installer et configurer un service DHCP (plage, réservation, passerelle) ; comparaison avec la box",
+   "DNS local (dnsmasq) : noms d'hôtes locaux ; tester depuis les clients",
+   "Capture Wireshark des échanges DHCP et DNS"
+  ],
+  "ref": "C09 · C10 · serveurs (niv. 2) · IPv4 (niv. 3)",
+  "ev": [
+   "TP : un client obtient IP + nom ; fiche de configuration"
+  ],
+  "date": "2027-01-25",
+  "ent": "Repérer sur quel serveur ou équipement tournent le DHCP et le DNS de l'entreprise."
+ },
+ {
+  "year": "premiere",
+  "n": 12,
+  "code": "S12",
+  "slug": "web-partage",
+  "s": "S12",
+  "theme": "Serveur web et partage de fichiers",
+  "auto": "Semi-guidé",
+  "acts": [
+   "Apache : installer, publier une page, consulter les journaux",
+   "Samba : dossier partagé avec droits par utilisateur, accès depuis Windows",
+   "Notions de client / serveur / service / port, observées sur la maquette"
+  ],
+  "ref": "C09 · C10 · serveurs (niv. 2) · architecture réseau et système (niv. 2)",
+  "ev": [
+   "TP « mon serveur de services » + recette courte"
+  ],
+  "date": "2027-02-08",
+  "ent": "Observer un partage de fichiers ou un site interne : qui y a accès, avec quels droits ?"
+ },
+ {
+  "year": "premiere",
+  "n": 13,
+  "code": "S13",
+  "slug": "cuivre-fibre-securite",
+  "s": "S13",
+  "theme": "Cuivre certifié, fibre optique et sécurité",
+  "auto": "Semi-guidé",
+  "acts": [
+   "Tester un lien cuivre : cartographie des paires, longueur ; lire un rapport de test",
+   "Fibre optique : monomode / multimode, connecteurs (LC, SC), jarretières, nettoyage, test à la source lumineuse visible, perte en dB",
+   "Sécurité : laser (fibre), risques électriques d'une baie et du PoE ; préparation à l'habilitation électrique B1V (à mutualiser avec U2)"
+  ],
+  "ref": "C09 · C06 · raccordement filaire / optique (niv. 3) · appareils de mesure (niv. 3) · B1V (niv. 3)",
+  "ev": [
+   "TP mesures + fiche de résultats (grille)"
+  ],
+  "date": "2027-02-15",
+  "ent": "Repérer les liaisons en fibre ou les mesures faites lors d'une installation (photos, rapports de test)."
+ },
+ {
+  "year": "premiere",
+  "n": 14,
+  "code": "S14",
+  "slug": "securite-base",
+  "s": "S14",
+  "theme": "Sécurité de base d'un réseau",
+  "auto": "Semi-guidé",
+  "acts": [
+   "Bonnes pratiques : mots de passe des équipements, services inutiles désactivés, mises à jour, sauvegarde des configurations",
+   "Pare-feu : règles simples (autoriser / bloquer un service) sur le poste et sur le routeur",
+   "Audit express d'un mini-réseau avec une checklist de 10 points"
+  ],
+  "ref": "C10 · bonnes pratiques sécurité (niv. 2)",
+  "ev": [
+   "Checklist d'audit complétée (formatif)"
+  ],
+  "date": "2027-03-15",
+  "ent": "Faire le point sur les bonnes pratiques de l'entreprise : mots de passe, mises à jour, sauvegardes (sans copier de données sensibles)."
+ },
+ {
+  "year": "premiere",
+  "n": 15,
+  "code": "S15",
+  "slug": "revision-lancement",
+  "s": "S15",
+  "type": "rem",
+  "tag": "RÉVISION · REMÉD.",
+  "theme": "Révision, remédiation et lancement du projet",
+  "auto": "Semi-guidé",
+  "acts": [
+   "Révision par ateliers d'après le livret ; QCM de vocabulaire et de commandes",
+   "Remise du cahier des charges du projet A2, lecture du dossier, répartition des rôles"
+  ],
+  "ref": "C06 · C09 · C10",
+  "ev": [
+   "Bilan intermédiaire du livret (non certificatif)"
+  ],
+  "date": "2027-04-05",
+  "ent": "Lire le cahier des charges du projet A2 et noter les questions pour le tuteur ou l'enseignant."
+ },
+ {
+  "year": "premiere",
+  "n": 16,
+  "code": "S16",
+  "slug": "projet-1-etude",
+  "s": "S16",
+  "type": "projet",
+  "tag": "PROJET",
+  "theme": "PROJET A2 (1/3) : étude et préparation",
+  "auto": "Semi-guidé",
+  "acts": [
+   "Scénario : une agence de 3 services (Direction, Atelier, Invités), un serveur de services, Wi-Fi ; cahier des charges fourni",
+   "Schéma réseau, plan d'adressage et de VLAN, liste du matériel",
+   "Préparer le câblage (cuivre, fibre en option) et la baie"
+  ],
+  "ref": "C06 · C09",
+  "ev": [
+   "Revue de conception avec le professeur"
+  ],
+  "date": "2027-05-03",
+  "ent": "Avancer le dossier d'étude : schéma, adressage, matériel."
+ },
+ {
+  "year": "premiere",
+  "n": 17,
+  "code": "S17",
+  "slug": "projet-2-realisation",
+  "s": "S17",
+  "type": "projet",
+  "tag": "PROJET",
+  "theme": "PROJET A2 (2/3) : réalisation et configuration",
+  "auto": "Semi-guidé",
+  "acts": [
+   "Câbler, configurer switch(s), routeur, VLAN, serveur (DHCP, DNS, web), Wi-Fi invité",
+   "Sauvegarder chaque configuration validée"
+  ],
+  "ref": "C09 · C10",
+  "ev": [
+   "Jalon noté : mise en service"
+  ],
+  "date": "2027-05-10",
+  "ent": "Compléter la documentation de la maquette ; préparer la recette."
+ },
+ {
+  "year": "premiere",
+  "n": 18,
+  "code": "S18",
+  "slug": "projet-3-recette",
+  "s": "S18",
+  "type": "projet",
+  "tag": "PROJET",
+  "theme": "PROJET A2 (3/3) : recette et dossier",
+  "auto": "Semi-guidé",
+  "acts": [
+   "Cahier de recette (tests, résultats attendus / obtenus) ; pannes provoquées à dépanner",
+   "Dossier technique : schémas, plan d'adressage, configurations sauvegardées"
+  ],
+  "ref": "C06 · C10",
+  "ev": [
+   "Jalon noté : recette + dossier"
+  ],
+  "date": "2027-05-31",
+  "ent": "Préparer la soutenance (plan, supports) ; répétition avec le tuteur."
+ },
+ {
+  "year": "premiere",
+  "n": 19,
+  "code": "S19",
+  "slug": "soutenance",
+  "s": "S19",
+  "type": "projet",
+  "tag": "SOUTENANCE",
+  "theme": "Soutenance A2",
+  "auto": "Semi-guidé",
+  "acts": [
+   "Démonstration de l'installation + questions ; dépannage d'une panne en direct",
+   "Auto-évaluation sur la grille"
+  ],
+  "ref": "C06 · C09 · C10",
+  "ev": [
+   "Grille critériée alignée sur C06, C09, C10"
+  ],
+  "date": "2027-06-14",
+  "ent": "Rédiger un bilan personnel ; identifier 3 activités (R2, R3, R5) à documenter pour le livret."
+ },
+ {
+  "year": "premiere",
+  "n": 20,
+  "code": "S20",
+  "slug": "bilan",
+  "s": "S20",
+  "type": "diag",
+  "tag": "BILAN A2",
+  "theme": "Bilan A2 et préparation de la PFMP",
+  "auto": "Semi-guidé",
+  "acts": [
+   "Portfolio des preuves (schémas, comptes rendus, mesures, captures) ; fiche compétences transmise à l'entreprise tutrice",
+   "Fixer les activités à documenter en PFMP pour le livret (installation, configuration, dépannage)"
+  ],
+  "ref": "C06 · C09 · C10",
+  "ev": [
+   "Fiche bilan A2 ; objectifs de PFMP"
+  ],
+  "date": "2027-06-21",
+  "ent": "Documenter au moins 2 activités réseau réalisées en entreprise pendant l'été pour le livret."
+ },
+ {
+  "year": "terminale",
+  "n": 1,
+  "code": "S01",
+  "slug": "diagnostic-retour",
+  "s": "S1",
+  "type": "diag",
+  "tag": "DIAG · RETOUR PFMP",
+  "theme": "Diagnostic A3 et retour de PFMP",
+  "auto": "Autonome",
+  "acts": [
+   "Mini-chantier de positionnement (2 h) : câbler, configurer, tester et documenter un réseau fourni",
+   "Retour de PFMP et point sur le livret : activités déjà documentées, lacunes",
+   "Présentation des modalités de l'épreuve E31 et de la grille nationale d'évaluation"
+  ],
+  "ref": "C06 · C09 · C10",
+  "ev": [
+   "Diagnostic non noté ; plan de remédiation"
+  ],
+  "date": "2026-08-24",
+  "ent": "Rassembler les preuves déjà réalisées (procès-verbaux, schémas, comptes rendus) pour le livret."
+ },
+ {
+  "year": "terminale",
+  "n": 2,
+  "code": "S02",
+  "slug": "dossier-installation",
+  "s": "S2",
+  "theme": "Lire un dossier d'installation",
+  "auto": "Semi-guidé",
+  "acts": [
+   "Dossier type : cahier des charges simplifié, plans du local avec prises, schéma d'architecture, plan d'adressage, liste de matériel",
+   "Repérer les manques de pièces et les écarts entre plan et terrain (mini-visite dans la salle)",
+   "Établir la liste du matériel et la comparer au stock"
+  ],
+  "ref": "C09 · C06 · plans et schémas (niv. 3) · R2",
+  "ev": [
+   "Fiche « manques et écarts » (formatif)"
+  ],
+  "date": "2026-09-07",
+  "ent": "Obtenir, si possible, un dossier d'installation réel de l'entreprise (plan, schéma) à étudier."
+ },
+ {
+  "year": "terminale",
+  "n": 3,
+  "code": "S03",
+  "slug": "preparer-chantier",
+  "s": "S3",
+  "theme": "Préparer un chantier en sécurité",
+  "auto": "Semi-guidé",
+  "acts": [
+   "Planifier les étapes, l'outillage, les contraintes du client ; checklist de préparation",
+   "Risques : électrique, hauteur, laser fibre, ESD ; consignes",
+   "Préparation à l'AIPR (intervention à proximité des réseaux) et passage du QCM"
+  ],
+  "ref": "C09 · AIPR (niv. 3) · B1V (rappel)",
+  "ev": [
+   "Checklist de chantier ; résultat du QCM AIPR (hors notes)"
+  ],
+  "date": "2026-09-21",
+  "ent": "Observer la préparation d'un chantier : checklist, outillage, consignes de sécurité."
+ },
+ {
+  "year": "terminale",
+  "n": 4,
+  "code": "S04",
+  "slug": "installer-mesurer",
+  "s": "S4",
+  "theme": "Installer et mesurer : cuivre et fibre",
+  "auto": "Autonome",
+  "acts": [
+   "Réaliser une mini-installation : prises, panneau de brassage, baie, cordons cuivre et fibre, étiquetage",
+   "Tests et mesures (cartographie, longueur, perte de la fibre) ; rapport de mesures"
+  ],
+  "ref": "C09 · C06 · raccordement (niv. 3) · mesure (niv. 3)",
+  "ev": [
+   "Installation évaluée sur grille (formatif noté)"
+  ],
+  "date": "2026-10-05",
+  "ent": "Participer à une installation ou à des mesures et les documenter (photos, mesures, avec accord)."
+ },
+ {
+  "year": "terminale",
+  "n": 5,
+  "code": "S05",
+  "slug": "inter-vlan",
+  "s": "S5",
+  "theme": "Routage entre VLAN et réseau d'une PME",
+  "auto": "Semi-guidé",
+  "acts": [
+   "Reprendre les VLAN de A2 : faire communiquer les VLAN via un routeur (lien trunk) ou un switch de niveau 3, d'abord avec une fiche guidée, puis en l'expliquant",
+   "DHCP par VLAN ; règles d'accès simples",
+   "Documenter l'architecture"
+  ],
+  "ref": "C06 · C10 · architectures tertiaires (niv. 2)",
+  "ev": [
+   "TP + schéma commenté"
+  ],
+  "date": "2026-10-19",
+  "ent": "Repérer si l'entreprise utilise des VLAN et du routage entre VLAN ; relever le schéma."
+ },
+ {
+  "year": "terminale",
+  "n": 6,
+  "code": "S06",
+  "slug": "wifi-entreprise",
+  "s": "S6",
+  "theme": "Wi-Fi d'entreprise",
+  "auto": "Semi-guidé",
+  "acts": [
+   "Plusieurs SSID (interne, invités) associés à des VLAN ; sécurité WPA2 / WPA3",
+   "Authentification d'entreprise (RADIUS) : lecture d'un schéma, sans configuration",
+   "Dépannage Wi-Fi : canaux, signal, mots de passe"
+  ],
+  "ref": "C09 · C10 · C06",
+  "ev": [
+   "TP : Wi-Fi interne + invités opérationnel (grille)"
+  ],
+  "date": "2026-11-16",
+  "ent": "Observer la configuration Wi-Fi de l'entreprise : SSID, VLAN invités, sécurité."
+ },
+ {
+  "year": "terminale",
+  "n": 7,
+  "code": "S07",
+  "slug": "maj-sauvegardes",
+  "s": "S7",
+  "theme": "Mises à jour et sauvegardes",
+  "auto": "Autonome",
+  "acts": [
+   "Mise à jour du micrologiciel d'un switch, routeur ou borne : procédure, vérification, retour arrière",
+   "Mises à jour des systèmes ; sauvegarde et restauration d'une configuration (TFTP / SCP) ; journal des modifications"
+  ],
+  "ref": "C10 · mises à jour · lignes de commande (niv. 3)",
+  "ev": [
+   "TP : mise à jour + restauration, avec journal (grille)"
+  ],
+  "date": "2026-11-30",
+  "ent": "Demander comment sont faites les mises à jour et les sauvegardes des équipements ; noter la procédure."
+ },
+ {
+  "year": "terminale",
+  "n": 8,
+  "code": "S08",
+  "slug": "integrer-equipements",
+  "s": "S8",
+  "theme": "Intégrer de nouveaux équipements",
+  "auto": "Autonome",
+  "acts": [
+   "Intégrer une imprimante réseau, une caméra IP (PoE), un objet connecté (ESP32 ou équivalent, en lien avec U2)",
+   "Réservation d'adresse, VLAN dédié, test fonctionnel, mise à jour de la documentation",
+   "Aperçu des réseaux industriels : repérer les équipements sur un schéma, Modbus TCP présenté, différences avec le tertiaire"
+  ],
+  "ref": "C09 · C06 · IoT (niv. 2) · architectures industrielles (niv. 2)",
+  "ev": [
+   "Cahier de recette d'intégration (grille)"
+  ],
+  "date": "2027-01-04",
+  "ent": "Participer à l'intégration d'un équipement (imprimante, caméra, objet connecté) et la décrire."
+ },
+ {
+  "year": "terminale",
+  "n": 9,
+  "code": "S09",
+  "slug": "acces-distance",
+  "s": "S9",
+  "theme": "Accès à distance sécurisé",
+  "auto": "Autonome",
+  "acts": [
+   "SSH (authentification par clé), bureau à distance, VPN : utiliser un VPN déjà configuré",
+   "Redirection de port (NAT / PAT) sur un routeur : intérêt et risques ; règles de télémaintenance"
+  ],
+  "ref": "C10 · connexion à distance (niv. 3) · sécurité (niv. 2)",
+  "ev": [
+   "TP : accès distant sécurisé fonctionnel (grille)"
+  ],
+  "date": "2027-01-18",
+  "ent": "Observer comment l'entreprise gère l'accès à distance (VPN, télémaintenance) et ses règles."
+ },
+ {
+  "year": "terminale",
+  "n": 10,
+  "code": "S10",
+  "slug": "supervision-tickets",
+  "s": "S10",
+  "theme": "Superviser et tracer les incidents",
+  "auto": "Autonome",
+  "acts": [
+   "Outil de supervision simple (Zabbix, Uptime Kuma ou équivalent) : ajouter un équipement, lire une alerte",
+   "Outil de tickets (GLPI) : consigner un incident (symptôme, cause, action) – en lien avec la gestion d'incidents d'U32"
+  ],
+  "ref": "C10 · alertes consignées",
+  "ev": [
+   "Ticket complet rédigé à partir d'une alerte (formatif)"
+  ],
+  "date": "2027-02-01",
+  "ent": "Repérer l'outil de supervision ou de tickets utilisé ; consigner un incident réel."
+ },
+ {
+  "year": "terminale",
+  "n": 11,
+  "code": "S11",
+  "slug": "depanner-1",
+  "s": "S11",
+  "theme": "Dépanner (1) : raisonner",
+  "auto": "Autonome",
+  "acts": [
+   "Démarche : symptôme → hypothèses → tests → cause → action ; lecture de show, des journaux, des captures",
+   "Pannes combinées (câble + IP + VLAN + DNS) en ateliers rotatifs ; chronométrer et optimiser le temps de diagnostic"
+  ],
+  "ref": "C06 · C10 · diagnostic (R5)",
+  "ev": [
+   "Dépannage chronométré (formatif noté)"
+  ],
+  "date": "2027-02-15",
+  "ent": "Documenter une panne réelle : symptôme, tests, cause, correction."
+ },
+ {
+  "year": "terminale",
+  "n": 12,
+  "code": "S12",
+  "slug": "depanner-2",
+  "s": "S12",
+  "theme": "Dépanner (2) : réparer et rendre compte",
+  "auto": "Autonome",
+  "acts": [
+   "Remplacer un équipement, un câble ou une borne ; restaurer une configuration ; vérifier le retour à la normale",
+   "Rédiger le compte rendu d'intervention ; savoir quand et comment passer la main (escalade)"
+  ],
+  "ref": "R5 · C10 · C06",
+  "ev": [
+   "Compte rendu d'intervention (grille)"
+  ],
+  "date": "2027-03-15",
+  "ent": "Rédiger un compte rendu d'intervention réel ou participer à une recette (avec accord du tuteur)."
+ },
+ {
+  "year": "terminale",
+  "n": 13,
+  "code": "S13",
+  "slug": "recette-client",
+  "s": "S13",
+  "theme": "Recette et accompagnement du client",
+  "auto": "Autonome",
+  "acts": [
+   "Cahier de recette complet (tests, attendus, obtenus, réserves) ; procès-verbal de réception",
+   "Jeu de rôle : recevoir l'installation avec le client, répondre à ses questions, remettre une notice d'une page"
+  ],
+  "ref": "C06 · C09 · R1 · R2",
+  "ev": [
+   "Recette + jeu de rôle (grille)"
+  ],
+  "date": "2027-03-29",
+  "ent": "Collecter des preuves de recette ou de relation client pour le livret."
+ },
+ {
+  "year": "terminale",
+  "n": 14,
+  "code": "S14",
+  "slug": "revision-remediation",
+  "s": "S14",
+  "type": "rem",
+  "tag": "RÉVISION · REMÉD.",
+  "theme": "Révision et remédiation individualisée",
+  "auto": "Autonome",
+  "acts": [
+   "Ateliers par niveau d'après le livret : câblage, adressage, configuration, dépannage",
+   "Fiche « 15 points essentiels » (commandes, méthodes, pièges) construite par les élèves"
+  ],
+  "ref": "C06 · C09 · C10",
+  "ev": [
+   "Bilan intermédiaire du livret"
+  ],
+  "date": "2027-04-05",
+  "ent": "Vérifier le livret : activités R2, R3, R5 documentées ; combler les manques."
+ },
+ {
+  "year": "terminale",
+  "n": 15,
+  "code": "S15",
+  "slug": "chantier-1",
+  "s": "S15",
+  "type": "eval",
+  "tag": "ENTRAÎNEMENT",
+  "theme": "Chantier complet d'entraînement n°1",
+  "auto": "Autonome",
+  "acts": [
+   "Scénario A dans les conditions de l'épreuve (3 h) : étudier le dossier, préparer, installer, configurer, tester, rédiger la recette",
+   "Correction collective et fiche d'erreurs individuelle (1 h) ; documentation d'appui autorisée (fiches mémo, documentation constructeur)"
+  ],
+  "ref": "C06 · C09 · C10",
+  "ev": [
+   "Grille nationale utilisée à blanc"
+  ],
+  "date": "2027-04-26",
+  "ent": "Relire les fiches mémo et les commandes ; mettre à jour le livret."
+ },
+ {
+  "year": "terminale",
+  "n": 16,
+  "code": "S16",
+  "slug": "chantier-2",
+  "s": "S16",
+  "type": "eval",
+  "tag": "ENTRAÎNEMENT",
+  "theme": "Chantier complet d'entraînement n°2",
+  "auto": "Autonome",
+  "acts": [
+   "Scénario B dans les conditions de l'épreuve (3 h), avec une panne à diagnostiquer et un compte rendu d'intervention",
+   "Correction et plan de travail individuel pour la suite (1 h)"
+  ],
+  "ref": "C06 · C09 · C10",
+  "ev": [
+   "Grille nationale utilisée à blanc ; comparaison avec le chantier n°1"
+  ],
+  "date": "2027-05-17",
+  "ent": "Relire les erreurs des chantiers d'entraînement ; préparer l'évaluation."
+ },
+ {
+  "year": "terminale",
+  "n": 17,
+  "code": "S17",
+  "slug": "evaluation-e31",
+  "s": "S17",
+  "type": "eval",
+  "tag": "ÉVALUATION E31",
+  "theme": "Évaluation certificative E31",
+  "auto": "Autonome",
+  "acts": [
+   "Chantier complet type (installer, configurer, valider, exploiter) sur le plateau technique",
+   "Si CCF : positionnement sur la grille nationale par la commission du dernier trimestre ; calendrier et nombre de situations selon la circulaire de l'établissement",
+   "Si épreuve ponctuelle : pratique de 3 h devant deux enseignants"
+  ],
+  "ref": "C06 · C09 · C10",
+  "ev": [
+   "Positionnement sur la grille nationale"
+  ],
+  "date": "2027-05-24",
+  "ent": "Compléter le livret avec les preuves de l'évaluation."
+ },
+ {
+  "year": "terminale",
+  "n": 18,
+  "code": "S18",
+  "slug": "remediation-dossier",
+  "s": "S18",
+  "type": "rem",
+  "tag": "RATTRAPAGE · DOSSIER",
+  "theme": "Remédiation, rattrapage et dossier",
+  "auto": "Autonome",
+  "acts": [
+   "Reprise ciblée pour les élèves à positionner ou à consolider ; seconde situation si prévue",
+   "Finaliser le livret E31 : preuves (procès-verbaux, schémas, comptes rendus, mesures)"
+  ],
+  "ref": "C06 · C09 · C10",
+  "ev": [
+   "Livret E31 complet"
+  ],
+  "date": "2027-06-07",
+  "ent": "Terminer le livret avec les preuves réalisées en entreprise."
+ },
+ {
+  "year": "terminale",
+  "n": 19,
+  "code": "S19",
+  "slug": "bilan-terminal",
+  "s": "S19",
+  "type": "diag",
+  "tag": "BILAN TERMINAL",
+  "theme": "Bilan terminal et suite de parcours",
+  "auto": "Autonome",
+  "acts": [
+   "Auto-évaluation sur 3 ans ; bilan des compétences réseau",
+   "Poursuite d'études (BTS CIEL, mentions complémentaires) et insertion"
+  ],
+  "ref": "—",
+  "ev": [
+   "Bilan de formation"
+  ],
+  "date": "2027-06-14",
+  "ent": "Préparer la suite : CV, projet d'études ou d'emploi."
+ }
+]

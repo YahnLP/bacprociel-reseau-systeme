@@ -1,0 +1,79 @@
+site_name: "Réseaux et systèmes – Bac Pro CIEL (E31)"
+site_description: "Cours et TP du module E31 « Mise en œuvre de réseaux informatiques » – Bac Pro CIEL (Seconde, Première, Terminale)"
+site_url: "https://yahnlp.github.io/bacprociel-reseau-systeme/"
+site_author: "Yahn Le Prettre"
+repo_url: "https://github.com/YahnLP/bacprociel-reseau-systeme"
+edit_uri: "edit/main/docs/"
+
+copyright: |
+  <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.fr">Licence CC BY-NC-SA 4.0</a>
+  · MFR de Pontonx · Hébergé sur GitHub Pages
+
+docs_dir: docs
+
+theme:
+  name: material
+  language: fr
+  font: false            # pas de police Google (RGPD)
+  logo: images/logo.svg
+  favicon: images/logo.svg
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/weather-sunny
+        name: "Passer au mode nuit"
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: black
+      accent: green
+      toggle:
+        icon: material/weather-night
+        name: "Passer au mode jour"
+  features:
+    - navigation.tabs
+    - navigation.indexes
+    - navigation.top
+    - navigation.instant
+    - toc.follow
+    - content.code.copy
+    - search.highlight
+
+plugins:
+  - search:
+      lang: fr
+  - awesome-pages
+  - callouts
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - md_in_html
+  - def_list
+  - footnotes
+  - tables
+  - toc:
+      permalink: true
+      toc_depth: 3
+  - pymdownx.details
+  - pymdownx.caret
+  - pymdownx.mark
+  - pymdownx.tilde
+  - pymdownx.keys
+  - pymdownx.inlinehilite
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+
+extra_css:
+  - xtra/extra.css
