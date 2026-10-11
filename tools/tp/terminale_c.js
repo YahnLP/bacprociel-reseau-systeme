@@ -90,4 +90,32 @@ module.exports = function (TPS, env) {
     ],
     startShould: ['Les postes de VLAN différents ne se joignent pas (VLAN actifs)', 'Le switch porte son nom SW-ATELIER', 'La configuration restaurée est sauvegardée'],
   });
+
+  /* ---------- S08 : intégrer des équipements (cabinet d'architectes Lemoine) ---------- */
+  function inBuild(h) {
+    const { dev, get } = h;
+    dev('sw-3560', 'CORE', 330, 180, 'Switch cœur'); dev('pc-win', 'PC-1', 80, 60, 'Poste bureau'); dev('pc-win', 'PC-2', 80, 300, 'Poste bureau 2');
+    dev('printer', 'IMP', 600, 60, 'Imprimante réseau'); dev('nas', 'NAS', 600, 300, 'NAS sauvegarde');
+    hostDhcp(get('PC-1')); hostDhcp(get('PC-2'));
+  }
+  const IN_CORE = 'enable\nconfigure terminal\nhostname CORE\nip routing\nvlan 10\nname POSTES\nvlan 40\nname OBJETS\nexit\ninterface range fa0/1 - 2\nswitchport mode access\nswitchport access vlan 10\nexit\ninterface range fa0/3 - 4\nswitchport mode access\nswitchport access vlan 40\nexit\ninterface vlan 10\nip address 192.168.10.1 255.255.255.0\nno shutdown\nexit\ninterface vlan 40\nip address 192.168.40.1 255.255.255.0\nno shutdown\nexit\nip dhcp excluded-address 192.168.10.1 192.168.10.49\nip dhcp pool POSTES\nnetwork 192.168.10.0 255.255.255.0\ndefault-router 192.168.10.1\nexit\nend\nwrite memory';
+  function inSolve(sim, h) {
+    const { link, get } = h;
+    link('PC-1', 'eth0', 'CORE', 'Fa0/1'); link('PC-2', 'eth0', 'CORE', 'Fa0/2');
+    link('IMP', get('IMP').ifaceList()[0].port.name, 'CORE', 'Fa0/3'); link('NAS', get('NAS').ifaceList()[0].port.name, 'CORE', 'Fa0/4');
+    cliRun(get('CORE'), IN_CORE);
+    hostIp(get('IMP'), '192.168.40.20', '24', '192.168.40.1'); hostIp(get('NAS'), '192.168.40.30', '24', '192.168.40.1');
+  }
+  const inChecks = [
+    { label: 'PC-1 reçoit une adresse du VLAN postes (192.168.10.50 et +)', run: c => { c.wait(10000); return /^192\.168\.10\.(5\d|[6-9]\d|\d{3})$/.test(c.ipOf('PC-1')); } },
+    { label: 'PC-1 joint l\'imprimante (192.168.40.20)', run: c => c.ping('PC-1', '192.168.40.20') },
+    { label: 'PC-2 joint le NAS (192.168.40.30)', run: c => c.ping('PC-2', '192.168.40.30') },
+    { label: 'L\'imprimante et le NAS sont hors de la plage DHCP (adresses réservées)', run: c => /excluded-address 192\.168\.10\.1 192\.168\.10\.49/.test(cfg(c, 'CORE')) && /192\.168\.40\.20/.test(c.ipOf('IMP')) },
+    { label: 'Configuration du switch sauvegardée', run: c => /hostname CORE/.test(scfg(c, 'CORE')) && /vlan 40/i.test(scfg(c, 'CORE')) },
+  ];
+  TPS.push({
+    id: 't08-integration', start: D + 'S08-integrer-equipements/tp/t08-integration.json', solution: K + 'T08-integration-corrige.json',
+    notes: 'Terminale S08 – Cabinet Lemoine : deux postes, une imprimante réseau et un NAS posés sur le plan, aucun câble, switch cœur (niveau 3) vierge. À faire : câbler, créer le VLAN OBJETS (40), adresser l\'imprimante et le NAS en statique hors plage DHCP, tester, documenter.',
+    build(sim, h) { inBuild(h); }, solve: inSolve, checks: inChecks, startShould: inChecks.map(x => x.label),
+  });
 };

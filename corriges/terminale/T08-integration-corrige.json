@@ -1,0 +1,325 @@
+{
+ "app": "simulateur-reseau",
+ "v": 1,
+ "opts": {
+  "strictCables": false,
+  "stpFast": true
+ },
+ "devices": [
+  {
+   "id": "D1",
+   "type": "switch",
+   "model": "sw-3560",
+   "name": "CORE",
+   "x": 330,
+   "y": 180,
+   "powered": true,
+   "cli": "!\nhostname CORE\n!\nip routing\nip dhcp excluded-address 192.168.10.1 192.168.10.49\nip dhcp pool POSTES\n network 192.168.10.0 255.255.255.0\n default-router 192.168.10.1\n!\nspanning-tree mode pvst\nvlan 10\n name POSTES\n!\nvlan 40\n name OBJETS\n!\ninterface FastEthernet0/1\n switchport access vlan 10\n switchport mode access\n!\ninterface FastEthernet0/2\n switchport access vlan 10\n switchport mode access\n!\ninterface FastEthernet0/3\n switchport access vlan 40\n switchport mode access\n!\ninterface FastEthernet0/4\n switchport access vlan 40\n switchport mode access\n!\ninterface Vlan10\n ip address 192.168.10.1 255.255.255.0\n!\ninterface Vlan40\n ip address 192.168.40.1 255.255.255.0\n!\nline con 0\n logging synchronous\nline vty 0 4\n!",
+   "startup": "!\nhostname CORE\n!\nip routing\nip dhcp excluded-address 192.168.10.1 192.168.10.49\nip dhcp pool POSTES\n network 192.168.10.0 255.255.255.0\n default-router 192.168.10.1\n!\nspanning-tree mode pvst\nvlan 10\n name POSTES\n!\nvlan 40\n name OBJETS\n!\ninterface FastEthernet0/1\n switchport access vlan 10\n switchport mode access\n!\ninterface FastEthernet0/2\n switchport access vlan 10\n switchport mode access\n!\ninterface FastEthernet0/3\n switchport access vlan 40\n switchport mode access\n!\ninterface FastEthernet0/4\n switchport access vlan 40\n switchport mode access\n!\ninterface Vlan10\n ip address 192.168.10.1 255.255.255.0\n!\ninterface Vlan40\n ip address 192.168.40.1 255.255.255.0\n!\nline con 0\n logging synchronous\nline vty 0 4\n!",
+   "label": "Switch cœur"
+  },
+  {
+   "id": "D2",
+   "type": "pc",
+   "model": "pc-win",
+   "name": "PC-1",
+   "x": 80,
+   "y": 60,
+   "powered": true,
+   "ifaces": [
+    {
+     "name": "Ethernet0",
+     "ip": "",
+     "mask": "",
+     "dhcp": true
+    }
+   ],
+   "gw": "",
+   "dns": [],
+   "domain": "",
+   "allowIcmpEcho": true,
+   "wifi": {
+    "ssid": "",
+    "key": ""
+   },
+   "hosts": {},
+   "dhcpd": {
+    "enabled": false,
+    "excluded": [],
+    "pools": []
+   },
+   "dnsd": {
+    "enabled": false,
+    "records": [],
+    "forwarders": []
+   },
+   "httpd": {
+    "enabled": false,
+    "https": false,
+    "pages": {
+     "/": {
+      "type": "text/html; charset=utf-8",
+      "body": "<html><head><title>PC-1</title></head><body><h1>Bienvenue sur PC-1</h1><p>Serveur web du simulateur.</p></body></html>"
+     }
+    }
+   },
+   "mgmt": {
+    "comms": [],
+    "location": "",
+    "contact": "",
+    "syslogd": false,
+    "trapd": false
+   },
+   "v6": {
+    "ifs": [
+     {
+      "name": "Ethernet0",
+      "autoconf": true,
+      "addrs": []
+     }
+    ],
+    "statics": []
+   },
+   "label": "Poste bureau"
+  },
+  {
+   "id": "D3",
+   "type": "pc",
+   "model": "pc-win",
+   "name": "PC-2",
+   "x": 80,
+   "y": 300,
+   "powered": true,
+   "ifaces": [
+    {
+     "name": "Ethernet0",
+     "ip": "",
+     "mask": "",
+     "dhcp": true
+    }
+   ],
+   "gw": "",
+   "dns": [],
+   "domain": "",
+   "allowIcmpEcho": true,
+   "wifi": {
+    "ssid": "",
+    "key": ""
+   },
+   "hosts": {},
+   "dhcpd": {
+    "enabled": false,
+    "excluded": [],
+    "pools": []
+   },
+   "dnsd": {
+    "enabled": false,
+    "records": [],
+    "forwarders": []
+   },
+   "httpd": {
+    "enabled": false,
+    "https": false,
+    "pages": {
+     "/": {
+      "type": "text/html; charset=utf-8",
+      "body": "<html><head><title>PC-2</title></head><body><h1>Bienvenue sur PC-2</h1><p>Serveur web du simulateur.</p></body></html>"
+     }
+    }
+   },
+   "mgmt": {
+    "comms": [],
+    "location": "",
+    "contact": "",
+    "syslogd": false,
+    "trapd": false
+   },
+   "v6": {
+    "ifs": [
+     {
+      "name": "Ethernet0",
+      "autoconf": true,
+      "addrs": []
+     }
+    ],
+    "statics": []
+   },
+   "label": "Poste bureau 2"
+  },
+  {
+   "id": "D4",
+   "type": "peripheral",
+   "model": "printer",
+   "name": "IMP",
+   "x": 600,
+   "y": 60,
+   "powered": true,
+   "ifaces": [
+    {
+     "name": "LAN",
+     "ip": "192.168.40.20",
+     "mask": "255.255.255.0",
+     "dhcp": false
+    }
+   ],
+   "gw": "192.168.40.1",
+   "dns": [],
+   "domain": "",
+   "allowIcmpEcho": true,
+   "wifi": {
+    "ssid": "",
+    "key": ""
+   },
+   "hosts": {},
+   "dhcpd": {
+    "enabled": false,
+    "excluded": [],
+    "pools": []
+   },
+   "dnsd": {
+    "enabled": false,
+    "records": [],
+    "forwarders": []
+   },
+   "httpd": {
+    "enabled": false,
+    "https": false,
+    "pages": {
+     "/": {
+      "type": "text/html; charset=utf-8",
+      "body": "<html><head><title>IMP</title></head><body><h1>Bienvenue sur IMP</h1><p>Serveur web du simulateur.</p></body></html>"
+     }
+    }
+   },
+   "mgmt": {
+    "comms": [],
+    "location": "",
+    "contact": "",
+    "syslogd": false,
+    "trapd": false
+   },
+   "v6": {
+    "ifs": [
+     {
+      "name": "LAN",
+      "autoconf": true,
+      "addrs": []
+     }
+    ],
+    "statics": []
+   },
+   "label": "Imprimante réseau"
+  },
+  {
+   "id": "D5",
+   "type": "server",
+   "model": "nas",
+   "name": "NAS",
+   "x": 600,
+   "y": 300,
+   "powered": true,
+   "ifaces": [
+    {
+     "name": "LAN1",
+     "ip": "192.168.40.30",
+     "mask": "255.255.255.0",
+     "dhcp": false
+    }
+   ],
+   "gw": "192.168.40.1",
+   "dns": [],
+   "domain": "",
+   "allowIcmpEcho": true,
+   "wifi": {
+    "ssid": "",
+    "key": ""
+   },
+   "hosts": {},
+   "dhcpd": {
+    "enabled": false,
+    "excluded": [],
+    "pools": []
+   },
+   "dnsd": {
+    "enabled": false,
+    "records": [],
+    "forwarders": []
+   },
+   "httpd": {
+    "enabled": false,
+    "https": false,
+    "pages": {
+     "/": {
+      "type": "text/html; charset=utf-8",
+      "body": "<html><head><title>NAS</title></head><body><h1>Bienvenue sur NAS</h1><p>Serveur web du simulateur.</p></body></html>"
+     }
+    }
+   },
+   "mgmt": {
+    "comms": [],
+    "location": "",
+    "contact": "",
+    "syslogd": false,
+    "trapd": false
+   },
+   "v6": {
+    "ifs": [
+     {
+      "name": "LAN1",
+      "autoconf": true,
+      "addrs": []
+     }
+    ],
+    "statics": []
+   },
+   "label": "NAS sauvegarde"
+  }
+ ],
+ "links": [
+  {
+   "a": [
+    "D2",
+    "Ethernet0"
+   ],
+   "b": [
+    "D1",
+    "FastEthernet0/1"
+   ],
+   "type": "straight"
+  },
+  {
+   "a": [
+    "D3",
+    "Ethernet0"
+   ],
+   "b": [
+    "D1",
+    "FastEthernet0/2"
+   ],
+   "type": "straight"
+  },
+  {
+   "a": [
+    "D4",
+    "LAN"
+   ],
+   "b": [
+    "D1",
+    "FastEthernet0/3"
+   ],
+   "type": "straight"
+  },
+  {
+   "a": [
+    "D5",
+    "LAN1"
+   ],
+   "b": [
+    "D1",
+    "FastEthernet0/4"
+   ],
+   "type": "straight"
+  }
+ ],
+ "notes": "CORRIGÉ – Terminale S08 – Cabinet Lemoine : deux postes, une imprimante réseau et un NAS posés sur le plan, aucun câble, switch cœur (niveau 3) vierge. À faire : câbler, créer le VLAN OBJETS (40), adresser l'imprimante et le NAS en statique hors plage DHCP, tester, documenter."
+}

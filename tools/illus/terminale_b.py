@@ -46,6 +46,24 @@ def s07():
     f.save(out(d, "maj-5-etapes.svg"))
 
 
+
+def s08():
+    d = "S08-integrer-equipements"
+    f = Fig(1000, 500, "Un VLAN pour les objets connectés", "Les postes sont dans le VLAN 10. L'imprimante, le NAS, la caméra IP et la carte ESP32 sont dans un VLAN 40 dédié, relié au switch cœur qui route et peut filtrer.")
+    f.title_bar("Les objets connectés ont leur propre VLAN")
+    node(f, "switch", 500, 230, "CORE (niveau 3)", "routage + passerelles")
+    f.rect(40, 70, 230, 170, IND_L, IND, 3, 14); f.text(155, 98, "VLAN 10 – POSTES", 15, IND, "middle", "700")
+    node(f, "pc", 100, 160, "PC-1", "DHCP .50+"); node(f, "pc", 215, 160, "PC-2", "DHCP .50+")
+    f.rect(330, 320, 640, 150, ORA_L, ORA, 3, 14); f.text(650, 348, "VLAN 40 – OBJETS  (adresses fixes, hors plage DHCP)", 15, ORA, "middle", "700")
+    node(f, "printer", 420, 392, "Imprimante", ".20"); node(f, "server", 590, 392, "NAS", ".30")
+    node(f, "phone", 760, 392, "Caméra IP", ".31 (PoE)"); node(f, "box", 900, 392, "ESP32", ".40")
+    f.line(270, 170, 450, 235, LINE, 3); f.line(500, 292, 500, 320, LINE, 3)
+    f.rect(740, 80, 230, 150, YEL_L, YEL, 2.5, 12)
+    for k, t in enumerate(("Pourquoi un VLAN à part ?", "• on les filtre facilement", "• une panne ou une attaque", "ne gagne pas les postes", "• adresses faciles à retenir")):
+        f.text(752, 106 + k * 24, t, 13.5, INK, "start", "700" if k == 0 else "400")
+    f.save(out(d, "vlan-objets.svg"))
+
+
 if __name__ == "__main__":
-    for w_ in (sys.argv[1:] or ["s06", "s07"]):
+    for w_ in (sys.argv[1:] or ["s06", "s07", "s08"]):
         globals()[w_](); print("OK", w_)
