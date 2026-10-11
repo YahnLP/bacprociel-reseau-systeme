@@ -39,8 +39,8 @@
 | 1 h 00 – 1 h 50 | **TP A–C** : constater, créer les VLAN, affecter les ports | Binôme |
 | 1 h 50 – 2 h 05 | Pause | |
 | 2 h 05 – 2 h 30 | **Mini-cours 2** : bonnes pratiques de numérotation, VLAN et adressage (§3–§4) | Classe |
-| 2 h 30 – 3 h 20 | **TP D–E** : tester, un VLAN = un sous-réseau | Binôme |
-| 3 h 20 – 4 h 00 | **TP F** : dépannage (fichier panne) + fiche de synthèse | Individuel |
+| 2 h 30 – 3 h 20 | **TP D** : un VLAN = un sous-réseau | Binôme |
+| 3 h 20 – 4 h 00 | **TP E–F** : dépannage (fichier panne) + fiche de synthèse | Individuel |
 
 ## 🧪 Matériel et préparation
 

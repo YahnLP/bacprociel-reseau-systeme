@@ -132,6 +132,32 @@ def s08():
     f.save(out(d, "ports-vlan.svg"))
 
 
+def s09():
+    d = "S09-vlan-2-trunk"
+    f = Fig(1000, 470, "Un trunk transporte plusieurs VLAN sur un seul câble",
+            "Deux switchs reliés par un seul câble trunk. Les trames des VLAN 10 et 20 y circulent avec une étiquette indiquant leur VLAN.")
+    f.title_bar("Un seul câble, plusieurs VLAN : le trunk")
+    S1, S2, Y = 270, 730, 230
+    for x, n in ((S1, "SW1 – bâtiment A"), (S2, "SW2 – bâtiment B")):
+        f.rect(x - 90, Y - 28, 180, 56, TEAL_L, TEAL, 3, 10); f.text(x, Y + 6, n, 15, TEAL, "middle", "700")
+    # PCs
+    for x, side in ((S1, -1), (S2, 1)):
+        px = x + side * 230
+        node(f, "pc", px, 120, "Direction" , "VLAN 10", c=IND); node(f, "pc", px, 330, "Atelier", "VLAN 20", c=ORA)
+        f.line(px - side * 35, 120, x - side * 60, Y - 28, IND, 3)
+        f.line(px - side * 35, 330, x - side * 60, Y + 28, ORA, 3)
+    # trunk
+    f.rect(S1 + 90, Y - 14, S2 - S1 - 180, 28, GRY, LINE, 3, 6)
+    f.text((S1 + S2) / 2, Y + 6, "TRUNK (802.1Q)", 15, INK, "middle", "700")
+    f.rect(S1 + 100, Y - 80, 130, 36, IND_L, IND, 2.5, 8); f.text(S1 + 165, Y - 57, "[VLAN 10] trame", 12.5, IND, "middle", "700")
+    f.rect(S2 - 230, Y - 80, 130, 36, IND_L, IND, 2.5, 8); f.text(S2 - 165, Y - 57, "[VLAN 10] trame", 12.5, IND, "middle", "700")
+    f.rect(S1 + 100, Y + 44, 130, 36, ORA_L, ORA, 2.5, 8); f.text(S1 + 165, Y + 67, "[VLAN 20] trame", 12.5, ORA, "middle", "700")
+    f.rect(S2 - 230, Y + 44, 130, 36, ORA_L, ORA, 2.5, 8); f.text(S2 - 165, Y + 67, "[VLAN 20] trame", 12.5, ORA, "middle", "700")
+    f.text(500, Y - 100, "Chaque trame porte une étiquette (VLAN ID)", 15, INK, "middle", "700")
+    f.callout(70, 400, 860, "Sur le trunk, la trame est « étiquetée » (4 octets ajoutés : le VLAN ID). Le switch d'arrivée lit l'étiquette, l'enlève et envoie la trame seulement aux ports de ce VLAN.", YEL_L, YEL, 14.5)
+    f.save(out(d, "trunk-principe.svg"))
+
+
 if __name__ == "__main__":
-    for w in (sys.argv[1:] or ["s07", "s08"]):
+    for w in (sys.argv[1:] or ["s07", "s08", "s09"]):
         globals()[w](); print("OK", w)

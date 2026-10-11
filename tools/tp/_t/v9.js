@@ -1,0 +1,23 @@
+const L=require('../lib');const {Sim,mk,cliRun,hostIp,shell}=L;
+const sim=new Sim();const h=mk(sim);const {dev,link,get}=h;
+dev('sw-2960','SW1',300,180);dev('sw-2960','SW2',600,180);
+dev('pc-win','PC1',100,80);dev('pc-win','PC2',100,280);dev('pc-win','PC3',800,80);dev('pc-win','PC4',800,280);
+link('PC1','eth0','SW1','Fa0/1');link('PC2','eth0','SW1','Fa0/2');link('PC3','eth0','SW2','Fa0/1');link('PC4','eth0','SW2','Fa0/2');link('SW1','Gi0/1','SW2','Gi0/1');
+['PC1','PC3'].forEach((n,k)=>hostIp(get(n),'192.168.10.'+(11+k),'24'));['PC2','PC4'].forEach((n,k)=>hostIp(get(n),'192.168.20.'+(12+k),'24'));
+const V='enable\nconf t\nvlan 10\nname DIRECTION\nvlan 20\nname ATELIER\ninterface fa0/1\nswitchport mode access\nswitchport access vlan 10\ninterface fa0/2\nswitchport mode access\nswitchport access vlan 20\nend';
+cliRun(get('SW1'),V);cliRun(get('SW2'),V);sim.runFor(5000);
+var rs;rs=(n,cmds)=>{const s=get(n).newSession();let out='',done=false;const io={print:t=>out+=t,done:()=>done=true,clear(){}};cmds.forEach(c=>{done=false;out='';s.exec(c,io);sim.runUntil(()=>done,60000);console.log('>',c);console.log(out)})};
+const ping=(a,b)=>/octets=/.test(shell(sim,get(a),'ping '+b));
+rs('SW1',['enable','show interfaces gi0/1 switchport']);
+cliRun(get('SW1'),'enable\nconf t\ninterface gi0/1\nswitchport mode access\nend');cliRun(get('SW2'),'enable\nconf t\ninterface gi0/1\nswitchport mode access\nend');sim.runFor(3000);
+console.log('avant',ping('PC1','192.168.10.12'),ping('PC2','192.168.20.13'));
+
+cliRun(get('SW1'),'enable\nconf t\ninterface gi0/1\nswitchport mode trunk\nend');
+rs('SW1',['enable','show interfaces trunk','show interfaces gi0/1 switchport']);
+console.log('un côté trunk',ping('PC1','192.168.10.12'));
+cliRun(get('SW2'),'enable\nconf t\ninterface gi0/1\nswitchport mode trunk\nend');sim.runFor(3000);
+rs('SW2',['enable','show interfaces trunk']);
+console.log('après',ping('PC1','192.168.10.12'),ping('PC2','192.168.20.13'),ping('PC1','192.168.20.12'));
+cliRun(get('SW1'),'enable\nconf t\ninterface gi0/1\nswitchport trunk allowed vlan 10\nend');sim.runFor(3000);
+rs('SW1',['enable','show interfaces trunk']);
+console.log('allowed 10',ping('PC1','192.168.10.12'),ping('PC2','192.168.20.13'));

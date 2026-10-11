@@ -185,6 +185,40 @@ TPS.push({
   ],
   startShould: ['PC1 joint PC2 (Direction)', 'PC3 joint PC4 (Atelier)'],
 });
+
+/* ---------- S09 : VLAN (2) – deux switchs et trunk ---------- */
+const VL_CFG = 'enable\nconfigure terminal\nvlan 10\nname DIRECTION\nvlan 20\nname ATELIER\ninterface fa0/1\nswitchport mode access\nswitchport access vlan 10\nexit\ninterface fa0/2\nswitchport mode access\nswitchport access vlan 20\nend';
+function trunkBuild(h) {
+  const { dev, link, get } = h;
+  dev('sw-2960', 'SW1', 330, 190, 'SW1 (bâtiment A)'); dev('sw-2960', 'SW2', 620, 190, 'SW2 (bâtiment B)');
+  dev('pc-win', 'PC1', 120, 70, 'Direction A'); dev('pc-win', 'PC2', 120, 310, 'Atelier A'); dev('pc-win', 'PC3', 840, 70, 'Direction B'); dev('pc-win', 'PC4', 840, 310, 'Atelier B');
+  link('PC1', 'eth0', 'SW1', 'Fa0/1'); link('PC2', 'eth0', 'SW1', 'Fa0/2'); link('PC3', 'eth0', 'SW2', 'Fa0/1'); link('PC4', 'eth0', 'SW2', 'Fa0/2'); link('SW1', 'Gi0/1', 'SW2', 'Gi0/1');
+  hostIp(get('PC1'), '192.168.10.11', '24'); hostIp(get('PC3'), '192.168.10.12', '24'); hostIp(get('PC2'), '192.168.20.11', '24'); hostIp(get('PC4'), '192.168.20.12', '24');
+  cliRun(get('SW1'), VL_CFG); cliRun(get('SW2'), VL_CFG);
+}
+const swn = (c, n) => Array.from(c.sim.devices.values()).find(d => d.name === n);
+const TRK = 'enable\nconfigure terminal\ninterface gi0/1\nswitchport mode trunk\nend\nwrite memory';
+const trunkChecks = [
+  { label: 'PC1 joint PC3 (Direction, à travers le trunk)', run: c => c.ping('PC1', '192.168.10.12') },
+  { label: 'PC2 joint PC4 (Atelier, à travers le trunk)', run: c => c.ping('PC2', '192.168.20.12') },
+  { label: 'PC1 ne joint PAS PC2 (VLAN séparés)', run: c => !c.ping('PC1', '192.168.20.11') },
+];
+TPS.push({
+  id: 'p09-trunk', start: D + 'S09-vlan-2-trunk/tp/p09-trunk.json', solution: K + 'P09-trunk-corrige.json',
+  notes: 'Première S09 – Deux switchs 2960 (bâtiments A et B), VLAN 10 et 20 déjà créés et ports affectés sur chacun. Il reste à relier les deux switchs par un trunk pour que les VLAN traversent.',
+  build(sim, h) { trunkBuild(h); },
+  solve(sim, h) { cliRun(h.get('SW1'), TRK); cliRun(h.get('SW2'), TRK); },
+  checks: trunkChecks.concat([{ label: 'Gi0/1 est un trunk sur SW1', run: c => /Gi0\/1\s+on\s+802\.1q\s+trunking/.test(show(c, swn(c, 'SW1'), 'show interfaces trunk')) }]),
+  startShould: ['PC1 joint PC3 (Direction, à travers le trunk)', 'PC2 joint PC4 (Atelier, à travers le trunk)', 'Gi0/1 est un trunk sur SW1'],
+});
+TPS.push({
+  id: 'p09-trunk-panne', start: D + 'S09-vlan-2-trunk/tp/p09-trunk-panne.json', solution: K + 'P09-trunk-panne-corrige.json',
+  notes: 'Première S09 – Dépannage : le trunk est configuré sur SW1 seulement (SW2 est resté en access) et SW1 n\'autorise que le VLAN 10 sur son trunk.',
+  build(sim, h) { trunkBuild(h); cliRun(h.get('SW1'), 'enable\nconfigure terminal\ninterface gi0/1\nswitchport mode trunk\nswitchport trunk allowed vlan 10\nend'); },
+  solve(sim, h) { cliRun(h.get('SW2'), TRK); cliRun(h.get('SW1'), 'enable\nconfigure terminal\ninterface gi0/1\nswitchport trunk allowed vlan 10,20\nend\nwrite memory'); },
+  checks: trunkChecks,
+  startShould: ['PC1 joint PC3 (Direction, à travers le trunk)', 'PC2 joint PC4 (Atelier, à travers le trunk)'],
+});
 const want = process.argv.slice(2);
 let all = true;
 TPS.filter(t => !want.length || want.includes(t.id)).forEach(t => { all = L.run(t) && all; });
