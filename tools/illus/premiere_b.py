@@ -264,6 +264,107 @@ def s12():
     f.save(out(d, "partage-droits.svg"))
 
 
+T568B = [("blanc-orange", "#ffffff", "#ef6c00"), ("orange", "#ef6c00", None), ("blanc-vert", "#ffffff", "#2e7d32"), ("bleu", "#1e88e5", None),
+         ("blanc-bleu", "#ffffff", "#1e88e5"), ("vert", "#2e7d32", None), ("blanc-marron", "#ffffff", "#795548"), ("marron", "#795548", None)]
+
+
+def wire(f, x, y, i, w=26, h=34):
+    n, c1, c2 = T568B[i]
+    f.rect(x, y, w, h, c1, INK, 1.5, 3)
+    if c2:
+        f.rect(x + 1.5, y + h * 0.3, w - 3, h * 0.4, c2, c2, 0, 1)
+
+
+def s13():
+    d = "S13-cuivre-fibre-securite"
+    # --- 1. cartographie des paires
+    f = Fig(1000, 540, "La cartographie des paires (wiremap)", "Le testeur vérifie que chacune des 8 broches d'un côté arrive sur la même broche de l'autre côté. Exemples de défauts : coupure, paires inversées, croisement de paires.")
+    f.title_bar("Cartographie des paires : ce que vérifie le testeur")
+    cas = [("Câble correct", "1→1  2→2  3→3 … 8→8", GRN, [1, 2, 3, 4, 5, 6, 7, 8], "OK"),
+           ("Coupure (fil 5)", "la broche 5 n'arrive nulle part", RED, [1, 2, 3, 4, None, 6, 7, 8], "ÉCHEC"),
+           ("Paire inversée", "les broches 1 et 2 sont permutées", RED, [2, 1, 3, 4, 5, 6, 7, 8], "ÉCHEC"),
+           ("Câble croisé", "paires 2 et 3 permutées (1↔3, 2↔6)", ORA, [3, 6, 1, 4, 5, 2, 7, 8], "croisé")]
+    for r, (t, sub, col, mp, verdict) in enumerate(cas):
+        y = 62 + r * 118
+        f.rect(30, y, 940, 104, WHITE, col, 2.5, 12)
+        f.text(50, y + 28, t, 17, col, "start", "700"); f.text(50, y + 52, sub, 13.5, INK, "start")
+        f.rect(50, y + 66, 110, 26, col, col, 0, 13); f.text(105, y + 85, verdict, 14, WHITE, "middle", "700")
+        x0 = 360
+        for i in range(8):
+            x = x0 + i * 62
+            f.text(x + 13, y + 26, str(i + 1), 13, MUTED, "middle", "700")
+            f.text(x + 13, y + 100, str(i + 1), 13, MUTED, "middle", "700")
+            wire(f, x, y + 32, i, 26, 14)
+            wire(f, x, y + 66, i, 26, 14)
+            if mp[i] is None:
+                f.line(x + 13, y + 46, x + 13, y + 66, RED, 2, "3 3"); f.line(x + 5, y + 52, x + 21, y + 60, RED, 3)
+            else:
+                f.line(x + 13, y + 46, x0 + (mp[i] - 1) * 62 + 13, y + 66, col, 2)
+        f.text(330, y + 44, "côté A", 12, MUTED, "end"); f.text(330, y + 80, "côté B", 12, MUTED, "end")
+    f.save(out(d, "wiremap.svg"))
+
+    # --- 2. rapport de test
+    f = Fig(1000, 470, "Lire un rapport de test cuivre", "Trois liaisons testées : la A est conforme, la B dépasse la longueur maximale du lien permanent (90 m), la C a une paire inversée.")
+    f.title_bar("Un rapport de test : trois liaisons, trois verdicts")
+    cols = ["Liaison", "Longueur", "Cartographie", "Atténuation", "Diaphonie (NEXT)", "Résultat"]
+    xs = [40, 170, 300, 470, 640, 840]
+    f.rect(30, 60, 940, 40, IND, IND, 0, 6)
+    for x, c in zip(xs, cols):
+        f.text(x, 86, c, 14.5, WHITE, "start", "700")
+    rows = [("A  bureau 12", "62 m", "OK", "OK (marge 6,1 dB)", "OK (marge 8,4 dB)", "RÉUSSI", GRN),
+            ("B  atelier 03", "103 m", "OK", "ÉCHEC (−2,0 dB)", "OK (marge 3,0 dB)", "ÉCHEC", RED),
+            ("C  accueil 01", "34 m", "Paire 1-2 inversée", "—", "—", "ÉCHEC", RED)]
+    for i, row in enumerate(rows):
+        y = 100 + i * 52
+        f.rect(30, y, 940, 52, GRN_L if row[6] == GRN else RED_L, GRY_D, 1, 0)
+        for j, (x, v) in enumerate(zip(xs, row[:6])):
+            f.text(x, y + 32, v, 14, row[6] if j == 5 else INK, "start", "700" if j in (0, 5) else "400")
+    f.text(40, 290, "À savoir : limite du lien permanent = 90 m ; avec les 2 cordons de brassage (5 m chacun) : canal = 100 m.", 14.5, INK, "start", "700")
+    f.callout(40, 310, 920, "B : 103 m > 90 m : le câble est trop long, d'où l'atténuation hors limite. Remède : raccourcir le trajet, ou ajouter un brassage intermédiaire (un switch) près du poste, ou passer en fibre.", RED_L, RED, 14.5)
+    f.callout(40, 375, 920, "C : une paire inversée (broches 1 et 2) se corrige en ré-sertissant / re-poinçonnant la prise. Le câble fait pourtant passer le courant : seul un testeur de cartographie le voit.", YEL_L, YEL, 14.5)
+    f.save(out(d, "rapport-test.svg"))
+
+    # --- 3. fibre
+    f = Fig(1000, 520, "Fibre monomode et multimode", "En monomode le cœur de 9 µm ne laisse passer qu'un seul chemin à la lumière, ce qui permet de grandes distances. En multimode, le cœur de 50 µm laisse passer plusieurs chemins : distance limitée.")
+    f.title_bar("Fibre optique : monomode (OS2) ou multimode (OM3/OM4) ?")
+    for ox, titre, col, colL, core, rays, rows in (
+        (30, "MONOMODE (OS2) – gaine jaune", "#b28704", YEL_L, 9, 1, ["cœur 9 µm", "1 seul chemin de lumière", "laser 1310 / 1550 nm", "de 2 km à plus de 10 km", "ex. 1000BASE-LX, 10GBASE-LR"]),
+        (520, "MULTIMODE (OM3/OM4) – gaine aqua", TEAL, TEAL_L, 50, 3, ["cœur 50 µm", "plusieurs chemins de lumière", "VCSEL 850 nm", "jusqu'à 300 – 400 m en 10 G", "ex. 1000BASE-SX, 10GBASE-SR"])):
+        f.rect(ox, 55, 450, 330, colL, col, 3, 14)
+        f.text(ox + 225, 85, titre, 16.5, col, "middle", "700")
+        h = 18 + core * 1.2
+        f.rect(ox + 25, 118, 400, 90, WHITE, GRY_D, 2, 4)           # gaine
+        f.rect(ox + 25, 163 - h / 2, 400, h, col, col, 0, 2, op=.35)  # coeur
+        f.text(ox + 225, 110, "coupe d'une fibre : gaine de 125 µm (cadre), cœur coloré", 12, MUTED, "middle")
+        for k in range(rays):
+            yy = 163 + (k - (rays - 1) / 2) * (h / 4)
+            f.path(f"M{ox+30},{yy:.0f} L{ox+130},{yy+ (k-(rays-1)/2)*h*0.25:.0f} L{ox+230},{yy - (k-(rays-1)/2)*h*0.25:.0f} L{ox+330},{yy + (k-(rays-1)/2)*h*0.25:.0f} L{ox+420},{yy:.0f}", "none", RED, 2.5)
+        for i, t in enumerate(rows):
+            f.text(ox + 30, 245 + i * 28, "• " + t, 14.5, INK, "start", "700" if i == 0 else "400")
+    f.rect(30, 400, 940, 100, WHITE, GRY_D, 2, 10)
+    f.text(50, 428, "Connecteurs usuels :  LC (petit, 2 fibres, le plus courant sur les SFP) · SC (carré, à clic) · ST (à baïonnette, anciens)", 14, INK, "start", "700")
+    f.text(50, 456, "Jarretière duplex : une fibre pour émettre, une pour recevoir (attention à ne pas inverser Tx/Rx).", 14, INK, "start")
+    f.text(50, 482, "Propreté : on nettoie TOUJOURS les extrémités avant de brancher ; un grain de poussière peut couper la liaison.", 14, RED, "start", "700")
+    f.save(out(d, "fibre.svg"))
+
+    # --- 4. bilan optique
+    f = Fig(1000, 400, "Bilan de liaison optique", "Le bilan additionne les pertes de la fibre, des connecteurs et des soudures ; il doit rester inférieur à la perte maximale admise par l'émetteur.")
+    f.title_bar("Bilan de liaison : on additionne les pertes en dB")
+    node(f, "switch", 90, 150, "Switch A", None)
+    node(f, "switch", 910, 150, "Switch B", None)
+    f.line(140, 150, 860, 150, "#b28704", 5)
+    for x, lab in ((200, "connecteur\n0,5 dB"), (500, "soudure\n0,1 dB"), (800, "connecteur\n0,5 dB")):
+        f.circle(x, 150, 9, WHITE, RED, 3)
+        l1, l2 = lab.split("\n"); f.text(x, 116, l1, 13, RED, "middle", "700"); f.text(x, 100, l2, 13, RED, "middle", "700")
+    f.text(350, 185, "fibre 2 km × 0,4 dB/km = 0,8 dB", 14, "#8a6d00", "middle", "700")
+    f.rect(40, 230, 920, 130, YEL_L, YEL, 2.5, 12)
+    f.text(60, 262, "Perte totale = 0,8 + 0,5 + 0,1 + 0,5 = 1,9 dB", 17, INK, "start", "700")
+    f.text(60, 292, "Perte maximale admise par l'émetteur (exemple 1000BASE-LX) : environ 6 dB", 14.5, INK, "start")
+    f.text(60, 322, "1,9 dB < 6 dB  ⇒  marge de 4,1 dB : la liaison est conforme", 15.5, GRN, "start", "700")
+    f.text(60, 348, "(Valeurs usuelles d'exercice : à vérifier avec la fiche technique des composants utilisés.)", 12.5, MUTED, "start")
+    f.save(out(d, "bilan-optique.svg"))
+
+
 if __name__ == "__main__":
-    for w in (sys.argv[1:] or ["s07", "s08", "s09", "s10", "s11", "s12"]):
+    for w in (sys.argv[1:] or ["s07", "s08", "s09", "s10", "s11", "s12", "s13"]):
         globals()[w](); print("OK", w)

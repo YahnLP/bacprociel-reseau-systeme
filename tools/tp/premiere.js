@@ -311,6 +311,35 @@ TPS.push({
   checks: webChecks,
   startShould: webChecks.map(x => x.label),
 });
+
+/* ---------- S13 : câblage (types de câbles, mode « câbles stricts ») ---------- */
+function cablesBuild(sim, h, wrong) {
+  const { dev, link, get } = h;
+  sim.opts.strictCables = true;
+  dev('sw-8p', 'SW1', 330, 180, 'Switch bât. A'); dev('sw-8p', 'SW2', 640, 180, 'Switch bât. B');
+  dev('pc-win', 'PC1', 120, 70, 'PC1'); dev('pc-win', 'PC2', 120, 290, 'PC2'); dev('pc-win', 'PC3', 850, 70, 'PC3'); dev('pc-win', 'PC4', 850, 290, 'PC4');
+  link('PC1', 'eth0', 'SW1', 'port1', wrong ? 'cross' : 'straight'); link('PC2', 'eth0', 'SW1', 'port2', 'straight');
+  link('SW1', 'port8', 'SW2', 'port8', wrong ? 'straight' : 'cross');
+  link('PC3', 'eth0', 'SW2', 'port1', wrong ? 'fiber' : 'straight'); link('PC4', 'eth0', 'SW2', 'port2', 'straight');
+  [['PC1', '11'], ['PC2', '12'], ['PC3', '13'], ['PC4', '14']].forEach(([n, k]) => hostIp(get(n), '192.168.10.' + k, '24'));
+}
+const cabChecks = [
+  { label: 'PC1 joint PC2 (même switch)', run: c => c.ping('PC1', '192.168.10.12') },
+  { label: 'PC3 joint PC4 (même switch)', run: c => c.ping('PC3', '192.168.10.14') },
+  { label: 'PC1 joint PC3 (à travers le lien entre switchs)', run: c => c.ping('PC1', '192.168.10.13') },
+  { label: 'PC2 joint PC4 (à travers le lien entre switchs)', run: c => c.ping('PC2', '192.168.10.14') },
+];
+TPS.push({
+  id: 'p13-cables', start: D + 'S13-cuivre-fibre-securite/tp/p13-cables.json', solution: K + 'P13-cables-corrige.json',
+  notes: 'Première S13 – Câblage : mode « câbles stricts ». Trois câbles sont du mauvais type : PC1–SW1 (croisé au lieu de droit), SW1–SW2 (droit au lieu de croisé) et PC3–SW2 (fibre sur un port cuivre).',
+  build(sim, h) { cablesBuild(sim, h, true); },
+  solve(sim, h) {
+    sim.links.slice().forEach(l => { if (!l.ok) sim.disconnect(l); });
+    const { link } = h; link('PC1', 'eth0', 'SW1', 'port1', 'straight'); link('SW1', 'port8', 'SW2', 'port8', 'cross'); link('PC3', 'eth0', 'SW2', 'port1', 'straight');
+  },
+  checks: cabChecks,
+  startShould: ['PC1 joint PC2 (même switch)', 'PC3 joint PC4 (même switch)', 'PC1 joint PC3 (à travers le lien entre switchs)', 'PC2 joint PC4 (à travers le lien entre switchs)'],
+});
 const want = process.argv.slice(2);
 let all = true;
 TPS.filter(t => !want.length || want.includes(t.id)).forEach(t => { all = L.run(t) && all; });

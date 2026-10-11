@@ -1,0 +1,334 @@
+{
+ "app": "simulateur-reseau",
+ "v": 1,
+ "opts": {
+  "strictCables": true,
+  "stpFast": true
+ },
+ "devices": [
+  {
+   "id": "D1",
+   "type": "switch",
+   "model": "sw-8p",
+   "name": "SW1",
+   "x": 330,
+   "y": 180,
+   "powered": true,
+   "cli": "!\nhostname SW1\n!\nline con 0\n logging synchronous\nline vty 0 4\n!",
+   "label": "Switch bât. A"
+  },
+  {
+   "id": "D2",
+   "type": "switch",
+   "model": "sw-8p",
+   "name": "SW2",
+   "x": 640,
+   "y": 180,
+   "powered": true,
+   "cli": "!\nhostname SW2\n!\nline con 0\n logging synchronous\nline vty 0 4\n!",
+   "label": "Switch bât. B"
+  },
+  {
+   "id": "D3",
+   "type": "pc",
+   "model": "pc-win",
+   "name": "PC1",
+   "x": 120,
+   "y": 70,
+   "powered": true,
+   "ifaces": [
+    {
+     "name": "Ethernet0",
+     "ip": "192.168.10.11",
+     "mask": "255.255.255.0",
+     "dhcp": false
+    }
+   ],
+   "gw": "",
+   "dns": [],
+   "domain": "",
+   "allowIcmpEcho": true,
+   "wifi": {
+    "ssid": "",
+    "key": ""
+   },
+   "hosts": {},
+   "dhcpd": {
+    "enabled": false,
+    "excluded": [],
+    "pools": []
+   },
+   "dnsd": {
+    "enabled": false,
+    "records": [],
+    "forwarders": []
+   },
+   "httpd": {
+    "enabled": false,
+    "https": false,
+    "pages": {
+     "/": {
+      "type": "text/html; charset=utf-8",
+      "body": "<html><head><title>PC1</title></head><body><h1>Bienvenue sur PC1</h1><p>Serveur web du simulateur.</p></body></html>"
+     }
+    }
+   },
+   "mgmt": {
+    "comms": [],
+    "location": "",
+    "contact": "",
+    "syslogd": false,
+    "trapd": false
+   },
+   "v6": {
+    "ifs": [],
+    "statics": []
+   },
+   "label": "PC1"
+  },
+  {
+   "id": "D4",
+   "type": "pc",
+   "model": "pc-win",
+   "name": "PC2",
+   "x": 120,
+   "y": 290,
+   "powered": true,
+   "ifaces": [
+    {
+     "name": "Ethernet0",
+     "ip": "192.168.10.12",
+     "mask": "255.255.255.0",
+     "dhcp": false
+    }
+   ],
+   "gw": "",
+   "dns": [],
+   "domain": "",
+   "allowIcmpEcho": true,
+   "wifi": {
+    "ssid": "",
+    "key": ""
+   },
+   "hosts": {},
+   "dhcpd": {
+    "enabled": false,
+    "excluded": [],
+    "pools": []
+   },
+   "dnsd": {
+    "enabled": false,
+    "records": [],
+    "forwarders": []
+   },
+   "httpd": {
+    "enabled": false,
+    "https": false,
+    "pages": {
+     "/": {
+      "type": "text/html; charset=utf-8",
+      "body": "<html><head><title>PC2</title></head><body><h1>Bienvenue sur PC2</h1><p>Serveur web du simulateur.</p></body></html>"
+     }
+    }
+   },
+   "mgmt": {
+    "comms": [],
+    "location": "",
+    "contact": "",
+    "syslogd": false,
+    "trapd": false
+   },
+   "v6": {
+    "ifs": [
+     {
+      "name": "Ethernet0",
+      "autoconf": true,
+      "addrs": []
+     }
+    ],
+    "statics": []
+   },
+   "label": "PC2"
+  },
+  {
+   "id": "D5",
+   "type": "pc",
+   "model": "pc-win",
+   "name": "PC3",
+   "x": 850,
+   "y": 70,
+   "powered": true,
+   "ifaces": [
+    {
+     "name": "Ethernet0",
+     "ip": "192.168.10.13",
+     "mask": "255.255.255.0",
+     "dhcp": false
+    }
+   ],
+   "gw": "",
+   "dns": [],
+   "domain": "",
+   "allowIcmpEcho": true,
+   "wifi": {
+    "ssid": "",
+    "key": ""
+   },
+   "hosts": {},
+   "dhcpd": {
+    "enabled": false,
+    "excluded": [],
+    "pools": []
+   },
+   "dnsd": {
+    "enabled": false,
+    "records": [],
+    "forwarders": []
+   },
+   "httpd": {
+    "enabled": false,
+    "https": false,
+    "pages": {
+     "/": {
+      "type": "text/html; charset=utf-8",
+      "body": "<html><head><title>PC3</title></head><body><h1>Bienvenue sur PC3</h1><p>Serveur web du simulateur.</p></body></html>"
+     }
+    }
+   },
+   "mgmt": {
+    "comms": [],
+    "location": "",
+    "contact": "",
+    "syslogd": false,
+    "trapd": false
+   },
+   "v6": {
+    "ifs": [],
+    "statics": []
+   },
+   "label": "PC3"
+  },
+  {
+   "id": "D6",
+   "type": "pc",
+   "model": "pc-win",
+   "name": "PC4",
+   "x": 850,
+   "y": 290,
+   "powered": true,
+   "ifaces": [
+    {
+     "name": "Ethernet0",
+     "ip": "192.168.10.14",
+     "mask": "255.255.255.0",
+     "dhcp": false
+    }
+   ],
+   "gw": "",
+   "dns": [],
+   "domain": "",
+   "allowIcmpEcho": true,
+   "wifi": {
+    "ssid": "",
+    "key": ""
+   },
+   "hosts": {},
+   "dhcpd": {
+    "enabled": false,
+    "excluded": [],
+    "pools": []
+   },
+   "dnsd": {
+    "enabled": false,
+    "records": [],
+    "forwarders": []
+   },
+   "httpd": {
+    "enabled": false,
+    "https": false,
+    "pages": {
+     "/": {
+      "type": "text/html; charset=utf-8",
+      "body": "<html><head><title>PC4</title></head><body><h1>Bienvenue sur PC4</h1><p>Serveur web du simulateur.</p></body></html>"
+     }
+    }
+   },
+   "mgmt": {
+    "comms": [],
+    "location": "",
+    "contact": "",
+    "syslogd": false,
+    "trapd": false
+   },
+   "v6": {
+    "ifs": [
+     {
+      "name": "Ethernet0",
+      "autoconf": true,
+      "addrs": []
+     }
+    ],
+    "statics": []
+   },
+   "label": "PC4"
+  }
+ ],
+ "links": [
+  {
+   "a": [
+    "D3",
+    "Ethernet0"
+   ],
+   "b": [
+    "D1",
+    "Port1"
+   ],
+   "type": "cross"
+  },
+  {
+   "a": [
+    "D4",
+    "Ethernet0"
+   ],
+   "b": [
+    "D1",
+    "Port2"
+   ],
+   "type": "straight"
+  },
+  {
+   "a": [
+    "D1",
+    "Port8"
+   ],
+   "b": [
+    "D2",
+    "Port8"
+   ],
+   "type": "straight"
+  },
+  {
+   "a": [
+    "D5",
+    "Ethernet0"
+   ],
+   "b": [
+    "D2",
+    "Port1"
+   ],
+   "type": "fiber"
+  },
+  {
+   "a": [
+    "D6",
+    "Ethernet0"
+   ],
+   "b": [
+    "D2",
+    "Port2"
+   ],
+   "type": "straight"
+  }
+ ],
+ "notes": "Première S13 – Câblage : mode « câbles stricts ». Trois câbles sont du mauvais type : PC1–SW1 (croisé au lieu de droit), SW1–SW2 (droit au lieu de croisé) et PC3–SW2 (fibre sur un port cuivre)."
+}
