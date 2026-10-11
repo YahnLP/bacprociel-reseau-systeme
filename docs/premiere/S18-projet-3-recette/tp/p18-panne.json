@@ -1,0 +1,608 @@
+{
+ "app": "simulateur-reseau",
+ "v": 1,
+ "opts": {
+  "strictCables": false,
+  "stpFast": true
+ },
+ "devices": [
+  {
+   "id": "D1",
+   "type": "pc",
+   "model": "pc-win",
+   "name": "PC-DIR",
+   "x": 80,
+   "y": 60,
+   "powered": true,
+   "ifaces": [
+    {
+     "name": "Ethernet0",
+     "ip": "",
+     "mask": "",
+     "dhcp": true
+    }
+   ],
+   "gw": "",
+   "dns": [],
+   "domain": "",
+   "allowIcmpEcho": true,
+   "wifi": {
+    "ssid": "",
+    "key": ""
+   },
+   "hosts": {},
+   "dhcpd": {
+    "enabled": false,
+    "excluded": [],
+    "pools": []
+   },
+   "dnsd": {
+    "enabled": false,
+    "records": [],
+    "forwarders": []
+   },
+   "httpd": {
+    "enabled": false,
+    "https": false,
+    "pages": {
+     "/": {
+      "type": "text/html; charset=utf-8",
+      "body": "<html><head><title>PC-DIR</title></head><body><h1>Bienvenue sur PC-DIR</h1><p>Serveur web du simulateur.</p></body></html>"
+     }
+    }
+   },
+   "mgmt": {
+    "comms": [],
+    "location": "",
+    "contact": "",
+    "syslogd": false,
+    "trapd": false
+   },
+   "v6": {
+    "ifs": [
+     {
+      "name": "Ethernet0",
+      "autoconf": true,
+      "addrs": []
+     }
+    ],
+    "statics": []
+   },
+   "label": "Direction"
+  },
+  {
+   "id": "D2",
+   "type": "pc",
+   "model": "pc-win",
+   "name": "PC-AT1",
+   "x": 80,
+   "y": 200,
+   "powered": true,
+   "ifaces": [
+    {
+     "name": "Ethernet0",
+     "ip": "",
+     "mask": "",
+     "dhcp": true
+    }
+   ],
+   "gw": "",
+   "dns": [],
+   "domain": "archiplus.local",
+   "allowIcmpEcho": true,
+   "wifi": {
+    "ssid": "",
+    "key": ""
+   },
+   "hosts": {},
+   "dhcpd": {
+    "enabled": false,
+    "excluded": [],
+    "pools": []
+   },
+   "dnsd": {
+    "enabled": false,
+    "records": [],
+    "forwarders": []
+   },
+   "httpd": {
+    "enabled": false,
+    "https": false,
+    "pages": {
+     "/": {
+      "type": "text/html; charset=utf-8",
+      "body": "<html><head><title>PC-AT1</title></head><body><h1>Bienvenue sur PC-AT1</h1><p>Serveur web du simulateur.</p></body></html>"
+     }
+    }
+   },
+   "mgmt": {
+    "comms": [],
+    "location": "",
+    "contact": "",
+    "syslogd": false,
+    "trapd": false
+   },
+   "v6": {
+    "ifs": [
+     {
+      "name": "Ethernet0",
+      "autoconf": true,
+      "addrs": []
+     }
+    ],
+    "statics": []
+   },
+   "label": "Atelier 1"
+  },
+  {
+   "id": "D3",
+   "type": "pc",
+   "model": "pc-win",
+   "name": "PC-AT2",
+   "x": 80,
+   "y": 340,
+   "powered": true,
+   "ifaces": [
+    {
+     "name": "Ethernet0",
+     "ip": "",
+     "mask": "",
+     "dhcp": true
+    }
+   ],
+   "gw": "",
+   "dns": [],
+   "domain": "archiplus.local",
+   "allowIcmpEcho": true,
+   "wifi": {
+    "ssid": "",
+    "key": ""
+   },
+   "hosts": {},
+   "dhcpd": {
+    "enabled": false,
+    "excluded": [],
+    "pools": []
+   },
+   "dnsd": {
+    "enabled": false,
+    "records": [],
+    "forwarders": []
+   },
+   "httpd": {
+    "enabled": false,
+    "https": false,
+    "pages": {
+     "/": {
+      "type": "text/html; charset=utf-8",
+      "body": "<html><head><title>PC-AT2</title></head><body><h1>Bienvenue sur PC-AT2</h1><p>Serveur web du simulateur.</p></body></html>"
+     }
+    }
+   },
+   "mgmt": {
+    "comms": [],
+    "location": "",
+    "contact": "",
+    "syslogd": false,
+    "trapd": false
+   },
+   "v6": {
+    "ifs": [
+     {
+      "name": "Ethernet0",
+      "autoconf": true,
+      "addrs": []
+     }
+    ],
+    "statics": []
+   },
+   "label": "Atelier 2"
+  },
+  {
+   "id": "D4",
+   "type": "peripheral",
+   "model": "printer",
+   "name": "IMP",
+   "x": 250,
+   "y": 400,
+   "powered": true,
+   "ifaces": [
+    {
+     "name": "LAN",
+     "ip": "192.168.50.35",
+     "mask": "255.255.255.224",
+     "dhcp": false
+    }
+   ],
+   "gw": "192.168.50.33",
+   "dns": [],
+   "domain": "",
+   "allowIcmpEcho": true,
+   "wifi": {
+    "ssid": "",
+    "key": ""
+   },
+   "hosts": {},
+   "dhcpd": {
+    "enabled": false,
+    "excluded": [],
+    "pools": []
+   },
+   "dnsd": {
+    "enabled": false,
+    "records": [],
+    "forwarders": []
+   },
+   "httpd": {
+    "enabled": false,
+    "https": false,
+    "pages": {
+     "/": {
+      "type": "text/html; charset=utf-8",
+      "body": "<html><head><title>IMP</title></head><body><h1>Bienvenue sur IMP</h1><p>Serveur web du simulateur.</p></body></html>"
+     }
+    }
+   },
+   "mgmt": {
+    "comms": [],
+    "location": "",
+    "contact": "",
+    "syslogd": false,
+    "trapd": false
+   },
+   "v6": {
+    "ifs": [
+     {
+      "name": "LAN",
+      "autoconf": true,
+      "addrs": []
+     }
+    ],
+    "statics": []
+   },
+   "label": "Imprimante"
+  },
+  {
+   "id": "D5",
+   "type": "server",
+   "model": "srv-linux",
+   "name": "SRV",
+   "x": 560,
+   "y": 400,
+   "powered": true,
+   "ifaces": [
+    {
+     "name": "ens33",
+     "ip": "192.168.50.34",
+     "mask": "255.255.255.224",
+     "dhcp": false
+    }
+   ],
+   "gw": "192.168.50.33",
+   "dns": [
+    "192.168.50.34"
+   ],
+   "domain": "",
+   "allowIcmpEcho": true,
+   "wifi": {
+    "ssid": "",
+    "key": ""
+   },
+   "hosts": {},
+   "dhcpd": {
+    "enabled": true,
+    "excluded": [
+     [
+      3232248321,
+      3232248329
+     ],
+     [
+      3232248353,
+      3232248359
+     ],
+     [
+      3232248385,
+      3232248389
+     ]
+    ],
+    "pools": [
+     {
+      "name": "DIRECTION",
+      "net": 3232248320,
+      "mask": 4294967264,
+      "router": 3232248321,
+      "dns": [
+       3232248354
+      ],
+      "domain": "archiplus.local",
+      "lease": 28800,
+      "start": 3232248330,
+      "end": 3232248350
+     },
+     {
+      "name": "ATELIER",
+      "net": 3232248352,
+      "mask": 4294967264,
+      "router": 3232248353,
+      "dns": [
+       3232248354
+      ],
+      "domain": "archiplus.local",
+      "lease": 28800,
+      "start": 3232248360,
+      "end": 3232248382
+     },
+     {
+      "name": "INVITES",
+      "net": 3232248384,
+      "mask": 4294967232,
+      "router": 3232248385,
+      "dns": [
+       3232248354
+      ],
+      "domain": "archiplus.local",
+      "lease": 3600,
+      "start": 3232248390,
+      "end": 3232248440
+     }
+    ]
+   },
+   "dnsd": {
+    "enabled": true,
+    "records": [
+     {
+      "name": "intranet.archiplus.local",
+      "type": "A",
+      "data": "192.168.50.34"
+     },
+     {
+      "name": "imprimante.archiplus.local",
+      "type": "A",
+      "data": "192.168.50.35"
+     }
+    ],
+    "forwarders": []
+   },
+   "httpd": {
+    "enabled": true,
+    "https": false,
+    "pages": {
+     "/": {
+      "type": "text/html; charset=utf-8",
+      "body": "<html><head><title>SRV</title></head><body><h1>Bienvenue sur SRV</h1><p>Serveur web du simulateur.</p></body></html>"
+     }
+    }
+   },
+   "mgmt": {
+    "comms": [],
+    "location": "",
+    "contact": "",
+    "syslogd": false,
+    "trapd": false
+   },
+   "v6": {
+    "ifs": [
+     {
+      "name": "ens33",
+      "autoconf": true,
+      "addrs": []
+     }
+    ],
+    "statics": []
+   },
+   "label": "Serveur"
+  },
+  {
+   "id": "D6",
+   "type": "switch",
+   "model": "sw-2960",
+   "name": "SW1",
+   "x": 330,
+   "y": 220,
+   "powered": true,
+   "cli": "!\nhostname SW1\n!\nenable secret Archi#2027\n!\nspanning-tree mode pvst\nvlan 10\n name DIRECTION\n!\nvlan 20\n name ATELIER\n!\nvlan 30\n name INVITES\n!\ninterface FastEthernet0/1\n switchport access vlan 10\n switchport mode access\n!\ninterface FastEthernet0/2\n switchport access vlan 10\n switchport mode access\n!\ninterface FastEthernet0/3\n switchport access vlan 10\n switchport mode access\n!\ninterface FastEthernet0/4\n switchport access vlan 10\n switchport mode access\n!\ninterface FastEthernet0/5\n switchport access vlan 10\n switchport mode access\n!\ninterface FastEthernet0/6\n switchport access vlan 10\n switchport mode access\n!\ninterface FastEthernet0/7\n switchport access vlan 10\n switchport mode access\n!\ninterface FastEthernet0/8\n switchport access vlan 10\n switchport mode access\n!\ninterface FastEthernet0/9\n switchport access vlan 20\n switchport mode access\n!\ninterface FastEthernet0/10\n switchport access vlan 30\n switchport mode access\n!\ninterface FastEthernet0/11\n switchport access vlan 20\n switchport mode access\n!\ninterface FastEthernet0/12\n switchport access vlan 20\n switchport mode access\n!\ninterface FastEthernet0/13\n switchport access vlan 20\n switchport mode access\n!\ninterface FastEthernet0/14\n switchport access vlan 20\n switchport mode access\n!\ninterface FastEthernet0/15\n switchport access vlan 20\n switchport mode access\n!\ninterface FastEthernet0/16\n switchport access vlan 20\n switchport mode access\n!\ninterface FastEthernet0/17\n switchport access vlan 30\n switchport mode access\n!\ninterface FastEthernet0/18\n switchport access vlan 30\n switchport mode access\n!\ninterface FastEthernet0/19\n switchport access vlan 30\n switchport mode access\n!\ninterface FastEthernet0/20\n switchport access vlan 30\n switchport mode access\n!\ninterface FastEthernet0/21\n switchport access vlan 30\n switchport mode access\n!\ninterface FastEthernet0/22\n switchport access vlan 30\n switchport mode access\n!\ninterface FastEthernet0/23\n switchport access vlan 30\n switchport mode access\n!\ninterface FastEthernet0/24\n switchport access vlan 30\n switchport mode access\n!\nbanner motd ^CAcces reserve - ArchiPlus^C\n!\nline con 0\n logging synchronous\nline vty 0 4\n!",
+   "startup": "!\nhostname SW1\n!\nenable secret Archi#2027\n!\nspanning-tree mode pvst\nvlan 10\n name DIRECTION\n!\nvlan 20\n name ATELIER\n!\nvlan 30\n name INVITES\n!\ninterface FastEthernet0/1\n switchport access vlan 10\n switchport mode access\n!\ninterface FastEthernet0/2\n switchport access vlan 10\n switchport mode access\n!\ninterface FastEthernet0/3\n switchport access vlan 10\n switchport mode access\n!\ninterface FastEthernet0/4\n switchport access vlan 10\n switchport mode access\n!\ninterface FastEthernet0/5\n switchport access vlan 10\n switchport mode access\n!\ninterface FastEthernet0/6\n switchport access vlan 10\n switchport mode access\n!\ninterface FastEthernet0/7\n switchport access vlan 10\n switchport mode access\n!\ninterface FastEthernet0/8\n switchport access vlan 10\n switchport mode access\n!\ninterface FastEthernet0/9\n switchport access vlan 20\n switchport mode access\n!\ninterface FastEthernet0/10\n switchport access vlan 30\n switchport mode access\n!\ninterface FastEthernet0/11\n switchport access vlan 20\n switchport mode access\n!\ninterface FastEthernet0/12\n switchport access vlan 20\n switchport mode access\n!\ninterface FastEthernet0/13\n switchport access vlan 20\n switchport mode access\n!\ninterface FastEthernet0/14\n switchport access vlan 20\n switchport mode access\n!\ninterface FastEthernet0/15\n switchport access vlan 20\n switchport mode access\n!\ninterface FastEthernet0/16\n switchport access vlan 20\n switchport mode access\n!\ninterface FastEthernet0/17\n switchport access vlan 30\n switchport mode access\n!\ninterface FastEthernet0/18\n switchport access vlan 30\n switchport mode access\n!\ninterface FastEthernet0/19\n switchport access vlan 30\n switchport mode access\n!\ninterface FastEthernet0/20\n switchport access vlan 30\n switchport mode access\n!\ninterface FastEthernet0/21\n switchport access vlan 30\n switchport mode access\n!\ninterface FastEthernet0/22\n switchport access vlan 30\n switchport mode access\n!\ninterface FastEthernet0/23\n switchport access vlan 30\n switchport mode access\n!\ninterface FastEthernet0/24\n switchport access vlan 30\n switchport mode access\n!\nbanner motd ^CAcces reserve - ArchiPlus^C\n!\nline con 0\n logging synchronous\nline vty 0 4\n!",
+   "label": "Switch"
+  },
+  {
+   "id": "D7",
+   "type": "router",
+   "model": "r-2911",
+   "name": "R1",
+   "x": 560,
+   "y": 60,
+   "powered": true,
+   "cli": "!\nhostname R1\n!\ninterface GigabitEthernet0/0\n ip address 192.168.50.1 255.255.255.224\n!\ninterface GigabitEthernet0/1\n ip address 192.168.50.33 255.255.255.224\n!\ninterface GigabitEthernet0/2\n ip address 192.168.50.65 255.255.255.192\n ip access-group INVITES-IN in\n ip helper-address 192.168.50.34\n!\nip access-list extended INVITES-IN\n permit udp any eq bootpc any eq bootps\n permit tcp 192.168.50.64 0.0.0.63 host 192.168.50.34 eq www\n deny ip any any\n!\nline con 0\n logging synchronous\nline vty 0 4\n!",
+   "startup": "!\nhostname R1\n!\ninterface GigabitEthernet0/0\n ip address 192.168.50.1 255.255.255.224\n!\ninterface GigabitEthernet0/1\n ip address 192.168.50.33 255.255.255.224\n!\ninterface GigabitEthernet0/2\n ip address 192.168.50.65 255.255.255.192\n ip access-group INVITES-IN in\n ip helper-address 192.168.50.34\n!\nip access-list extended INVITES-IN\n permit udp any eq bootpc any eq bootps\n permit tcp 192.168.50.64 0.0.0.63 host 192.168.50.34 eq www\n deny ip any any\n!\nline con 0\n logging synchronous\nline vty 0 4\n!",
+   "label": "Routeur"
+  },
+  {
+   "id": "D8",
+   "type": "ap",
+   "model": "ap-u6",
+   "name": "AP1",
+   "x": 560,
+   "y": 250,
+   "powered": true,
+   "cli": "!\nhostname AP1\n!\nline con 0\n logging synchronous\nline vty 0 4\n!",
+   "ap": {
+    "ssid": "ARCHI-INVITES",
+    "key": "Invites#2027",
+    "security": "WPA2"
+   },
+   "label": "Borne Wi-Fi"
+  },
+  {
+   "id": "D9",
+   "type": "pc",
+   "model": "laptop",
+   "name": "LAP-INV",
+   "x": 760,
+   "y": 250,
+   "powered": true,
+   "ifaces": [
+    {
+     "name": "Ethernet0",
+     "ip": "",
+     "mask": "",
+     "dhcp": true
+    },
+    {
+     "name": "Wi-Fi",
+     "ip": "",
+     "mask": "",
+     "dhcp": true
+    }
+   ],
+   "gw": "",
+   "dns": [],
+   "domain": "archiplus.local",
+   "allowIcmpEcho": true,
+   "wifi": {
+    "ssid": "ARCHI-INVITES",
+    "key": "Invites#2027"
+   },
+   "hosts": {},
+   "dhcpd": {
+    "enabled": false,
+    "excluded": [],
+    "pools": []
+   },
+   "dnsd": {
+    "enabled": false,
+    "records": [],
+    "forwarders": []
+   },
+   "httpd": {
+    "enabled": false,
+    "https": false,
+    "pages": {
+     "/": {
+      "type": "text/html; charset=utf-8",
+      "body": "<html><head><title>LAP-INV</title></head><body><h1>Bienvenue sur LAP-INV</h1><p>Serveur web du simulateur.</p></body></html>"
+     }
+    }
+   },
+   "mgmt": {
+    "comms": [],
+    "location": "",
+    "contact": "",
+    "syslogd": false,
+    "trapd": false
+   },
+   "v6": {
+    "ifs": [
+     {
+      "name": "Wi-Fi",
+      "autoconf": true,
+      "addrs": []
+     }
+    ],
+    "statics": []
+   },
+   "label": "Portable invité"
+  }
+ ],
+ "links": [
+  {
+   "a": [
+    "D1",
+    "Ethernet0"
+   ],
+   "b": [
+    "D6",
+    "FastEthernet0/1"
+   ],
+   "type": "straight"
+  },
+  {
+   "a": [
+    "D7",
+    "GigabitEthernet0/0"
+   ],
+   "b": [
+    "D6",
+    "FastEthernet0/8"
+   ],
+   "type": "straight"
+  },
+  {
+   "a": [
+    "D2",
+    "Ethernet0"
+   ],
+   "b": [
+    "D6",
+    "FastEthernet0/9"
+   ],
+   "type": "straight"
+  },
+  {
+   "a": [
+    "D3",
+    "Ethernet0"
+   ],
+   "b": [
+    "D6",
+    "FastEthernet0/10"
+   ],
+   "type": "straight"
+  },
+  {
+   "a": [
+    "D4",
+    "LAN"
+   ],
+   "b": [
+    "D6",
+    "FastEthernet0/11"
+   ],
+   "type": "straight"
+  },
+  {
+   "a": [
+    "D5",
+    "ens33"
+   ],
+   "b": [
+    "D6",
+    "FastEthernet0/12"
+   ],
+   "type": "straight"
+  },
+  {
+   "a": [
+    "D7",
+    "GigabitEthernet0/1"
+   ],
+   "b": [
+    "D6",
+    "FastEthernet0/16"
+   ],
+   "type": "straight"
+  },
+  {
+   "a": [
+    "D8",
+    "Eth0"
+   ],
+   "b": [
+    "D6",
+    "FastEthernet0/17"
+   ],
+   "type": "cross"
+  },
+  {
+   "a": [
+    "D7",
+    "GigabitEthernet0/2"
+   ],
+   "b": [
+    "D6",
+    "FastEthernet0/24"
+   ],
+   "type": "straight"
+  }
+ ],
+ "notes": "Première S18 – Le projet ArchiPlus est installé mais 3 pannes ont été glissées : un port du switch dans le mauvais VLAN, le relais DHCP manquant côté Direction, une règle DNS oubliée dans l'ACL des invités."
+}

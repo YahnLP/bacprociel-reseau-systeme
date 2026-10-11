@@ -353,7 +353,7 @@ function secBuild(h) {
   get('SRV1').httpd.start();
 }
 const rcfg = (c, n) => rshow(c, n, 'show running-config');
-const showPw = (c, dev, cmd) => { for (const pw of ['Cisco123', 'cisco']) { const s = dev.newSession(); let out = '', done = false; const io = { print: t => { out += t; }, done: () => { done = true; }, clear() { } }; const go = l => { done = false; out = ''; s.exec(l, io); c.sim.runUntil(() => done, 60000); }; go('enable'); go(pw); go(cmd); if (out.trim() && !/Invalid|Access denied|Bad secrets/.test(out)) return out; } return ''; };
+const showPw = (c, dev, cmd, extra) => { for (const pw of (extra || []).concat(['Cisco123', 'cisco'])) { const s = dev.newSession(); let out = '', done = false; const io = { print: t => { out += t; }, done: () => { done = true; }, clear() { } }; const go = l => { done = false; out = ''; s.exec(l, io); c.sim.runUntil(() => done, 60000); }; go('enable'); go(pw); go(cmd); if (out.trim() && !/Invalid|Access denied|Bad secrets/.test(out)) return out; } return ''; };
 const swcfg = c => showPw(c, swn(c, 'SW1'), 'show running-config');
 const SEC_SW = 'enable\nconfigure terminal\nenable secret Cisco123\nbanner motd #Acces reserve au personnel autorise#\nip domain-name mecapro.local\nusername admin privilege 15 secret Adm1n!\ncrypto key generate rsa modulus 1024\nip ssh version 2\nline vty 0 4\ntransport input ssh\nlogin local\nexit\ninterface range fa0/3 - 24\nshutdown\nend\nwrite memory';
 const SEC_R = 'enable\nconfigure terminal\nip access-list extended WEB-ONLY\npermit tcp 192.168.10.0 0.0.0.255 host 192.168.20.100 eq 80\npermit tcp 192.168.10.0 0.0.0.255 host 192.168.20.100 eq 443\ndeny ip any any log\nexit\ninterface gi0/0\nip access-group WEB-ONLY in\nend\nwrite memory';
@@ -374,6 +374,7 @@ TPS.push({
   checks: secChecks,
   startShould: secChecks.filter(x => !/ouvre le site/.test(x.label)).map(x => x.label),
 });
+require('./premiere_proj')(TPS, { L, D, K, hostIp, hostDhcp, hostIpWifi, cliRun, shell, IP, rshow, showPw, swn });
 const want = process.argv.slice(2);
 let all = true;
 TPS.filter(t => !want.length || want.includes(t.id)).forEach(t => { all = L.run(t) && all; });

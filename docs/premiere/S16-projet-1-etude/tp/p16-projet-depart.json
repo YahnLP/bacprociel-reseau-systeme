@@ -1,0 +1,410 @@
+{
+ "app": "simulateur-reseau",
+ "v": 1,
+ "opts": {
+  "strictCables": false,
+  "stpFast": true
+ },
+ "devices": [
+  {
+   "id": "D1",
+   "type": "pc",
+   "model": "pc-win",
+   "name": "PC-DIR",
+   "x": 80,
+   "y": 60,
+   "powered": true,
+   "ifaces": [
+    {
+     "name": "Ethernet0",
+     "ip": "",
+     "mask": "",
+     "dhcp": true
+    }
+   ],
+   "gw": "",
+   "dns": [],
+   "domain": "",
+   "allowIcmpEcho": true,
+   "wifi": {
+    "ssid": "",
+    "key": ""
+   },
+   "hosts": {},
+   "dhcpd": {
+    "enabled": false,
+    "excluded": [],
+    "pools": []
+   },
+   "dnsd": {
+    "enabled": false,
+    "records": [],
+    "forwarders": []
+   },
+   "httpd": {
+    "enabled": false,
+    "https": false,
+    "pages": {
+     "/": {
+      "type": "text/html; charset=utf-8",
+      "body": "<html><head><title>PC-DIR</title></head><body><h1>Bienvenue sur PC-DIR</h1><p>Serveur web du simulateur.</p></body></html>"
+     }
+    }
+   },
+   "mgmt": {
+    "comms": [],
+    "location": "",
+    "contact": "",
+    "syslogd": false,
+    "trapd": false
+   },
+   "v6": {
+    "ifs": [],
+    "statics": []
+   },
+   "label": "Direction"
+  },
+  {
+   "id": "D2",
+   "type": "pc",
+   "model": "pc-win",
+   "name": "PC-AT1",
+   "x": 80,
+   "y": 200,
+   "powered": true,
+   "ifaces": [
+    {
+     "name": "Ethernet0",
+     "ip": "",
+     "mask": "",
+     "dhcp": true
+    }
+   ],
+   "gw": "",
+   "dns": [],
+   "domain": "",
+   "allowIcmpEcho": true,
+   "wifi": {
+    "ssid": "",
+    "key": ""
+   },
+   "hosts": {},
+   "dhcpd": {
+    "enabled": false,
+    "excluded": [],
+    "pools": []
+   },
+   "dnsd": {
+    "enabled": false,
+    "records": [],
+    "forwarders": []
+   },
+   "httpd": {
+    "enabled": false,
+    "https": false,
+    "pages": {
+     "/": {
+      "type": "text/html; charset=utf-8",
+      "body": "<html><head><title>PC-AT1</title></head><body><h1>Bienvenue sur PC-AT1</h1><p>Serveur web du simulateur.</p></body></html>"
+     }
+    }
+   },
+   "mgmt": {
+    "comms": [],
+    "location": "",
+    "contact": "",
+    "syslogd": false,
+    "trapd": false
+   },
+   "v6": {
+    "ifs": [],
+    "statics": []
+   },
+   "label": "Atelier 1"
+  },
+  {
+   "id": "D3",
+   "type": "pc",
+   "model": "pc-win",
+   "name": "PC-AT2",
+   "x": 80,
+   "y": 340,
+   "powered": true,
+   "ifaces": [
+    {
+     "name": "Ethernet0",
+     "ip": "",
+     "mask": "",
+     "dhcp": true
+    }
+   ],
+   "gw": "",
+   "dns": [],
+   "domain": "",
+   "allowIcmpEcho": true,
+   "wifi": {
+    "ssid": "",
+    "key": ""
+   },
+   "hosts": {},
+   "dhcpd": {
+    "enabled": false,
+    "excluded": [],
+    "pools": []
+   },
+   "dnsd": {
+    "enabled": false,
+    "records": [],
+    "forwarders": []
+   },
+   "httpd": {
+    "enabled": false,
+    "https": false,
+    "pages": {
+     "/": {
+      "type": "text/html; charset=utf-8",
+      "body": "<html><head><title>PC-AT2</title></head><body><h1>Bienvenue sur PC-AT2</h1><p>Serveur web du simulateur.</p></body></html>"
+     }
+    }
+   },
+   "mgmt": {
+    "comms": [],
+    "location": "",
+    "contact": "",
+    "syslogd": false,
+    "trapd": false
+   },
+   "v6": {
+    "ifs": [],
+    "statics": []
+   },
+   "label": "Atelier 2"
+  },
+  {
+   "id": "D4",
+   "type": "peripheral",
+   "model": "printer",
+   "name": "IMP",
+   "x": 250,
+   "y": 400,
+   "powered": true,
+   "ifaces": [
+    {
+     "name": "LAN",
+     "ip": "",
+     "mask": "",
+     "dhcp": false
+    }
+   ],
+   "gw": "",
+   "dns": [],
+   "domain": "",
+   "allowIcmpEcho": true,
+   "wifi": {
+    "ssid": "",
+    "key": ""
+   },
+   "hosts": {},
+   "dhcpd": {
+    "enabled": false,
+    "excluded": [],
+    "pools": []
+   },
+   "dnsd": {
+    "enabled": false,
+    "records": [],
+    "forwarders": []
+   },
+   "httpd": {
+    "enabled": false,
+    "https": false,
+    "pages": {
+     "/": {
+      "type": "text/html; charset=utf-8",
+      "body": "<html><head><title>IMP</title></head><body><h1>Bienvenue sur IMP</h1><p>Serveur web du simulateur.</p></body></html>"
+     }
+    }
+   },
+   "mgmt": {
+    "comms": [],
+    "location": "",
+    "contact": "",
+    "syslogd": false,
+    "trapd": false
+   },
+   "v6": {
+    "ifs": [],
+    "statics": []
+   },
+   "label": "Imprimante"
+  },
+  {
+   "id": "D5",
+   "type": "server",
+   "model": "srv-linux",
+   "name": "SRV",
+   "x": 560,
+   "y": 400,
+   "powered": true,
+   "ifaces": [
+    {
+     "name": "ens33",
+     "ip": "",
+     "mask": "",
+     "dhcp": false
+    }
+   ],
+   "gw": "",
+   "dns": [],
+   "domain": "",
+   "allowIcmpEcho": true,
+   "wifi": {
+    "ssid": "",
+    "key": ""
+   },
+   "hosts": {},
+   "dhcpd": {
+    "enabled": false,
+    "excluded": [],
+    "pools": []
+   },
+   "dnsd": {
+    "enabled": false,
+    "records": [],
+    "forwarders": []
+   },
+   "httpd": {
+    "enabled": false,
+    "https": false,
+    "pages": {
+     "/": {
+      "type": "text/html; charset=utf-8",
+      "body": "<html><head><title>SRV</title></head><body><h1>Bienvenue sur SRV</h1><p>Serveur web du simulateur.</p></body></html>"
+     }
+    }
+   },
+   "mgmt": {
+    "comms": [],
+    "location": "",
+    "contact": "",
+    "syslogd": false,
+    "trapd": false
+   },
+   "v6": {
+    "ifs": [],
+    "statics": []
+   },
+   "label": "Serveur"
+  },
+  {
+   "id": "D6",
+   "type": "switch",
+   "model": "sw-2960",
+   "name": "SW1",
+   "x": 330,
+   "y": 220,
+   "powered": true,
+   "cli": "!\nhostname SW1\n!\nspanning-tree mode pvst\nline con 0\n logging synchronous\nline vty 0 4\n!",
+   "label": "Switch"
+  },
+  {
+   "id": "D7",
+   "type": "router",
+   "model": "r-2911",
+   "name": "R1",
+   "x": 560,
+   "y": 60,
+   "powered": true,
+   "cli": "!\nhostname R1\n!\ninterface GigabitEthernet0/0\n no ip address\n shutdown\n!\ninterface GigabitEthernet0/1\n no ip address\n shutdown\n!\ninterface GigabitEthernet0/2\n no ip address\n shutdown\n!\nline con 0\n logging synchronous\nline vty 0 4\n!",
+   "label": "Routeur"
+  },
+  {
+   "id": "D8",
+   "type": "ap",
+   "model": "ap-u6",
+   "name": "AP1",
+   "x": 560,
+   "y": 250,
+   "powered": true,
+   "cli": "!\nhostname AP1\n!\nline con 0\n logging synchronous\nline vty 0 4\n!",
+   "ap": {
+    "ssid": "ARCHI-INVITES",
+    "key": "Invites#2027",
+    "security": "WPA2"
+   },
+   "label": "Borne Wi-Fi"
+  },
+  {
+   "id": "D9",
+   "type": "pc",
+   "model": "laptop",
+   "name": "LAP-INV",
+   "x": 760,
+   "y": 250,
+   "powered": true,
+   "ifaces": [
+    {
+     "name": "Ethernet0",
+     "ip": "",
+     "mask": "",
+     "dhcp": true
+    },
+    {
+     "name": "Wi-Fi",
+     "ip": "",
+     "mask": "",
+     "dhcp": true
+    }
+   ],
+   "gw": "",
+   "dns": [],
+   "domain": "",
+   "allowIcmpEcho": true,
+   "wifi": {
+    "ssid": "ARCHI-INVITES",
+    "key": "Invites#2027"
+   },
+   "hosts": {},
+   "dhcpd": {
+    "enabled": false,
+    "excluded": [],
+    "pools": []
+   },
+   "dnsd": {
+    "enabled": false,
+    "records": [],
+    "forwarders": []
+   },
+   "httpd": {
+    "enabled": false,
+    "https": false,
+    "pages": {
+     "/": {
+      "type": "text/html; charset=utf-8",
+      "body": "<html><head><title>LAP-INV</title></head><body><h1>Bienvenue sur LAP-INV</h1><p>Serveur web du simulateur.</p></body></html>"
+     }
+    }
+   },
+   "mgmt": {
+    "comms": [],
+    "location": "",
+    "contact": "",
+    "syslogd": false,
+    "trapd": false
+   },
+   "v6": {
+    "ifs": [
+     {
+      "name": "Wi-Fi",
+      "autoconf": true,
+      "addrs": []
+     }
+    ],
+    "statics": []
+   },
+   "label": "Portable invité"
+  }
+ ],
+ "links": [],
+ "notes": "Première S16 à S19 – Projet A2 ArchiPlus : matériel posé sur le schéma, aucun câble, aucune configuration. À câbler et configurer : VLAN 10/20/30, routeur à 3 pattes, DHCP/DNS/web sur SRV, Wi-Fi invité filtré."
+}
