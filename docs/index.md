@@ -50,9 +50,27 @@ On n'apprend pas un réseau en le regardant : **on le câble, on le configure, o
 <span class="big">🚀</span>
 
 ### Parcours CCNA
-**Facultatif** – Pour les plus rapides : le programme **CCNA** avec le simulateur.
+**Complémentaire** – Pour les plus rapides : le programme **CCNA** avec le simulateur.
 
 [**Ouvrir le parcours →**](ccna/README.md){ .go }
+</div>
+
+<div class="card violet" markdown>
+<span class="big">🗄️</span>
+
+### Parcours serveurs
+**Complémentaire** – Web, FTP, NAS et Active Directory sur **VirtualBox**.
+
+[**Ouvrir le parcours →**](serveurs/README.md){ .go }
+</div>
+
+<div class="card violet" markdown>
+<span class="big">🛡️</span>
+
+### Parcours Stormshield
+**Complémentaire** – Administrer un pare-feu et préparer le **CSNA**.
+
+[**Ouvrir le parcours →**](stormshield/README.md){ .go }
 </div>
 
 </div>

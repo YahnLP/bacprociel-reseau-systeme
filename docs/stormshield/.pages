@@ -1,0 +1,11 @@
+title: Parcours Stormshield
+nav:
+  - README.md
+  - feuille-de-route.md
+  - glossaire-stormshield.md
+  - s01-prise-en-main
+  - s02-journaux-supervision
+  - s03-objets
+  - s04-configuration-reseau
+  - s05-nat
+  - s06-filtrage

@@ -1,0 +1,640 @@
+{
+ "app": "simulateur-reseau",
+ "v": 1,
+ "opts": {
+  "strictCables": false,
+  "stpFast": true
+ },
+ "devices": [
+  {
+   "id": "D1",
+   "type": "firewall",
+   "model": "fw-sn210",
+   "name": "FW1",
+   "x": 380,
+   "y": 200,
+   "powered": true,
+   "fw": {
+    "ifaces": [
+     {
+      "name": "out",
+      "ip": "",
+      "mask": "",
+      "dhcp": false,
+      "zone": "WAN",
+      "up": true,
+      "nat": "outside"
+     },
+     {
+      "name": "in",
+      "ip": "",
+      "mask": "",
+      "dhcp": false,
+      "zone": "LAN",
+      "up": true,
+      "nat": "inside"
+     },
+     {
+      "name": "dmz1",
+      "ip": "",
+      "mask": "",
+      "dhcp": false,
+      "zone": "DMZ",
+      "up": true,
+      "nat": "inside"
+     },
+     {
+      "name": "dmz2",
+      "ip": "",
+      "mask": "",
+      "dhcp": false,
+      "zone": "DMZ2",
+      "up": true,
+      "nat": null
+     }
+    ],
+    "rules": [
+     {
+      "on": true,
+      "action": "pass",
+      "from": "LAN",
+      "to": "WAN",
+      "proto": "any",
+      "src": "any",
+      "dst": "any",
+      "dport": "any",
+      "comment": "Accès Internet du LAN"
+     },
+     {
+      "on": true,
+      "action": "pass",
+      "from": "LAN",
+      "to": "DMZ",
+      "proto": "any",
+      "src": "any",
+      "dst": "any",
+      "dport": "any",
+      "comment": "Le LAN accède à la DMZ"
+     },
+     {
+      "on": true,
+      "action": "pass",
+      "from": "DMZ",
+      "to": "WAN",
+      "proto": "any",
+      "src": "any",
+      "dst": "any",
+      "dport": "any",
+      "comment": "La DMZ accède à Internet"
+     }
+    ],
+    "natMasq": [
+     {
+      "from": "LAN",
+      "to": "WAN"
+     },
+     {
+      "from": "DMZ",
+      "to": "WAN"
+     }
+    ],
+    "forwards": [],
+    "wanPing": false,
+    "statics": [],
+    "dhcpd": {
+     "enabled": false,
+     "pools": [],
+     "excluded": []
+    }
+   },
+   "label": "Pare-feu"
+  },
+  {
+   "id": "D2",
+   "type": "switch",
+   "model": "sw-8p",
+   "name": "SW1",
+   "x": 160,
+   "y": 200,
+   "powered": true,
+   "cli": "!\nhostname SW1\n!\nline con 0\n logging synchronous\nline vty 0 4\n!",
+   "label": ""
+  },
+  {
+   "id": "D3",
+   "type": "pc",
+   "model": "pc-win",
+   "name": "PC-ADMIN",
+   "x": 60,
+   "y": 330,
+   "powered": true,
+   "ifaces": [
+    {
+     "name": "Ethernet0",
+     "ip": "192.168.1.10",
+     "mask": "255.255.255.0",
+     "dhcp": false
+    }
+   ],
+   "gw": "192.168.1.254",
+   "dns": [],
+   "domain": "",
+   "allowIcmpEcho": true,
+   "wifi": {
+    "ssid": "",
+    "key": ""
+   },
+   "hosts": {},
+   "dhcpd": {
+    "enabled": false,
+    "excluded": [],
+    "pools": []
+   },
+   "dnsd": {
+    "enabled": false,
+    "records": [],
+    "forwarders": []
+   },
+   "httpd": {
+    "enabled": false,
+    "https": false,
+    "pages": {
+     "/": {
+      "type": "text/html; charset=utf-8",
+      "body": "<html><head><title>PC-ADMIN</title></head><body><h1>Bienvenue sur PC-ADMIN</h1><p>Serveur web du simulateur.</p></body></html>"
+     }
+    }
+   },
+   "mgmt": {
+    "comms": [],
+    "location": "",
+    "contact": "",
+    "syslogd": false,
+    "trapd": false
+   },
+   "v6": {
+    "ifs": [
+     {
+      "name": "Ethernet0",
+      "autoconf": true,
+      "addrs": []
+     }
+    ],
+    "statics": []
+   },
+   "label": "Admin"
+  },
+  {
+   "id": "D4",
+   "type": "pc",
+   "model": "pc-win",
+   "name": "PC-STAGIAIRE",
+   "x": 200,
+   "y": 330,
+   "powered": true,
+   "ifaces": [
+    {
+     "name": "Ethernet0",
+     "ip": "192.168.1.50",
+     "mask": "255.255.255.0",
+     "dhcp": false
+    }
+   ],
+   "gw": "192.168.1.254",
+   "dns": [],
+   "domain": "",
+   "allowIcmpEcho": true,
+   "wifi": {
+    "ssid": "",
+    "key": ""
+   },
+   "hosts": {},
+   "dhcpd": {
+    "enabled": false,
+    "excluded": [],
+    "pools": []
+   },
+   "dnsd": {
+    "enabled": false,
+    "records": [],
+    "forwarders": []
+   },
+   "httpd": {
+    "enabled": false,
+    "https": false,
+    "pages": {
+     "/": {
+      "type": "text/html; charset=utf-8",
+      "body": "<html><head><title>PC-STAGIAIRE</title></head><body><h1>Bienvenue sur PC-STAGIAIRE</h1><p>Serveur web du simulateur.</p></body></html>"
+     }
+    }
+   },
+   "mgmt": {
+    "comms": [],
+    "location": "",
+    "contact": "",
+    "syslogd": false,
+    "trapd": false
+   },
+   "v6": {
+    "ifs": [
+     {
+      "name": "Ethernet0",
+      "autoconf": true,
+      "addrs": []
+     }
+    ],
+    "statics": []
+   },
+   "label": "Stagiaire"
+  },
+  {
+   "id": "D5",
+   "type": "server",
+   "model": "srv-linux",
+   "name": "SRVWEB",
+   "x": 380,
+   "y": 380,
+   "powered": true,
+   "ifaces": [
+    {
+     "name": "ens33",
+     "ip": "172.16.0.10",
+     "mask": "255.255.255.0",
+     "dhcp": false
+    }
+   ],
+   "gw": "172.16.0.254",
+   "dns": [],
+   "domain": "",
+   "allowIcmpEcho": true,
+   "wifi": {
+    "ssid": "",
+    "key": ""
+   },
+   "hosts": {},
+   "dhcpd": {
+    "enabled": false,
+    "excluded": [],
+    "pools": []
+   },
+   "dnsd": {
+    "enabled": false,
+    "records": [],
+    "forwarders": []
+   },
+   "httpd": {
+    "enabled": true,
+    "https": false,
+    "pages": {
+     "/": {
+      "type": "text/html; charset=utf-8",
+      "body": "<html><body><h1>Site de l'entreprise (DMZ)</h1></body></html>",
+      "_custom": true
+     }
+    }
+   },
+   "mgmt": {
+    "comms": [],
+    "location": "",
+    "contact": "",
+    "syslogd": false,
+    "trapd": false
+   },
+   "v6": {
+    "ifs": [
+     {
+      "name": "ens33",
+      "autoconf": true,
+      "addrs": []
+     }
+    ],
+    "statics": []
+   },
+   "label": "Serveur web (DMZ)"
+  },
+  {
+   "id": "D6",
+   "type": "router",
+   "model": "inet",
+   "name": "FAI",
+   "x": 640,
+   "y": 200,
+   "powered": true,
+   "cli": "!\nhostname FAI\n!\nip dhcp pool WANPUB\n network 203.0.113.0 255.255.255.248\n default-router 203.0.113.1\n dns-server 198.51.100.53\n!\ninterface GigabitEthernet0/0\n ip address 203.0.113.1 255.255.255.248\n!\ninterface GigabitEthernet0/1\n ip address 198.51.100.1 255.255.255.0\n!\ninterface GigabitEthernet0/2\n no ip address\n shutdown\n!\ninterface GigabitEthernet0/3\n no ip address\n shutdown\n!\ninterface GigabitEthernet0/4\n no ip address\n shutdown\n!\ninterface GigabitEthernet0/5\n no ip address\n shutdown\n!\nline con 0\n logging synchronous\nline vty 0 4\n!",
+   "label": "Internet (FAI)"
+  },
+  {
+   "id": "D7",
+   "type": "switch",
+   "model": "sw-8p",
+   "name": "SW-FAI",
+   "x": 820,
+   "y": 200,
+   "powered": true,
+   "cli": "!\nhostname SW-FAI\n!\nline con 0\n logging synchronous\nline vty 0 4\n!",
+   "label": ""
+  },
+  {
+   "id": "D8",
+   "type": "server",
+   "model": "srv-linux",
+   "name": "DNS-FAI",
+   "x": 980,
+   "y": 110,
+   "powered": true,
+   "ifaces": [
+    {
+     "name": "ens33",
+     "ip": "198.51.100.53",
+     "mask": "255.255.255.0",
+     "dhcp": false
+    }
+   ],
+   "gw": "198.51.100.1",
+   "dns": [],
+   "domain": "",
+   "allowIcmpEcho": true,
+   "wifi": {
+    "ssid": "",
+    "key": ""
+   },
+   "hosts": {},
+   "dhcpd": {
+    "enabled": false,
+    "excluded": [],
+    "pools": []
+   },
+   "dnsd": {
+    "enabled": true,
+    "records": [
+     {
+      "name": "www.exemple.fr",
+      "type": "A",
+      "data": "198.51.100.80"
+     }
+    ],
+    "forwarders": []
+   },
+   "httpd": {
+    "enabled": false,
+    "https": false,
+    "pages": {
+     "/": {
+      "type": "text/html; charset=utf-8",
+      "body": "<html><head><title>DNS-FAI</title></head><body><h1>Bienvenue sur DNS-FAI</h1><p>Serveur web du simulateur.</p></body></html>"
+     }
+    }
+   },
+   "mgmt": {
+    "comms": [],
+    "location": "",
+    "contact": "",
+    "syslogd": false,
+    "trapd": false
+   },
+   "v6": {
+    "ifs": [
+     {
+      "name": "ens33",
+      "autoconf": true,
+      "addrs": []
+     }
+    ],
+    "statics": []
+   },
+   "label": "DNS public"
+  },
+  {
+   "id": "D9",
+   "type": "server",
+   "model": "srv-linux",
+   "name": "WWW",
+   "x": 980,
+   "y": 300,
+   "powered": true,
+   "ifaces": [
+    {
+     "name": "ens33",
+     "ip": "198.51.100.80",
+     "mask": "255.255.255.0",
+     "dhcp": false
+    }
+   ],
+   "gw": "198.51.100.1",
+   "dns": [],
+   "domain": "",
+   "allowIcmpEcho": true,
+   "wifi": {
+    "ssid": "",
+    "key": ""
+   },
+   "hosts": {},
+   "dhcpd": {
+    "enabled": false,
+    "excluded": [],
+    "pools": []
+   },
+   "dnsd": {
+    "enabled": false,
+    "records": [],
+    "forwarders": []
+   },
+   "httpd": {
+    "enabled": true,
+    "https": false,
+    "pages": {
+     "/": {
+      "type": "text/html; charset=utf-8",
+      "body": "<html><head><title>exemple.fr</title></head><body><h1>Bienvenue sur exemple.fr</h1><p>Si tu lis cette page, ton réseau fonctionne.</p></body></html>",
+      "_custom": true
+     }
+    }
+   },
+   "mgmt": {
+    "comms": [],
+    "location": "",
+    "contact": "",
+    "syslogd": false,
+    "trapd": false
+   },
+   "v6": {
+    "ifs": [
+     {
+      "name": "ens33",
+      "autoconf": true,
+      "addrs": []
+     }
+    ],
+    "statics": []
+   },
+   "label": "www.exemple.fr"
+  },
+  {
+   "id": "D10",
+   "type": "pc",
+   "model": "pc-linux",
+   "name": "CLIENT",
+   "x": 980,
+   "y": 330,
+   "powered": true,
+   "ifaces": [
+    {
+     "name": "ens33",
+     "ip": "198.51.100.20",
+     "mask": "255.255.255.0",
+     "dhcp": false
+    }
+   ],
+   "gw": "198.51.100.1",
+   "dns": [],
+   "domain": "",
+   "allowIcmpEcho": true,
+   "wifi": {
+    "ssid": "",
+    "key": ""
+   },
+   "hosts": {},
+   "dhcpd": {
+    "enabled": false,
+    "excluded": [],
+    "pools": []
+   },
+   "dnsd": {
+    "enabled": false,
+    "records": [],
+    "forwarders": []
+   },
+   "httpd": {
+    "enabled": false,
+    "https": false,
+    "pages": {
+     "/": {
+      "type": "text/html; charset=utf-8",
+      "body": "<html><head><title>CLIENT</title></head><body><h1>Bienvenue sur CLIENT</h1><p>Serveur web du simulateur.</p></body></html>"
+     }
+    }
+   },
+   "mgmt": {
+    "comms": [],
+    "location": "",
+    "contact": "",
+    "syslogd": false,
+    "trapd": false
+   },
+   "v6": {
+    "ifs": [
+     {
+      "name": "ens33",
+      "autoconf": true,
+      "addrs": []
+     }
+    ],
+    "statics": []
+   },
+   "label": "Client Internet"
+  }
+ ],
+ "links": [
+  {
+   "a": [
+    "D6",
+    "GigabitEthernet0/1"
+   ],
+   "b": [
+    "D7",
+    "Port1"
+   ],
+   "type": "straight"
+  },
+  {
+   "a": [
+    "D8",
+    "ens33"
+   ],
+   "b": [
+    "D7",
+    "Port2"
+   ],
+   "type": "straight"
+  },
+  {
+   "a": [
+    "D9",
+    "ens33"
+   ],
+   "b": [
+    "D7",
+    "Port3"
+   ],
+   "type": "straight"
+  },
+  {
+   "a": [
+    "D10",
+    "ens33"
+   ],
+   "b": [
+    "D7",
+    "Port4"
+   ],
+   "type": "straight"
+  },
+  {
+   "a": [
+    "D2",
+    "Port1"
+   ],
+   "b": [
+    "D1",
+    "in"
+   ],
+   "type": "straight"
+  },
+  {
+   "a": [
+    "D3",
+    "Ethernet0"
+   ],
+   "b": [
+    "D2",
+    "Port2"
+   ],
+   "type": "straight"
+  },
+  {
+   "a": [
+    "D4",
+    "Ethernet0"
+   ],
+   "b": [
+    "D2",
+    "Port3"
+   ],
+   "type": "straight"
+  },
+  {
+   "a": [
+    "D5",
+    "ens33"
+   ],
+   "b": [
+    "D1",
+    "dmz1"
+   ],
+   "type": "cross"
+  },
+  {
+   "a": [
+    "D1",
+    "out"
+   ],
+   "b": [
+    "D6",
+    "GigabitEthernet0/0"
+   ],
+   "type": "cross"
+  }
+ ],
+ "notes": "Stormshield S04 – Configuration réseau : un pare-feu SN210 sorti de sa boîte, câblé, sans adresse. Plan : LAN 192.168.1.0/24, DMZ 172.16.0.0/24, WAN 203.0.113.0/29 (FAI : 203.0.113.1)."
+}
