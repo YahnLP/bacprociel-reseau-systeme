@@ -23,9 +23,28 @@
 | 2-04 STP et Rapid PVST+ | ☐ | ☐ | ☐ |
 | 2-05 Sans fil Cisco et gestion des équipements | ☐ | – | ☐ |
 
-## Domaines 3 à 6
+## Domaine 3 – IP Connectivity
 
-🔜 Routage et OSPF, services IP, sécurité, automatisation : les modules arrivent dans les prochains lots.
+| Module | Cours | TP | Quiz |
+|---|---|---|---|
+| 3-01 Table de routage et décision de transfert | ☐ | ☐ | ☐ |
+| 3-02 Routage statique IPv4 et IPv6 | ☐ | ☐ | ☐ |
+| 3-03 OSPFv2 mono-zone | ☐ | ☐ | ☐ |
+| 3-04 Redondance du premier saut | ☐ | – | ☐ |
+
+## Domaine 4 – IP Services
+
+| Module | Cours | TP | Quiz |
+|---|---|---|---|
+| 4-01 NAT et PAT | ☐ | ☐ | ☐ |
+| 4-02 DHCP, relais et DNS | ☐ | ☐ | ☐ |
+| 4-03 NTP, SNMP et syslog | ☐ | ☐ | ☐ |
+| 4-04 QoS | ☐ | ☐ | ☐ |
+| 4-05 SSH, TFTP et FTP | ☐ | ☐ | ☐ |
+
+## Domaines 5 et 6
+
+🔜 Sécurité (ACL, couche 2, VPN) et automatisation : les modules arrivent dans le prochain lot.
 
 > [!TIP]
 > **Règle d'or :** ne passe pas au module suivant tant que tu ne sais pas refaire le TP **sans regarder** le cours.

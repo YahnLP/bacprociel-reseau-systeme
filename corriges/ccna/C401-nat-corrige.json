@@ -1,0 +1,402 @@
+{
+ "app": "simulateur-reseau",
+ "v": 1,
+ "opts": {
+  "strictCables": false,
+  "stpFast": true
+ },
+ "devices": [
+  {
+   "id": "D1",
+   "type": "router",
+   "model": "inet",
+   "name": "FAI",
+   "x": 650,
+   "y": 150,
+   "powered": true,
+   "cli": "!\nhostname FAI\n!\nip dhcp pool WANPUB\n network 203.0.113.0 255.255.255.248\n default-router 203.0.113.1\n dns-server 198.51.100.53\n!\ninterface GigabitEthernet0/0\n ip address 203.0.113.1 255.255.255.248\n!\ninterface GigabitEthernet0/1\n ip address 198.51.100.1 255.255.255.0\n!\ninterface GigabitEthernet0/2\n no ip address\n shutdown\n!\ninterface GigabitEthernet0/3\n no ip address\n shutdown\n!\ninterface GigabitEthernet0/4\n no ip address\n shutdown\n!\ninterface GigabitEthernet0/5\n no ip address\n shutdown\n!\nline con 0\n logging synchronous\nline vty 0 4\n!",
+   "label": "Internet (FAI)"
+  },
+  {
+   "id": "D2",
+   "type": "switch",
+   "model": "sw-8p",
+   "name": "SW-FAI",
+   "x": 830,
+   "y": 150,
+   "powered": true,
+   "cli": "!\nhostname SW-FAI\n!\nline con 0\n logging synchronous\nline vty 0 4\n!",
+   "label": ""
+  },
+  {
+   "id": "D3",
+   "type": "server",
+   "model": "srv-linux",
+   "name": "DNS-FAI",
+   "x": 990,
+   "y": 60,
+   "powered": true,
+   "ifaces": [
+    {
+     "name": "ens33",
+     "ip": "198.51.100.53",
+     "mask": "255.255.255.0",
+     "dhcp": false
+    }
+   ],
+   "gw": "198.51.100.1",
+   "dns": [],
+   "domain": "",
+   "allowIcmpEcho": true,
+   "wifi": {
+    "ssid": "",
+    "key": ""
+   },
+   "hosts": {},
+   "dhcpd": {
+    "enabled": false,
+    "excluded": [],
+    "pools": []
+   },
+   "dnsd": {
+    "enabled": true,
+    "records": [
+     {
+      "name": "www.exemple.fr",
+      "type": "A",
+      "data": "198.51.100.80"
+     }
+    ],
+    "forwarders": []
+   },
+   "httpd": {
+    "enabled": false,
+    "https": false,
+    "pages": {
+     "/": {
+      "type": "text/html; charset=utf-8",
+      "body": "<html><head><title>DNS-FAI</title></head><body><h1>Bienvenue sur DNS-FAI</h1><p>Serveur web du simulateur.</p></body></html>"
+     }
+    }
+   },
+   "mgmt": {
+    "comms": [],
+    "location": "",
+    "contact": "",
+    "syslogd": false,
+    "trapd": false
+   },
+   "v6": {
+    "ifs": [
+     {
+      "name": "ens33",
+      "autoconf": true,
+      "addrs": []
+     }
+    ],
+    "statics": []
+   },
+   "label": "DNS public"
+  },
+  {
+   "id": "D4",
+   "type": "server",
+   "model": "srv-linux",
+   "name": "WWW",
+   "x": 990,
+   "y": 250,
+   "powered": true,
+   "ifaces": [
+    {
+     "name": "ens33",
+     "ip": "198.51.100.80",
+     "mask": "255.255.255.0",
+     "dhcp": false
+    }
+   ],
+   "gw": "198.51.100.1",
+   "dns": [],
+   "domain": "",
+   "allowIcmpEcho": true,
+   "wifi": {
+    "ssid": "",
+    "key": ""
+   },
+   "hosts": {},
+   "dhcpd": {
+    "enabled": false,
+    "excluded": [],
+    "pools": []
+   },
+   "dnsd": {
+    "enabled": false,
+    "records": [],
+    "forwarders": []
+   },
+   "httpd": {
+    "enabled": true,
+    "https": false,
+    "pages": {
+     "/": {
+      "type": "text/html; charset=utf-8",
+      "body": "<html><head><title>exemple.fr</title></head><body><h1>Bienvenue sur exemple.fr</h1><p>Si tu lis cette page, ton réseau fonctionne.</p></body></html>",
+      "_custom": true
+     }
+    }
+   },
+   "mgmt": {
+    "comms": [],
+    "location": "",
+    "contact": "",
+    "syslogd": false,
+    "trapd": false
+   },
+   "v6": {
+    "ifs": [
+     {
+      "name": "ens33",
+      "autoconf": true,
+      "addrs": []
+     }
+    ],
+    "statics": []
+   },
+   "label": "www.exemple.fr"
+  },
+  {
+   "id": "D5",
+   "type": "router",
+   "model": "r-2911",
+   "name": "R1",
+   "x": 450,
+   "y": 150,
+   "powered": true,
+   "cli": "!\nhostname R1\n!\ninterface GigabitEthernet0/0\n ip address 192.168.10.1 255.255.255.0\n ip nat inside\n!\ninterface GigabitEthernet0/1\n ip address 203.0.113.2 255.255.255.248\n ip nat outside\n!\ninterface GigabitEthernet0/2\n no ip address\n shutdown\n!\nip route 0.0.0.0 0.0.0.0 203.0.113.1\n!\nip nat inside source list 1 interface GigabitEthernet0/1 overload\n!\naccess-list 1 permit 192.168.10.0 0.0.0.255\n!\nline con 0\n logging synchronous\nline vty 0 4\n!",
+   "startup": "!\nhostname R1\n!\ninterface GigabitEthernet0/0\n ip address 192.168.10.1 255.255.255.0\n ip nat inside\n!\ninterface GigabitEthernet0/1\n ip address 203.0.113.2 255.255.255.248\n ip nat outside\n!\ninterface GigabitEthernet0/2\n no ip address\n shutdown\n!\nip route 0.0.0.0 0.0.0.0 203.0.113.1\n!\nip nat inside source list 1 interface GigabitEthernet0/1 overload\n!\naccess-list 1 permit 192.168.10.0 0.0.0.255\n!\nline con 0\n logging synchronous\nline vty 0 4\n!",
+   "label": "Routeur de bordure"
+  },
+  {
+   "id": "D6",
+   "type": "switch",
+   "model": "sw-2960",
+   "name": "SW1",
+   "x": 250,
+   "y": 150,
+   "powered": true,
+   "cli": "!\nhostname SW1\n!\nspanning-tree mode pvst\nline con 0\n logging synchronous\nline vty 0 4\n!",
+   "label": ""
+  },
+  {
+   "id": "D7",
+   "type": "pc",
+   "model": "pc-linux",
+   "name": "PC1",
+   "x": 80,
+   "y": 80,
+   "powered": true,
+   "ifaces": [
+    {
+     "name": "ens33",
+     "ip": "192.168.10.11",
+     "mask": "255.255.255.0",
+     "dhcp": false
+    }
+   ],
+   "gw": "192.168.10.1",
+   "dns": [
+    "198.51.100.53"
+   ],
+   "domain": "",
+   "allowIcmpEcho": true,
+   "wifi": {
+    "ssid": "",
+    "key": ""
+   },
+   "hosts": {},
+   "dhcpd": {
+    "enabled": false,
+    "excluded": [],
+    "pools": []
+   },
+   "dnsd": {
+    "enabled": false,
+    "records": [],
+    "forwarders": []
+   },
+   "httpd": {
+    "enabled": false,
+    "https": false,
+    "pages": {
+     "/": {
+      "type": "text/html; charset=utf-8",
+      "body": "<html><head><title>PC1</title></head><body><h1>Bienvenue sur PC1</h1><p>Serveur web du simulateur.</p></body></html>"
+     }
+    }
+   },
+   "mgmt": {
+    "comms": [],
+    "location": "",
+    "contact": "",
+    "syslogd": false,
+    "trapd": false
+   },
+   "v6": {
+    "ifs": [
+     {
+      "name": "ens33",
+      "autoconf": true,
+      "addrs": []
+     }
+    ],
+    "statics": []
+   },
+   "label": ""
+  },
+  {
+   "id": "D8",
+   "type": "pc",
+   "model": "pc-linux",
+   "name": "PC2",
+   "x": 80,
+   "y": 220,
+   "powered": true,
+   "ifaces": [
+    {
+     "name": "ens33",
+     "ip": "192.168.10.12",
+     "mask": "255.255.255.0",
+     "dhcp": false
+    }
+   ],
+   "gw": "192.168.10.1",
+   "dns": [
+    "198.51.100.53"
+   ],
+   "domain": "",
+   "allowIcmpEcho": true,
+   "wifi": {
+    "ssid": "",
+    "key": ""
+   },
+   "hosts": {},
+   "dhcpd": {
+    "enabled": false,
+    "excluded": [],
+    "pools": []
+   },
+   "dnsd": {
+    "enabled": false,
+    "records": [],
+    "forwarders": []
+   },
+   "httpd": {
+    "enabled": false,
+    "https": false,
+    "pages": {
+     "/": {
+      "type": "text/html; charset=utf-8",
+      "body": "<html><head><title>PC2</title></head><body><h1>Bienvenue sur PC2</h1><p>Serveur web du simulateur.</p></body></html>"
+     }
+    }
+   },
+   "mgmt": {
+    "comms": [],
+    "location": "",
+    "contact": "",
+    "syslogd": false,
+    "trapd": false
+   },
+   "v6": {
+    "ifs": [
+     {
+      "name": "ens33",
+      "autoconf": true,
+      "addrs": []
+     }
+    ],
+    "statics": []
+   },
+   "label": ""
+  }
+ ],
+ "links": [
+  {
+   "a": [
+    "D1",
+    "GigabitEthernet0/1"
+   ],
+   "b": [
+    "D2",
+    "Port1"
+   ],
+   "type": "straight"
+  },
+  {
+   "a": [
+    "D3",
+    "ens33"
+   ],
+   "b": [
+    "D2",
+    "Port2"
+   ],
+   "type": "straight"
+  },
+  {
+   "a": [
+    "D4",
+    "ens33"
+   ],
+   "b": [
+    "D2",
+    "Port3"
+   ],
+   "type": "straight"
+  },
+  {
+   "a": [
+    "D5",
+    "GigabitEthernet0/1"
+   ],
+   "b": [
+    "D1",
+    "GigabitEthernet0/0"
+   ],
+   "type": "cross"
+  },
+  {
+   "a": [
+    "D5",
+    "GigabitEthernet0/0"
+   ],
+   "b": [
+    "D6",
+    "FastEthernet0/24"
+   ],
+   "type": "straight"
+  },
+  {
+   "a": [
+    "D7",
+    "ens33"
+   ],
+   "b": [
+    "D6",
+    "FastEthernet0/1"
+   ],
+   "type": "straight"
+  },
+  {
+   "a": [
+    "D8",
+    "ens33"
+   ],
+   "b": [
+    "D6",
+    "FastEthernet0/2"
+   ],
+   "type": "straight"
+  }
+ ],
+ "notes": "CORRIGÉ – CCNA 4-01 – PAT : un routeur de bordure, deux postes en adresses privées, un FAI avec un serveur web. À faire : traduire les adresses privées vers l'adresse publique 203.0.113.2."
+}

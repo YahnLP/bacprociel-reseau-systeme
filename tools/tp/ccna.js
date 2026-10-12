@@ -166,6 +166,162 @@ lab({ id: 'c204-stp', start: D + '2-04-stp/tp/c204-stp.json', solution: K + 'C20
   notes: 'CCNA 2-04 – STP : trois switchs en triangle. Faire de SW2 le pont racine (SW1 en secours), passer en Rapid PVST+, protéger les ports des postes avec PortFast et BPDU guard.',
   build: (sim, h) => stpBuild(h), solve: stpSolve, checks: stpChecks, startShould: stpChecks.slice(0, 3).map(x => x.label) });
 
+
+/* ---------- Topologie triangle de routeurs (3-01, 3-02, 3-03) ---------- */
+function triBuild(h, withStatic) {
+  const { dev, link, get } = h;
+  dev('r-2911', 'R1', 150, 120); dev('r-2911', 'R2', 450, 20); dev('r-2911', 'R3', 750, 120);
+  dev('sw-2960', 'SW1', 60, 260); dev('sw-2960', 'SW3', 840, 260); pc(h, 'PC1', 60, 360); pc(h, 'PC3', 840, 360);
+  link('R1', 'gi0/1', 'R2', 'gi0/1'); link('R2', 'gi0/2', 'R3', 'gi0/1'); link('R1', 'gi0/2', 'R3', 'gi0/2');
+  link('SW1', 'Fa0/24', 'R1', 'gi0/0'); link('SW3', 'Fa0/24', 'R3', 'gi0/0'); link('PC1', PCIF, 'SW1', 'Fa0/1'); link('PC3', PCIF, 'SW3', 'Fa0/1');
+  const i = (n, g0, g1, g2) => cliRun(get(n), 'enable\nconf t\nhostname ' + n + '\n' + [['gi0/0', g0], ['gi0/1', g1], ['gi0/2', g2]].filter(x => x[1]).map(x => 'interface ' + x[0] + '\nip address ' + x[1] + ' 255.255.255.' + (x[0] === 'gi0/0' ? '0' : '252') + '\nno shutdown\nexit').join('\n').replace(/255\.255\.255\.0\n/g, '255.255.255.0\n') + '\nend\nwrite memory');
+  i('R1', '192.168.1.1', '10.0.12.1', '10.0.13.1'); i('R2', null, '10.0.12.2', '10.0.23.1'); i('R3', '192.168.3.1', '10.0.23.2', '10.0.13.2');
+  hostIp(get('PC1'), '192.168.1.10', '24', '192.168.1.1'); hostIp(get('PC3'), '192.168.3.10', '24', '192.168.3.1');
+}
+const R1_ST = 'enable\nconf t\nip route 192.168.3.0 255.255.255.0 10.0.12.2\nip route 10.0.23.0 255.255.255.252 10.0.12.2\nend\nwrite memory';
+const R2_ST = 'enable\nconf t\nip route 192.168.1.0 255.255.255.0 10.0.12.1\nip route 192.168.3.0 255.255.255.0 10.0.23.2\nip route 10.0.13.0 255.255.255.252 10.0.12.1\nend\nwrite memory';
+const R3_ST = 'enable\nconf t\nip route 192.168.1.0 255.255.255.0 10.0.13.1\nip route 10.0.12.0 255.255.255.252 10.0.13.1\nend\nwrite memory';
+lab({ id: 'c301-table-routage', start: D + '3-01-table-routage/tp/c301-table-routage.json',
+  notes: 'CCNA 3-01 – Trois routeurs en triangle, routes statiques déjà en place. Lire les tables de routage : codes, préfixe, next hop, distance administrative, métrique, plus long préfixe.',
+  build: (sim, h) => { triBuild(h); cliRun(h.get('R1'), R1_ST); cliRun(h.get('R2'), R2_ST); cliRun(h.get('R3'), R3_ST); cliRun(h.get('R1'), 'enable\nconf t\nip route 192.168.0.0 255.255.0.0 10.0.13.2\nip route 0.0.0.0 0.0.0.0 10.0.13.2\nend\nwrite memory'); }, checks: [], startShould: [] });
+
+const stChecks = [
+  { label: 'PC1 joint PC3 (routes statiques)', run: c => /bytes from/.test(sh(c, 'PC1', 'ping -c 2 192.168.3.10')) },
+  { label: 'PC3 joint PC1 (retour)', run: c => /bytes from/.test(sh(c, 'PC3', 'ping -c 2 192.168.1.10')) },
+  { label: 'R1 a une route par défaut vers R2 (10.0.12.2)', run: c => /ip route 0\.0\.0\.0 0\.0\.0\.0 10\.0\.12\.2\n/.test(cfg(c, 'R1')) },
+  { label: 'R1 a une route flottante (distance 200) via R3', run: c => /ip route 0\.0\.0\.0 0\.0\.0\.0 10\.0\.13\.2 200/.test(cfg(c, 'R1')) },
+  { label: 'La route flottante prend le relais quand le lien R1–R2 tombe', run: c => { cliRun(dv(c, 'R1'), 'enable\nconf t\ninterface gi0/1\nshutdown\nend'); c.wait(8000); return /bytes from/.test(sh(c, 'PC1', 'ping -c 2 192.168.3.10')); } },
+];
+function stSolve(sim, h) {
+  cliRun(h.get('R1'), 'enable\nconf t\nip route 192.168.3.0 255.255.255.0 10.0.12.2\nip route 10.0.23.0 255.255.255.252 10.0.12.2\nip route 0.0.0.0 0.0.0.0 10.0.12.2\nip route 0.0.0.0 0.0.0.0 10.0.13.2 200\nip route 192.168.3.0 255.255.255.0 10.0.13.2 200\nend\nwrite memory');
+  cliRun(h.get('R2'), R2_ST);
+  cliRun(h.get('R3'), 'enable\nconf t\nip route 192.168.1.0 255.255.255.0 10.0.13.1\nip route 10.0.12.0 255.255.255.252 10.0.13.1\nend\nwrite memory');
+}
+lab({ id: 'c302-routage-statique', start: D + '3-02-routage-statique/tp/c302-routage-statique.json', solution: K + 'C302-routage-statique-corrige.json',
+  notes: 'CCNA 3-02 – Triangle R1/R2/R3, interfaces configurées, aucune route. À faire : routes statiques (réseau), route par défaut, route flottante de secours via le lien R1–R3.',
+  build: (sim, h) => triBuild(h), solve: stSolve, checks: stChecks, startShould: stChecks.map(x => x.label) });
+
+const ospfChecks = [
+  { label: 'R1 a une adjacence OSPF FULL avec R2', run: c => { c.wait(45000); return /FULL/.test(ios(c, 'R1', 'show ip ospf neighbor')) && /10\.0\.12\.2/.test(ios(c, 'R1', 'show ip ospf neighbor')); } },
+  { label: 'R3 a deux adjacences FULL (R1 et R2)', run: c => (ios(c, 'R3', 'show ip ospf neighbor').match(/FULL/g) || []).length >= 2 },
+  { label: 'Les routeurs ont un router-id fixé (1.1.1.1, 2.2.2.2, 3.3.3.3)', run: c => [['R1', '1.1.1.1'], ['R2', '2.2.2.2'], ['R3', '3.3.3.3']].every(([n, r]) => new RegExp('router-id ' + r.replace(/\./g, '\\.')).test(cfg(c, n))) },
+  { label: 'Le LAN de R1 est en passive-interface', run: c => /passive-interface GigabitEthernet0\/0/.test(cfg(c, 'R1')) },
+  { label: 'R1 apprend 192.168.3.0/24 par OSPF (code O)', run: c => /O\s+192\.168\.3\.0\/24/.test(ios(c, 'R1', 'show ip route')) },
+  { label: 'PC1 joint PC3', run: c => /bytes from/.test(sh(c, 'PC1', 'ping -c 2 192.168.3.10')) },
+];
+function ospfSolve(sim, h) {
+  const rid = { R1: '1.1.1.1', R2: '2.2.2.2', R3: '3.3.3.3' };
+  const nets = { R1: ['192.168.1.0 0.0.0.255', '10.0.12.0 0.0.0.3', '10.0.13.0 0.0.0.3'], R2: ['10.0.12.0 0.0.0.3', '10.0.23.0 0.0.0.3'], R3: ['192.168.3.0 0.0.0.255', '10.0.23.0 0.0.0.3', '10.0.13.0 0.0.0.3'] };
+  ['R1', 'R2', 'R3'].forEach(n => cliRun(h.get(n), 'enable\nconf t\nrouter ospf 1\nrouter-id ' + rid[n] + '\n' + nets[n].map(x => 'network ' + x + ' area 0').join('\n') + '\n' + (n === 'R2' ? '' : 'passive-interface gi0/0\n') + 'end\nwrite memory'));
+}
+lab({ id: 'c303-ospf', start: D + '3-03-ospf/tp/c303-ospf.json', solution: K + 'C303-ospf-corrige.json',
+  notes: 'CCNA 3-03 – Triangle R1/R2/R3, interfaces configurées, aucun routage. À faire : OSPFv2 mono-zone (aire 0), router-id, passive-interface sur les LAN.',
+  build: (sim, h) => triBuild(h), solve: ospfSolve, checks: ospfChecks, startShould: ospfChecks.map(x => x.label) });
+
+/* ---------- 4-01 : PAT ---------- */
+const C = require('./common');
+function natBuild(sim, h) {
+  const { dev, link, get } = h;
+  C.internet(sim, h, 650, 150);
+  dev('r-2911', 'R1', 450, 150, 'Routeur de bordure'); dev('sw-2960', 'SW1', 250, 150);
+  pc(h, 'PC1', 80, 80); pc(h, 'PC2', 80, 220);
+  link('R1', 'gi0/1', 'FAI', 'gi0/0'); link('R1', 'gi0/0', 'SW1', 'Fa0/24'); link('PC1', PCIF, 'SW1', 'Fa0/1'); link('PC2', PCIF, 'SW1', 'Fa0/2');
+  cliRun(get('R1'), 'enable\nconf t\nhostname R1\ninterface gi0/0\nip address 192.168.10.1 255.255.255.0\nno shutdown\nexit\ninterface gi0/1\nip address 203.0.113.2 255.255.255.248\nno shutdown\nexit\nip route 0.0.0.0 0.0.0.0 203.0.113.1\nend\nwrite memory');
+  hostIp(get('PC1'), '192.168.10.11', '24', '192.168.10.1', '198.51.100.53'); hostIp(get('PC2'), '192.168.10.12', '24', '192.168.10.1', '198.51.100.53');
+}
+const natChecks = [
+  { label: 'PC1 joint le serveur web (198.51.100.80)', run: c => /bytes from/.test(sh(c, 'PC1', 'ping -c 2 198.51.100.80')) },
+  { label: 'R1 a une interface inside et une interface outside', run: c => /ip nat inside/.test(cfg(c, 'R1')) && /ip nat outside/.test(cfg(c, 'R1')) },
+  { label: 'La table NAT contient des traductions vers 203.0.113.2', run: c => { sh(c, 'PC2', 'ping -c 2 198.51.100.80'); return /203\.0\.113\.2/.test(ios(c, 'R1', 'show ip nat translations')); } },
+];
+function natSolve(sim, h) {
+  cliRun(h.get('R1'), 'enable\nconf t\naccess-list 1 permit 192.168.10.0 0.0.0.255\ninterface gi0/0\nip nat inside\nexit\ninterface gi0/1\nip nat outside\nexit\nip nat inside source list 1 interface gi0/1 overload\nend\nwrite memory');
+}
+lab({ id: 'c401-nat', start: D + '4-01-nat/tp/c401-nat.json', solution: K + 'C401-nat-corrige.json',
+  notes: 'CCNA 4-01 – PAT : un routeur de bordure, deux postes en adresses privées, un FAI avec un serveur web. À faire : traduire les adresses privées vers l\'adresse publique 203.0.113.2.',
+  build: natBuild, solve: natSolve, checks: natChecks, startShould: natChecks.map(x => x.label) });
+
+/* ---------- 4-02 : DHCP et relais ---------- */
+function dhBuild(h) {
+  const { dev, link, get } = h;
+  dev('r-2911', 'R1', 350, 120, 'Passerelle des postes'); dev('r-2911', 'R2', 650, 120, 'Serveur DHCP'); dev('sw-2960', 'SW1', 150, 120); pc(h, 'PC1', 50, 40); pc(h, 'PC2', 50, 200);
+  link('SW1', 'Fa0/24', 'R1', 'gi0/0'); link('R1', 'gi0/1', 'R2', 'gi0/1'); link('PC1', PCIF, 'SW1', 'Fa0/1'); link('PC2', PCIF, 'SW1', 'Fa0/2');
+  cliRun(get('R1'), 'enable\nconf t\nhostname R1\ninterface gi0/0\nip address 192.168.10.1 255.255.255.0\nno shutdown\nexit\ninterface gi0/1\nip address 10.0.0.1 255.255.255.252\nno shutdown\nexit\nip route 0.0.0.0 0.0.0.0 10.0.0.2\nend\nwrite memory');
+  cliRun(get('R2'), 'enable\nconf t\nhostname R2\ninterface gi0/1\nip address 10.0.0.2 255.255.255.252\nno shutdown\nexit\nip route 192.168.10.0 255.255.255.0 10.0.0.1\nend\nwrite memory');
+  ['PC1', 'PC2'].forEach(n => L.hostDhcp(get(n)));
+}
+const dhChecks = [
+  { label: 'R2 a un pool DHCP pour 192.168.10.0/24', run: c => /ip dhcp pool/.test(cfg(c, 'R2')) && /network 192\.168\.10\.0 255\.255\.255\.0/.test(cfg(c, 'R2')) },
+  { label: 'R1 relaie les requêtes DHCP vers 10.0.0.2 (ip helper-address)', run: c => /ip helper-address 10\.0\.0\.2/.test(cfg(c, 'R1')) },
+  { label: 'PC1 reçoit une adresse 192.168.10.x', run: c => { c.wait(8000); return /192\.168\.10\.\d+/.test(sh(c, 'PC1', 'ip -4 addr')); } },
+  { label: 'PC2 reçoit une adresse différente de PC1', run: c => { const a = (sh(c, 'PC1', 'ip -4 addr').match(/inet (192\.168\.10\.\d+)/) || [])[1], b = (sh(c, 'PC2', 'ip -4 addr').match(/inet (192\.168\.10\.\d+)/) || [])[1]; return !!a && !!b && a !== b; } },
+];
+function dhSolve(sim, h) {
+  cliRun(h.get('R2'), 'enable\nconf t\nip dhcp excluded-address 192.168.10.1 192.168.10.9\nip dhcp pool LAN10\nnetwork 192.168.10.0 255.255.255.0\ndefault-router 192.168.10.1\ndns-server 8.8.8.8\nend\nwrite memory');
+  cliRun(h.get('R1'), 'enable\nconf t\ninterface gi0/0\nip helper-address 10.0.0.2\nend\nwrite memory');
+  ['PC1', 'PC2'].forEach(n => { L.hostDhcp(h.get(n)); });
+}
+lab({ id: 'c402-dhcp-relais', start: D + '4-02-dhcp-dns/tp/c402-dhcp-relais.json', solution: K + 'C402-dhcp-relais-corrige.json',
+  notes: 'CCNA 4-02 – DHCP et relais : les postes sont sur 192.168.10.0/24 (R1), le serveur DHCP est R2 sur un autre réseau. À faire : pool sur R2, ip helper-address sur R1.',
+  build: (sim, h) => dhBuild(h), solve: dhSolve, checks: dhChecks, startShould: dhChecks.map(x => x.label) });
+
+/* ---------- 4-03 : syslog et SNMP ---------- */
+function slBuild(h) {
+  const { dev, link, get } = h;
+  dev('r-2911', 'R1', 350, 120); dev('sw-2960', 'SW1', 150, 120); dev('srv-linux', 'SRV-SUP', 550, 120, 'Serveur de supervision'); pc(h, 'PC1', 50, 120);
+  link('SW1', 'Fa0/24', 'R1', 'gi0/0'); link('R1', 'gi0/1', 'SRV-SUP', PCIF); link('PC1', PCIF, 'SW1', 'Fa0/1');
+  cliRun(get('R1'), 'enable\nconf t\nhostname R1\ninterface gi0/0\nip address 192.168.10.1 255.255.255.0\nno shutdown\nexit\ninterface gi0/1\nip address 10.9.0.1 255.255.255.0\nno shutdown\nend\nwrite memory');
+  hostIp(get('SRV-SUP'), '10.9.0.10', '24', '10.9.0.1'); hostIp(get('PC1'), '192.168.10.11', '24', '192.168.10.1');
+}
+const slChecks = [
+  { label: 'R1 envoie ses journaux (syslog) à 10.9.0.10', run: c => /logging host 10\.9\.0\.10/.test(cfg(c, 'R1')) },
+  { label: 'Seuls les messages de niveau 4 (warnings) et plus graves sont envoyés', run: c => /logging trap warnings/.test(cfg(c, 'R1')) },
+  { label: 'Une communauté SNMP en lecture seule « CIEL-RO » existe', run: c => /snmp-server community CIEL-RO RO/i.test(cfg(c, 'R1')) },
+  { label: 'La localisation SNMP est renseignée', run: c => /snmp-server location \S+/.test(cfg(c, 'R1')) },
+];
+function slSolve(sim, h) { cliRun(h.get('R1'), 'enable\nconf t\nlogging host 10.9.0.10\nlogging trap warnings\nsnmp-server community CIEL-RO RO\nsnmp-server location SalleServeurs\nend\nwrite memory'); }
+lab({ id: 'c403-syslog-snmp', start: D + '4-03-ntp-snmp-syslog/tp/c403-syslog-snmp.json', solution: K + 'C403-syslog-snmp-corrige.json',
+  notes: 'CCNA 4-03 – Un routeur doit envoyer ses journaux à un serveur de supervision (syslog) et répondre en SNMP. NTP n\'est pas simulé : à connaître pour l\'examen.',
+  build: (sim, h) => slBuild(h), solve: slSolve, checks: slChecks, startShould: slChecks.map(x => x.label) });
+
+/* ---------- 4-04 : QoS ---------- */
+function qsBuild(h) {
+  const { dev, link, get } = h;
+  dev('r-2911', 'R1', 350, 120); dev('sw-2960', 'SW1', 150, 120); pc(h, 'PC1', 50, 120); dev('r-2911', 'R2', 600, 120);
+  link('SW1', 'Fa0/24', 'R1', 'gi0/0'); link('R1', 'gi0/1', 'R2', 'gi0/1'); link('PC1', PCIF, 'SW1', 'Fa0/1');
+  cliRun(get('R1'), 'enable\nconf t\nhostname R1\ninterface gi0/0\nip address 192.168.10.1 255.255.255.0\nno shutdown\nexit\ninterface gi0/1\nip address 10.0.0.1 255.255.255.252\nno shutdown\nend\nwrite memory');
+  cliRun(get('R2'), 'enable\nconf t\nhostname R2\ninterface gi0/1\nip address 10.0.0.2 255.255.255.252\nno shutdown\nexit\nip route 192.168.10.0 255.255.255.0 10.0.0.1\nend\nwrite memory');
+  hostIp(get('PC1'), '192.168.10.11', '24', '192.168.10.1');
+}
+const qsChecks = [
+  { label: 'Une class-map reconnaît la voix (DSCP EF)', run: c => /class-map match-any VOIX/.test(cfg(c, 'R1')) && /match (ip )?dscp ef/.test(cfg(c, 'R1')) },
+  { label: 'La policy-map donne une priorité de 256 kb/s à la voix', run: c => /class VOIX\n\s+priority 256/.test(cfg(c, 'R1')) },
+  { label: 'La policy-map est appliquée en sortie sur gi0/1', run: c => /service-policy output/.test(cfg(c, 'R1')) },
+  { label: 'Le réseau fonctionne toujours (PC1 joint R2)', run: c => /bytes from/.test(sh(c, 'PC1', 'ping -c 2 10.0.0.2')) },
+];
+function qsSolve(sim, h) { cliRun(h.get('R1'), 'enable\nconf t\nclass-map match-any VOIX\nmatch dscp ef\nexit\npolicy-map SORTIE\nclass VOIX\npriority 256\nclass class-default\nfair-queue\nexit\nexit\ninterface gi0/1\nservice-policy output SORTIE\nend\nwrite memory'); }
+lab({ id: 'c404-qos', start: D + '4-04-qos/tp/c404-qos.json', solution: K + 'C404-qos-corrige.json',
+  notes: 'CCNA 4-04 – QoS : le lien R1–R2 est le goulot. À faire : classer la voix (DSCP EF), lui donner une file prioritaire de 256 kb/s, appliquer en sortie.',
+  build: (sim, h) => qsBuild(h), solve: qsSolve, checks: qsChecks, startShould: qsChecks.slice(0, 3).map(x => x.label) });
+
+/* ---------- 4-05 : SSH ---------- */
+function sshBuild(h) {
+  const { dev, link, get } = h;
+  dev('sw-2960', 'SW1', 300, 120); pc(h, 'PC-ADMIN', 100, 120);
+  link('PC-ADMIN', PCIF, 'SW1', 'Fa0/1');
+  hostIp(get('PC-ADMIN'), '10.0.0.2', '24'); cliRun(get('SW1'), 'enable\nconf t\ninterface vlan 1\nip address 10.0.0.1 255.255.255.0\nno shutdown\nend\nwrite memory');
+}
+const sshChecks = [
+  { label: 'Un nom de domaine est configuré (ip domain-name)', run: c => /ip domain-name \S+/.test(cfg(c, 'SW1')) },
+  { label: 'Un utilisateur local « admin » existe', run: c => /username admin/.test(cfg(c, 'SW1')) },
+  { label: 'Les lignes vty utilisent l\'authentification locale', run: c => /line vty 0 4[^!]*login local/.test(cfg(c, 'SW1')) },
+  { label: 'Les lignes vty n\'acceptent que SSH (transport input ssh)', run: c => /transport input ssh/.test(cfg(c, 'SW1')) },
+];
+function sshSolve(sim, h) { cliRun(h.get('SW1'), 'enable\nconf t\nhostname SW1\nip domain-name ciel.local\nusername admin secret Pa55w0rd!\ncrypto key generate rsa modulus 2048\nip ssh version 2\nline vty 0 4\nlogin local\ntransport input ssh\nend\nwrite memory'); }
+lab({ id: 'c405-ssh', start: D + '4-05-ssh-tftp/tp/c405-ssh.json', solution: K + 'C405-ssh-corrige.json',
+  notes: 'CCNA 4-05 – Sécuriser l\'accès distant : un switch, un poste d\'administration. À faire : nom de domaine, utilisateur local, clés RSA, SSH 2, lignes vty en SSH seul.',
+  build: (sim, h) => sshBuild(h), solve: sshSolve, checks: sshChecks, startShould: sshChecks.map(x => x.label) });
+
 const want = process.argv.slice(2); let all = true;
 TPS.filter(t => !want.length || want.includes(t.id)).forEach(t => { all = L.run(t) && all; });
 process.exit(all ? 0 : 1);

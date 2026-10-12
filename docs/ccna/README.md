@@ -21,10 +21,10 @@
 |---|---|---|
 | **1 – Network Fundamentals** (bases des réseaux) | 20 % | ✅ disponible |
 | **2 – Network Access** (commutation, VLAN, STP) | 20 % | ✅ disponible |
-| **3 – IP Connectivity** (routage, OSPF) | 25 % | 🔜 prochain lot |
-| **4 – IP Services** (NAT, DHCP, NTP, SSH…) | 10 % | 🔜 prochain lot |
-| **5 – Security Fundamentals** (ACL, sécurité L2, VPN) | 15 % | 🔜 dernier lot |
-| **6 – Automation and Programmability** (API, JSON, Ansible) | 10 % | 🔜 dernier lot |
+| **3 – IP Connectivity** (routage, OSPF) | 25 % | ✅ disponible |
+| **4 – IP Services** (NAT, DHCP, NTP, SSH…) | 10 % | ✅ disponible |
+| **5 – Security Fundamentals** (ACL, sécurité L2, VPN) | 15 % | 🔜 prochain lot |
+| **6 – Automation and Programmability** (API, JSON, Ansible) | 10 % | 🔜 prochain lot |
 
 ## 📚 Modules disponibles
 
@@ -49,10 +49,29 @@
 | [2-04 · STP et Rapid PVST+](2-04-stp/01-cours.md) | Pont racine, rôles et états, PortFast, BPDU guard | [🖥️ choisir le pont racine](2-04-stp/02-tp.md) |
 | [2-05 · Sans fil Cisco et gestion des équipements](2-05-sans-fil-cisco-gestion/01-cours.md) | WLC, modes d'AP, SSH, RADIUS/TACACS+ | exercices |
 
+### Domaine 3 – IP Connectivity
+
+| Module | Contenu | TP simulateur |
+|---|---|---|
+| [3-01 · Table de routage et décision de transfert](3-01-table-routage/01-cours.md) | Codes, distance administrative, métrique, plus long préfixe | [🖥️ lire trois tables de routage](3-01-table-routage/02-tp.md) |
+| [3-02 · Routage statique IPv4 et IPv6](3-02-routage-statique/01-cours.md) | Réseau, hôte, défaut, route flottante | [🖥️ routes et secours](3-02-routage-statique/02-tp.md) |
+| [3-03 · OSPFv2 mono-zone](3-03-ospf/01-cours.md) | Voisins, DR/BDR, router-id, coût | [🖥️ OSPF sur trois routeurs](3-03-ospf/02-tp.md) |
+| [3-04 · Redondance du premier saut](3-04-redondance-premier-saut/01-cours.md) | HSRP, VRRP, GLBP | cours seul (non simulé) |
+
+### Domaine 4 – IP Services
+
+| Module | Contenu | TP simulateur |
+|---|---|---|
+| [4-01 · NAT et PAT](4-01-nat/01-cours.md) | Statique, dynamique, surcharge | [🖥️ PAT sur un routeur de bordure](4-01-nat/02-tp.md) |
+| [4-02 · DHCP, relais et DNS](4-02-dhcp-dns/01-cours.md) | DORA, `ip helper-address`, enregistrements | [🖥️ serveur DHCP distant](4-02-dhcp-dns/02-tp.md) |
+| [4-03 · NTP, SNMP et syslog](4-03-ntp-snmp-syslog/01-cours.md) | Heure commune, supervision, gravités | [🖥️ syslog et SNMP](4-03-ntp-snmp-syslog/02-tp.md) (NTP non simulé) |
+| [4-04 · QoS](4-04-qos/01-cours.md) | DSCP, classification, priorité, policing/shaping | [🖥️ priorité à la voix](4-04-qos/02-tp.md) |
+| [4-05 · SSH, TFTP et FTP](4-05-ssh-tftp/01-cours.md) | SSH complet, transferts, SFTP | [🖥️ sécuriser l'accès distant](4-05-ssh-tftp/02-tp.md) |
+
 ## 🧭 Sources utilisées
 
 Le plan suit le programme officiel de l'examen :
 [page de l'examen CCNA 200-301 (Cisco)](https://www.cisco.com/site/us/en/learn/training-certifications/exams/ccna.html) et [liste des sujets v1.1 (Cisco Learning Network)](https://learningnetwork.cisco.com/s/ccna-v1-1-exam-topics), complétés par des synthèses de la liste des sujets ([Computingforgeeks](https://computingforgeeks.com/ccna-exam-topics/), [Open Exam Prep](https://open-exam-prep.com/study-guides/ccna/introduction/exam-domains-and-weights)). Les cours et TP sont **originaux**, écrits pour ce site et testés dans le simulateur.
 
 > [!NOTE]
-> Le simulateur reproduit la plupart des commandes Cisco IOS du programme, pas toutes (par exemple, il n'accepte pas le filtre `| include`). Quand une commande est à connaître pour l'examen mais **n'existe pas dans le simulateur**, c'est indiqué dans le cours.
+> Le simulateur reproduit la plupart des commandes Cisco IOS du programme, pas toutes (par exemple, il n'accepte pas le filtre `| include`, ni HSRP, NTP ou TFTP). Quand une commande est à connaître pour l'examen mais **n'existe pas dans le simulateur**, c'est indiqué dans le cours.

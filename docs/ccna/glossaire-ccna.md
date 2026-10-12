@@ -45,3 +45,31 @@
 | Protection BPDU | *BPDU guard* | Coupe un port d'accès qui reçoit un BPDU | 2-04 |
 | Tunnel contrôleur-borne | *CAPWAP* | Protocole entre AP et WLC | 2-05 |
 | Authentification, autorisation, comptabilité | *AAA* | Qui es-tu, que peux-tu faire, qu'as-tu fait | 2-05 |
+
+## 🧭 Routage
+
+| Français | Anglais | Définition simple | Module |
+|---|---|---|---|
+| Distance administrative | *administrative distance (AD)* | Fiabilité d'une source de route : connecté 0, statique 1, OSPF 110 | 3-01 |
+| Plus long préfixe | *longest prefix match* | La route la plus précise gagne | 3-01 |
+| Passerelle de dernier recours | *gateway of last resort* | La route par défaut | 3-01 |
+| Route flottante | *floating static route* | Route de secours à distance plus élevée | 3-02 |
+| État de liens | *link-state* | Famille de protocoles dont OSPF fait partie | 3-03 |
+| Routeur désigné | *DR / BDR* | Routeurs élus sur un réseau broadcast OSPF | 3-03 |
+| Identifiant du routeur | *router-id* | Nom d'un routeur OSPF | 3-03 |
+| Interface passive | *passive interface* | Interface sans Hello OSPF | 3-03 |
+| Redondance du premier saut | *FHRP (HSRP, VRRP, GLBP)* | Passerelle virtuelle partagée | 3-04 |
+
+## 🌍 Services IP
+
+| Français | Anglais | Définition simple | Module |
+|---|---|---|---|
+| Traduction d'adresses | *NAT / PAT (overload)* | Remplace les adresses privées par une adresse publique | 4-01 |
+| Relais DHCP | *DHCP relay (ip helper-address)* | Fait traverser le DHCP vers un autre réseau | 4-02 |
+| Bail | *lease* | Durée d'une adresse attribuée par DHCP | 4-02 |
+| Strate | *stratum* | Distance à l'horloge de référence NTP | 4-03 |
+| Gestionnaire / agent | *manager / agent (SNMP)* | Qui interroge / qui répond | 4-03 |
+| Journalisation | *syslog* | Envoi des messages des équipements à un serveur | 4-03 |
+| Qualité de service | *QoS (DSCP, policing, shaping)* | Prioriser le trafic sensible | 4-04 |
+| Gigue | *jitter* | Variation du délai | 4-04 |
+| Transfert de fichier simple | *TFTP* | UDP 69, sans authentification | 4-05 |

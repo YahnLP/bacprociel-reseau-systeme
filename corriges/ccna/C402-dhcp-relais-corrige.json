@@ -1,0 +1,220 @@
+{
+ "app": "simulateur-reseau",
+ "v": 1,
+ "opts": {
+  "strictCables": false,
+  "stpFast": true
+ },
+ "devices": [
+  {
+   "id": "D1",
+   "type": "router",
+   "model": "r-2911",
+   "name": "R1",
+   "x": 350,
+   "y": 120,
+   "powered": true,
+   "cli": "!\nhostname R1\n!\ninterface GigabitEthernet0/0\n ip address 192.168.10.1 255.255.255.0\n ip helper-address 10.0.0.2\n!\ninterface GigabitEthernet0/1\n ip address 10.0.0.1 255.255.255.252\n!\ninterface GigabitEthernet0/2\n no ip address\n shutdown\n!\nip route 0.0.0.0 0.0.0.0 10.0.0.2\n!\nline con 0\n logging synchronous\nline vty 0 4\n!",
+   "startup": "!\nhostname R1\n!\ninterface GigabitEthernet0/0\n ip address 192.168.10.1 255.255.255.0\n ip helper-address 10.0.0.2\n!\ninterface GigabitEthernet0/1\n ip address 10.0.0.1 255.255.255.252\n!\ninterface GigabitEthernet0/2\n no ip address\n shutdown\n!\nip route 0.0.0.0 0.0.0.0 10.0.0.2\n!\nline con 0\n logging synchronous\nline vty 0 4\n!",
+   "label": "Passerelle des postes"
+  },
+  {
+   "id": "D2",
+   "type": "router",
+   "model": "r-2911",
+   "name": "R2",
+   "x": 650,
+   "y": 120,
+   "powered": true,
+   "cli": "!\nhostname R2\n!\nip dhcp excluded-address 192.168.10.1 192.168.10.9\nip dhcp pool LAN10\n network 192.168.10.0 255.255.255.0\n default-router 192.168.10.1\n dns-server 8.8.8.8\n!\ninterface GigabitEthernet0/0\n no ip address\n shutdown\n!\ninterface GigabitEthernet0/1\n ip address 10.0.0.2 255.255.255.252\n!\ninterface GigabitEthernet0/2\n no ip address\n shutdown\n!\nip route 192.168.10.0 255.255.255.0 10.0.0.1\n!\nline con 0\n logging synchronous\nline vty 0 4\n!",
+   "startup": "!\nhostname R2\n!\nip dhcp excluded-address 192.168.10.1 192.168.10.9\nip dhcp pool LAN10\n network 192.168.10.0 255.255.255.0\n default-router 192.168.10.1\n dns-server 8.8.8.8\n!\ninterface GigabitEthernet0/0\n no ip address\n shutdown\n!\ninterface GigabitEthernet0/1\n ip address 10.0.0.2 255.255.255.252\n!\ninterface GigabitEthernet0/2\n no ip address\n shutdown\n!\nip route 192.168.10.0 255.255.255.0 10.0.0.1\n!\nline con 0\n logging synchronous\nline vty 0 4\n!",
+   "label": "Serveur DHCP"
+  },
+  {
+   "id": "D3",
+   "type": "switch",
+   "model": "sw-2960",
+   "name": "SW1",
+   "x": 150,
+   "y": 120,
+   "powered": true,
+   "cli": "!\nhostname SW1\n!\nspanning-tree mode pvst\nline con 0\n logging synchronous\nline vty 0 4\n!",
+   "label": ""
+  },
+  {
+   "id": "D4",
+   "type": "pc",
+   "model": "pc-linux",
+   "name": "PC1",
+   "x": 50,
+   "y": 40,
+   "powered": true,
+   "ifaces": [
+    {
+     "name": "ens33",
+     "ip": "",
+     "mask": "",
+     "dhcp": true
+    }
+   ],
+   "gw": "",
+   "dns": [],
+   "domain": "",
+   "allowIcmpEcho": true,
+   "wifi": {
+    "ssid": "",
+    "key": ""
+   },
+   "hosts": {},
+   "dhcpd": {
+    "enabled": false,
+    "excluded": [],
+    "pools": []
+   },
+   "dnsd": {
+    "enabled": false,
+    "records": [],
+    "forwarders": []
+   },
+   "httpd": {
+    "enabled": false,
+    "https": false,
+    "pages": {
+     "/": {
+      "type": "text/html; charset=utf-8",
+      "body": "<html><head><title>PC1</title></head><body><h1>Bienvenue sur PC1</h1><p>Serveur web du simulateur.</p></body></html>"
+     }
+    }
+   },
+   "mgmt": {
+    "comms": [],
+    "location": "",
+    "contact": "",
+    "syslogd": false,
+    "trapd": false
+   },
+   "v6": {
+    "ifs": [
+     {
+      "name": "ens33",
+      "autoconf": true,
+      "addrs": []
+     }
+    ],
+    "statics": []
+   },
+   "label": ""
+  },
+  {
+   "id": "D5",
+   "type": "pc",
+   "model": "pc-linux",
+   "name": "PC2",
+   "x": 50,
+   "y": 200,
+   "powered": true,
+   "ifaces": [
+    {
+     "name": "ens33",
+     "ip": "",
+     "mask": "",
+     "dhcp": true
+    }
+   ],
+   "gw": "",
+   "dns": [],
+   "domain": "",
+   "allowIcmpEcho": true,
+   "wifi": {
+    "ssid": "",
+    "key": ""
+   },
+   "hosts": {},
+   "dhcpd": {
+    "enabled": false,
+    "excluded": [],
+    "pools": []
+   },
+   "dnsd": {
+    "enabled": false,
+    "records": [],
+    "forwarders": []
+   },
+   "httpd": {
+    "enabled": false,
+    "https": false,
+    "pages": {
+     "/": {
+      "type": "text/html; charset=utf-8",
+      "body": "<html><head><title>PC2</title></head><body><h1>Bienvenue sur PC2</h1><p>Serveur web du simulateur.</p></body></html>"
+     }
+    }
+   },
+   "mgmt": {
+    "comms": [],
+    "location": "",
+    "contact": "",
+    "syslogd": false,
+    "trapd": false
+   },
+   "v6": {
+    "ifs": [
+     {
+      "name": "ens33",
+      "autoconf": true,
+      "addrs": []
+     }
+    ],
+    "statics": []
+   },
+   "label": ""
+  }
+ ],
+ "links": [
+  {
+   "a": [
+    "D3",
+    "FastEthernet0/24"
+   ],
+   "b": [
+    "D1",
+    "GigabitEthernet0/0"
+   ],
+   "type": "straight"
+  },
+  {
+   "a": [
+    "D1",
+    "GigabitEthernet0/1"
+   ],
+   "b": [
+    "D2",
+    "GigabitEthernet0/1"
+   ],
+   "type": "cross"
+  },
+  {
+   "a": [
+    "D4",
+    "ens33"
+   ],
+   "b": [
+    "D3",
+    "FastEthernet0/1"
+   ],
+   "type": "straight"
+  },
+  {
+   "a": [
+    "D5",
+    "ens33"
+   ],
+   "b": [
+    "D3",
+    "FastEthernet0/2"
+   ],
+   "type": "straight"
+  }
+ ],
+ "notes": "CORRIGÉ – CCNA 4-02 – DHCP et relais : les postes sont sur 192.168.10.0/24 (R1), le serveur DHCP est R2 sur un autre réseau. À faire : pool sur R2, ip helper-address sur R1."
+}

@@ -1,0 +1,100 @@
+{
+ "app": "simulateur-reseau",
+ "v": 1,
+ "opts": {
+  "strictCables": false,
+  "stpFast": true
+ },
+ "devices": [
+  {
+   "id": "D1",
+   "type": "switch",
+   "model": "sw-2960",
+   "name": "SW1",
+   "x": 300,
+   "y": 120,
+   "powered": true,
+   "cli": "!\nhostname SW1\n!\nspanning-tree mode pvst\ninterface Vlan1\n ip address 10.0.0.1 255.255.255.0\n!\nline con 0\n logging synchronous\nline vty 0 4\n!",
+   "startup": "!\nhostname SW1\n!\nspanning-tree mode pvst\ninterface Vlan1\n ip address 10.0.0.1 255.255.255.0\n!\nline con 0\n logging synchronous\nline vty 0 4\n!",
+   "label": ""
+  },
+  {
+   "id": "D2",
+   "type": "pc",
+   "model": "pc-linux",
+   "name": "PC-ADMIN",
+   "x": 100,
+   "y": 120,
+   "powered": true,
+   "ifaces": [
+    {
+     "name": "ens33",
+     "ip": "10.0.0.2",
+     "mask": "255.255.255.0",
+     "dhcp": false
+    }
+   ],
+   "gw": "",
+   "dns": [],
+   "domain": "",
+   "allowIcmpEcho": true,
+   "wifi": {
+    "ssid": "",
+    "key": ""
+   },
+   "hosts": {},
+   "dhcpd": {
+    "enabled": false,
+    "excluded": [],
+    "pools": []
+   },
+   "dnsd": {
+    "enabled": false,
+    "records": [],
+    "forwarders": []
+   },
+   "httpd": {
+    "enabled": false,
+    "https": false,
+    "pages": {
+     "/": {
+      "type": "text/html; charset=utf-8",
+      "body": "<html><head><title>PC-ADMIN</title></head><body><h1>Bienvenue sur PC-ADMIN</h1><p>Serveur web du simulateur.</p></body></html>"
+     }
+    }
+   },
+   "mgmt": {
+    "comms": [],
+    "location": "",
+    "contact": "",
+    "syslogd": false,
+    "trapd": false
+   },
+   "v6": {
+    "ifs": [
+     {
+      "name": "ens33",
+      "autoconf": true,
+      "addrs": []
+     }
+    ],
+    "statics": []
+   },
+   "label": ""
+  }
+ ],
+ "links": [
+  {
+   "a": [
+    "D2",
+    "ens33"
+   ],
+   "b": [
+    "D1",
+    "FastEthernet0/1"
+   ],
+   "type": "straight"
+  }
+ ],
+ "notes": "CCNA 4-05 – Sécuriser l'accès distant : un switch, un poste d'administration. À faire : nom de domaine, utilisateur local, clés RSA, SSH 2, lignes vty en SSH seul."
+}

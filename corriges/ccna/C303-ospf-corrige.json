@@ -1,0 +1,276 @@
+{
+ "app": "simulateur-reseau",
+ "v": 1,
+ "opts": {
+  "strictCables": false,
+  "stpFast": true
+ },
+ "devices": [
+  {
+   "id": "D1",
+   "type": "router",
+   "model": "r-2911",
+   "name": "R1",
+   "x": 150,
+   "y": 120,
+   "powered": true,
+   "cli": "!\nhostname R1\n!\ninterface GigabitEthernet0/0\n ip address 192.168.1.1 255.255.255.0\n!\ninterface GigabitEthernet0/1\n ip address 10.0.12.1 255.255.255.252\n!\ninterface GigabitEthernet0/2\n ip address 10.0.13.1 255.255.255.252\n!\nrouter ospf 1\n router-id 1.1.1.1\n passive-interface GigabitEthernet0/0\n network 192.168.1.0 0.0.0.255 area 0\n network 10.0.12.0 0.0.0.3 area 0\n network 10.0.13.0 0.0.0.3 area 0\n!\nline con 0\n logging synchronous\nline vty 0 4\n!",
+   "startup": "!\nhostname R1\n!\ninterface GigabitEthernet0/0\n ip address 192.168.1.1 255.255.255.0\n!\ninterface GigabitEthernet0/1\n ip address 10.0.12.1 255.255.255.252\n!\ninterface GigabitEthernet0/2\n ip address 10.0.13.1 255.255.255.252\n!\nrouter ospf 1\n router-id 1.1.1.1\n passive-interface GigabitEthernet0/0\n network 192.168.1.0 0.0.0.255 area 0\n network 10.0.12.0 0.0.0.3 area 0\n network 10.0.13.0 0.0.0.3 area 0\n!\nline con 0\n logging synchronous\nline vty 0 4\n!",
+   "label": ""
+  },
+  {
+   "id": "D2",
+   "type": "router",
+   "model": "r-2911",
+   "name": "R2",
+   "x": 450,
+   "y": 20,
+   "powered": true,
+   "cli": "!\nhostname R2\n!\ninterface GigabitEthernet0/0\n no ip address\n shutdown\n!\ninterface GigabitEthernet0/1\n ip address 10.0.12.2 255.255.255.252\n!\ninterface GigabitEthernet0/2\n ip address 10.0.23.1 255.255.255.252\n!\nrouter ospf 1\n router-id 2.2.2.2\n network 10.0.12.0 0.0.0.3 area 0\n network 10.0.23.0 0.0.0.3 area 0\n!\nline con 0\n logging synchronous\nline vty 0 4\n!",
+   "startup": "!\nhostname R2\n!\ninterface GigabitEthernet0/0\n no ip address\n shutdown\n!\ninterface GigabitEthernet0/1\n ip address 10.0.12.2 255.255.255.252\n!\ninterface GigabitEthernet0/2\n ip address 10.0.23.1 255.255.255.252\n!\nrouter ospf 1\n router-id 2.2.2.2\n network 10.0.12.0 0.0.0.3 area 0\n network 10.0.23.0 0.0.0.3 area 0\n!\nline con 0\n logging synchronous\nline vty 0 4\n!",
+   "label": ""
+  },
+  {
+   "id": "D3",
+   "type": "router",
+   "model": "r-2911",
+   "name": "R3",
+   "x": 750,
+   "y": 120,
+   "powered": true,
+   "cli": "!\nhostname R3\n!\ninterface GigabitEthernet0/0\n ip address 192.168.3.1 255.255.255.0\n!\ninterface GigabitEthernet0/1\n ip address 10.0.23.2 255.255.255.252\n!\ninterface GigabitEthernet0/2\n ip address 10.0.13.2 255.255.255.252\n!\nrouter ospf 1\n router-id 3.3.3.3\n passive-interface GigabitEthernet0/0\n network 192.168.3.0 0.0.0.255 area 0\n network 10.0.23.0 0.0.0.3 area 0\n network 10.0.13.0 0.0.0.3 area 0\n!\nline con 0\n logging synchronous\nline vty 0 4\n!",
+   "startup": "!\nhostname R3\n!\ninterface GigabitEthernet0/0\n ip address 192.168.3.1 255.255.255.0\n!\ninterface GigabitEthernet0/1\n ip address 10.0.23.2 255.255.255.252\n!\ninterface GigabitEthernet0/2\n ip address 10.0.13.2 255.255.255.252\n!\nrouter ospf 1\n router-id 3.3.3.3\n passive-interface GigabitEthernet0/0\n network 192.168.3.0 0.0.0.255 area 0\n network 10.0.23.0 0.0.0.3 area 0\n network 10.0.13.0 0.0.0.3 area 0\n!\nline con 0\n logging synchronous\nline vty 0 4\n!",
+   "label": ""
+  },
+  {
+   "id": "D4",
+   "type": "switch",
+   "model": "sw-2960",
+   "name": "SW1",
+   "x": 60,
+   "y": 260,
+   "powered": true,
+   "cli": "!\nhostname SW1\n!\nspanning-tree mode pvst\nline con 0\n logging synchronous\nline vty 0 4\n!",
+   "label": ""
+  },
+  {
+   "id": "D5",
+   "type": "switch",
+   "model": "sw-2960",
+   "name": "SW3",
+   "x": 840,
+   "y": 260,
+   "powered": true,
+   "cli": "!\nhostname SW3\n!\nspanning-tree mode pvst\nline con 0\n logging synchronous\nline vty 0 4\n!",
+   "label": ""
+  },
+  {
+   "id": "D6",
+   "type": "pc",
+   "model": "pc-linux",
+   "name": "PC1",
+   "x": 60,
+   "y": 360,
+   "powered": true,
+   "ifaces": [
+    {
+     "name": "ens33",
+     "ip": "192.168.1.10",
+     "mask": "255.255.255.0",
+     "dhcp": false
+    }
+   ],
+   "gw": "192.168.1.1",
+   "dns": [],
+   "domain": "",
+   "allowIcmpEcho": true,
+   "wifi": {
+    "ssid": "",
+    "key": ""
+   },
+   "hosts": {},
+   "dhcpd": {
+    "enabled": false,
+    "excluded": [],
+    "pools": []
+   },
+   "dnsd": {
+    "enabled": false,
+    "records": [],
+    "forwarders": []
+   },
+   "httpd": {
+    "enabled": false,
+    "https": false,
+    "pages": {
+     "/": {
+      "type": "text/html; charset=utf-8",
+      "body": "<html><head><title>PC1</title></head><body><h1>Bienvenue sur PC1</h1><p>Serveur web du simulateur.</p></body></html>"
+     }
+    }
+   },
+   "mgmt": {
+    "comms": [],
+    "location": "",
+    "contact": "",
+    "syslogd": false,
+    "trapd": false
+   },
+   "v6": {
+    "ifs": [
+     {
+      "name": "ens33",
+      "autoconf": true,
+      "addrs": []
+     }
+    ],
+    "statics": []
+   },
+   "label": ""
+  },
+  {
+   "id": "D7",
+   "type": "pc",
+   "model": "pc-linux",
+   "name": "PC3",
+   "x": 840,
+   "y": 360,
+   "powered": true,
+   "ifaces": [
+    {
+     "name": "ens33",
+     "ip": "192.168.3.10",
+     "mask": "255.255.255.0",
+     "dhcp": false
+    }
+   ],
+   "gw": "192.168.3.1",
+   "dns": [],
+   "domain": "",
+   "allowIcmpEcho": true,
+   "wifi": {
+    "ssid": "",
+    "key": ""
+   },
+   "hosts": {},
+   "dhcpd": {
+    "enabled": false,
+    "excluded": [],
+    "pools": []
+   },
+   "dnsd": {
+    "enabled": false,
+    "records": [],
+    "forwarders": []
+   },
+   "httpd": {
+    "enabled": false,
+    "https": false,
+    "pages": {
+     "/": {
+      "type": "text/html; charset=utf-8",
+      "body": "<html><head><title>PC3</title></head><body><h1>Bienvenue sur PC3</h1><p>Serveur web du simulateur.</p></body></html>"
+     }
+    }
+   },
+   "mgmt": {
+    "comms": [],
+    "location": "",
+    "contact": "",
+    "syslogd": false,
+    "trapd": false
+   },
+   "v6": {
+    "ifs": [
+     {
+      "name": "ens33",
+      "autoconf": true,
+      "addrs": []
+     }
+    ],
+    "statics": []
+   },
+   "label": ""
+  }
+ ],
+ "links": [
+  {
+   "a": [
+    "D1",
+    "GigabitEthernet0/1"
+   ],
+   "b": [
+    "D2",
+    "GigabitEthernet0/1"
+   ],
+   "type": "cross"
+  },
+  {
+   "a": [
+    "D2",
+    "GigabitEthernet0/2"
+   ],
+   "b": [
+    "D3",
+    "GigabitEthernet0/1"
+   ],
+   "type": "cross"
+  },
+  {
+   "a": [
+    "D1",
+    "GigabitEthernet0/2"
+   ],
+   "b": [
+    "D3",
+    "GigabitEthernet0/2"
+   ],
+   "type": "cross"
+  },
+  {
+   "a": [
+    "D4",
+    "FastEthernet0/24"
+   ],
+   "b": [
+    "D1",
+    "GigabitEthernet0/0"
+   ],
+   "type": "straight"
+  },
+  {
+   "a": [
+    "D5",
+    "FastEthernet0/24"
+   ],
+   "b": [
+    "D3",
+    "GigabitEthernet0/0"
+   ],
+   "type": "straight"
+  },
+  {
+   "a": [
+    "D6",
+    "ens33"
+   ],
+   "b": [
+    "D4",
+    "FastEthernet0/1"
+   ],
+   "type": "straight"
+  },
+  {
+   "a": [
+    "D7",
+    "ens33"
+   ],
+   "b": [
+    "D5",
+    "FastEthernet0/1"
+   ],
+   "type": "straight"
+  }
+ ],
+ "notes": "CORRIGÉ – CCNA 3-03 – Triangle R1/R2/R3, interfaces configurées, aucun routage. À faire : OSPFv2 mono-zone (aire 0), router-id, passive-interface sur les LAN."
+}

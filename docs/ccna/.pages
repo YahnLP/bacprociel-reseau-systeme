@@ -14,3 +14,12 @@ nav:
   - 2-03-lldp-etherchannel
   - 2-04-stp
   - 2-05-sans-fil-cisco-gestion
+  - 3-01-table-routage
+  - 3-02-routage-statique
+  - 3-03-ospf
+  - 3-04-redondance-premier-saut
+  - 4-01-nat
+  - 4-02-dhcp-dns
+  - 4-03-ntp-snmp-syslog
+  - 4-04-qos
+  - 4-05-ssh-tftp
