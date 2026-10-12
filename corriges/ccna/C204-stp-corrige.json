@@ -1,0 +1,232 @@
+{
+ "app": "simulateur-reseau",
+ "v": 1,
+ "opts": {
+  "strictCables": false,
+  "stpFast": true
+ },
+ "devices": [
+  {
+   "id": "D1",
+   "type": "switch",
+   "model": "sw-2960",
+   "name": "SW1",
+   "x": 400,
+   "y": 60,
+   "powered": true,
+   "cli": "!\nhostname SW1\n!\nspanning-tree mode rapid-pvst\nspanning-tree vlan 1 priority 8192\nline con 0\n logging synchronous\nline vty 0 4\n!",
+   "startup": "!\nhostname SW1\n!\nspanning-tree mode rapid-pvst\nspanning-tree vlan 1 priority 8192\nline con 0\n logging synchronous\nline vty 0 4\n!",
+   "label": ""
+  },
+  {
+   "id": "D2",
+   "type": "switch",
+   "model": "sw-2960",
+   "name": "SW2",
+   "x": 200,
+   "y": 220,
+   "powered": true,
+   "cli": "!\nhostname SW2\n!\nspanning-tree mode rapid-pvst\nspanning-tree vlan 1 priority 4096\ninterface FastEthernet0/1\n spanning-tree portfast\n spanning-tree bpduguard enable\n!\nline con 0\n logging synchronous\nline vty 0 4\n!",
+   "startup": "!\nhostname SW2\n!\nspanning-tree mode rapid-pvst\nspanning-tree vlan 1 priority 4096\ninterface FastEthernet0/1\n spanning-tree portfast\n spanning-tree bpduguard enable\n!\nline con 0\n logging synchronous\nline vty 0 4\n!",
+   "label": ""
+  },
+  {
+   "id": "D3",
+   "type": "switch",
+   "model": "sw-2960",
+   "name": "SW3",
+   "x": 600,
+   "y": 220,
+   "powered": true,
+   "cli": "!\nhostname SW3\n!\nspanning-tree mode rapid-pvst\ninterface FastEthernet0/1\n spanning-tree portfast\n spanning-tree bpduguard enable\n!\nline con 0\n logging synchronous\nline vty 0 4\n!",
+   "startup": "!\nhostname SW3\n!\nspanning-tree mode rapid-pvst\ninterface FastEthernet0/1\n spanning-tree portfast\n spanning-tree bpduguard enable\n!\nline con 0\n logging synchronous\nline vty 0 4\n!",
+   "label": ""
+  },
+  {
+   "id": "D4",
+   "type": "pc",
+   "model": "pc-linux",
+   "name": "PC-SRV",
+   "x": 80,
+   "y": 340,
+   "powered": true,
+   "ifaces": [
+    {
+     "name": "ens33",
+     "ip": "10.2.2.10",
+     "mask": "255.255.255.0",
+     "dhcp": false
+    }
+   ],
+   "gw": "",
+   "dns": [],
+   "domain": "",
+   "allowIcmpEcho": true,
+   "wifi": {
+    "ssid": "",
+    "key": ""
+   },
+   "hosts": {},
+   "dhcpd": {
+    "enabled": false,
+    "excluded": [],
+    "pools": []
+   },
+   "dnsd": {
+    "enabled": false,
+    "records": [],
+    "forwarders": []
+   },
+   "httpd": {
+    "enabled": false,
+    "https": false,
+    "pages": {
+     "/": {
+      "type": "text/html; charset=utf-8",
+      "body": "<html><head><title>PC-SRV</title></head><body><h1>Bienvenue sur PC-SRV</h1><p>Serveur web du simulateur.</p></body></html>"
+     }
+    }
+   },
+   "mgmt": {
+    "comms": [],
+    "location": "",
+    "contact": "",
+    "syslogd": false,
+    "trapd": false
+   },
+   "v6": {
+    "ifs": [
+     {
+      "name": "ens33",
+      "autoconf": true,
+      "addrs": []
+     }
+    ],
+    "statics": []
+   },
+   "label": ""
+  },
+  {
+   "id": "D5",
+   "type": "pc",
+   "model": "pc-linux",
+   "name": "PC-CLI",
+   "x": 720,
+   "y": 340,
+   "powered": true,
+   "ifaces": [
+    {
+     "name": "ens33",
+     "ip": "10.2.2.20",
+     "mask": "255.255.255.0",
+     "dhcp": false
+    }
+   ],
+   "gw": "",
+   "dns": [],
+   "domain": "",
+   "allowIcmpEcho": true,
+   "wifi": {
+    "ssid": "",
+    "key": ""
+   },
+   "hosts": {},
+   "dhcpd": {
+    "enabled": false,
+    "excluded": [],
+    "pools": []
+   },
+   "dnsd": {
+    "enabled": false,
+    "records": [],
+    "forwarders": []
+   },
+   "httpd": {
+    "enabled": false,
+    "https": false,
+    "pages": {
+     "/": {
+      "type": "text/html; charset=utf-8",
+      "body": "<html><head><title>PC-CLI</title></head><body><h1>Bienvenue sur PC-CLI</h1><p>Serveur web du simulateur.</p></body></html>"
+     }
+    }
+   },
+   "mgmt": {
+    "comms": [],
+    "location": "",
+    "contact": "",
+    "syslogd": false,
+    "trapd": false
+   },
+   "v6": {
+    "ifs": [
+     {
+      "name": "ens33",
+      "autoconf": true,
+      "addrs": []
+     }
+    ],
+    "statics": []
+   },
+   "label": ""
+  }
+ ],
+ "links": [
+  {
+   "a": [
+    "D1",
+    "FastEthernet0/23"
+   ],
+   "b": [
+    "D2",
+    "FastEthernet0/23"
+   ],
+   "type": "cross"
+  },
+  {
+   "a": [
+    "D1",
+    "FastEthernet0/24"
+   ],
+   "b": [
+    "D3",
+    "FastEthernet0/24"
+   ],
+   "type": "cross"
+  },
+  {
+   "a": [
+    "D2",
+    "FastEthernet0/24"
+   ],
+   "b": [
+    "D3",
+    "FastEthernet0/23"
+   ],
+   "type": "cross"
+  },
+  {
+   "a": [
+    "D4",
+    "ens33"
+   ],
+   "b": [
+    "D2",
+    "FastEthernet0/1"
+   ],
+   "type": "straight"
+  },
+  {
+   "a": [
+    "D5",
+    "ens33"
+   ],
+   "b": [
+    "D3",
+    "FastEthernet0/1"
+   ],
+   "type": "straight"
+  }
+ ],
+ "notes": "CORRIGÉ – CCNA 2-04 – STP : trois switchs en triangle. Faire de SW2 le pont racine (SW1 en secours), passer en Rapid PVST+, protéger les ports des postes avec PortFast et BPDU guard."
+}

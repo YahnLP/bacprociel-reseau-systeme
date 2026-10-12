@@ -1,0 +1,209 @@
+{
+ "app": "simulateur-reseau",
+ "v": 1,
+ "opts": {
+  "strictCables": false,
+  "stpFast": true
+ },
+ "devices": [
+  {
+   "id": "D1",
+   "type": "switch",
+   "model": "sw-2960",
+   "name": "SW1",
+   "x": 250,
+   "y": 120,
+   "powered": true,
+   "cli": "!\nhostname SW1\n!\nspanning-tree mode pvst\ninterface Port-channel1\n switchport mode trunk\n!\ninterface FastEthernet0/23\n channel-group 1 mode active\n!\ninterface FastEthernet0/24\n channel-group 1 mode active\n!\nline con 0\n logging synchronous\nline vty 0 4\n!",
+   "startup": "!\nhostname SW1\n!\nspanning-tree mode pvst\ninterface Port-channel1\n switchport mode trunk\n!\ninterface FastEthernet0/23\n channel-group 1 mode active\n!\ninterface FastEthernet0/24\n channel-group 1 mode active\n!\nline con 0\n logging synchronous\nline vty 0 4\n!",
+   "label": ""
+  },
+  {
+   "id": "D2",
+   "type": "switch",
+   "model": "sw-2960",
+   "name": "SW2",
+   "x": 550,
+   "y": 120,
+   "powered": true,
+   "cli": "!\nhostname SW2\n!\nspanning-tree mode pvst\ninterface Port-channel1\n switchport mode trunk\n!\ninterface FastEthernet0/23\n channel-group 1 mode active\n!\ninterface FastEthernet0/24\n channel-group 1 mode active\n!\nline con 0\n logging synchronous\nline vty 0 4\n!",
+   "startup": "!\nhostname SW2\n!\nspanning-tree mode pvst\ninterface Port-channel1\n switchport mode trunk\n!\ninterface FastEthernet0/23\n channel-group 1 mode active\n!\ninterface FastEthernet0/24\n channel-group 1 mode active\n!\nline con 0\n logging synchronous\nline vty 0 4\n!",
+   "label": ""
+  },
+  {
+   "id": "D3",
+   "type": "pc",
+   "model": "pc-linux",
+   "name": "PC1",
+   "x": 100,
+   "y": 260,
+   "powered": true,
+   "ifaces": [
+    {
+     "name": "ens33",
+     "ip": "10.1.1.1",
+     "mask": "255.255.255.0",
+     "dhcp": false
+    }
+   ],
+   "gw": "",
+   "dns": [],
+   "domain": "",
+   "allowIcmpEcho": true,
+   "wifi": {
+    "ssid": "",
+    "key": ""
+   },
+   "hosts": {},
+   "dhcpd": {
+    "enabled": false,
+    "excluded": [],
+    "pools": []
+   },
+   "dnsd": {
+    "enabled": false,
+    "records": [],
+    "forwarders": []
+   },
+   "httpd": {
+    "enabled": false,
+    "https": false,
+    "pages": {
+     "/": {
+      "type": "text/html; charset=utf-8",
+      "body": "<html><head><title>PC1</title></head><body><h1>Bienvenue sur PC1</h1><p>Serveur web du simulateur.</p></body></html>"
+     }
+    }
+   },
+   "mgmt": {
+    "comms": [],
+    "location": "",
+    "contact": "",
+    "syslogd": false,
+    "trapd": false
+   },
+   "v6": {
+    "ifs": [
+     {
+      "name": "ens33",
+      "autoconf": true,
+      "addrs": []
+     }
+    ],
+    "statics": []
+   },
+   "label": ""
+  },
+  {
+   "id": "D4",
+   "type": "pc",
+   "model": "pc-linux",
+   "name": "PC2",
+   "x": 700,
+   "y": 260,
+   "powered": true,
+   "ifaces": [
+    {
+     "name": "ens33",
+     "ip": "10.1.1.2",
+     "mask": "255.255.255.0",
+     "dhcp": false
+    }
+   ],
+   "gw": "",
+   "dns": [],
+   "domain": "",
+   "allowIcmpEcho": true,
+   "wifi": {
+    "ssid": "",
+    "key": ""
+   },
+   "hosts": {},
+   "dhcpd": {
+    "enabled": false,
+    "excluded": [],
+    "pools": []
+   },
+   "dnsd": {
+    "enabled": false,
+    "records": [],
+    "forwarders": []
+   },
+   "httpd": {
+    "enabled": false,
+    "https": false,
+    "pages": {
+     "/": {
+      "type": "text/html; charset=utf-8",
+      "body": "<html><head><title>PC2</title></head><body><h1>Bienvenue sur PC2</h1><p>Serveur web du simulateur.</p></body></html>"
+     }
+    }
+   },
+   "mgmt": {
+    "comms": [],
+    "location": "",
+    "contact": "",
+    "syslogd": false,
+    "trapd": false
+   },
+   "v6": {
+    "ifs": [
+     {
+      "name": "ens33",
+      "autoconf": true,
+      "addrs": []
+     }
+    ],
+    "statics": []
+   },
+   "label": ""
+  }
+ ],
+ "links": [
+  {
+   "a": [
+    "D1",
+    "FastEthernet0/23"
+   ],
+   "b": [
+    "D2",
+    "FastEthernet0/23"
+   ],
+   "type": "cross"
+  },
+  {
+   "a": [
+    "D1",
+    "FastEthernet0/24"
+   ],
+   "b": [
+    "D2",
+    "FastEthernet0/24"
+   ],
+   "type": "cross"
+  },
+  {
+   "a": [
+    "D3",
+    "ens33"
+   ],
+   "b": [
+    "D1",
+    "FastEthernet0/1"
+   ],
+   "type": "straight"
+  },
+  {
+   "a": [
+    "D4",
+    "ens33"
+   ],
+   "b": [
+    "D2",
+    "FastEthernet0/1"
+   ],
+   "type": "straight"
+  }
+ ],
+ "notes": "CORRIGÉ – CCNA 2-03 – Deux switchs reliés par deux câbles (Fa0/23 et Fa0/24). Observer CDP, puis regrouper les deux liens en un EtherChannel LACP."
+}

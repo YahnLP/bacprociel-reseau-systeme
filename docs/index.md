@@ -46,6 +46,15 @@ On n'apprend pas un réseau en le regardant : **on le câble, on le configure, o
 [**Ouvrir la progression →**](terminale/README.md){ .go }
 </div>
 
+<div class="card violet" markdown>
+<span class="big">🚀</span>
+
+### Parcours CCNA
+**Facultatif** – Pour les plus rapides : le programme **CCNA** avec le simulateur.
+
+[**Ouvrir le parcours →**](ccna/README.md){ .go }
+</div>
+
 </div>
 
 ## 🧱 Une séance, c'est quoi ?

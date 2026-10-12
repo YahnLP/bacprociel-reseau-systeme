@@ -1,0 +1,324 @@
+{
+ "app": "simulateur-reseau",
+ "v": 1,
+ "opts": {
+  "strictCables": false,
+  "stpFast": true
+ },
+ "devices": [
+  {
+   "id": "D1",
+   "type": "switch",
+   "model": "sw-2960",
+   "name": "SW1",
+   "x": 400,
+   "y": 120,
+   "powered": true,
+   "cli": "!\nhostname SW1\n!\nspanning-tree mode pvst\nline con 0\n logging synchronous\nline vty 0 4\n!",
+   "label": ""
+  },
+  {
+   "id": "D2",
+   "type": "pc",
+   "model": "pc-linux",
+   "name": "PC1",
+   "x": 100,
+   "y": 260,
+   "powered": true,
+   "ifaces": [
+    {
+     "name": "ens33",
+     "ip": "192.168.20.10",
+     "mask": "255.255.255.0",
+     "dhcp": false
+    }
+   ],
+   "gw": "",
+   "dns": [],
+   "domain": "",
+   "allowIcmpEcho": true,
+   "wifi": {
+    "ssid": "",
+    "key": ""
+   },
+   "hosts": {},
+   "dhcpd": {
+    "enabled": false,
+    "excluded": [],
+    "pools": []
+   },
+   "dnsd": {
+    "enabled": false,
+    "records": [],
+    "forwarders": []
+   },
+   "httpd": {
+    "enabled": false,
+    "https": false,
+    "pages": {
+     "/": {
+      "type": "text/html; charset=utf-8",
+      "body": "<html><head><title>PC1</title></head><body><h1>Bienvenue sur PC1</h1><p>Serveur web du simulateur.</p></body></html>"
+     }
+    }
+   },
+   "mgmt": {
+    "comms": [],
+    "location": "",
+    "contact": "",
+    "syslogd": false,
+    "trapd": false
+   },
+   "v6": {
+    "ifs": [
+     {
+      "name": "ens33",
+      "autoconf": true,
+      "addrs": []
+     }
+    ],
+    "statics": []
+   },
+   "label": ""
+  },
+  {
+   "id": "D3",
+   "type": "pc",
+   "model": "pc-linux",
+   "name": "PC2",
+   "x": 300,
+   "y": 260,
+   "powered": true,
+   "ifaces": [
+    {
+     "name": "ens33",
+     "ip": "192.168.20.11",
+     "mask": "255.255.255.0",
+     "dhcp": false
+    }
+   ],
+   "gw": "",
+   "dns": [],
+   "domain": "",
+   "allowIcmpEcho": true,
+   "wifi": {
+    "ssid": "",
+    "key": ""
+   },
+   "hosts": {},
+   "dhcpd": {
+    "enabled": false,
+    "excluded": [],
+    "pools": []
+   },
+   "dnsd": {
+    "enabled": false,
+    "records": [],
+    "forwarders": []
+   },
+   "httpd": {
+    "enabled": false,
+    "https": false,
+    "pages": {
+     "/": {
+      "type": "text/html; charset=utf-8",
+      "body": "<html><head><title>PC2</title></head><body><h1>Bienvenue sur PC2</h1><p>Serveur web du simulateur.</p></body></html>"
+     }
+    }
+   },
+   "mgmt": {
+    "comms": [],
+    "location": "",
+    "contact": "",
+    "syslogd": false,
+    "trapd": false
+   },
+   "v6": {
+    "ifs": [
+     {
+      "name": "ens33",
+      "autoconf": true,
+      "addrs": []
+     }
+    ],
+    "statics": []
+   },
+   "label": ""
+  },
+  {
+   "id": "D4",
+   "type": "pc",
+   "model": "pc-linux",
+   "name": "PC3",
+   "x": 500,
+   "y": 260,
+   "powered": true,
+   "ifaces": [
+    {
+     "name": "ens33",
+     "ip": "192.168.20.12",
+     "mask": "255.255.255.0",
+     "dhcp": false
+    }
+   ],
+   "gw": "",
+   "dns": [],
+   "domain": "",
+   "allowIcmpEcho": true,
+   "wifi": {
+    "ssid": "",
+    "key": ""
+   },
+   "hosts": {},
+   "dhcpd": {
+    "enabled": false,
+    "excluded": [],
+    "pools": []
+   },
+   "dnsd": {
+    "enabled": false,
+    "records": [],
+    "forwarders": []
+   },
+   "httpd": {
+    "enabled": false,
+    "https": false,
+    "pages": {
+     "/": {
+      "type": "text/html; charset=utf-8",
+      "body": "<html><head><title>PC3</title></head><body><h1>Bienvenue sur PC3</h1><p>Serveur web du simulateur.</p></body></html>"
+     }
+    }
+   },
+   "mgmt": {
+    "comms": [],
+    "location": "",
+    "contact": "",
+    "syslogd": false,
+    "trapd": false
+   },
+   "v6": {
+    "ifs": [
+     {
+      "name": "ens33",
+      "autoconf": true,
+      "addrs": []
+     }
+    ],
+    "statics": []
+   },
+   "label": ""
+  },
+  {
+   "id": "D5",
+   "type": "pc",
+   "model": "pc-linux",
+   "name": "PC4",
+   "x": 700,
+   "y": 260,
+   "powered": true,
+   "ifaces": [
+    {
+     "name": "ens33",
+     "ip": "192.168.20.13",
+     "mask": "255.255.255.0",
+     "dhcp": false
+    }
+   ],
+   "gw": "",
+   "dns": [],
+   "domain": "",
+   "allowIcmpEcho": true,
+   "wifi": {
+    "ssid": "",
+    "key": ""
+   },
+   "hosts": {},
+   "dhcpd": {
+    "enabled": false,
+    "excluded": [],
+    "pools": []
+   },
+   "dnsd": {
+    "enabled": false,
+    "records": [],
+    "forwarders": []
+   },
+   "httpd": {
+    "enabled": false,
+    "https": false,
+    "pages": {
+     "/": {
+      "type": "text/html; charset=utf-8",
+      "body": "<html><head><title>PC4</title></head><body><h1>Bienvenue sur PC4</h1><p>Serveur web du simulateur.</p></body></html>"
+     }
+    }
+   },
+   "mgmt": {
+    "comms": [],
+    "location": "",
+    "contact": "",
+    "syslogd": false,
+    "trapd": false
+   },
+   "v6": {
+    "ifs": [
+     {
+      "name": "ens33",
+      "autoconf": true,
+      "addrs": []
+     }
+    ],
+    "statics": []
+   },
+   "label": ""
+  }
+ ],
+ "links": [
+  {
+   "a": [
+    "D2",
+    "ens33"
+   ],
+   "b": [
+    "D1",
+    "FastEthernet0/1"
+   ],
+   "type": "straight"
+  },
+  {
+   "a": [
+    "D3",
+    "ens33"
+   ],
+   "b": [
+    "D1",
+    "FastEthernet0/2"
+   ],
+   "type": "straight"
+  },
+  {
+   "a": [
+    "D4",
+    "ens33"
+   ],
+   "b": [
+    "D1",
+    "FastEthernet0/3"
+   ],
+   "type": "straight"
+  },
+  {
+   "a": [
+    "D5",
+    "ens33"
+   ],
+   "b": [
+    "D1",
+    "FastEthernet0/4"
+   ],
+   "type": "straight"
+  }
+ ],
+ "notes": "CCNA 2-01 – Table MAC et VLAN : un switch neuf, quatre postes dans le même réseau 192.168.20.0/24. Observer la table MAC, puis séparer COMPTA (VLAN 10) et ATELIER (VLAN 20)."
+}

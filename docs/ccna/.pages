@@ -1,0 +1,16 @@
+title: CCNA
+nav:
+  - README.md
+  - feuille-de-route.md
+  - glossaire-ccna.md
+  - 1-01-equipements-architectures
+  - 1-02-interfaces-diagnostic
+  - 1-03-tcp-udp-postes
+  - 1-04-ipv4-vlsm
+  - 1-05-ipv6
+  - 1-06-sans-fil-bases
+  - 2-01-commutation-vlan
+  - 2-02-trunk-inter-vlan
+  - 2-03-lldp-etherchannel
+  - 2-04-stp
+  - 2-05-sans-fil-cisco-gestion

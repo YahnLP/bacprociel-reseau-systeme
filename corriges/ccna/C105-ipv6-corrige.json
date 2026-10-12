@@ -1,0 +1,218 @@
+{
+ "app": "simulateur-reseau",
+ "v": 1,
+ "opts": {
+  "strictCables": false,
+  "stpFast": true
+ },
+ "devices": [
+  {
+   "id": "D1",
+   "type": "router",
+   "model": "r-2911",
+   "name": "R1",
+   "x": 300,
+   "y": 120,
+   "powered": true,
+   "cli": "!\nhostname R1\n!\nipv6 unicast-routing\n!\ninterface GigabitEthernet0/0\n no ip address\n ipv6 address 2001:DB8:ACAD:1::1/64\n!\ninterface GigabitEthernet0/1\n no ip address\n ipv6 address 2001:DB8:ACAD:12::1/64\n!\ninterface GigabitEthernet0/2\n no ip address\n shutdown\n!\nipv6 route 2001:DB8:ACAD:2::/64 2001:DB8:ACAD:12::2\n!\nline con 0\n logging synchronous\nline vty 0 4\n!",
+   "startup": "!\nhostname R1\n!\nipv6 unicast-routing\n!\ninterface GigabitEthernet0/0\n no ip address\n ipv6 address 2001:DB8:ACAD:1::1/64\n!\ninterface GigabitEthernet0/1\n no ip address\n ipv6 address 2001:DB8:ACAD:12::1/64\n!\ninterface GigabitEthernet0/2\n no ip address\n shutdown\n!\nipv6 route 2001:DB8:ACAD:2::/64 2001:DB8:ACAD:12::2\n!\nline con 0\n logging synchronous\nline vty 0 4\n!",
+   "label": ""
+  },
+  {
+   "id": "D2",
+   "type": "router",
+   "model": "r-2911",
+   "name": "R2",
+   "x": 600,
+   "y": 120,
+   "powered": true,
+   "cli": "!\nhostname R2\n!\nipv6 unicast-routing\n!\ninterface GigabitEthernet0/0\n no ip address\n ipv6 address 2001:DB8:ACAD:2::1/64\n!\ninterface GigabitEthernet0/1\n no ip address\n ipv6 address 2001:DB8:ACAD:12::2/64\n!\ninterface GigabitEthernet0/2\n no ip address\n shutdown\n!\nipv6 route 2001:DB8:ACAD:1::/64 2001:DB8:ACAD:12::1\n!\nline con 0\n logging synchronous\nline vty 0 4\n!",
+   "startup": "!\nhostname R2\n!\nipv6 unicast-routing\n!\ninterface GigabitEthernet0/0\n no ip address\n ipv6 address 2001:DB8:ACAD:2::1/64\n!\ninterface GigabitEthernet0/1\n no ip address\n ipv6 address 2001:DB8:ACAD:12::2/64\n!\ninterface GigabitEthernet0/2\n no ip address\n shutdown\n!\nipv6 route 2001:DB8:ACAD:1::/64 2001:DB8:ACAD:12::1\n!\nline con 0\n logging synchronous\nline vty 0 4\n!",
+   "label": ""
+  },
+  {
+   "id": "D3",
+   "type": "pc",
+   "model": "pc-linux",
+   "name": "PC1",
+   "x": 100,
+   "y": 220,
+   "powered": true,
+   "ifaces": [
+    {
+     "name": "ens33",
+     "ip": "",
+     "mask": "",
+     "dhcp": false
+    }
+   ],
+   "gw": "",
+   "dns": [],
+   "domain": "",
+   "allowIcmpEcho": true,
+   "wifi": {
+    "ssid": "",
+    "key": ""
+   },
+   "hosts": {},
+   "dhcpd": {
+    "enabled": false,
+    "excluded": [],
+    "pools": []
+   },
+   "dnsd": {
+    "enabled": false,
+    "records": [],
+    "forwarders": []
+   },
+   "httpd": {
+    "enabled": false,
+    "https": false,
+    "pages": {
+     "/": {
+      "type": "text/html; charset=utf-8",
+      "body": "<html><head><title>PC1</title></head><body><h1>Bienvenue sur PC1</h1><p>Serveur web du simulateur.</p></body></html>"
+     }
+    }
+   },
+   "mgmt": {
+    "comms": [],
+    "location": "",
+    "contact": "",
+    "syslogd": false,
+    "trapd": false
+   },
+   "v6": {
+    "ifs": [
+     {
+      "name": "ens33",
+      "autoconf": true,
+      "addrs": [
+       "2001:db8:acad:1::10/64"
+      ]
+     }
+    ],
+    "statics": [
+     {
+      "net": "::",
+      "plen": 0,
+      "nh": "2001:db8:acad:1::1",
+      "iface": null,
+      "ad": 1
+     }
+    ]
+   },
+   "label": ""
+  },
+  {
+   "id": "D4",
+   "type": "pc",
+   "model": "pc-linux",
+   "name": "PC2",
+   "x": 800,
+   "y": 220,
+   "powered": true,
+   "ifaces": [
+    {
+     "name": "ens33",
+     "ip": "",
+     "mask": "",
+     "dhcp": false
+    }
+   ],
+   "gw": "",
+   "dns": [],
+   "domain": "",
+   "allowIcmpEcho": true,
+   "wifi": {
+    "ssid": "",
+    "key": ""
+   },
+   "hosts": {},
+   "dhcpd": {
+    "enabled": false,
+    "excluded": [],
+    "pools": []
+   },
+   "dnsd": {
+    "enabled": false,
+    "records": [],
+    "forwarders": []
+   },
+   "httpd": {
+    "enabled": false,
+    "https": false,
+    "pages": {
+     "/": {
+      "type": "text/html; charset=utf-8",
+      "body": "<html><head><title>PC2</title></head><body><h1>Bienvenue sur PC2</h1><p>Serveur web du simulateur.</p></body></html>"
+     }
+    }
+   },
+   "mgmt": {
+    "comms": [],
+    "location": "",
+    "contact": "",
+    "syslogd": false,
+    "trapd": false
+   },
+   "v6": {
+    "ifs": [
+     {
+      "name": "ens33",
+      "autoconf": true,
+      "addrs": [
+       "2001:db8:acad:2::10/64"
+      ]
+     }
+    ],
+    "statics": [
+     {
+      "net": "::",
+      "plen": 0,
+      "nh": "2001:db8:acad:2::1",
+      "iface": null,
+      "ad": 1
+     }
+    ]
+   },
+   "label": ""
+  }
+ ],
+ "links": [
+  {
+   "a": [
+    "D3",
+    "ens33"
+   ],
+   "b": [
+    "D1",
+    "GigabitEthernet0/0"
+   ],
+   "type": "cross"
+  },
+  {
+   "a": [
+    "D1",
+    "GigabitEthernet0/1"
+   ],
+   "b": [
+    "D2",
+    "GigabitEthernet0/1"
+   ],
+   "type": "cross"
+  },
+  {
+   "a": [
+    "D2",
+    "GigabitEthernet0/0"
+   ],
+   "b": [
+    "D4",
+    "ens33"
+   ],
+   "type": "cross"
+  }
+ ],
+ "notes": "CORRIGÉ – CCNA 1-05 – IPv6 : deux routeurs, deux postes Linux. Plan : 2001:db8:acad:1::/64 (PC1), 2001:db8:acad:12::/64 (lien), 2001:db8:acad:2::/64 (PC2)."
+}
