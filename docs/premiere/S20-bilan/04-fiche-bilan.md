@@ -8,9 +8,9 @@
 
 | Compétence | Ce que je sais faire **seul** | Ce que je fais **avec aide** | Preuve (projet, TP, S…) |
 |---|---|---|---|
-| **C06** – Préparer (schémas, adressage, matériel) | | | |
-| **C09** – Installer, configurer (câblage, switch, routeur, serveur) | | | |
-| **C10** – Tester, dépanner, sécuriser | | | |
+| **C06** – Valider la conformité (tests, vérification du cahier des charges) | | | |
+| **C09** – Installer (câblage, switch, routeur, serveur, mise en service) | | | |
+| **C10** – Exploiter (alertes, mises à jour, optimisation, dépannage, sécurité) | | | |
 
 ## 2. Mes trois acquis dont je suis le plus fier
 

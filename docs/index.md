@@ -57,6 +57,9 @@ On n'apprend pas un réseau en le regardant : **on le câble, on le configure, o
 <div markdown>**🖥️ Simulateur**<br>Fichiers `.json` à ouvrir hors ligne</div>
 </div>
 
+> [!EXAMPLE] 🚀 Pour aller plus loin
+> Ce pictogramme signale un contenu **au-delà du programme**, utile au métier de technicien, **non exigé à l'épreuve terminale**. Tu peux le lire pour t'enrichir ; il n'est pas à apprendre par cœur.
+
 ## 🧰 Ressources
 
 <div class="cards" markdown>

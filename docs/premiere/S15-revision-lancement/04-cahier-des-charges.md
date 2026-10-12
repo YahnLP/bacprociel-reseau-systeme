@@ -64,9 +64,9 @@ Le **serveur** (Linux) héberge : DHCP (pour les trois services), DNS (`intranet
 
 | Livrable | Séance | Compétence |
 |---|---|---|
-| Dossier d'étude (schéma, adressage, VLAN, câblage) | S16 | C06 – Préparer |
-| Maquette configurée et sauvegardée | S17 | C09 – Installer, configurer |
-| Cahier de recette + dossier technique + dépannage | S18 | C10 – Tester, dépanner |
+| Dossier d'étude (schéma, adressage, VLAN, câblage) | S16 | Préparation du projet |
+| Maquette configurée et sauvegardée | S17 | C09 – Installer |
+| Cahier de recette + dossier technique + dépannage | S18 | C06 – Valider la conformité · C10 – Exploiter |
 | **Soutenance** (démonstration + panne en direct) | S19 | C06 · C09 · C10 |
 
 ## 7. Rôles dans l'équipe

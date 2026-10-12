@@ -91,6 +91,23 @@ module.exports = function (TPS, env) {
     startShould: ['Les postes de VLAN différents ne se joignent pas (VLAN actifs)', 'Le switch porte son nom SW-ATELIER', 'La configuration restaurée est sauvegardée'],
   });
 
+  /* ---------- S07 (partie G) : optimiser le réseau de l'atelier Bonnet ---------- */
+  const SV_OPT = SV_CFG.replace(/\nend$/, '') + '\nexit\nvlan 30\nname VISITEURS\nend\nwrite memory';
+  TPS.push({
+    id: 't07-optimisation', start: D + 'S07-maj-sauvegardes/tp/t07-optimisation.json', solution: K + 'T07-optimisation-corrige.json',
+    notes: 'Terminale S07 (partie G) – Le switch de l\'atelier Bonnet marche et est sauvegardé, mais il est mal optimisé : ports libres toujours actifs, aucune description sur les ports utilisés, VLAN 30 VISITEURS créé mais jamais utilisé. À faire : auditer, optimiser sans rien casser, vérifier, sauvegarder.',
+    build(sim, h) { svBuild(h); cliRun(h.get('SW1'), SV_OPT); },
+    solve(sim, h) { cliRun(dv({ sim }, 'SW1'), 'enable\nPme#2027\nconfigure terminal\ninterface range fa0/5 - 24\nshutdown\nexit\ninterface fa0/1\ndescription PC-BUREAU\nexit\ninterface fa0/3\ndescription PC-ATELIER\nexit\nno vlan 30\nend\nwrite memory'); },
+    checks: [
+      { label: 'Les ports libres Fa0/5 à Fa0/24 sont désactivés', run: c => /FastEthernet0\/24\n shutdown/.test(cfg(c, 'SW1')) },
+      { label: 'Les ports utilisés (Fa0/1 et Fa0/3) ont une description', run: c => /FastEthernet0\/1\n description/.test(cfg(c, 'SW1')) && /FastEthernet0\/3\n description/.test(cfg(c, 'SW1')) },
+      { label: 'Le VLAN 30 inutilisé est supprimé', run: c => !/VISITEURS/.test(ios(c, 'SW1', 'show vlan brief', PW)) },
+      { label: 'Le réseau fonctionne toujours (VLAN 10 et 20 toujours séparés)', run: c => !c.ping('PC-A', '192.168.1.12') && /VLAN0?10|BUREAU/.test(ios(c, 'SW1', 'show vlan brief', PW)) },
+      { label: 'Les optimisations sont sauvegardées', run: c => /FastEthernet0\/24\n shutdown/.test(scfg(c, 'SW1')) && /FastEthernet0\/1\n description/.test(scfg(c, 'SW1')) },
+    ],
+    startShould: ['Les ports libres Fa0/5 à Fa0/24 sont désactivés', 'Les ports utilisés (Fa0/1 et Fa0/3) ont une description', 'Le VLAN 30 inutilisé est supprimé', 'Les optimisations sont sauvegardées'],
+  });
+
   /* ---------- S08 : intégrer des équipements (cabinet d'architectes Lemoine) ---------- */
   function inBuild(h) {
     const { dev, get } = h;

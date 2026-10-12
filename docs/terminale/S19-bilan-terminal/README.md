@@ -42,7 +42,7 @@
 ## 🧪 Matériel et préparation
 
 - Le **passeport d'autonomie** de l'élève.
-- Le **livret E31**.
+- Le **livret de preuves**.
 - Des **brochures** ou sites d'orientation (voir ci-dessous).
 
 ## 🧭 Évaluation

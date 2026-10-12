@@ -145,6 +145,15 @@ Tu **repères** les équipements, tu **ne les configures pas** en Terminale :
 
 Ce qui reste **pareil** : adresse IP, VLAN, câblage, documentation.
 
+Ce qui **change** par rapport à un réseau de bureau :
+
+| | Réseau de bureau | Réseau d'atelier (industriel) |
+|---|---|---|
+| **Environnement** | Salle propre, climatisée | Poussière, vibrations, chaleur, humidité |
+| **Disponibilité** | Une panne gêne les utilisateurs | Une panne **arrête la production** |
+| **Sécurité** | Réseau relié à Internet | Réseau **séparé** (VLAN ou pare-feu), **jamais** exposé directement à Internet |
+| **Intervention** | On prévient le responsable informatique | On demande l'**accord du chef d'atelier** (arrêt, consignation) |
+
 ### ✅ Vérifie que tu as compris
 
 Quelle règle de ce cours s'applique **aussi** à un automate d'atelier ?
@@ -152,6 +161,14 @@ Quelle règle de ce cours s'applique **aussi** à un automate d'atelier ?
 <details markdown="1"><summary>Voir la réponse</summary>
 
 **Adresse fixe réservée**, **VLAN dédié**, **mot de passe changé**, **documentation à jour**.
+
+</details>
+
+Pourquoi demande-t-on l'accord du chef d'atelier **avant** de redémarrer un switch d'atelier ?
+
+<details markdown="1"><summary>Voir la réponse</summary>
+
+Parce qu'un redémarrage coupe le réseau et peut **arrêter les machines** en cours de production : on choisit **le bon moment** avec le responsable.
 
 </details>
 

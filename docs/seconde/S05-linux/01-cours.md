@@ -116,6 +116,15 @@ Tout est rangé dans **un seul grand arbre**, qui part d'une **racine** notée `
 > [!TIP]
 > **Chemin (path)** = l'adresse d'un fichier dans l'arbre. Sous Linux on utilise des **/** (barres obliques) et pas des `\`. Les noms sont **sensibles à la casse** : `Photo.jpg` et `photo.jpg` sont **deux fichiers différents**.
 
+### 🛠️ Surveiller sa machine
+
+| Commande | Ce qu'elle montre |
+|---|---|
+| `df -h` | L'**espace disque** utilisé et libre (`-h` : tailles lisibles) |
+| `free -h` | La **mémoire** (RAM) utilisée et libre |
+
+Un technicien qui entend « l'ordinateur est lent » commence souvent par ces deux commandes : disque plein ? mémoire saturée ?
+
 ### 👥 Les utilisateurs et `sudo`
 
 - Chaque personne a son **compte** et son **dossier personnel** dans `/home`.

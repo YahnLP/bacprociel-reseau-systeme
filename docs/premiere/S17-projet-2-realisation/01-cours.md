@@ -55,6 +55,9 @@ Si une étape casse tout, on **revient** à la dernière configuration qui march
 
 ## 2. Le relais DHCP
 
+> [!EXAMPLE]+ 🚀 Pour aller plus loin
+> Ce passage va **au-delà du référentiel** : il est utile au métier, mais **non exigé à l'épreuve terminale**.
+
 ### 🤔 Avant de lire : à ton avis ?
 
 Le serveur DHCP est dans le réseau **Atelier**. Un poste de la **Direction** envoie sa demande DHCP en **diffusion**. Le serveur la reçoit-il ?

@@ -63,7 +63,7 @@
 
 - **Diagnostic, pas évaluation** : annoncer clairement que rien n'est noté. L'**absence d'aide** est le but : observer ce que l'élève fait **seul**.
 - Le fichier de départ pose le matériel **sans câble** ; compter **7 contrôles** automatiques (adresses DHCP, nom, imprimante, sécurité du switch, sauvegarde). Le **mot de passe** du switch est libre (le contrôle vérifie la **présence** d'un `enable secret`).
-- **Modalités de l'E31** : la partie « modalités » du cours reprend la **circulaire de l'établissement** (CCF ou épreuve ponctuelle) ; **vérifier et adapter** (calendrier, nombre de situations, composition de la commission) avant la séance. Les textes officiels font foi, pas ce document.
+- **Modalités de l'E31** : le cours rappelle le cadre : **épreuve pratique de 3 h, coefficient 5**, plateau technique, documentation d'appui autorisée, C06/C09/C10. **Compléter** avec le calendrier et le déroulé précis de l'établissement ; les textes officiels font foi.
 - Le **livret** : s'appuyer sur les activités **R2, R3, R5** ; repérer les élèves **sans aucune activité documentée**.
 - Corrigé : `corriges/terminale/T01-corrige.md` et `T01-mini-chantier-corrige.json`.
 

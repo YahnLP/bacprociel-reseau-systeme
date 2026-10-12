@@ -6,7 +6,7 @@
 | **Semaine** | S18 – 7 juin 2027 (CFA) |
 | **Durée** | 4 heures |
 | **Autonomie visée** | 🔴 Autonome |
-| **Prérequis** | S17 (évaluation) ; livret E31 en cours |
+| **Prérequis** | S17 (évaluation) ; livret de preuves en cours |
 | **Référentiel** | C06 · C09 · C10 |
 
 > [!NOTE]
@@ -16,7 +16,7 @@
 
 1. **Identifier** les compétences à consolider ou à positionner.
 2. **Reprendre** un chantier ciblé (ou une seconde situation si elle est prévue).
-3. **Finaliser** le livret E31 : procès-verbaux, schémas, comptes rendus, mesures.
+3. **Finaliser** le livret de preuves : procès-verbaux, schémas, comptes rendus, mesures.
 4. **Vérifier** que chaque compétence a au moins une preuve.
 
 ## 📚 Contenu de la séance
@@ -25,7 +25,7 @@
 |---|---|
 | [📖 Cours élève](01-cours.md) | Constituer un livret de preuves : quoi garder, comment l'organiser |
 | [🛠️ TP](02-tp.md) | Audit du livret, reprise ciblée, finalisation |
-| [📝 Aide-mémoire](03-aide-memoire.md) | Check-list du livret E31 |
+| [📝 Aide-mémoire](03-aide-memoire.md) | Check-list du livret de preuves |
 | [📋 Fiche de suivi du livret](03-fiche-livret.md) | Tableau des preuves par compétence |
 
 ## ⏱️ Déroulé conseillé (4 h)
@@ -40,7 +40,7 @@
 
 ## 🧪 Matériel et préparation
 
-- Le **livret E31** de l'élève (papier ou numérique).
+- Le **livret de preuves** de l'élève (papier ou numérique).
 - Les **preuves** déjà réalisées : recettes, comptes rendus, schémas, mesures, captures.
 - Les ateliers de [S14](../S14-revision-remediation/README.md) ou un nouveau sujet type.
 
@@ -48,7 +48,7 @@
 
 | Quoi | Comment |
 |---|---|
-| **Livret E31 complet** | Chaque compétence est appuyée par au moins une preuve |
+| **Livret de preuves complet** | Chaque compétence est appuyée par au moins une preuve |
 | **Reprise ciblée** | Positionnement ou consolidation |
 
 ## 🏭 Mission en entreprise
@@ -59,9 +59,9 @@
 
 <details markdown="1"><summary>Points d'attention</summary>
 
-- **Les élèves sont à des étapes différentes** : certains consolident, d'autres complètent leur livret, d'autres passent une **seconde situation** si elle est prévue par le dispositif. Prévoir plusieurs **postes de travail**.
+- **Les élèves sont à des étapes différentes** : certains consolident, d'autres complètent leur livret, d'autres refont un **chantier d'entraînement**. Prévoir plusieurs **postes de travail**.
 - **Les preuves venues de l'entreprise** (PFMP) sont à **valider** avec le tuteur ; elles ne doivent contenir **aucune donnée confidentielle** (adresses publiques, mots de passe, noms de clients).
-- **Modalités** : voir le dispositif de l'établissement (CCF ou épreuve ponctuelle) ; le livret sert dans les deux cas à **justifier** l'acquisition des compétences.
+- **Modalités** : l'épreuve finale est ponctuelle (3 h, coef. 5) ; le dossier de preuves n'est pas évalué, il sert de **suivi et de préparation**.
 - Corrigé : `corriges/terminale/T18-corrige.md` (attendus de la fiche de suivi).
 - Corrigé : `corriges/terminale/T18-corrige.md`.
 

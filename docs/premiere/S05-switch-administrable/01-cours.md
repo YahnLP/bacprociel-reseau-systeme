@@ -77,6 +77,7 @@ Dans les **modes** de la console : *utilisateur* (`>`, on regarde un peu), *priv
 | `show version` | Modèle, version, adresse MAC de base |
 | `show interfaces status` | **Tous les ports** : connecté ou non, VLAN, vitesse |
 | `show mac address-table` | **Quelle MAC est derrière quel port** |
+| `show cdp neighbors` | **Quels équipements Cisco sont branchés** sur quel port (retrouver un câble) |
 | `show ip interface brief` | Les adresses IP et l'état des interfaces |
 | `show running-config` | La **configuration en cours** |
 | `show startup-config` | La configuration **sauvegardée** (celle du prochain démarrage) |

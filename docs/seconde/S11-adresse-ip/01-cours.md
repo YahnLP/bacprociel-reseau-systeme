@@ -214,6 +214,8 @@ Double-clic sur le PC → onglet **Configuration IP** → **Statique** → adres
 
 ```text
 C:\> ipconfig             (Windows)
+C:\> ipconfig /all         (Windows : plus de détails, dont l'adresse MAC)
+C:\> getmac                (Windows : seulement l'adresse MAC)
 $ ip a                    (Linux)
 ```
 

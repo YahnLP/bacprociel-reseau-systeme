@@ -53,6 +53,9 @@ Un **événement** (changement d'état) **et** une information de **disponibilit
 
 ## 2. SNMP : poser des questions aux équipements
 
+> [!EXAMPLE]+ 🚀 Pour aller plus loin
+> Ce passage va **au-delà du référentiel** : il est utile au métier, mais **non exigé à l'épreuve terminale**.
+
 ### 🤔 Avant de lire : à ton avis ?
 
 Tu veux savoir « combien de temps le switch est-il allumé ? » depuis ton poste. **Comment lui demander** sans te connecter dessus ?

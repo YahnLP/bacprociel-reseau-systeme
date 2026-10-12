@@ -125,7 +125,7 @@ Pour **vérifier que tu comprends** ce que tu as fait et que tu peux **le justif
 
 ### 💡 L'idée
 
-**Prépare 3 justifications** : **pourquoi** ces VLAN, **pourquoi** cette sécurité, **comment** tu as testé. **Puis** : ajoute **tes preuves** au **livret E31** (recette, compte rendu, captures).
+**Prépare 3 justifications** : **pourquoi** ces VLAN, **pourquoi** cette sécurité, **comment** tu as testé. **Puis** : ajoute **tes preuves** au **livret de preuves** (recette, compte rendu, captures).
 
 ### ✅ Vérifie que tu as compris
 

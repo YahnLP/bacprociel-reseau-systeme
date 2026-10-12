@@ -12,6 +12,17 @@ reload                     # redémarrer
 
 Sauvegarde réseau (si disponible) : `copy running-config tftp:` · `copy tftp: running-config`.
 
+## Optimiser
+
+```text
+show interfaces status           # ports actifs et libres
+interface range fa0/5 - 24       # puis : shutdown   (couper les ports libres)
+interface fa0/1                  # puis : description PC-BUREAU
+no vlan 30                       # supprimer un VLAN inutilisé
+```
+
+Règle : mesurer avant · une modification à la fois · vérifier après · noter · sauvegarder.
+
 ## Restaurer
 
 `enable` → `configure terminal` → coller → `end` → `write memory` → vérifier.

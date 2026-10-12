@@ -10,7 +10,8 @@
 - [ ] expliquer la différence entre **running-config** et **startup-config** ;
 - [ ] **sauvegarder** puis **restaurer** une configuration ;
 - [ ] **préparer** une mise à jour avec un **retour arrière** ;
-- [ ] **tenir** un journal des modifications.
+- [ ] **tenir** un journal des modifications ;
+- [ ] **optimiser** un réseau qui fonctionne, avec une preuve avant / après.
 
 ---
 
@@ -70,7 +71,8 @@ De la **configuration** de l'ancien switch (VLAN, ports, mots de passe, nom). Si
 
 **Sauvegarde simple (copier-coller) :** `show running-config` → copier le texte → l'enregistrer dans un fichier `SW-ATELIER_2026-11-30.txt`.
 
-**Sauvegarde réseau (si le matériel le permet) :** `copy running-config tftp:` ou SCP vers un serveur.
+> [!EXAMPLE]+ 🚀 Pour aller plus loin : la sauvegarde sur un serveur
+> Si le matériel le permet, `copy running-config tftp:` (ou SCP) envoie la sauvegarde **directement sur un serveur**, sans copier-coller.
 
 **Restauration :** coller les lignes dans le terminal en mode `configure terminal`, puis `write memory`.
 
@@ -147,7 +149,7 @@ D'un **historique** : ce qui a été changé, **quand**, **par qui**, **pourquoi
 | 30/11/2026 | SW-ATELIER | VLAN 20 « ATELIER » créé | Séparer l'atelier | Y. L. | `SW-ATELIER_2026-11-30.txt` |
 
 > [!NOTE]
-> Le journal est une **preuve** pour ton livret E31 : il montre que tu **documentes** ce que tu fais.
+> Le journal est une **preuve** pour ton livret de preuves : il montre que tu **documentes** ce que tu fais.
 
 ### ✅ Vérifie que tu as compris
 
@@ -161,6 +163,44 @@ Complète : « Une modification **non notée** dans le journal, c'est… »
 
 ---
 
+## 5. Optimiser : faire mieux avec ce qu'on a
+
+### 🤔 Avant de lire : à ton avis ?
+
+Le réseau d'un garage fonctionne : personne ne s'en plaint. Tu as une heure devant toi. **Que peux-tu encore améliorer, sans rien casser ?**
+
+<details markdown="1"><summary>Voir la réponse</summary>
+
+Un réseau qui « marche » peut être **plus sûr, plus clair et plus facile à dépanner** : ports inutilisés coupés, descriptions et VLAN à jour, services inutiles désactivés, micrologiciel à jour, configuration sauvegardée. **Optimiser**, c'est améliorer **sans changer le service rendu**.
+
+</details>
+
+### 💡 L'idée
+
+| Optimisation | Pourquoi | Comment le vérifier ? |
+|---|---|---|
+| **Ports libres coupés** (`shutdown`) | Personne ne peut brancher un appareil inconnu | `show interfaces status` |
+| **Description** sur chaque port utilisé | Dépanner vite : on sait ce qui est branché | `show running-config` |
+| **VLAN inutilisé supprimé** | Le schéma reste fidèle à la réalité | `show vlan brief` |
+| **Telnet retiré, SSH seul** | Les mots de passe ne circulent plus en clair | `show running-config` |
+| **Micrologiciel à jour** | Les failles connues sont corrigées | `show version` |
+| **Canal Wi-Fi le moins encombré** | Meilleur débit, moins de coupures | application d'analyse Wi-Fi |
+
+> [!TIP]
+> **La règle de l'optimisation :** on **mesure avant** (on note l'état), on change **une chose à la fois**, on **vérifie après** que rien n'est cassé, on **note dans le journal** et on **sauvegarde**.
+
+### ✅ Vérifie que tu as compris
+
+Pourquoi relever l'état du réseau **avant** de modifier quoi que ce soit ?
+
+<details markdown="1"><summary>Voir la réponse</summary>
+
+Pour **prouver** que l'optimisation a amélioré les choses (avant / après) et pour **pouvoir revenir en arrière** si quelque chose se casse.
+
+</details>
+
+---
+
 ## 🧠 À retenir
 
 - **running-config** = en cours (perdue) ; **startup-config** = enregistrée.
@@ -168,3 +208,4 @@ Complète : « Une modification **non notée** dans le journal, c'est… »
 - **Mise à jour** : sauvegarde → notice → client prévenu → mise à jour → test/retour arrière.
 - **Journal** : date, équipement, modification, pourquoi, qui.
 - **Règle 3-2-1** : 3 copies, 2 supports, 1 hors site.
+- **Optimiser** : mesurer avant, **une** modification à la fois, vérifier après, noter, sauvegarder.

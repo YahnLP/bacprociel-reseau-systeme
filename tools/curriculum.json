@@ -916,7 +916,8 @@
   "auto": "Autonome",
   "acts": [
    "Mise à jour du micrologiciel d'un switch, routeur ou borne : procédure, vérification, retour arrière",
-   "Mises à jour des systèmes ; sauvegarde et restauration d'une configuration (TFTP / SCP) ; journal des modifications"
+   "Mises à jour des systèmes ; sauvegarde et restauration d'une configuration (TFTP / SCP) ; journal des modifications",
+   "Optimiser un réseau qui fonctionne : ports libres coupés, descriptions, VLAN inutilisé, preuve avant / après"
   ],
   "ref": "C10 · mises à jour · lignes de commande (niv. 3)",
   "ev": [
@@ -1111,19 +1112,18 @@
   "s": "S17",
   "type": "eval",
   "tag": "ÉVALUATION E31",
-  "theme": "Évaluation certificative E31",
+  "theme": "Épreuve blanche E31 (3 h)",
   "auto": "Autonome",
   "acts": [
    "Chantier complet type (installer, configurer, valider, exploiter) sur le plateau technique",
-   "Si CCF : positionnement sur la grille nationale par la commission du dernier trimestre ; calendrier et nombre de situations selon la circulaire de l'établissement",
-   "Si épreuve ponctuelle : pratique de 3 h devant deux enseignants"
+   "Conditions de l'épreuve terminale : pratique de 3 h, coefficient 5, documentation d'appui autorisée (évaluation à blanc, non certificative)"
   ],
   "ref": "C06 · C09 · C10",
   "ev": [
-   "Positionnement sur la grille nationale"
+   "Positionnement à blanc sur la grille nationale"
   ],
   "date": "2027-05-24",
-  "ent": "Compléter le livret avec les preuves de l'évaluation."
+  "ent": "Compléter le dossier de preuves avec les preuves de l’épreuve blanche."
  },
  {
   "year": "terminale",

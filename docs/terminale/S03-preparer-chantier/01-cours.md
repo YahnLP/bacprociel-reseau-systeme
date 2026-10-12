@@ -54,6 +54,9 @@ Parce qu'on a tendance à les **oublier** ou à les **bâcler** en fin de journ�
 
 ## 2. La checklist de préparation
 
+> [!NOTE]
+> **À la livraison**, on contrôle le matériel **avant de signer** : bon de livraison comparé à la commande, état, numéros de série ; tout écart est noté en **réserve** sur le bon.
+
 On ne part **jamais** sans l'avoir **cochée**. Elle couvre : **documents**, **matériel**, **outillage**, **sécurité**, **accès**, **client** (voir [la checklist](03-checklist-chantier.md)).
 
 > [!NOTE]

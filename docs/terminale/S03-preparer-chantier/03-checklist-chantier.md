@@ -9,6 +9,7 @@
 | | Plan d'accès, interlocuteur et son numéro | ☐ |
 | | Dossier **vérifié** : manques et écarts signalés (S02) | ☐ |
 | **Matériel** | Liste du matériel **comparée au stock** et **réunie** | ☐ |
+| | **Réception contrôlée** (bon de livraison, références, état, numéros de série) | ☐ |
 | | Matériel de **rechange** (cordons, connecteurs, prises) | ☐ |
 | **Outillage** | Perceuse, niveau, mètre, tire-câble, pince à sertir | ☐ |
 | | Testeur de câble, **étiqueteuse**, lampe frontale | ☐ |

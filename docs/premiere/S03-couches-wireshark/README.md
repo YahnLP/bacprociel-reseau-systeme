@@ -7,7 +7,7 @@
 | **Durée** | 4 heures |
 | **Autonomie visée** | 🟡 Semi-guidé |
 | **Prérequis** | S02 (simulateur, adresse + masque, `ping`) |
-| **Référentiel** | C06 · modèles en couches (niv. 1) · IPv4 (niv. 3) |
+| **Référentiel** | C06 · modèles OSI/IP en couches (niv. 1) · IPv4 (niv. 3) |
 
 > [!NOTE]
 > **Question qui guide la séance :** *« Quand je tape `ping`, qu'est-ce qui part vraiment sur le câble ? Et pourquoi dit-on qu'un réseau fonctionne « par couches » ? »*

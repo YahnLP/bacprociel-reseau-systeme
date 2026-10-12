@@ -1,0 +1,175 @@
+{
+ "app": "simulateur-reseau",
+ "v": 1,
+ "opts": {
+  "strictCables": false,
+  "stpFast": true
+ },
+ "devices": [
+  {
+   "id": "D1",
+   "type": "switch",
+   "model": "sw-2960",
+   "name": "SW-ATELIER",
+   "x": 330,
+   "y": 180,
+   "powered": true,
+   "cli": "!\nhostname SW-ATELIER\n!\nenable secret Pme#2027\n!\nspanning-tree mode pvst\nvlan 10\n name BUREAU\n!\nvlan 20\n name ATELIER\n!\ninterface FastEthernet0/1\n description PC-BUREAU\n switchport access vlan 10\n switchport mode access\n!\ninterface FastEthernet0/2\n switchport access vlan 10\n switchport mode access\n!\ninterface FastEthernet0/3\n description PC-ATELIER\n switchport access vlan 20\n switchport mode access\n!\ninterface FastEthernet0/4\n switchport access vlan 20\n switchport mode access\n!\ninterface FastEthernet0/5\n shutdown\n!\ninterface FastEthernet0/6\n shutdown\n!\ninterface FastEthernet0/7\n shutdown\n!\ninterface FastEthernet0/8\n shutdown\n!\ninterface FastEthernet0/9\n shutdown\n!\ninterface FastEthernet0/10\n shutdown\n!\ninterface FastEthernet0/11\n shutdown\n!\ninterface FastEthernet0/12\n shutdown\n!\ninterface FastEthernet0/13\n shutdown\n!\ninterface FastEthernet0/14\n shutdown\n!\ninterface FastEthernet0/15\n shutdown\n!\ninterface FastEthernet0/16\n shutdown\n!\ninterface FastEthernet0/17\n shutdown\n!\ninterface FastEthernet0/18\n shutdown\n!\ninterface FastEthernet0/19\n shutdown\n!\ninterface FastEthernet0/20\n shutdown\n!\ninterface FastEthernet0/21\n shutdown\n!\ninterface FastEthernet0/22\n shutdown\n!\ninterface FastEthernet0/23\n shutdown\n!\ninterface FastEthernet0/24\n shutdown\n!\nbanner motd ^CAtelier Bonnet - acces reserve^C\n!\nline con 0\n logging synchronous\nline vty 0 4\n!",
+   "startup": "!\nhostname SW-ATELIER\n!\nenable secret Pme#2027\n!\nspanning-tree mode pvst\nvlan 10\n name BUREAU\n!\nvlan 20\n name ATELIER\n!\ninterface FastEthernet0/1\n description PC-BUREAU\n switchport access vlan 10\n switchport mode access\n!\ninterface FastEthernet0/2\n switchport access vlan 10\n switchport mode access\n!\ninterface FastEthernet0/3\n description PC-ATELIER\n switchport access vlan 20\n switchport mode access\n!\ninterface FastEthernet0/4\n switchport access vlan 20\n switchport mode access\n!\ninterface FastEthernet0/5\n shutdown\n!\ninterface FastEthernet0/6\n shutdown\n!\ninterface FastEthernet0/7\n shutdown\n!\ninterface FastEthernet0/8\n shutdown\n!\ninterface FastEthernet0/9\n shutdown\n!\ninterface FastEthernet0/10\n shutdown\n!\ninterface FastEthernet0/11\n shutdown\n!\ninterface FastEthernet0/12\n shutdown\n!\ninterface FastEthernet0/13\n shutdown\n!\ninterface FastEthernet0/14\n shutdown\n!\ninterface FastEthernet0/15\n shutdown\n!\ninterface FastEthernet0/16\n shutdown\n!\ninterface FastEthernet0/17\n shutdown\n!\ninterface FastEthernet0/18\n shutdown\n!\ninterface FastEthernet0/19\n shutdown\n!\ninterface FastEthernet0/20\n shutdown\n!\ninterface FastEthernet0/21\n shutdown\n!\ninterface FastEthernet0/22\n shutdown\n!\ninterface FastEthernet0/23\n shutdown\n!\ninterface FastEthernet0/24\n shutdown\n!\nbanner motd ^CAtelier Bonnet - acces reserve^C\n!\nline con 0\n logging synchronous\nline vty 0 4\n!",
+   "label": "Switch de l'atelier"
+  },
+  {
+   "id": "D2",
+   "type": "pc",
+   "model": "pc-win",
+   "name": "PC-A",
+   "x": 80,
+   "y": 60,
+   "powered": true,
+   "ifaces": [
+    {
+     "name": "Ethernet0",
+     "ip": "192.168.1.11",
+     "mask": "255.255.255.0",
+     "dhcp": false
+    }
+   ],
+   "gw": "",
+   "dns": [],
+   "domain": "",
+   "allowIcmpEcho": true,
+   "wifi": {
+    "ssid": "",
+    "key": ""
+   },
+   "hosts": {},
+   "dhcpd": {
+    "enabled": false,
+    "excluded": [],
+    "pools": []
+   },
+   "dnsd": {
+    "enabled": false,
+    "records": [],
+    "forwarders": []
+   },
+   "httpd": {
+    "enabled": false,
+    "https": false,
+    "pages": {
+     "/": {
+      "type": "text/html; charset=utf-8",
+      "body": "<html><head><title>PC-A</title></head><body><h1>Bienvenue sur PC-A</h1><p>Serveur web du simulateur.</p></body></html>"
+     }
+    }
+   },
+   "mgmt": {
+    "comms": [],
+    "location": "",
+    "contact": "",
+    "syslogd": false,
+    "trapd": false
+   },
+   "v6": {
+    "ifs": [
+     {
+      "name": "Ethernet0",
+      "autoconf": true,
+      "addrs": []
+     }
+    ],
+    "statics": []
+   },
+   "label": "Bureau"
+  },
+  {
+   "id": "D3",
+   "type": "pc",
+   "model": "pc-win",
+   "name": "PC-B",
+   "x": 80,
+   "y": 300,
+   "powered": true,
+   "ifaces": [
+    {
+     "name": "Ethernet0",
+     "ip": "192.168.1.12",
+     "mask": "255.255.255.0",
+     "dhcp": false
+    }
+   ],
+   "gw": "",
+   "dns": [],
+   "domain": "",
+   "allowIcmpEcho": true,
+   "wifi": {
+    "ssid": "",
+    "key": ""
+   },
+   "hosts": {},
+   "dhcpd": {
+    "enabled": false,
+    "excluded": [],
+    "pools": []
+   },
+   "dnsd": {
+    "enabled": false,
+    "records": [],
+    "forwarders": []
+   },
+   "httpd": {
+    "enabled": false,
+    "https": false,
+    "pages": {
+     "/": {
+      "type": "text/html; charset=utf-8",
+      "body": "<html><head><title>PC-B</title></head><body><h1>Bienvenue sur PC-B</h1><p>Serveur web du simulateur.</p></body></html>"
+     }
+    }
+   },
+   "mgmt": {
+    "comms": [],
+    "location": "",
+    "contact": "",
+    "syslogd": false,
+    "trapd": false
+   },
+   "v6": {
+    "ifs": [
+     {
+      "name": "Ethernet0",
+      "autoconf": true,
+      "addrs": []
+     }
+    ],
+    "statics": []
+   },
+   "label": "Atelier"
+  }
+ ],
+ "links": [
+  {
+   "a": [
+    "D2",
+    "Ethernet0"
+   ],
+   "b": [
+    "D1",
+    "FastEthernet0/1"
+   ],
+   "type": "straight"
+  },
+  {
+   "a": [
+    "D3",
+    "Ethernet0"
+   ],
+   "b": [
+    "D1",
+    "FastEthernet0/3"
+   ],
+   "type": "straight"
+  }
+ ],
+ "notes": "CORRIGÉ – Terminale S07 (partie G) – Le switch de l'atelier Bonnet marche et est sauvegardé, mais il est mal optimisé : ports libres toujours actifs, aucune description sur les ports utilisés, VLAN 30 VISITEURS créé mais jamais utilisé. À faire : auditer, optimiser sans rien casser, vérifier, sauvegarder."
+}

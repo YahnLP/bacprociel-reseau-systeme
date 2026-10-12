@@ -15,3 +15,8 @@ Fichiers : `T07-sauvegarde-corrige.json`, `T07-restauration-corrige.json`.
 **Partie F** : plan attendu : 1) `show version` + sauvegarde ; 2) lire la notice du constructeur ; 3) prévenir le patron, intervenir hors horaires ; 4) mettre à jour, redémarrer ; 5) `show version`, pings, retour à l'ancienne version et restauration si échec.
 
 **Contrôles automatiques** : 4/4 (sauvegarde) et 3/3 (restauration) verts sur les corrigés.
+
+
+## Partie G – Optimisation (ajout)
+
+Corrigé : `T07-optimisation-corrige.json`. Attendu : `interface range fa0/5 - 24` + `shutdown` ; `description` sur Fa0/1 et Fa0/3 ; `no vlan 30` ; `write memory`. Vérifier que PC-A et PC-B restent séparés. Question du collègue : avant de supprimer un VLAN, vérifier qu'aucun port ne l'utilise (`show vlan brief`), le noter dans le journal, sauvegarder, prévoir le retour arrière.

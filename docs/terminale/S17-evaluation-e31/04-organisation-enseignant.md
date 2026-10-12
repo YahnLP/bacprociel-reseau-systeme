@@ -1,7 +1,7 @@
-# 🧑‍🏫 Organisation de la séance d'évaluation (enseignant)
+# 🧑‍🏫 Organisation de l'épreuve blanche (enseignant)
 
 > [!WARNING]
-> **À confirmer avant la séance** : le dispositif exact (**CCF** ou **épreuve ponctuelle**), le **nombre de situations**, la composition de la **commission**, le **calendrier** et les **documents autorisés** relèvent du **règlement d'examen en vigueur** et de la **circulaire de l'établissement**. Ce document est une **aide à l'organisation**, pas un texte réglementaire.
+> **Épreuve blanche, non certificative.** Les élèves passent l'E31 en **épreuve ponctuelle pratique de 3 h (coefficient 5)**. Cette séance la répète en conditions réelles. La composition du jury, les **documents autorisés** et le déroulé exact sont à confirmer d'après le **règlement d'examen en vigueur**. Ce document est une **aide à l'organisation**, pas un texte réglementaire.
 
 ## Avant
 
@@ -16,7 +16,7 @@
 
 ## Pendant
 
-- **Observation** de l'élève pendant les 3 heures ; renseigner la **grille officielle** au fil de l'eau.
+- **Observation** de l'élève pendant les 3 heures ; renseigner la **grille nationale** à blanc au fil de l'eau.
 - **Entretien** de fin : 3 questions de justification (choix de VLAN, de sécurité, de tests).
 - **Aucune aide** (sauf incident matériel) ; **noter** toute aide apportée.
 
@@ -24,7 +24,7 @@
 
 | À faire | Fait |
 |---|---|
-| **Positionner** l'élève sur la grille (ou transmettre à la commission) | ☐ |
-| Demander à l'élève d'**ajouter ses preuves** au livret | ☐ |
+| **Positionner** l'élève à blanc sur la grille et préparer le **débrief individuel** | ☐ |
+| Demander à l'élève de **ranger ses preuves** dans son dossier de preuves | ☐ |
 | Archiver les **traces** (captures, recette, compte rendu) | ☐ |
 | Organiser un **rattrapage** si nécessaire | ☐ |

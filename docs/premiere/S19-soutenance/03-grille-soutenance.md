@@ -8,15 +8,18 @@ Niveaux : **NA** non atteint · **PA** partiellement atteint · **A** atteint ·
 
 | Compétence | Critère | NA | PA | A | TA |
 |---|---|---|---|---|---|
-| **C06 – Préparer** | Le besoin est reformulé ; les flux sont identifiés | ☐ | ☐ | ☐ | ☐ |
+| **Dossier d'étude** | Le besoin est reformulé ; les flux sont identifiés | ☐ | ☐ | ☐ | ☐ |
 | | Le plan d'adressage et de VLAN est **cohérent** et **justifié** | ☐ | ☐ | ☐ | ☐ |
 | | Le schéma est **lisible** (légende, noms, adresses) | ☐ | ☐ | ☐ | ☐ |
-| **C09 – Installer et configurer** | Câblage conforme au tableau de câblage | ☐ | ☐ | ☐ | ☐ |
+| **C09 – Installer** | Câblage conforme au tableau de câblage | ☐ | ☐ | ☐ | ☐ |
 | | Switch, routeur, serveur, Wi-Fi configurés selon le plan | ☐ | ☐ | ☐ | ☐ |
 | | Configurations **sauvegardées** et documentées | ☐ | ☐ | ☐ | ☐ |
-| **C10 – Tester et dépanner** | Les tests de **recette** prouvent le fonctionnement **et** le filtrage | ☐ | ☐ | ☐ | ☐ |
-| | **Panne en direct** : méthode (constater, délimiter, hypothèse, test) | ☐ | ☐ | ☐ | ☐ |
+| **C06 – Valider la conformité** | **Chaque exigence** du cahier des charges est vérifiée par un **test** | ☐ | ☐ | ☐ | ☐ |
+| | Les **résultats attendus** sont écrits avant le test ; les **écarts** sont notés | ☐ | ☐ | ☐ | ☐ |
+| | Les tests de **recette** prouvent le fonctionnement **et** le filtrage | ☐ | ☐ | ☐ | ☐ |
+| **C10 – Exploiter** | **Panne en direct** : méthode (constater, délimiter, hypothèse, test) | ☐ | ☐ | ☐ | ☐ |
 | | Panne **résolue** et vérifiée | ☐ | ☐ | ☐ | ☐ |
+| | Incident **consigné** (symptôme, cause, action) | ☐ | ☐ | ☐ | ☐ |
 | **Communication** | Présentation claire, **temps respecté**, tous ont parlé | ☐ | ☐ | ☐ | ☐ |
 | | Réponses honnêtes et **argumentées** aux questions | ☐ | ☐ | ☐ | ☐ |
 

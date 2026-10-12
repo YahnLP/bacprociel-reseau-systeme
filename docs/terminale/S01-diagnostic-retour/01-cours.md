@@ -9,7 +9,7 @@
 
 - [ ] décrire un **chantier en 6 étapes** ;
 - [ ] expliquer **ce que l'évaluation regarde** ;
-- [ ] dire ce que contient un **livret** et pourquoi il compte.
+- [ ] dire ce que contient ton **dossier de preuves** et à quoi il te sert.
 
 ---
 
@@ -55,21 +55,21 @@ Les deux sont évalués sur la **grille**. Le premier peut manquer de **justific
 
 | Compétence | Ce qu'on attend de toi |
 |---|---|
-| **C06 – Préparer** | Lire un dossier, repérer les manques, préparer matériel et outillage, planifier |
-| **C09 – Installer, configurer** | Câbler, monter, configurer selon le dossier, sauvegarder |
-| **C10 – Tester, dépanner** | Tester par rapport à l'attendu, dépanner avec méthode, **rendre compte** |
+| **C06 – Valider la conformité d'une installation** | Vérifier que l'installation respecte le cahier des charges : **tests** réalisés, **résultats attendus** vérifiés, **procédure** suivie |
+| **C09 – Installer** | Vérifier le matériel, câbler, monter, **configurer**, **mettre en service**, renseigner l'état de l'installation, appliquer les règles de **sécurité** |
+| **C10 – Exploiter un réseau** | **Consigner** alertes et problèmes, identifier les équipements sur un schéma, **mettre à jour**, **optimiser**, préparer son travail et le tenir dans les **délais**, travailler en équipe |
 
 > [!NOTE]
 > **À l'épreuve**, tu disposes de **documentation d'appui** (fiches mémo, documentation constructeur) : on n'attend pas que tu saches **tout par cœur**, mais que tu saches **où chercher** et **appliquer**. **Prépare tes fiches mémo.**
 
 > [!WARNING]
-> Les **modalités exactes** (nombre de situations, durée, calendrier, composition de la commission) dépendent de ton établissement : **ton enseignant te les présente** en classe.
+> **L'épreuve E31 est une épreuve pratique de 3 heures, de coefficient 5**, sur plateau technique : tu réalises un chantier qui mobilise **C06, C09 et C10**. La date et le déroulé précis te sont présentés en classe par ton enseignant.
 
 ---
 
-## 3. Le livret : tes preuves
+## 3. Le dossier de preuves : garder la trace de ce que tu sais faire
 
-Le **livret** rassemble les activités réalisées **en formation et en entreprise**. Pour chaque activité, tu y déposes : une **fiche** (contexte, tâches **personnelles**, résultat) et des **preuves** (schéma, procès-verbal de test, compte rendu, mesures).
+Le **dossier de preuves** est un outil de suivi et de préparation : il n'est **pas évalué à l'épreuve**, mais il t'aide à **garder la trace de ce que tu sais faire** et à réviser. Il rassemble les activités réalisées **en formation et en entreprise**. Pour chaque activité, tu y déposes : une **fiche** (contexte, tâches **personnelles**, résultat) et des **preuves** (schéma, procès-verbal de test, compte rendu, mesures).
 
 | Famille d'activités | Exemples |
 |---|---|

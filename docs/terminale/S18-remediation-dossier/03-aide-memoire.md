@@ -1,4 +1,4 @@
-# 📝 Aide-mémoire – Check-list du livret E31
+# 📝 Aide-mémoire – Check-list du livret de preuves
 
 ## Check-list du livret
 

@@ -1,4 +1,4 @@
-# S17 – Évaluation certificative E31
+# S17 – Épreuve blanche E31 (3 h)
 
 | Élément | Détail |
 |---|---|
@@ -17,13 +17,13 @@
 1. **Connaître** le déroulement et les critères de l'épreuve E31.
 2. **Conduire** un chantier complet en autonomie (installer, configurer, valider, exploiter).
 3. **Laisser des preuves** exploitables (captures, commandes, recette, compte rendu).
-4. **Compléter** son livret avec les preuves de l'évaluation.
+4. **Conserver** ses preuves dans son dossier de preuves et **repérer** ses points à retravailler pour S18.
 
 ## 📚 Contenu de la séance
 
 | Document | Rôle |
 |---|---|
-| [📖 Cours élève](01-cours.md) | Conseils pour le jour de l'évaluation (avant, pendant, après) |
+| [📖 Cours élève](01-cours.md) | Conseils pour le jour de l'épreuve (avant, pendant, après) |
 | [🛠️ TP](02-tp.md) | Sujet type d'entraînement : étude notariale Pasquier (même matériel, autre cahier des charges) |
 | [📝 Aide-mémoire](03-aide-memoire.md) | Check-list du jour J |
 | [`tp/t17-sujet-depart.json`](tp/t17-sujet-depart.json) | Simulateur : sujet type, matériel posé, aucun câble, aucune configuration |
@@ -34,13 +34,13 @@
 
 | Durée | Activité | Format |
 |---|---|---|
-| 0 h 00 – 0 h 20 | **Accueil** : consignes, documents autorisés, rappel des critères | Classe |
-| 0 h 20 – 3 h 20 | **Chantier complet** (3 h) en autonomie, **évalué** | Individuel |
-| 3 h 20 – 4 h 00 | **Entretien** court : justifier ses choix, répondre aux questions | Individuel |
+| 0 h 00 – 0 h 15 | **Consignes** : documents autorisés, déroulé, critères (comme le jour de l'épreuve) | Classe |
+| 0 h 15 – 3 h 15 | **Chantier complet (3 h)** en autonomie, **sans aide**, en conditions réelles | Individuel |
+| 3 h 15 – 4 h 00 | **Débrief** individuel : justifier ses choix, auto-évaluation sur la grille, points à retravailler | Individuel |
 
 ## 🧪 Matériel et préparation
 
-- Le plateau technique ou le simulateur (selon le dispositif retenu par l'établissement).
+- Le **plateau technique** (comme à l'épreuve) ; le simulateur sert de **solution de secours**.
 - Le **sujet** imprimé, l'aide-mémoire, la fiche « 15 points essentiels », la documentation d'appui autorisée.
 - La **grille officielle** de l'épreuve (fournie par l'enseignant).
 
@@ -48,22 +48,22 @@
 
 | Quoi | Comment |
 |---|---|
-| **Positionnement sur la grille nationale officielle** (C06, C09, C10) | Certificatif, selon le dispositif de l'établissement (CCF ou épreuve ponctuelle) |
-| **Preuves du livret E31** | Complétées après la séance |
+| **Positionnement à blanc sur la grille nationale** (C06, C09, C10) | **Non certificatif** : l'épreuve réelle est une épreuve ponctuelle pratique de 3 h (coefficient 5) ; ce positionnement oriente la remédiation de S18 |
+| **Dossier de preuves** | Les preuves de l'épreuve blanche y sont rangées après la séance |
 
 ## 🏭 Mission en entreprise
 
-> *Compléter le livret avec les preuves de l'évaluation.*
+> *Ranger les preuves de l'épreuve blanche dans son dossier de preuves et noter **3 points à retravailler** pour la séance S18.*
 
 ## 🧑‍🏫 Notes pour l'enseignant
 
 <details markdown="1"><summary>Points d'attention</summary>
 
-- **Cette séance est certificative** : les modalités exactes (**CCF** ou **épreuve ponctuelle**, nombre de situations, commission, calendrier) dépendent du **règlement d'examen** et de la **circulaire de l'établissement**. **À vérifier et à confirmer** avant la séance (voir [Organisation](04-organisation-enseignant.md)). Le plan de formation ne se substitue pas à ces textes.
+- **Cette séance est une épreuve blanche** : les élèves passent l'E31 en **épreuve ponctuelle pratique de 3 h (coefficient 5)**. L'enseignant joue le rôle du jury et renseigne la grille nationale à blanc ; il n'y a **aucune note certificative** (voir [Organisation](04-organisation-enseignant.md)). Les détails de l'épreuve (jury, documents autorisés) sont à confirmer d'après le règlement d'examen.
 - **Le sujet type** de ce dossier (étude notariale Pasquier, `t17-sujet-depart.json`) est **fourni à titre d'entraînement** et de sujet de **secours**. Il utilise **le même matériel** que S15 mais **un autre cahier des charges** (autres réseaux, VLAN, SSID, noms) : les élèves ne peuvent pas le dérouler de mémoire.
-- **Si l'évaluation se fait sur le plateau physique**, le simulateur peut servir **uniquement** à préparer ou à une situation de rattrapage.
+- **De préférence sur le plateau physique**, comme à l'épreuve ; le simulateur sert à préparer, de solution de secours ou de rattrapage.
 - **Vérification automatique :** 8 contrôles pour l'enseignant (aide au positionnement, pas la note). Corrigé : `corriges/terminale/T17-corrige.md`, `T17-sujet-corrige.json`.
-- **Preuves** : demander à l'élève d'**imprimer ou d'enregistrer** ses captures, sa recette, son compte rendu et de les **ajouter à son livret**.
+- **Preuves** : demander à l'élève d'**imprimer ou d'enregistrer** ses captures, sa recette, son compte rendu et de les **ranger dans son dossier de preuves**.
 - Corrigé : `corriges/terminale/T17-corrige.md`, `T17-sujet-corrige.json`.
 
 </details>

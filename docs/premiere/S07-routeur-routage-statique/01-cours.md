@@ -120,7 +120,7 @@ ip route <réseau> <masque> <prochain saut>
 > [!WARNING]
 > **Chaque routeur doit connaître chaque réseau lointain.** Penser **aller ET retour** : pour chaque route écrite d'un côté, vérifier la route inverse de l'autre.
 
-Pour vérifier un chemin : `tracert 192.168.20.100` (Windows) ; chaque ligne est **un routeur traversé**. Une ligne `*` signale **le premier endroit où ça casse**.
+Pour vérifier un chemin : `tracert 192.168.20.100` (Windows) ; chaque ligne est **un routeur traversé**. Une ligne `*` signale **le premier endroit où ça casse**. Sous Linux, la commande s'appelle `traceroute`. Pour afficher la **table de routage d'un poste** : `route print` (Windows) ou `ip route` (Linux).
 
 ### ✅ Vérifie que tu as compris
 

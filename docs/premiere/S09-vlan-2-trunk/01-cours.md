@@ -46,6 +46,9 @@ Avec 5 VLAN, combien de câbles entre deux switchs avec la solution trunk ?
 
 ## 2. L'étiquette 802.1Q
 
+> [!EXAMPLE]+ 🚀 Pour aller plus loin
+> Ce passage va **au-delà du référentiel** : il est utile au métier, mais **non exigé à l'épreuve terminale**.
+
 ### 🤔 Avant de lire : à ton avis ?
 
 Sur le même câble passent des trames du VLAN 10 **et** du VLAN 20. Comment le switch d'arrivée sait-il où envoyer chacune ?

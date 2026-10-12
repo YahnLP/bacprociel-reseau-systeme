@@ -12,10 +12,12 @@ Niveaux : **NA** · **PA** · **A** · **TA**
 | | Câbles posés **sans pincement**, rayon de courbure respecté | ☐ | ☐ | ☐ | ☐ |
 | | Baie rangée : passe-câbles, velcro, cordons adaptés | ☐ | ☐ | ☐ | ☐ |
 | | Étiquetage **cohérent** aux deux bouts | ☐ | ☐ | ☐ | ☐ |
-| **C06 – Préparer** | Planification écrite, **checklist** utilisée | ☐ | ☐ | ☐ | ☐ |
 | | Respect des **consignes de sécurité** | ☐ | ☐ | ☐ | ☐ |
-| **C10 – Tester** | Mesures réalisées et **consignées** | ☐ | ☐ | ☐ | ☐ |
+| **C06 – Valider la conformité** | Mesures **comparées aux exigences** du dossier (longueur, câblage) | ☐ | ☐ | ☐ | ☐ |
+| | **Procédure de test** suivie, résultats attendus vérifiés | ☐ | ☐ | ☐ | ☐ |
 | | Défauts **diagnostiqués et corrigés** | ☐ | ☐ | ☐ | ☐ |
+| **C10 – Exploiter** | Planification écrite, **checklist** utilisée | ☐ | ☐ | ☐ | ☐ |
+| | Mesures et incidents **consignés** | ☐ | ☐ | ☐ | ☐ |
 | | Rapport clair, **conclusion** justifiée | ☐ | ☐ | ☐ | ☐ |
 | **Documentation** | Tableau de câblage et schéma de baie | ☐ | ☐ | ☐ | ☐ |
 

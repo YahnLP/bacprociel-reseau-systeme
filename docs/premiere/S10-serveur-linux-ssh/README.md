@@ -7,7 +7,7 @@
 | **Durée** | 4 heures |
 | **Autonomie visée** | 🟡 Semi-guidé |
 | **Prérequis** | Seconde S05–S06 (VM Ubuntu, terminal), Première S07 (passerelle) |
-| **Référentiel** | C10 · C11 · lignes de commande (niv. 3) · SSH · serveurs (niv. 3) |
+| **Référentiel** | C10 · lignes de commande (niv. 3) · connexion à distance (niv. 3) · serveurs (niv. 2) |
 
 > [!NOTE]
 > **Question qui guide la séance :** *« Un serveur est dans une baie, sans écran. Comment l'installer, lui donner une adresse fixe, créer les comptes… et s'en occuper depuis son poste sans jamais le toucher ? »*

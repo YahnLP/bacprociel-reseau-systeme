@@ -251,6 +251,10 @@ Un technicien doit pouvoir répondre en 30 secondes à : *« Quel Windows ? Quel
 | Processeur, mémoire, nom du PC | **Paramètres → Système → À propos de** |
 | Tout le détail (matériel, système) | `Windows` + `R`, taper `msinfo32`, `Entrée` |
 | L'espace disque | **Explorateur de fichiers → Ce PC** |
+| Le détail complet en **une commande** | `systeminfo` dans l'invite de commandes |
+
+> [!EXAMPLE]+ 🚀 Pour aller plus loin : réparer les fichiers système
+> Un Windows qui plante ou qui affiche des erreurs étranges a parfois des **fichiers système abîmés**. En invite de commandes **administrateur**, `sfc /scannow` les **vérifie** et répare ceux qu'il peut. Compte une dizaine de minutes.
 
 ---
 

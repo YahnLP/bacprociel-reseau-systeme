@@ -61,7 +61,10 @@ La PME **MécaPro** possède la plage `192.168.1.0/24`. Elle a besoin de :
 4. **Vérifie** avec l'outil du professeur (ou une calculatrice de sous-réseaux) : écris les écarts trouvés.
 
 > [!TIP]
-> **Méthode :** place d'abord le plus **gros** bloc au début, puis le suivant juste après, et ainsi de suite. On gaspille moins d'adresses (c'est le **VLSM**, masques de tailles variables).
+> **Méthode :** place d'abord le plus **gros** bloc au début, puis le suivant juste après, et ainsi de suite. On gaspille moins d'adresses.
+
+> [!EXAMPLE]+ 🚀 Pour aller plus loin : le VLSM
+> Découper ainsi un réseau en blocs de **tailles différentes** s'appelle le **VLSM** (*Variable Length Subnet Mask*) : chaque sous-réseau reçoit un masque adapté à son nombre de machines.
 
 ## Niveau 5 – Défi
 

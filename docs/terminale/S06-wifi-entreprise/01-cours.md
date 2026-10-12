@@ -90,6 +90,9 @@ En PSK : **changer la clé** et la redonner à **tous** les autres. En Entrepris
 
 ## 3. RADIUS : l'authentification d'entreprise (lecture)
 
+> [!EXAMPLE]+ 🚀 Pour aller plus loin
+> Ce passage va **au-delà du référentiel** : il est utile au métier, mais **non exigé à l'épreuve terminale**.
+
 ### 🤔 Avant de lire : à ton avis ?
 
 À l'entrée d'un immeuble, le gardien ne connaît pas tous les visiteurs. Qui lui dit s'il peut laisser entrer ?

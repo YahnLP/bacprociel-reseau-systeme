@@ -27,7 +27,7 @@
 | **S14** | 5 avril 2027 | Révision et remédiation individualisée | 🔴 Autonome | [📘 Ouvrir](S14-revision-remediation/README.md) |
 | **S15** | 26 avril 2027 | Chantier complet d'entraînement n°1 | 🔴 Autonome | [📘 Ouvrir](S15-chantier-1/README.md) |
 | **S16** | 17 mai 2027 | Chantier complet d'entraînement n°2 | 🔴 Autonome | [📘 Ouvrir](S16-chantier-2/README.md) |
-| **S17** | 24 mai 2027 | Évaluation certificative E31 | 🔴 Autonome | [📘 Ouvrir](S17-evaluation-e31/README.md) |
+| **S17** | 24 mai 2027 | Épreuve blanche E31 (3 h) | 🔴 Autonome | [📘 Ouvrir](S17-evaluation-e31/README.md) |
 | **S18** | 7 juin 2027 | Remédiation, rattrapage et dossier | 🔴 Autonome | [📘 Ouvrir](S18-remediation-dossier/README.md) |
 | **S19** | 14 juin 2027 | Bilan terminal et suite de parcours | 🔴 Autonome | [📘 Ouvrir](S19-bilan-terminal/README.md) |
 

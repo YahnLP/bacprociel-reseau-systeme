@@ -177,6 +177,9 @@ Transport : **TCP** (la poignée de main). Application : **HTTP** (`GET`, `200 O
 
 ---
 
+> [!EXAMPLE]+ 🚀 Pour aller plus loin : tester un port sous Windows
+> Sous Windows (PowerShell), `Test-NetConnection 192.168.1.10 -Port 443` dit si **le port 443 répond** sur le serveur. C'est un test de **couche transport**, plus précis qu'un simple `ping`.
+
 ## 📌 Vocabulaire
 
 | Mot | Définition |

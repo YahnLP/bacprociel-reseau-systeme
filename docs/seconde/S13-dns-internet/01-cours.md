@@ -11,7 +11,7 @@
 - [ ] utiliser `nslookup` et `ping` sur un **nom** ;
 - [ ] raconter les étapes pour atteindre un site web ;
 - [ ] lire un `tracert` ;
-- [ ] expliquer le **NAT** (une adresse publique pour tout le réseau) ;
+- [ ] distinguer adresse **privée** et adresse **publique** ;
 - [ ] diagnostiquer une **panne DNS**.
 
 ---
@@ -44,6 +44,7 @@ Qui est le **serveur DNS** de ton PC ? C'est une des informations données par l
 |---|---|---|
 | `nslookup nom` | Demande l'adresse d'un nom **et montre qui a répondu** | `nslookup www.exemple.fr` |
 | `ping nom` | Traduit le nom, **puis** teste la liaison | `ping www.exemple.fr` |
+| `ipconfig /flushdns` | **Vide la mémoire** des noms déjà traduits (Windows) | à faire après avoir corrigé le DNS |
 
 ![nslookup dans le simulateur](images/sim-nslookup.png)
 
@@ -163,7 +164,7 @@ Le **réseau marche** (Teams utilise des adresses déjà connues). C'est la **tr
 ![Panne DNS dans le simulateur](images/sim-dns-panne.png)
 
 > [!TIP]
-> **Réflexe :** `ipconfig /all` → regarde la ligne **Serveurs DNS**. Est-elle vide ? Est-ce **la bonne adresse** (souvent la box ou celle de l'entreprise) ?
+> **Réflexe :** `ipconfig /all` → regarde la ligne **Serveurs DNS**. Est-elle vide ? Est-ce **la bonne adresse** (souvent la box ou celle de l'entreprise) ? Après correction, tape `ipconfig /flushdns` : Windows garde en mémoire les anciennes réponses.
 
 ### ✅ Vérifie que tu as compris
 
@@ -203,15 +204,17 @@ Le site **ne voit jamais** l'adresse privée. Ta **box** remplace l'adresse priv
 
 - **Adresse privée** (`192.168.x.x`, `10.x.x.x`, `172.16.x.x`…) : **utilisée localement**, jamais routée sur Internet.
 - **Adresse publique** : **unique au monde**, fournie par l'opérateur. Ta box en a **une**.
-- **NAT** : la box **remplace** l'adresse privée de chaque PC par **sa propre adresse publique** en sortant ; elle **note** qui a demandé quoi pour rendre la réponse au bon PC.
 
+> [!EXAMPLE]+ 🚀 Pour aller plus loin : le NAT, comment la box s'y prend
+> - **NAT** : la box **remplace** l'adresse privée de chaque PC par **sa propre adresse publique** en sortant ; elle **note** qui a demandé quoi pour rendre la réponse au bon PC.
+>
 > *Analogie :* un **standard téléphonique** d'entreprise. Tous les appels sortants affichent **le même numéro** ; le standard sait à quel poste passer chaque réponse.
-
-La table de la box (dans le simulateur : *BOX → Console (CLI) → `show ip nat translations`*) :
-
-![Table NAT de la box](images/sim-nat.png)
-
-On y lit : **PC1 (192.168.1.11)** et **PC3 (192.168.1.10)** sortent **tous deux** avec `203.0.113.2`.
+>
+> La table de la box (dans le simulateur : *BOX → Console (CLI) → `show ip nat translations`*) :
+>
+> ![Table NAT de la box](images/sim-nat.png)
+>
+> On y lit : **PC1 (192.168.1.11)** et **PC3 (192.168.1.10)** sortent **tous deux** avec `203.0.113.2`.
 
 ### ✅ Vérifie que tu as compris
 

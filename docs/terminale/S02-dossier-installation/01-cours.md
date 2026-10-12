@@ -9,6 +9,7 @@
 
 - [ ] nommer les **pièces** d'un dossier d'installation ;
 - [ ] vérifier la **complétude** et la **cohérence** d'un dossier ;
+- [ ] **lire** un plan d'alimentation et **vérifier** qu'il suffit (charge, PoE) ;
 - [ ] **poser les bonnes questions** avant le chantier.
 
 ---
@@ -75,7 +76,50 @@ Classe : (a) « le plan montre 8 prises, le cahier demande 10 » ; (b) « la pri
 
 ---
 
-## 3. Préparer la liste du matériel
+## 3. Le plan d'alimentation de la baie
+
+### 🤔 Avant de lire : à ton avis ?
+
+Un switch PoE doit alimenter **huit caméras de 7 W**. **De quelles informations as-tu besoin avant de les brancher ?**
+
+<details markdown="1"><summary>Voir la réponse</summary>
+
+De la **puissance totale** que le switch peut fournir (son **budget PoE**), de la **puissance de chaque caméra**, et du **circuit électrique** disponible dans la baie (prises, protection, onduleur).
+
+</details>
+
+### 💡 L'idée
+
+Un plan d'alimentation montre **d'où vient le courant** et **ce qui est branché dessus**.
+
+| Symbole / élément | Rôle |
+|---|---|
+| **Disjoncteur** | Protège le circuit (coupe en cas de surcharge) |
+| **Prise 230 V** | Alimente les équipements de la baie |
+| **Multiprise de baie** | Répartit plusieurs équipements sur une prise |
+| **Onduleur** | Garde la baie alimentée quelques minutes en cas de coupure |
+| **Parafoudre** | Protège contre les surtensions |
+| **Terre** | Évacue les courants de défaut |
+
+> [!TIP]
+> **La règle :** la **somme des puissances** des équipements doit rester **inférieure à la capacité** disponible. Exemple : 8 caméras × 7 W = **56 W**, pour un budget PoE de 120 W : **c'est suffisant**.
+
+> [!WARNING]
+> On **ne touche pas** au tableau électrique sans **habilitation** (B1V) : on **signale** et on demande à un électricien.
+
+### ✅ Vérifie que tu as compris
+
+Un switch PoE a un budget de 120 W. On veut brancher 1 borne Wi-Fi de 15 W et 4 caméras de 12 W. **Le budget suffit-il ?**
+
+<details markdown="1"><summary>Voir la réponse</summary>
+
+15 W + 4 × 12 W = **63 W**, inférieur à 120 W : **oui**, il reste **57 W** de marge.
+
+</details>
+
+---
+
+## 4. Préparer la liste du matériel
 
 Pour chaque ligne : **quantité** nécessaire, **marge** (≈ 10 %), **disponible en stock ?**, **à commander ?**.
 
@@ -91,4 +135,5 @@ Pour chaque ligne : **quantité** nécessaire, **marge** (≈ 10 %), **disponibl
 
 - Un dossier se lit avec **trois questions** : complet ? cohérent ? conforme au terrain ?
 - On **signale** et on **fait valider** avant d'installer.
+- Le plan d'alimentation se vérifie : **somme des puissances ≤ capacité** ; on ne touche pas au tableau sans habilitation.
 - La liste du matériel se compare **toujours** au stock.

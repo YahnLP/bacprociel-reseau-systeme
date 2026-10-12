@@ -7,7 +7,7 @@
 | **Durée** | 4 heures |
 | **Autonomie visée** | 🟡 Semi-guidé |
 | **Prérequis** | S04 (DHCP, DNS observés), S06 (plan d'adressage), S10 (serveur) |
-| **Référentiel** | C09 · C10 · C11 · DHCP, DNS (niv. 3) |
+| **Référentiel** | C09 · C10 · DHCP, DNS (niv. 3) |
 
 > [!NOTE]
 > **Question qui guide la séance :** *« Le jour de l'ouverture, 40 postes arrivent : qui leur donne une adresse, une passerelle… et comment retrouvent-ils `intranet` sans taper une adresse IP ? »*

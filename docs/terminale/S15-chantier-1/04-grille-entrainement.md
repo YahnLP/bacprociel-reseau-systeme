@@ -17,8 +17,10 @@ Niveaux : **0** non réalisé · **1** réalisé avec aide importante · **2** r
 | | Configure les équipements (VLAN, routage, services, Wi-Fi) | ☐ | ☐ | ☐ | ☐ | ☐ |
 | **C10** Exploiter | Applique une **démarche** de dépannage | ☐ | ☐ | ☐ | ☐ | ☐ |
 | | **Sauvegarde** et documente (journal, schéma) | ☐ | ☐ | ☐ | ☐ | ☐ |
-| | Rédige un **compte rendu** exploitable | ☐ | ☐ | ☐ | ☐ | ☐ |
-| **Attitude** | Respecte les règles de sécurité, gère son temps | ☐ | ☐ | ☐ | ☐ | ☐ |
+| | Rédige un **compte rendu** exploitable | ☐ | ☐ | ☐ | ☐ |
+| | Propose et applique une **amélioration** (optimisation) et vérifie le résultat | ☐ | ☐ | ☐ | ☐ |
+| | Livre un travail de **qualité** dans le **temps imparti** | ☐ | ☐ | ☐ | ☐ | ☐ |
+| **Attitude** | Respecte les règles de sécurité, gère son temps, **coopère** avec son binôme | ☐ | ☐ | ☐ | ☐ | ☐ |
 
 **Points forts :** ______________________________________
 

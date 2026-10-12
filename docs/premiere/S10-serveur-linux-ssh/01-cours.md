@@ -35,6 +35,14 @@ Moins de logiciels = **moins de pannes et de failles**, **moins de mémoire et d
 | **Adresse IP** | Souvent DHCP | **Fixe** (on doit toujours le retrouver) |
 | **Accès** | Clavier/écran | **SSH** |
 
+Un serveur se **surveille** aussi en ligne de commande :
+
+| Commande | Ce qu'elle montre |
+|---|---|
+| `top` | Les **processus** qui consomment le plus (touche `q` pour quitter) |
+| `ps aux` | La **liste** de tous les processus en cours |
+| `df -h` · `free -h` | **Disque** et **mémoire** (vus en Seconde S05) |
+
 Dans le TP, tu **joindras** d'abord un serveur depuis **un autre réseau** (S07 : le serveur doit avoir une **passerelle**), puis tu en **installeras** un.
 
 ### ✅ Vérifie que tu as compris
@@ -154,6 +162,9 @@ PermitRootLogin no
 
 > [!WARNING]
 > **Avant** de désactiver le mot de passe : vérifie que **ta clé fonctionne** dans un **second** terminal. Sinon tu t'enfermes dehors.
+
+> [!EXAMPLE]+ 🚀 Pour aller plus loin : copier un fichier et planifier une tâche
+> `scp fichier admin@192.168.56.10:/home/admin/` **copie** un fichier vers le serveur **à travers SSH** (donc chiffré). `cron` **planifie** une tâche (par exemple une sauvegarde chaque nuit) : on l'édite avec `crontab -e`.
 
 ## 📖 Vocabulaire
 

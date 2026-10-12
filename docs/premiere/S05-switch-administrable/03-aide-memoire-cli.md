@@ -19,6 +19,7 @@
 | `show version` | Modèle, version, MAC |
 | `show interfaces status` | État de tous les ports |
 | `show mac address-table` | MAC ↔ ports |
+| `show cdp neighbors` | Équipements voisins branchés (nom, port) |
 | `show ip interface brief` | Adresses IP |
 | `show running-config` | Configuration en cours |
 | `show startup-config` | Configuration sauvegardée |

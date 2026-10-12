@@ -42,6 +42,29 @@ Un réseau est **découpé en couches** : chaque couche rend **un service** à c
 > [!TIP]
 > **À retenir :** le **switch** travaille avec les **MAC** (couche 2) ; le **routeur** avec les **IP** (couche 3).
 
+### Et le modèle OSI ?
+
+Dans les notices, les offres d'emploi et chez les collègues, on parle aussi du **modèle OSI**, à **7 couches**. C'est le **même découpage**, en plus détaillé :
+
+| OSI (7 couches) | TCP/IP (ce cours) |
+|---|---|
+| 7 Application · 6 Présentation · 5 Session | **Application** |
+| 4 Transport | **Transport** |
+| 3 Réseau | **Réseau** (Internet) |
+| 2 Liaison de données | **Liaison** |
+| 1 Physique | **Physique** |
+
+> [!NOTE]
+> **TCP/IP** est le modèle **réel** d'Internet ; **OSI** est un **langage commun** pour se comprendre. Quand on dit « un switch de **niveau 2** », cela veut dire « un switch qui travaille sur la couche **liaison** ».
+
+**Question :** un « switch de niveau 3 » utilise quelle adresse **en plus** des adresses MAC ?
+
+<details markdown="1"><summary>Voir la réponse</summary>
+
+Les adresses **IP** : il sait **router**, comme un routeur.
+
+</details>
+
 ### ✅ Vérifie que tu as compris
 
 À quelle couche appartient le `ping` (ICMP) ? Et un câble RJ45 ?
@@ -174,6 +197,7 @@ Celle de **`R1`** : `PC1` ne peut atteindre **que son voisin direct** sur le seg
 | Mot | Définition |
 |---|---|
 | **Couche** | Un étage du modèle, avec un rôle précis |
+| **OSI** | Modèle à 7 couches, langage commun ; correspond au découpage TCP/IP |
 | **Encapsulation** | Ajout d'en-têtes à chaque couche |
 | **Trame / paquet / segment** | Données + en-têtes de la couche 2 / 3 / 4 |
 | **MAC** | Adresse physique d'une carte réseau (locale) |

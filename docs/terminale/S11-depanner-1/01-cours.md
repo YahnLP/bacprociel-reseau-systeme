@@ -49,6 +49,19 @@ Pour **savoir** ce qui a résolu (ou aggravé) le problème. Si on change trois 
 
 </details>
 
+> [!EXAMPLE]+ 🚀 Pour aller plus loin : les types de maintenance
+> Dépanner, c'est de la maintenance **corrective** (après la panne). Un technicien en fait aussi d'autres types :
+>
+> | Type | Quand ? | Exemples |
+> |---|---|---|
+> | **Préventive** | **Avant** la panne | Mises à jour, sauvegardes, nettoyage, contrôle des câbles |
+> | **Corrective** | **Après** la panne | Dépannage, remplacement d'un équipement |
+> | **Améliorative** | Pour mieux répondre au besoin | Ajouter un VLAN, optimiser, remplacer un switch trop lent |
+>
+> **Question :** une mise à jour de micrologiciel planifiée est-elle préventive ou corrective ?
+>
+> <details><summary>Voir la réponse</summary><p><strong>Préventive</strong> : on agit avant qu'une panne n'arrive.</p></details>
+
 ---
 
 ## 2. L'échelle des tests

@@ -125,6 +125,9 @@ Le disque du serveur tombe en panne. Les sauvegardes sont **sur le même disque*
 
 ## 4. Pare-feu et ACL
 
+> [!EXAMPLE]+ 🚀 Pour aller plus loin
+> Ce passage va **au-delà du référentiel** : il est utile au métier, mais **non exigé à l'épreuve terminale**.
+
 ### 🤔 Avant de lire : à ton avis ?
 
 Le serveur web de l'entreprise n'a besoin que de recevoir des requêtes **web**. Que **bloque-t-on** utilement entre les postes et ce serveur ?

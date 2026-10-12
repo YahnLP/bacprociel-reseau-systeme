@@ -7,7 +7,7 @@
 | **Durée** | 4 heures |
 | **Autonomie visée** | 🟡 Semi-guidé |
 | **Prérequis** | S10 (serveur Linux, SSH), S11 (DNS) |
-| **Référentiel** | C10 · C11 · services web et fichiers (niv. 3) |
+| **Référentiel** | C09 · C10 · services web et fichiers (niv. 3) |
 
 > [!NOTE]
 > **Question qui guide la séance :** *« L'entreprise veut un intranet que tout le monde ouvre avec un nom, et des dossiers partagés où la Direction ne voit pas l'Atelier. Qui sert la page ? Qui décide des droits ? »*
