@@ -120,3 +120,13 @@ Reprends le TP Wi-Fi de Terminale ([S06 · Wi-Fi d'entreprise](../../terminale/S
 
 > [!NOTE]
 > Le simulateur ne modélise pas les interférences entre canaux : les règles des canaux 1, 6 et 11 sont à connaître pour l'examen, pas à tester ici.
+
+## 🧊 Alternative avec Cisco Packet Tracer
+
+> [!TIP]
+> Le simulateur du site **ne modélise pas** les canaux Wi-Fi ni les interférences. Dans Packet Tracer :
+>
+> 1. Place deux points d'accès (*Access Point-PT*) et deux portables sans fil.
+> 2. Sur chaque borne, onglet **Config → Port 1** : règle le **SSID**, le **canal** (essaie 1, 6, 11 puis deux canaux voisins) et la **sécurité** (WPA2-PSK).
+> 3. Sur chaque portable, onglet **Config → Wireless0** : saisis le SSID et la clé.
+> 4. Compare la connexion avec des canaux différents et la même clé, puis avec une mauvaise clé.

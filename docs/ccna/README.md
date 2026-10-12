@@ -74,4 +74,8 @@ Le plan suit le programme officiel de l'examen :
 [page de l'examen CCNA 200-301 (Cisco)](https://www.cisco.com/site/us/en/learn/training-certifications/exams/ccna.html) et [liste des sujets v1.1 (Cisco Learning Network)](https://learningnetwork.cisco.com/s/ccna-v1-1-exam-topics), complétés par des synthèses de la liste des sujets ([Computingforgeeks](https://computingforgeeks.com/ccna-exam-topics/), [Open Exam Prep](https://open-exam-prep.com/study-guides/ccna/introduction/exam-domains-and-weights)). Les cours et TP sont **originaux**, écrits pour ce site et testés dans le simulateur.
 
 > [!NOTE]
-> Le simulateur reproduit la plupart des commandes Cisco IOS du programme, pas toutes (par exemple, il n'accepte pas le filtre `| include`, ni HSRP, NTP ou TFTP). Quand une commande est à connaître pour l'examen mais **n'existe pas dans le simulateur**, c'est indiqué dans le cours.
+> Le simulateur reproduit la plupart des commandes Cisco IOS du programme, pas toutes (par exemple, il n'accepte pas le filtre `| include`, ni HSRP, NTP ou TFTP). Quand une commande est à connaître pour l'examen mais **n'existe pas dans le simulateur**, c'est indiqué dans le cours, avec une **alternative sur Cisco Packet Tracer** (encadré 🧊).
+
+## 🧊 Cisco Packet Tracer
+
+*Packet Tracer* est le simulateur gratuit de Cisco Networking Academy ([netacad.com](https://www.netacad.com)). Il complète le simulateur du site pour ce qu'il ne fait pas (HSRP, NTP, TFTP, canaux Wi-Fi…). Les encadrés 🧊 « Alternative avec Cisco Packet Tracer » donnent un petit scénario à monter toi-même. Les fonctions disponibles dépendent de la **version** installée : vérifie avec ton enseignant.

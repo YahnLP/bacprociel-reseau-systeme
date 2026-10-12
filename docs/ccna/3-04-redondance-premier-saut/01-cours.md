@@ -104,3 +104,17 @@ Elle permet à un routeur de **priorité plus haute** de **reprendre** le rôle 
 **GLBP**.
 
 </details>
+
+---
+
+## 🧊 Alternative avec Cisco Packet Tracer (TP possible)
+
+> [!TIP]
+> **HSRP n'est pas simulé** sur le site. Packet Tracer accepte la commande `standby`. Monte ce TP :
+>
+> 1. Deux routeurs `R1` et `R2`, un switch, un PC, et un « Internet » (un routeur ou un serveur) derrière eux.
+> 2. `R1` : `192.168.1.2`, `R2` : `192.168.1.3`, adresse virtuelle `192.168.1.254` (passerelle du PC).
+> 3. Sur `R1` : `standby 1 ip 192.168.1.254`, `standby 1 priority 110`, `standby 1 preempt`. Sur `R2` : `standby 1 ip 192.168.1.254`.
+> 4. `show standby brief` : qui est *Active* ?
+> 5. Coupe l'interface de `R1` : le PC garde-t-il sa sortie ? Qui devient *Active* ?
+> 6. Rétablis `R1` : que se passe-t-il grâce à la préemption ?
