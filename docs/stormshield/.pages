@@ -9,3 +9,8 @@ nav:
   - s04-configuration-reseau
   - s05-nat
   - s06-filtrage
+  - s07-protection-applicative
+  - s08-utilisateurs-authentification
+  - s09-vpn-ipsec
+  - s10-vpn-ssl
+  - examen-blanc

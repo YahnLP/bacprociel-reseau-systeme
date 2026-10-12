@@ -1,4 +1,4 @@
-# 🛡️ Parcours Stormshield
+# 🔥 Parcours Stormshield
 
 *Pour aller plus loin – parcours pour les élèves qui terminent leurs TP en avance.*
 
@@ -22,7 +22,7 @@
 > [!NOTE]
 > La **certification CSNA** elle-même se passe chez Stormshield (examen payant). Ce parcours t'y **prépare**, il ne la remplace pas. Les cours sont **originaux**, écrits pour ce site ; les documents officiels de Stormshield restent la référence.
 
-## 📚 Les modules (lot 1)
+## 📚 Les modules
 
 | Module | Contenu | TP |
 |---|---|---|
@@ -32,14 +32,17 @@
 | [S04 · Configuration réseau](s04-configuration-reseau/01-cours.md) | Modes de déploiement, interfaces, zones, routage | [🖥️ mettre en réseau un pare-feu](s04-configuration-reseau/02-tp.md) |
 | [S05 · NAT](s05-nat/01-cours.md) | Masquerade, redirection, NAT 1:1 | [🖥️ sortir et publier](s05-nat/02-tp.md) |
 | [S06 · Filtrage](s06-filtrage/01-cours.md) | Politique, ordre des règles, état des connexions | [🖥️ une politique propre](s06-filtrage/02-tp.md) |
-
-🔜 **Lot 2** : S07 Protection applicative (URL, antivirus, IPS), S08 Utilisateurs et authentification, S09 VPN IPsec, S10 VPN SSL, examen blanc.
+| [S07 · Protection applicative](s07-protection-applicative/01-cours.md) | Filtrage d'URL, antivirus, bac à sable, IPS | [exercices + VM EVA](s07-protection-applicative/02-tp.md) |
+| [S08 · Utilisateurs et authentification](s08-utilisateurs-authentification/01-cours.md) | Annuaire, Kerberos, RADIUS, portail captif, SSO | [VM EVA + AD, ou 🧊](s08-utilisateurs-authentification/02-tp.md) |
+| [S09 · VPN IPsec](s09-vpn-ipsec/01-cours.md) | Phases, IKEv1/v2, clé pré-partagée, VTI | [🖥️ tunnel IPsec (routeurs Cisco)](s09-vpn-ipsec/02-tp.md) |
+| [S10 · VPN SSL](s10-vpn-ssl/01-cours.md) | VPN nomade, mise en service | [VM EVA ou OpenVPN](s10-vpn-ssl/02-tp.md) |
+| [📝 Examen blanc](examen-blanc/01-examen.md) | 29 questions sur S01 à S10 | corrigé inclus |
 
 ## 🧪 Le matériel de TP
 
 | Outil | Usage |
 |---|---|
-| **Simulateur du site** (SN210) | Zones, règles ordonnées, NAT, redirections, journal : S02, S04, S05, S06 |
+| **Simulateur du site** (SN210) | Zones, règles ordonnées, NAT, redirections, journal : S02, S04, S05, S06 ; VPN IPsec avec des routeurs Cisco : S09 |
 | **Cisco Packet Tracer** (🧊) | Concepts équivalents avec un routeur Cisco (ACL, NAT) quand le simulateur est limité |
 | **VM Stormshield EVA** | Vrai système SNS, pour les notions que les simulateurs n'ont pas (objets, utilisateurs, IPS, VPN) : sur demande à l'enseignant |
 

@@ -56,7 +56,7 @@ On n'apprend pas un réseau en le regardant : **on le câble, on le configure, o
 </div>
 
 <div class="card violet" markdown>
-<span class="big">🗄️</span>
+<span class="big">🌐</span>
 
 ### Parcours serveurs
 **Complémentaire** – Web, FTP, NAS et Active Directory sur **VirtualBox**.
@@ -65,7 +65,7 @@ On n'apprend pas un réseau en le regardant : **on le câble, on le configure, o
 </div>
 
 <div class="card violet" markdown>
-<span class="big">🛡️</span>
+<span class="big">🔥</span>
 
 ### Parcours Stormshield
 **Complémentaire** – Administrer un pare-feu et préparer le **CSNA**.

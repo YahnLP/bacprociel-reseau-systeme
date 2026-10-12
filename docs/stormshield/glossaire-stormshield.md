@@ -16,3 +16,14 @@
 | Règle de filtrage | *filter rule* | Autorise ou bloque selon source, destination, service | S06 |
 | Filtrage à états | *stateful inspection* | Le retour d'une connexion autorisée passe tout seul | S06 |
 | Politique par défaut | *default policy (block all)* | Tout ce qui n'est pas autorisé est bloqué | S06 |
+| Filtrage d'URL | *URL filtering* | Autorise ou bloque des sites par catégorie | S07 |
+| Antivirus | *antivirus* | Analyse les fichiers transférés | S07 |
+| Bac à sable | *sandbox* | Exécution isolée d'un fichier suspect | S07 |
+| Prévention d'intrusion | *IPS / IDS* | Bloque (IPS) ou signale (IDS) les attaques | S07 |
+| Annuaire | *directory (LDAP, Active Directory)* | Base des utilisateurs | S08 |
+| Portail captif | *captive portal* | Page de connexion avant l'accès | S08 |
+| Authentification unique | *SSO* | Pas de mot de passe à retaper | S08 |
+| Échange de clés Internet | *IKE (IKEv1, IKEv2)* | Négociation d'un VPN IPsec | S09 |
+| Clé pré-partagée | *PSK* | Secret commun aux deux pare-feux | S09 |
+| Interface de tunnel virtuelle | *VTI* | Interface représentant le tunnel IPsec | S09 |
+| VPN nomade | *remote access VPN* | Relie un poste à l'entreprise | S10 |
