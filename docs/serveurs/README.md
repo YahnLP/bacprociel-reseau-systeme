@@ -1,4 +1,4 @@
-# 🖧 Parcours serveurs sur VirtualBox
+# 🗄️ Parcours serveurs sur VirtualBox
 
 *Parcours complémentaire : installer et administrer de vrais serveurs.*
 
