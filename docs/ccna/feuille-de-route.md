@@ -42,9 +42,30 @@
 | 4-04 QoS | ☐ | ☐ | ☐ |
 | 4-05 SSH, TFTP et FTP | ☐ | ☐ | ☐ |
 
-## Domaines 5 et 6
+## Domaine 5 – Security Fundamentals
 
-🔜 Sécurité (ACL, couche 2, VPN) et automatisation : les modules arrivent dans le prochain lot.
+| Module | Cours | TP | Quiz |
+|---|---|---|---|
+| 5-01 Concepts de sécurité | ☐ | – | ☐ |
+| 5-02 Accès aux équipements et AAA | ☐ | ☐ | ☐ |
+| 5-03 Listes de contrôle d'accès (ACL) | ☐ | ☐ | ☐ |
+| 5-04 Sécurité de couche 2 | ☐ | ☐ | ☐ |
+| 5-05 VPN IPsec | ☐ | ☐ | ☐ |
+| 5-06 Sécurité du Wi-Fi | ☐ | – | ☐ |
+
+## Domaine 6 – Automation and Programmability
+
+| Module | Cours | TP | Quiz |
+|---|---|---|---|
+| 6-01 Automatisation et contrôleurs | ☐ | – | ☐ |
+| 6-02 API REST et JSON | ☐ | ☐ | ☐ |
+| 6-03 Ansible et Terraform | ☐ | – | ☐ |
+
+## 📝 Examen blanc
+
+| Étape | Fait | Score |
+|---|---|---|
+| [Examen blanc CCNA](examen-blanc/01-examen.md) | ☐ | … / 43 |
 
 > [!TIP]
 > **Règle d'or :** ne passe pas au module suivant tant que tu ne sais pas refaire le TP **sans regarder** le cours.

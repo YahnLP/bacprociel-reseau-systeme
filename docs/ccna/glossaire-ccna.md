@@ -73,3 +73,30 @@
 | Qualité de service | *QoS (DSCP, policing, shaping)* | Prioriser le trafic sensible | 4-04 |
 | Gigue | *jitter* | Variation du délai | 4-04 |
 | Transfert de fichier simple | *TFTP* | UDP 69, sans authentification | 4-05 |
+
+## 🔐 Sécurité
+
+| Français | Anglais | Définition simple | Module |
+|---|---|---|---|
+| Confidentialité, intégrité, disponibilité | *CIA triad* | Les trois objectifs de la sécurité | 5-01 |
+| Authentification multifacteur | *MFA* | Plusieurs preuves d'identité | 5-01 |
+| Authentification, autorisation, traçabilité | *AAA* | Qui, quels droits, quelles actions | 5-02 |
+| Liste de contrôle d'accès | *ACL (access control list)* | Règles permit/deny sur le trafic | 5-03 |
+| Masque inverse | *wildcard mask* | Bits « libres » dans une ACL | 5-03 |
+| Sécurité des ports | *port security* | Limite les adresses MAC par port | 5-04 |
+| Espionnage DHCP | *DHCP snooping* | Bloque les faux serveurs DHCP | 5-04 |
+| Inspection ARP dynamique | *DAI* | Bloque l'usurpation ARP | 5-04 |
+| Réseau privé virtuel | *VPN / IPsec* | Tunnel chiffré entre deux sites | 5-05 |
+| Clé pré-partagée | *PSK (pre-shared key)* | Secret commun à deux pairs | 5-05 |
+| Authentification par port | *802.1X* | Contrôle d'accès réseau par identifiant | 5-06 |
+
+## 🤖 Automatisation
+
+| Français | Anglais | Définition simple | Module |
+|---|---|---|---|
+| Réseau défini par logiciel | *SDN* | Contrôle centralisé du réseau | 6-01 |
+| Plan de contrôle / de données | *control plane / data plane* | Décide / transfère | 6-01 |
+| Interface de programmation | *API (REST)* | Dialogue entre programmes en HTTP | 6-02 |
+| Format d'échange | *JSON* | Texte clé/valeur structuré | 6-02 |
+| Infrastructure as code | *IaC (Terraform)* | Décrire l'infrastructure dans des fichiers | 6-03 |
+| Gestion de configuration | *Ansible (playbook, YAML)* | Pousser une configuration sans agent | 6-03 |

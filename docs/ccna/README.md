@@ -23,8 +23,8 @@
 | **2 – Network Access** (commutation, VLAN, STP) | 20 % | ✅ disponible |
 | **3 – IP Connectivity** (routage, OSPF) | 25 % | ✅ disponible |
 | **4 – IP Services** (NAT, DHCP, NTP, SSH…) | 10 % | ✅ disponible |
-| **5 – Security Fundamentals** (ACL, sécurité L2, VPN) | 15 % | 🔜 prochain lot |
-| **6 – Automation and Programmability** (API, JSON, Ansible) | 10 % | 🔜 prochain lot |
+| **5 – Security Fundamentals** (ACL, sécurité L2, VPN) | 15 % | ✅ disponible |
+| **6 – Automation and Programmability** (API, JSON, Ansible) | 10 % | ✅ disponible |
 
 ## 📚 Modules disponibles
 
@@ -67,6 +67,29 @@
 | [4-03 · NTP, SNMP et syslog](4-03-ntp-snmp-syslog/01-cours.md) | Heure commune, supervision, gravités | [🖥️ syslog et SNMP](4-03-ntp-snmp-syslog/02-tp.md) (NTP non simulé) |
 | [4-04 · QoS](4-04-qos/01-cours.md) | DSCP, classification, priorité, policing/shaping | [🖥️ priorité à la voix](4-04-qos/02-tp.md) |
 | [4-05 · SSH, TFTP et FTP](4-05-ssh-tftp/01-cours.md) | SSH complet, transferts, SFTP | [🖥️ sécuriser l'accès distant](4-05-ssh-tftp/02-tp.md) |
+
+### Domaine 5 – Security Fundamentals
+
+| Module | Contenu | TP simulateur |
+|---|---|---|
+| [5-01 · Concepts de sécurité](5-01-concepts-securite/01-cours.md) | Menaces, attaques, CIA, mots de passe, MFA | exercices |
+| [5-02 · Accès aux équipements et AAA](5-02-acces-equipements-aaa/01-cours.md) | enable secret, bannière, utilisateurs locaux, AAA | [🖥️ durcir un switch](5-02-acces-equipements-aaa/02-tp.md) |
+| [5-03 · Listes de contrôle d'accès (ACL)](5-03-acl/01-cours.md) | Standard, étendue, wildcard, placement | [🖥️ filtrer vers un serveur](5-03-acl/02-tp.md) |
+| [5-04 · Sécurité de couche 2](5-04-securite-couche2/01-cours.md) | Port-security, DHCP snooping, DAI | [🖥️ port-security](5-04-securite-couche2/02-tp.md) (snooping/DAI via 🧊) |
+| [5-05 · VPN IPsec](5-05-vpn-ipsec/01-cours.md) | IKE, ESP, tunnel site à site | [🖥️ relier deux sites](5-05-vpn-ipsec/02-tp.md) |
+| [5-06 · Sécurité du Wi-Fi](5-06-securite-wifi/01-cours.md) | WPA2/WPA3, PSK, 802.1X | cours + 🧊 |
+
+### Domaine 6 – Automation and Programmability
+
+| Module | Contenu | TP |
+|---|---|---|
+| [6-01 · Automatisation et contrôleurs](6-01-automatisation-controleurs/01-cours.md) | SDN, plans, réseaux pilotés par contrôleur | cours + 🧊 |
+| [6-02 · API REST et JSON](6-02-api-rest-json/01-cours.md) | REST, CRUD, JSON, mini-TP Python | exercice Python |
+| [6-03 · Ansible et Terraform](6-03-ansible-terraform/01-cours.md) | Gestion de configuration, IaC | cours seul |
+
+### 📝 Examen blanc
+
+[Examen blanc CCNA](examen-blanc/01-examen.md) : 43 questions sur les 6 domaines, avec corrigé.
 
 ## 🧭 Sources utilisées
 

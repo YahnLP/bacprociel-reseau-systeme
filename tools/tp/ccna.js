@@ -5,8 +5,12 @@ const { hostIp, cliRun, shell, IP } = L;
 const D = 'docs/ccna/', K = 'corriges/ccna/';
 const TPS = [];
 const dv = (c, n) => Array.from(c.sim.devices.values()).find(d => d.name === n);
-const ios = (c, n, cmd) => { const d = dv(c, n); const s = d.newSession(); let out = '', done = false; const io = { print: t => { out += t; }, done: () => { done = true; }, clear() { } };
-  const go = l => { done = false; s.exec(l, io); c.sim.runUntil(() => done, 60000); }; go('enable'); out = ''; go(cmd); return out; };
+const PWS = ['', 'Cisco#2027', 'cisco', 'Cisco123', 'class'];
+const ios = (c, n, cmd) => { const d = dv(c, n);
+  for (const pw of PWS) { const s = d.newSession(); let out = '', done = false; const io = { print: t => { out += t; }, done: () => { done = true; }, clear() { } };
+    const go = l => { done = false; out = ''; s.exec(l, io); c.sim.runUntil(() => done, 60000); };
+    go('enable'); if (pw) go(pw); go(cmd); if (out.trim() && !/Invalid|Access denied|Bad secrets|Password/.test(out)) return out; }
+  return ''; };
 const sh = (c, n, cmd) => shell(c.sim, dv(c, n), cmd);
 const cfg = (c, n) => ios(c, n, 'show running-config');
 const pc = (h, name, x, y, label, model) => h.dev(model || 'pc-linux', name, x, y, label);
@@ -321,6 +325,89 @@ function sshSolve(sim, h) { cliRun(h.get('SW1'), 'enable\nconf t\nhostname SW1\n
 lab({ id: 'c405-ssh', start: D + '4-05-ssh-tftp/tp/c405-ssh.json', solution: K + 'C405-ssh-corrige.json',
   notes: 'CCNA 4-05 – Sécuriser l\'accès distant : un switch, un poste d\'administration. À faire : nom de domaine, utilisateur local, clés RSA, SSH 2, lignes vty en SSH seul.',
   build: (sim, h) => sshBuild(h), solve: sshSolve, checks: sshChecks, startShould: sshChecks.map(x => x.label) });
+
+
+/* ---------- 5-02 : durcir l'accès aux équipements ---------- */
+function hdBuild(h) {
+  const { dev, link, get } = h;
+  dev('sw-2960', 'SW1', 300, 120); pc(h, 'PC-ADMIN', 100, 120); link('PC-ADMIN', PCIF, 'SW1', 'Fa0/1'); hostIp(get('PC-ADMIN'), '10.0.0.2', '24');
+  cliRun(get('SW1'), 'enable\nconf t\nhostname SW1\ninterface vlan 1\nip address 10.0.0.1 255.255.255.0\nno shutdown\nend\nwrite memory');
+}
+const hdChecks = [
+  { label: 'Mot de passe enable chiffré (enable secret)', run: c => /enable secret/.test(cfg(c, 'SW1')) },
+  { label: 'Bannière d\'avertissement (banner motd)', run: c => /banner motd/.test(cfg(c, 'SW1')) },
+  { label: 'Un compte local « admin » avec mot de passe chiffré (secret)', run: c => /username admin .*secret/.test(cfg(c, 'SW1')) },
+  { label: 'Authentification AAA locale activée', run: c => /aaa new-model/.test(cfg(c, 'SW1')) && /aaa authentication login default local/.test(cfg(c, 'SW1')) },
+  { label: 'Les lignes vty exigent une connexion (login local)', run: c => /line vty 0 4[^!]*login local/.test(cfg(c, 'SW1')) },
+];
+function hdSolve(sim, h) { cliRun(h.get('SW1'), 'enable\nconf t\nenable secret Cisco#2027\nusername admin secret Pa55w0rd!\nbanner motd #Acces reserve aux personnes autorisees#\naaa new-model\naaa authentication login default local\nline vty 0 4\nlogin local\nend\nwrite memory'); }
+lab({ id: 'c502-durcissement', start: D + '5-02-acces-equipements-aaa/tp/c502-durcissement.json', solution: K + 'C502-durcissement-corrige.json',
+  notes: 'CCNA 5-02 – Un switch neuf, sans protection. À faire : enable secret, compte local, bannière, AAA locale, lignes vty. (Chiffrement des mots de passe, console et délai de déconnexion : voir Packet Tracer.)',
+  build: (sim, h) => hdBuild(h), solve: hdSolve, checks: hdChecks, startShould: hdChecks.map(x => x.label) });
+
+/* ---------- 5-03 : ACL étendue ---------- */
+function aclBuild(h) {
+  const { dev, link, get } = h;
+  dev('r-2911', 'R1', 350, 140); dev('sw-2960', 'SW1', 150, 140); pc(h, 'PC-COMPTA', 40, 60); pc(h, 'PC-STAGIAIRE', 40, 220);
+  dev('srv-linux', 'SRV', 600, 140, 'Serveur interne (web)');
+  link('SW1', 'Fa0/24', 'R1', 'gi0/0'); link('PC-COMPTA', PCIF, 'SW1', 'Fa0/1'); link('PC-STAGIAIRE', PCIF, 'SW1', 'Fa0/2'); link('R1', 'gi0/1', 'SRV', PCIF);
+  cliRun(get('R1'), 'enable\nconf t\nhostname R1\ninterface gi0/0\nip address 192.168.10.1 255.255.255.0\nno shutdown\nexit\ninterface gi0/1\nip address 192.168.20.1 255.255.255.0\nno shutdown\nend\nwrite memory');
+  hostIp(get('PC-COMPTA'), '192.168.10.11', '24', '192.168.10.1'); hostIp(get('PC-STAGIAIRE'), '192.168.10.12', '24', '192.168.10.1'); hostIp(get('SRV'), '192.168.20.10', '24', '192.168.20.1');
+  const w = get('SRV'); w.httpd.pages['/'] = { type: 'text/html; charset=utf-8', body: '<html><body><h1>Intranet</h1></body></html>' }; if (w.httpd.start) w.httpd.start();
+}
+const web = (c, n) => /Intranet|200|<h1>/.test(sh(c, n, 'curl http://192.168.20.10'));
+const aclChecks = [
+  { label: 'PC-COMPTA ouvre le site web du serveur (HTTP)', run: c => web(c, 'PC-COMPTA') },
+  { label: 'PC-STAGIAIRE ne peut PAS ouvrir le site web', run: c => !web(c, 'PC-STAGIAIRE') },
+  { label: 'PC-COMPTA ne peut PAS faire de ping vers le serveur (seul le web est autorisé)', run: c => !/bytes from/.test(sh(c, 'PC-COMPTA', 'ping -c 2 192.168.20.10')) },
+  { label: 'Une ACL étendue nommée est appliquée en entrée sur gi0/0', run: c => /ip access-list extended \S+/.test(cfg(c, 'R1')) && /ip access-group \S+ in/.test(cfg(c, 'R1')) },
+];
+function aclSolve(sim, h) { cliRun(h.get('R1'), 'enable\nconf t\nip access-list extended VERS-SERVEUR\ndeny ip host 192.168.10.12 any\npermit tcp host 192.168.10.11 host 192.168.20.10 eq 80\ndeny ip any any\nexit\ninterface gi0/0\nip access-group VERS-SERVEUR in\nend\nwrite memory'); }
+lab({ id: 'c503-acl', start: D + '5-03-acl/tp/c503-acl.json', solution: K + 'C503-acl-corrige.json',
+  notes: 'CCNA 5-03 – ACL étendue : le serveur interne ne doit être joignable en web que depuis PC-COMPTA ; PC-STAGIAIRE ne doit rien joindre ; tout le reste est refusé.',
+  build: (sim, h) => aclBuild(h), solve: aclSolve, checks: aclChecks, startShould: [aclChecks[1].label, aclChecks[2].label, aclChecks[3].label] });
+
+/* ---------- 5-04 : port security ---------- */
+function psBuild(h) {
+  const { dev, link, get } = h;
+  dev('sw-2960', 'SW1', 300, 120); pc(h, 'PC1', 100, 60); pc(h, 'PC2', 100, 200); link('PC1', PCIF, 'SW1', 'Fa0/1'); link('PC2', PCIF, 'SW1', 'Fa0/2');
+  hostIp(get('PC1'), '10.5.0.11', '24'); hostIp(get('PC2'), '10.5.0.12', '24');
+}
+const psChecks = [
+  { label: 'Fa0/1 : port-security activé', run: c => /interface FastEthernet0\/1\n[^!]*switchport port-security/.test(cfg(c, 'SW1')) },
+  { label: 'Fa0/1 : adresse MAC apprise (sticky)', run: c => /interface FastEthernet0\/1\n[^!]*switchport port-security mac-address sticky/.test(cfg(c, 'SW1')) },
+  { label: 'show port-security : Fa0/1 limité à 1 adresse, action Shutdown', run: c => /Fa0\/1\s+1\s+\d+\s+\d+\s+Shutdown/.test(ios(c, 'SW1', 'show port-security')) },
+  { label: 'Ports inutilisés Fa0/10 à Fa0/24 désactivés', run: c => /interface FastEthernet0\/24\n shutdown/.test(cfg(c, 'SW1')) },
+];
+function psSolve(sim, h) { cliRun(h.get('SW1'), 'enable\nconf t\nhostname SW1\ninterface range fa0/1 - 2\nswitchport mode access\nswitchport port-security\nswitchport port-security maximum 1\nswitchport port-security mac-address sticky\nswitchport port-security violation shutdown\nexit\ninterface range fa0/10 - 24\nshutdown\nend\nwrite memory'); }
+lab({ id: 'c504-port-security', start: D + '5-04-securite-couche2/tp/c504-port-security.json', solution: K + 'C504-port-security-corrige.json',
+  notes: 'CCNA 5-04 – Sécurité de couche 2 : un switch d\'accès, deux postes. À faire : port-security (1 adresse, sticky, shutdown) sur Fa0/1 et Fa0/2, ports inutilisés coupés.',
+  build: (sim, h) => psBuild(h), solve: psSolve, checks: psChecks, startShould: psChecks.map(x => x.label) });
+
+/* ---------- 5-05 : VPN IPsec site à site ---------- */
+function vpnBuild(h) {
+  const { dev, link, get } = h;
+  dev('r-2911', 'R1', 200, 150, 'Site A'); dev('r-2911', 'ISP', 450, 150, 'Internet'); dev('r-2911', 'R2', 700, 150, 'Site B');
+  dev('sw-2960', 'SW-A', 80, 150); dev('sw-2960', 'SW-B', 820, 150); pc(h, 'PC1', 20, 240, 'Site A'); pc(h, 'PC2', 880, 240, 'Site B');
+  link('SW-A', 'Fa0/24', 'R1', 'gi0/0'); link('R1', 'gi0/1', 'ISP', 'gi0/0'); link('ISP', 'gi0/1', 'R2', 'gi0/1'); link('R2', 'gi0/0', 'SW-B', 'Fa0/24');
+  link('PC1', PCIF, 'SW-A', 'Fa0/1'); link('PC2', PCIF, 'SW-B', 'Fa0/1');
+  const ifc = (n, lines) => cliRun(get(n), 'enable\nconf t\nhostname ' + n + '\n' + lines + '\nend\nwrite memory');
+  ifc('R1', 'interface gi0/0\nip address 192.168.1.1 255.255.255.0\nno shutdown\nexit\ninterface gi0/1\nip address 198.51.100.1 255.255.255.252\nno shutdown\nexit\nip route 0.0.0.0 0.0.0.0 198.51.100.2');
+  ifc('ISP', 'interface gi0/0\nip address 198.51.100.2 255.255.255.252\nno shutdown\nexit\ninterface gi0/1\nip address 198.51.100.5 255.255.255.252\nno shutdown');
+  ifc('R2', 'interface gi0/0\nip address 192.168.2.1 255.255.255.0\nno shutdown\nexit\ninterface gi0/1\nip address 198.51.100.6 255.255.255.252\nno shutdown\nexit\nip route 0.0.0.0 0.0.0.0 198.51.100.5');
+  hostIp(get('PC1'), '192.168.1.10', '24', '192.168.1.1'); hostIp(get('PC2'), '192.168.2.10', '24', '192.168.2.1');
+}
+const vpnCfg = (loc, rem, peer) => 'enable\nconf t\naccess-list 101 permit ip ' + loc + ' 0.0.0.255 ' + rem + ' 0.0.0.255\ncrypto isakmp policy 10\nencryption aes 256\nhash sha256\nauthentication pre-share\ngroup 14\nexit\ncrypto isakmp key Cle#VPN2027 address ' + peer + '\ncrypto ipsec transform-set TS esp-aes 256 esp-sha256-hmac\ncrypto map CMAP 10 ipsec-isakmp\nset peer ' + peer + '\nset transform-set TS\nmatch address 101\nexit\ninterface gi0/1\ncrypto map CMAP\nend\nwrite memory';
+const vpnChecks = [
+  { label: 'PC1 joint PC2 à travers le tunnel', run: c => /bytes from/.test(sh(c, 'PC1', 'ping -c 3 192.168.2.10')) },
+  { label: 'R1 : la crypto map est appliquée sur gi0/1', run: c => /crypto map CMAP/.test(cfg(c, 'R1')) && /interface GigabitEthernet0\/1[^!]*crypto map/.test(cfg(c, 'R1')) },
+  { label: 'R1 : une association de sécurité IKE existe (show crypto isakmp sa)', run: c => { sh(c, 'PC1', 'ping -c 3 192.168.2.10'); return /198\.51\.100\.(2|6)|QM_IDLE|ACTIVE/.test(ios(c, 'R1', 'show crypto isakmp sa')); } },
+  { label: 'L\'ACL 101 décrit le trafic à chiffrer (192.168.1.0/24 ↔ 192.168.2.0/24)', run: c => /access-list 101 permit ip 192\.168\.1\.0 0\.0\.0\.255 192\.168\.2\.0 0\.0\.0\.255/.test(cfg(c, 'R1')) },
+];
+function vpnSolve(sim, h) { cliRun(h.get('R1'), vpnCfg('192.168.1.0', '192.168.2.0', '198.51.100.6')); cliRun(h.get('R2'), vpnCfg('192.168.2.0', '192.168.1.0', '198.51.100.1')); }
+lab({ id: 'c505-vpn-ipsec', start: D + '5-05-vpn-ipsec/tp/c505-vpn-ipsec.json', solution: K + 'C505-vpn-ipsec-corrige.json',
+  notes: 'CCNA 5-05 – VPN IPsec site à site : deux sites (R1, R2) reliés par Internet (ISP) qui ne route pas les adresses privées. À faire : ACL du trafic à chiffrer, politique IKE, clé partagée, transform-set, crypto map.',
+  build: (sim, h) => vpnBuild(h), solve: vpnSolve, checks: vpnChecks, startShould: [vpnChecks[0].label, vpnChecks[1].label, vpnChecks[2].label, vpnChecks[3].label] });
 
 const want = process.argv.slice(2); let all = true;
 TPS.filter(t => !want.length || want.includes(t.id)).forEach(t => { all = L.run(t) && all; });

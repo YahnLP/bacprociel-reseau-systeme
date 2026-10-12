@@ -1,0 +1,265 @@
+{
+ "app": "simulateur-reseau",
+ "v": 1,
+ "opts": {
+  "strictCables": false,
+  "stpFast": true
+ },
+ "devices": [
+  {
+   "id": "D1",
+   "type": "router",
+   "model": "r-2911",
+   "name": "R1",
+   "x": 200,
+   "y": 150,
+   "powered": true,
+   "cli": "!\nhostname R1\n!\ncrypto isakmp policy 10\n encryption aes 256\n hash sha256\n authentication pre-share\n group 14\n!\ncrypto isakmp key Cle#VPN2027 address 198.51.100.6\n!\ncrypto ipsec transform-set TS esp-aes 256 esp-sha256-hmac\n!\ncrypto map CMAP 10 ipsec-isakmp\n set peer 198.51.100.6\n set transform-set TS\n match address 101\n!\ninterface GigabitEthernet0/0\n ip address 192.168.1.1 255.255.255.0\n!\ninterface GigabitEthernet0/1\n ip address 198.51.100.1 255.255.255.252\n crypto map CMAP\n!\ninterface GigabitEthernet0/2\n no ip address\n shutdown\n!\nip route 0.0.0.0 0.0.0.0 198.51.100.2\n!\naccess-list 101 permit ip 192.168.1.0 0.0.0.255 192.168.2.0 0.0.0.255\n!\nline con 0\n logging synchronous\nline vty 0 4\n!",
+   "startup": "!\nhostname R1\n!\ncrypto isakmp policy 10\n encryption aes 256\n hash sha256\n authentication pre-share\n group 14\n!\ncrypto isakmp key Cle#VPN2027 address 198.51.100.6\n!\ncrypto ipsec transform-set TS esp-aes 256 esp-sha256-hmac\n!\ncrypto map CMAP 10 ipsec-isakmp\n set peer 198.51.100.6\n set transform-set TS\n match address 101\n!\ninterface GigabitEthernet0/0\n ip address 192.168.1.1 255.255.255.0\n!\ninterface GigabitEthernet0/1\n ip address 198.51.100.1 255.255.255.252\n crypto map CMAP\n!\ninterface GigabitEthernet0/2\n no ip address\n shutdown\n!\nip route 0.0.0.0 0.0.0.0 198.51.100.2\n!\naccess-list 101 permit ip 192.168.1.0 0.0.0.255 192.168.2.0 0.0.0.255\n!\nline con 0\n logging synchronous\nline vty 0 4\n!",
+   "label": "Site A"
+  },
+  {
+   "id": "D2",
+   "type": "router",
+   "model": "r-2911",
+   "name": "ISP",
+   "x": 450,
+   "y": 150,
+   "powered": true,
+   "cli": "!\nhostname ISP\n!\ninterface GigabitEthernet0/0\n ip address 198.51.100.2 255.255.255.252\n!\ninterface GigabitEthernet0/1\n ip address 198.51.100.5 255.255.255.252\n!\ninterface GigabitEthernet0/2\n no ip address\n shutdown\n!\nline con 0\n logging synchronous\nline vty 0 4\n!",
+   "startup": "!\nhostname ISP\n!\ninterface GigabitEthernet0/0\n ip address 198.51.100.2 255.255.255.252\n!\ninterface GigabitEthernet0/1\n ip address 198.51.100.5 255.255.255.252\n!\ninterface GigabitEthernet0/2\n no ip address\n shutdown\n!\nline con 0\n logging synchronous\nline vty 0 4\n!",
+   "label": "Internet"
+  },
+  {
+   "id": "D3",
+   "type": "router",
+   "model": "r-2911",
+   "name": "R2",
+   "x": 700,
+   "y": 150,
+   "powered": true,
+   "cli": "!\nhostname R2\n!\ncrypto isakmp policy 10\n encryption aes 256\n hash sha256\n authentication pre-share\n group 14\n!\ncrypto isakmp key Cle#VPN2027 address 198.51.100.1\n!\ncrypto ipsec transform-set TS esp-aes 256 esp-sha256-hmac\n!\ncrypto map CMAP 10 ipsec-isakmp\n set peer 198.51.100.1\n set transform-set TS\n match address 101\n!\ninterface GigabitEthernet0/0\n ip address 192.168.2.1 255.255.255.0\n!\ninterface GigabitEthernet0/1\n ip address 198.51.100.6 255.255.255.252\n crypto map CMAP\n!\ninterface GigabitEthernet0/2\n no ip address\n shutdown\n!\nip route 0.0.0.0 0.0.0.0 198.51.100.5\n!\naccess-list 101 permit ip 192.168.2.0 0.0.0.255 192.168.1.0 0.0.0.255\n!\nline con 0\n logging synchronous\nline vty 0 4\n!",
+   "startup": "!\nhostname R2\n!\ncrypto isakmp policy 10\n encryption aes 256\n hash sha256\n authentication pre-share\n group 14\n!\ncrypto isakmp key Cle#VPN2027 address 198.51.100.1\n!\ncrypto ipsec transform-set TS esp-aes 256 esp-sha256-hmac\n!\ncrypto map CMAP 10 ipsec-isakmp\n set peer 198.51.100.1\n set transform-set TS\n match address 101\n!\ninterface GigabitEthernet0/0\n ip address 192.168.2.1 255.255.255.0\n!\ninterface GigabitEthernet0/1\n ip address 198.51.100.6 255.255.255.252\n crypto map CMAP\n!\ninterface GigabitEthernet0/2\n no ip address\n shutdown\n!\nip route 0.0.0.0 0.0.0.0 198.51.100.5\n!\naccess-list 101 permit ip 192.168.2.0 0.0.0.255 192.168.1.0 0.0.0.255\n!\nline con 0\n logging synchronous\nline vty 0 4\n!",
+   "label": "Site B"
+  },
+  {
+   "id": "D4",
+   "type": "switch",
+   "model": "sw-2960",
+   "name": "SW-A",
+   "x": 80,
+   "y": 150,
+   "powered": true,
+   "cli": "!\nhostname SW-A\n!\nspanning-tree mode pvst\nline con 0\n logging synchronous\nline vty 0 4\n!",
+   "label": ""
+  },
+  {
+   "id": "D5",
+   "type": "switch",
+   "model": "sw-2960",
+   "name": "SW-B",
+   "x": 820,
+   "y": 150,
+   "powered": true,
+   "cli": "!\nhostname SW-B\n!\nspanning-tree mode pvst\nline con 0\n logging synchronous\nline vty 0 4\n!",
+   "label": ""
+  },
+  {
+   "id": "D6",
+   "type": "pc",
+   "model": "pc-linux",
+   "name": "PC1",
+   "x": 20,
+   "y": 240,
+   "powered": true,
+   "ifaces": [
+    {
+     "name": "ens33",
+     "ip": "192.168.1.10",
+     "mask": "255.255.255.0",
+     "dhcp": false
+    }
+   ],
+   "gw": "192.168.1.1",
+   "dns": [],
+   "domain": "",
+   "allowIcmpEcho": true,
+   "wifi": {
+    "ssid": "",
+    "key": ""
+   },
+   "hosts": {},
+   "dhcpd": {
+    "enabled": false,
+    "excluded": [],
+    "pools": []
+   },
+   "dnsd": {
+    "enabled": false,
+    "records": [],
+    "forwarders": []
+   },
+   "httpd": {
+    "enabled": false,
+    "https": false,
+    "pages": {
+     "/": {
+      "type": "text/html; charset=utf-8",
+      "body": "<html><head><title>PC1</title></head><body><h1>Bienvenue sur PC1</h1><p>Serveur web du simulateur.</p></body></html>"
+     }
+    }
+   },
+   "mgmt": {
+    "comms": [],
+    "location": "",
+    "contact": "",
+    "syslogd": false,
+    "trapd": false
+   },
+   "v6": {
+    "ifs": [
+     {
+      "name": "ens33",
+      "autoconf": true,
+      "addrs": []
+     }
+    ],
+    "statics": []
+   },
+   "label": "Site A"
+  },
+  {
+   "id": "D7",
+   "type": "pc",
+   "model": "pc-linux",
+   "name": "PC2",
+   "x": 880,
+   "y": 240,
+   "powered": true,
+   "ifaces": [
+    {
+     "name": "ens33",
+     "ip": "192.168.2.10",
+     "mask": "255.255.255.0",
+     "dhcp": false
+    }
+   ],
+   "gw": "192.168.2.1",
+   "dns": [],
+   "domain": "",
+   "allowIcmpEcho": true,
+   "wifi": {
+    "ssid": "",
+    "key": ""
+   },
+   "hosts": {},
+   "dhcpd": {
+    "enabled": false,
+    "excluded": [],
+    "pools": []
+   },
+   "dnsd": {
+    "enabled": false,
+    "records": [],
+    "forwarders": []
+   },
+   "httpd": {
+    "enabled": false,
+    "https": false,
+    "pages": {
+     "/": {
+      "type": "text/html; charset=utf-8",
+      "body": "<html><head><title>PC2</title></head><body><h1>Bienvenue sur PC2</h1><p>Serveur web du simulateur.</p></body></html>"
+     }
+    }
+   },
+   "mgmt": {
+    "comms": [],
+    "location": "",
+    "contact": "",
+    "syslogd": false,
+    "trapd": false
+   },
+   "v6": {
+    "ifs": [
+     {
+      "name": "ens33",
+      "autoconf": true,
+      "addrs": []
+     }
+    ],
+    "statics": []
+   },
+   "label": "Site B"
+  }
+ ],
+ "links": [
+  {
+   "a": [
+    "D4",
+    "FastEthernet0/24"
+   ],
+   "b": [
+    "D1",
+    "GigabitEthernet0/0"
+   ],
+   "type": "straight"
+  },
+  {
+   "a": [
+    "D1",
+    "GigabitEthernet0/1"
+   ],
+   "b": [
+    "D2",
+    "GigabitEthernet0/0"
+   ],
+   "type": "cross"
+  },
+  {
+   "a": [
+    "D2",
+    "GigabitEthernet0/1"
+   ],
+   "b": [
+    "D3",
+    "GigabitEthernet0/1"
+   ],
+   "type": "cross"
+  },
+  {
+   "a": [
+    "D3",
+    "GigabitEthernet0/0"
+   ],
+   "b": [
+    "D5",
+    "FastEthernet0/24"
+   ],
+   "type": "straight"
+  },
+  {
+   "a": [
+    "D6",
+    "ens33"
+   ],
+   "b": [
+    "D4",
+    "FastEthernet0/1"
+   ],
+   "type": "straight"
+  },
+  {
+   "a": [
+    "D7",
+    "ens33"
+   ],
+   "b": [
+    "D5",
+    "FastEthernet0/1"
+   ],
+   "type": "straight"
+  }
+ ],
+ "notes": "CORRIGÉ – CCNA 5-05 – VPN IPsec site à site : deux sites (R1, R2) reliés par Internet (ISP) qui ne route pas les adresses privées. À faire : ACL du trafic à chiffrer, politique IKE, clé partagée, transform-set, crypto map."
+}

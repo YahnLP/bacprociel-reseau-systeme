@@ -23,3 +23,13 @@ nav:
   - 4-03-ntp-snmp-syslog
   - 4-04-qos
   - 4-05-ssh-tftp
+  - 5-01-concepts-securite
+  - 5-02-acces-equipements-aaa
+  - 5-03-acl
+  - 5-04-securite-couche2
+  - 5-05-vpn-ipsec
+  - 5-06-securite-wifi
+  - 6-01-automatisation-controleurs
+  - 6-02-api-rest-json
+  - 6-03-ansible-terraform
+  - examen-blanc
