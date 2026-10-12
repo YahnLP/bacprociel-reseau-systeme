@@ -104,3 +104,11 @@
 
 .md-header__button.md-logo img,.md-header__button.md-logo svg{height:1.6rem;width:1.6rem}
 .card.violet::before { background: linear-gradient(90deg, #8b5cf6, #ec4899); }
+
+/* Mode projection (bouton dans l'en-tête) : texte ~1,4× plus grand, contenu pleine largeur, panneaux latéraux masqués */
+html.projection { font-size: 175% !important; }
+html.projection .md-sidebar { display: none; }
+html.projection .md-grid { max-width: 72rem; }
+html.projection .md-content { margin: 0 auto; }
+html.projection .md-typeset { line-height: 1.6; }
+#projection-btn[aria-pressed="true"] { background: rgba(255,255,255,.22); border-radius: 8px; }
