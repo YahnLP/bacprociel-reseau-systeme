@@ -91,6 +91,7 @@
 | Mot | Définition simple | Vu en |
 |---|---|---|
 | **Switch (commutateur)** | Équipement qui relie les postes d'un réseau local | Seconde S08 |
+| **Topologie** | Façon dont les équipements sont reliés : bus, anneau, **étoile** (la plus courante), maillé | Seconde S08 |
 | **Routeur** | Équipement qui relie des réseaux différents | Première S07 |
 | **Table MAC** | Liste des adresses MAC connues par le switch et leur port | Première S05 |
 | **Sous-réseau** | Découpage d'un réseau IP en réseaux plus petits | Première S06 |

@@ -64,6 +64,9 @@ Le câble du mur est **posé une fois** (rigide, plus stable) ; le cordon **boug
 
 **Brasser**, c'est **relier avec un cordon** un port du panneau (donc **une prise murale**) à un port du **switch**. Pour changer de port ou de poste, on **change juste le cordon**, sans toucher aux câbles du mur.
 
+> [!NOTE]
+> **Rappel (S08) :** le panneau de brassage est le **centre de l'étoile** : toutes les prises du bâtiment y arrivent, et le switch les relie entre elles. C'est la **topologie en étoile** vue en S08, mais **câblée** dans le mur.
+
 ### Pourquoi étiqueter ?
 
 Une baie sans étiquette est **un plat de spaghettis**. Quand un utilisateur appelle pour dire « ma prise ne marche plus », il faut savoir **en 30 secondes** à quel port correspond cette prise.

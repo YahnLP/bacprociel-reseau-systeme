@@ -15,7 +15,7 @@
 ## 🎯 Objectifs
 
 1. **Suivre** le trajet physique : prise murale → panneau de brassage → switch → routeur → Internet.
-2. **Utiliser le vocabulaire** : client, serveur, switch, routeur, box, borne Wi-Fi, LAN, WAN, Internet, débit.
+2. **Utiliser le vocabulaire** : topologie (étoile), client, serveur, switch, routeur, box, borne Wi-Fi, LAN, WAN, Internet, débit.
 3. **Dessiner** le schéma du réseau de la salle (à la main, puis avec un logiciel).
 4. **Retrouver** ce schéma dans le simulateur et **interpréter** ce qu'on y observe.
 
@@ -23,7 +23,7 @@
 
 | Document | Rôle |
 |---|---|
-| [📖 Cours élève](01-cours.md) | Réseau, vocabulaire, LAN / WAN / Internet, lire et dessiner un schéma |
+| [📖 Cours élève](01-cours.md) | Réseau, vocabulaire, topologies, LAN / WAN / Internet, lire et dessiner un schéma |
 | [🛠️ TP : suivre les câbles et dessiner](02-tp.md) | Enquête dans le bâtiment, schéma papier, schéma numérique, simulateur |
 | [`tp/s08-reseau-salle.json`](tp/s08-reseau-salle.json) | Fichier du simulateur : un petit réseau complet qui fonctionne |
 
@@ -32,7 +32,7 @@
 | Durée | Activité |
 |---|---|
 | 0 h 00 – 0 h 20 | **Restitution du voyage** (15 min, photos des équipements vus à Paris) + accroche : « par où passent mes données ? » |
-| 0 h 20 – 0 h 50 | **Mini-cours** : trajet physique et vocabulaire (cours §1–§2) |
+| 0 h 20 – 0 h 50 | **Mini-cours** : trajet physique et vocabulaire (cours §1–§2, dont la topologie en étoile) |
 | 0 h 50 – 2 h 15 | **TP A : enquête** dans le bâtiment (suivre le câble) + **TP B : schéma papier** |
 | 2 h 15 – 2 h 30 | Pause |
 | 2 h 30 – 3 h 15 | **TP C : schéma numérique** (draw.io ou équivalent) |

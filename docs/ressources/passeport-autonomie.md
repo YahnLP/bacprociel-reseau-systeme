@@ -17,7 +17,7 @@ Le passeport te permet de suivre **ce que tu sais faire seul**. Chaque ligne pas
 | Installer Windows et livrer un poste prêt à l'emploi | S04 | ☐ | ☐ | ☐ |
 | Installer Linux et le mettre à jour (`apt`) | S05 | ☐ | ☐ | ☐ |
 | Utiliser le terminal : se déplacer, copier, aide | S06 | ☐ | ☐ | ☐ |
-| Dessiner le schéma d'un petit réseau | S08 | ☐ | ☐ | ☐ |
+| Reconnaître la topologie en étoile et dessiner le schéma d'un petit réseau | S08 | ☐ | ☐ | ☐ |
 | Fabriquer un câble RJ45 droit et le tester | S09 | ☐ | ☐ | ☐ |
 | Monter une prise, brasser, étiqueter | S10 | ☐ | ☐ | ☐ |
 | Configurer une adresse IP statique et tester | S11 | ☐ | ☐ | ☐ |

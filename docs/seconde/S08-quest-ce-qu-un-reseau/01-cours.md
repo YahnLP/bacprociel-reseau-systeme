@@ -7,6 +7,7 @@
 - [ ] expliquer ce qu'est un réseau informatique **avec tes mots** ;
 - [ ] suivre le trajet **physique** d'une donnée dans un bâtiment ;
 - [ ] distinguer **client / serveur**, **switch / routeur / box**, **LAN / WAN / Internet** ;
+- [ ] reconnaître une **topologie** (bus, anneau, étoile, maillé) et dire laquelle on utilise aujourd'hui ;
 - [ ] **lire** puis **dessiner** un schéma de réseau simple.
 
 ---
@@ -80,6 +81,35 @@ Le **cordon** entre le PC et la prise, la **prise murale / le câble**, le **pan
 | **Borne Wi-Fi** | Relier des appareils **sans fil** au réseau | « la prise sans fil » |
 | **Serveur** | Offrir un service (fichiers, web…) | « le fournisseur » |
 
+### Comment sont reliées les machines ? La topologie
+
+### 🤔 À ton avis ?
+
+Cinq PC doivent communiquer. Tu as un câble par PC et un boîtier. **Comment les relier** pour que, si un câble est débranché, **les autres continuent de fonctionner** ?
+
+<details markdown="1"><summary>Réponse</summary>
+
+On branche **chaque PC sur le boîtier central** (le switch) : si un câble est débranché, **seul ce PC** perd le réseau. C'est la topologie **en étoile**.
+
+</details>
+
+La **topologie** décrit **la façon dont les équipements sont reliés**. On en distingue deux :
+
+- **physique** : comment les **câbles** sont réellement tirés (ce que tu vois dans la baie) ;
+- **logique** : comment les **données** circulent (ce que montre un schéma réseau).
+
+![Les quatre topologies](images/topologies.svg)
+
+| Topologie | Principe | Avantage | Limite |
+|---|---|---|---|
+| **Bus** | Un seul câble partagé par toutes les machines | Peu de câble | Une coupure arrête **tout** ; ancienne |
+| **Anneau** | Chaque machine reliée à deux voisines | Organisé | Une rupture peut bloquer l'anneau ; très rare |
+| **Étoile** | Chaque machine reliée à un **point central** (switch) | Une panne ne touche qu'**une** machine ; facile à dépanner | Si le **centre** tombe, tout tombe |
+| **Maillé** | Chaque machine reliée à plusieurs autres | Très fiable (plusieurs chemins) | Beaucoup de câbles ; coûteux |
+
+> [!NOTE]
+> Aujourd'hui, un réseau local d'entreprise ou de maison est **en étoile** : les prises murales arrivent au **panneau de brassage**, puis au **switch**. Le **maillé** se retrouve sur **Internet** (de nombreux chemins entre les réseaux) et dans certains Wi-Fi maillés.
+
 ### LAN, WAN, Internet
 
 ![LAN, WAN et Internet](images/lan-wan.svg)
@@ -120,7 +150,15 @@ Le téléphone est le **client** (il demande) ; la machine qui héberge le site 
 
 </details>
 
-**Q4.** Un lien annonce 100 Mb/s. Combien fait-il en Gb/s ?
+**Q4.** Dans la salle, tous les PC sont reliés à un switch au centre. Quelle est la topologie ? Que se passe-t-il si le câble d'un PC est débranché ? Et si le switch tombe en panne ?
+
+<details markdown="1"><summary>Réponse</summary>
+
+Topologie **en étoile**. Câble débranché : **seul ce PC** perd le réseau. Switch en panne : **tout le réseau** de la salle s'arrête (le centre est le point sensible).
+
+</details>
+
+**Q5.** Un lien annonce 100 Mb/s. Combien fait-il en Gb/s ?
 
 <details markdown="1"><summary>Réponse</summary>
 
@@ -149,7 +187,7 @@ Un schéma est **la carte** du réseau : il sert à **comprendre**, **dépanner*
 
 ### ✅ Vérifie que tu as compris
 
-**Q5.** Ton schéma montre un PC relié directement à la box, mais en réalité il passe par un switch. Quelle est la conséquence ?
+**Q6.** Ton schéma montre un PC relié directement à la box, mais en réalité il passe par un switch. Quelle est la conséquence ?
 
 <details markdown="1"><summary>Réponse</summary>
 
@@ -164,9 +202,10 @@ Au moment d'une panne, on cherchera au **mauvais endroit** (on ne pensera pas à
 > [!TIP]
 > 1. Un **réseau** relie des équipements pour **partager** ressources, connexion, services.
 > 2. Trajet : **prise → panneau de brassage → switch → routeur/box → Internet**.
-> 3. **Client** demande, **serveur** répond ; **switch** relie un réseau, **routeur** relie des réseaux.
-> 4. **LAN** local, **WAN** étendu, **Internet** = réseaux de réseaux.
-> 5. Un bon **schéma** : titre, noms, câbles, légende, **fidèle à la réalité**.
+> 3. **Topologie** = façon de relier les machines (bus, anneau, **étoile**, maillé) ; aujourd'hui : **en étoile** autour d'un switch.
+> 4. **Client** demande, **serveur** répond ; **switch** relie un réseau, **routeur** relie des réseaux.
+> 5. **LAN** local, **WAN** étendu, **Internet** = réseaux de réseaux.
+> 6. Un bon **schéma** : titre, noms, câbles, légende, **fidèle à la réalité**.
 
 ### 📖 Vocabulaire
 
@@ -176,6 +215,7 @@ Au moment d'une panne, on cherchera au **mauvais endroit** (on ne pensera pas à
 | **Client / serveur** | Qui demande / qui répond |
 | **Switch / routeur / box** | Relier un réseau / relier des réseaux / tout-en-un |
 | **LAN / WAN** | Réseau local / réseau étendu |
+| **Topologie** | Façon dont les équipements sont reliés (bus, anneau, étoile, maillé) |
 | **Débit** | Quantité de données par seconde (bits/s) |
 | **Panneau de brassage** | Panneau qui regroupe les arrivées des prises murales |
 

@@ -154,6 +154,7 @@
   "acts": [
    "Partir de l'existant : suivre le trajet physique prise murale → panneau de brassage → switch → routeur → Internet dans le bâtiment",
    "Vocabulaire : client, serveur, switch, routeur, box, borne Wi-Fi, LAN / WAN / Internet, débit",
+   "Topologies (bus, anneau, étoile, maillé) : reconnaître l'étoile, point central et conséquences d'une panne",
    "Dessiner le schéma du réseau de la salle (papier, puis logiciel de schéma type draw.io)"
   ],
   "ref": "C06 · C09 · schémas réseaux (niv. 3) · architectures (niv. 2)",

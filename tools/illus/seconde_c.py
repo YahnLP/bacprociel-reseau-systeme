@@ -51,6 +51,37 @@ def s08():
     f.callout(70, 255, 840, "Chaque étape est un point où une panne peut se cacher. Un bon technicien sait suivre le trajet, étape par étape.", YEL_L, YEL, 15)
     f.save(out(d, "chemin-physique.svg"))
 
+
+    f = Fig(980, 330, "Les quatre topologies", "Bus, anneau, étoile et maillé : quatre façons de relier des machines. L'étoile est celle utilisée aujourd'hui.")
+    f.title_bar("Quatre façons de relier les machines")
+    cols = [(130, "Bus", "un seul câble partagé", GRY_D), (370, "Anneau", "chacun relié à deux voisins", GRY_D), (610, "Étoile", "tout passe par le centre", TEAL), (850, "Maillé", "tout le monde relié à tout le monde", GRY_D)]
+    import math
+    for (cx, name, sub, col) in cols:
+        f.rect(cx - 112, 58, 224, 236, TEAL_L if col == TEAL else GRY, col, 3 if col == TEAL else 2, 12)
+        f.text(cx, 84, name, 17, TEAL if col == TEAL else INK, "middle", "700")
+        f.text(cx, 278, sub, 12.5, MUTED)
+    pts = lambda cx, cy, r, n, a0=-90: [(cx + r * math.cos(math.radians(a0 + i * 360 / n)), cy + r * math.sin(math.radians(a0 + i * 360 / n))) for i in range(n)]
+    # bus
+    f.line(40, 190, 220, 190, LINE, 5)
+    for x in (62, 112, 162, 205):
+        f.line(x, 190, x, 150 if x in (62, 162) else 230, LINE, 3)
+        f.circle(x, 138 if x in (62, 162) else 242, 12, IND_L, IND, 2.5)
+    # anneau
+    P = pts(370, 180, 62, 5)
+    for i in range(5): f.line(*P[i], *P[(i + 1) % 5], LINE, 3)
+    for (x, y) in P: f.circle(x, y, 12, IND_L, IND, 2.5)
+    # étoile
+    P = pts(610, 180, 68, 5)
+    for (x, y) in P: f.line(610, 180, x, y, LINE, 3)
+    for (x, y) in P: f.circle(x, y, 12, IND_L, IND, 2.5)
+    f.rect(590, 168, 40, 24, TEAL, TEAL, 2, 5); f.text(610, 185, "SW", 12.5, WHITE, "middle", "700")
+    # maillé
+    P = pts(850, 180, 66, 5)
+    for i in range(5):
+        for j in range(i + 1, 5): f.line(*P[i], *P[j], GRY_D, 2)
+    for (x, y) in P: f.circle(x, y, 12, IND_L, IND, 2.5)
+    f.save(out(d, "topologies.svg"))
+
     f = Fig(940, 400, "LAN, WAN, Internet", "Un réseau local (LAN) avec postes, imprimante et switch relié par une box à Internet (WAN).")
     f.title_bar("LAN, WAN et Internet : qui est où ?")
     f.rect(30, 55, 580, 330, IND_L, IND, 3, 16, dash="8 6")
