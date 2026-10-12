@@ -1,8 +1,0 @@
-title: Serveurs sur VirtualBox
-nav:
-  - README.md
-  - 01-preparer-virtualbox.md
-  - 02-serveur-web.md
-  - 03-serveur-ftp-sftp.md
-  - 04-nas.md
-  - 05-active-directory.md

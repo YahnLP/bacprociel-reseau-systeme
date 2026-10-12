@@ -91,6 +91,9 @@
 
 [Examen blanc CCNA](examen-blanc/01-examen.md) : 43 questions sur les 6 domaines, avec corrigé.
 
+> [!TIP]
+> Pour les services et les serveurs (web, FTP, NAS, Active Directory), voir le [parcours serveurs sur VirtualBox](../serveurs/README.md), qui complète ce parcours.
+
 ## 🧭 Sources utilisées
 
 Le plan suit le programme officiel de l'examen :
