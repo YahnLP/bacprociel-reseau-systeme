@@ -55,7 +55,10 @@
 .md-typeset details:not(.note):not(.tip):not(.warning):not(.important) > summary { background: color-mix(in srgb, var(--c3) 12%, transparent); }
 
 /* Tableaux */
-.md-typeset__table { display: block; }
+.md-typeset__table { display: block; width: 100%; overflow-x: auto; }
+.md-typeset__table table:not([class]) { display: table; width: 100%; }
+.md-typeset table:not([class]) th, .md-typeset table:not([class]) td { min-width: 5.5rem; vertical-align: top; }
+.md-typeset table:not([class]) td code { overflow-wrap: anywhere; white-space: normal; }
 .md-typeset table:not([class]) { font-size: .76rem; border: 1px solid var(--card-border); border-radius: var(--radius); box-shadow: var(--shadow);
   border-collapse: separate; border-spacing: 0; overflow: hidden; background: var(--card-bg); }
 .md-typeset table:not([class]) th { background: linear-gradient(180deg, color-mix(in srgb, var(--c1) 14%, transparent), color-mix(in srgb, var(--c1) 6%, transparent));
@@ -112,3 +115,24 @@ html.projection .md-grid { max-width: 72rem; }
 html.projection .md-content { margin: 0 auto; }
 html.projection .md-typeset { line-height: 1.6; }
 #projection-btn[aria-pressed="true"] { background: rgba(255,255,255,.22); border-radius: 8px; }
+
+/* Mise en page large : le contenu et les panneaux latéraux occupent la largeur de l'écran */
+@media screen and (min-width: 76.25em) {
+  .md-grid { max-width: 108rem; }
+  .md-sidebar--primary { width: 13.5rem; }
+  .md-sidebar--secondary { width: 12rem; }
+}
+/* Panneaux latéraux repliables (flèches) */
+html.hide-nav .md-sidebar--primary, html.hide-toc .md-sidebar--secondary { display: none; }
+.side-toggle { display: none; position: fixed; top: 50%; z-index: 4; width: 1.5rem; height: 3.2rem; padding: 0; border: 1px solid var(--card-border);
+  background: var(--card-bg); color: var(--md-default-fg-color); cursor: pointer; font-size: 1rem; line-height: 1; opacity: .75; box-shadow: var(--shadow); }
+.side-toggle:hover { opacity: 1; background: color-mix(in srgb, var(--c2) 12%, var(--card-bg)); }
+#toggle-nav { left: 0; border-radius: 0 8px 8px 0; border-left: 0; }
+#toggle-toc { right: 0; border-radius: 8px 0 0 8px; border-right: 0; }
+@media screen and (min-width: 76.25em) { .side-toggle { display: block; } }
+html.projection .side-toggle { display: none; }
+@media screen and (min-width: 76.25em) {
+  .md-sidebar--primary .md-sidebar__scrollwrap { margin-left: 1.5rem; }
+  .md-sidebar--secondary .md-sidebar__scrollwrap { margin-right: 1.5rem; }
+  html.hide-nav.hide-toc .md-content { max-width: 88rem; margin: 0 auto; }
+}

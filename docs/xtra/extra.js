@@ -35,3 +35,25 @@ if (window.document$) document$.subscribe(decorate); else document.addEventListe
   apply(get());
   if (window.document$) document$.subscribe(mount); else document.addEventListener("DOMContentLoaded", mount);
 })();
+
+/* Flèches pour replier / rouvrir le menu de gauche et la table des matières (choix mémorisé) */
+(function () {
+  var root = document.documentElement;
+  function get(k) { try { return localStorage.getItem(k) === "1"; } catch (e) { return false; } }
+  function set(k, v) { try { localStorage.setItem(k, v ? "1" : "0"); } catch (e) { } }
+  function refresh() {
+    var n = root.classList.contains("hide-nav"), t = root.classList.contains("hide-toc");
+    var bn = document.getElementById("toggle-nav"), bt = document.getElementById("toggle-toc");
+    if (bn) { bn.textContent = n ? "›" : "‹"; bn.title = n ? "Afficher le menu" : "Masquer le menu"; }
+    if (bt) { bt.textContent = t ? "‹" : "›"; bt.title = t ? "Afficher la table des matières" : "Masquer la table des matières"; }
+  }
+  function make(id, cls, key) {
+    if (document.getElementById(id)) return;
+    var b = document.createElement("button"); b.id = id; b.type = "button"; b.className = "side-toggle";
+    b.addEventListener("click", function () { var on = !root.classList.contains(cls); root.classList.toggle(cls, on); set(key, on); refresh(); });
+    document.body.appendChild(b);
+  }
+  root.classList.toggle("hide-nav", get("hide-nav")); root.classList.toggle("hide-toc", get("hide-toc"));
+  function mount() { make("toggle-nav", "hide-nav", "hide-nav"); make("toggle-toc", "hide-toc", "hide-toc"); refresh(); }
+  if (window.document$) document$.subscribe(mount); else document.addEventListener("DOMContentLoaded", mount);
+})();
