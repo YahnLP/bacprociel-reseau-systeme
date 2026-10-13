@@ -6,7 +6,7 @@
 | **Semaine** | S08 – 4 janvier 2027 (CFA) |
 | **Durée** | 4 heures |
 | **Autonomie visée** | 🔴 Autonome |
-| **Prérequis** | Seconde S11 (adresses fixes et DHCP), Première S08–S09 (VLAN), Terminale S05 |
+| **Prérequis** | Seconde S11 (adresses fixes et DHCP), Première S08–S09 (VLAN), Terminale S05. Le TP fournit les commandes du service DHCP du switch de niveau 3 |
 | **Référentiel** | C09 · C06 · IoT (niv. 2) · architectures industrielles (niv. 2) |
 
 > [!NOTE]

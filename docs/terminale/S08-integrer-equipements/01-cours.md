@@ -68,10 +68,24 @@ Un pirate qui **prend la caméra** (mot de passe connu) se retrouve **dans le r�
 
 | VLAN | Réseau | Équipements |
 |---|---|---|
-| 10 POSTES | 192.168.10.0/24 | Ordinateurs (DHCP `.50`+) |
+| 10 POSTES | 192.168.10.0/24 | Ordinateurs (DHCP `.50`+, distribué par le switch cœur) |
 | 40 OBJETS | 192.168.40.0/24 | Imprimante `.20`, NAS `.30`, caméra `.31`, ESP32 `.40` |
 
 ![Un VLAN pour les objets connectés](images/vlan-objets.svg)
+
+### 💡 Qui distribue les adresses ?
+
+Le DHCP est un **service** : il peut tourner sur plusieurs types d'équipements. Dans un petit réseau :
+
+| Équipement | Quand ? |
+|---|---|
+| **Box / routeur** | maison, très petit bureau |
+| **Switch de niveau 3 ou routeur d'entreprise** | petite structure avec VLAN (**cas du cabinet Lemoine** : le switch cœur distribue les adresses du VLAN 10) |
+| **Serveur dédié** (Windows Server, Linux) | structure plus grande, besoin de réservations, de journaux |
+| **NAS** | certains NAS offrent un service DHCP : à **éviter** s'il y en a déjà un autre, deux serveurs DHCP sur un même réseau se perturbent |
+
+> [!WARNING]
+> **Un seul serveur DHCP par réseau** (sauf configuration spéciale). Un second serveur « sauvage » (une box branchée, un NAS mal configuré) distribue de mauvaises adresses.
 
 ### ✅ Vérifie que tu as compris
 
