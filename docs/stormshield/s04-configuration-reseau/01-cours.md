@@ -55,6 +55,39 @@ Onglet **Interfaces** : zone, adresse IPv4, masque, DHCP, actif/inactif, et **pa
 > [!NOTE]
 > 🧊 **Limite du simulateur.** Pas de mode transparent (pont), pas d'interfaces VLAN ni GRETAP, pas de routage avancé (routes par politique, dynamique). **Alternative Packet Tracer :** un routeur Cisco avec sous-interfaces 802.1Q (module [CCNA 2-02](../../ccna/2-02-trunk-inter-vlan/01-cours.md)) et des routes statiques (module [CCNA 3-02](../../ccna/3-02-routage-statique/01-cours.md)). **Alternative VM :** EVA, rubrique *Réseau → Interfaces*.
 
+## 🔧 Dépanner : « le réseau interne marche, pas Internet »
+
+> [!NOTE]
+> **Pourquoi ce chapitre ?** La configuration réseau est la **fondation** : si elle est fausse, aucune règle de filtrage ne peut compenser. Avant de toucher au filtrage, on vérifie toujours dans cet ordre : ① les **interfaces** (adresse, masque), ② la **route par défaut**, ③ les **hôtes** (leur passerelle).
+
+### Panne 1 – La route par défaut est absente
+
+*Symptôme : `PC-ADMIN` ouvre le site de la DMZ, mais plus aucun site d'Internet.*
+
+Dans le simulateur, le journal ne contient **aucune ligne** pour la tentative vers Internet (le pare-feu ne sait pas où envoyer le paquet), alors que la ligne vers la DMZ s'affiche normalement. **Signature :** une destination interne fonctionne, une destination externe non, **sans trace dans le journal**.
+
+**Correction :** ajouter la route par défaut (passerelle du FAI, ici `203.0.113.1`) puis retester.
+
+### Panne 2 – Le serveur a une mauvaise passerelle
+
+*Symptôme : le site de la DMZ ne s'ouvre ni depuis le LAN, ni depuis Internet.*
+
+Le journal affiche **`PASS`** pour le LAN→DMZ **et** pour le WAN→DMZ : le pare-feu fait son travail. Pourtant, le serveur est configuré avec la passerelle `172.16.0.99` au lieu de `172.16.0.254` : il **reçoit** la demande mais **ne sait pas répondre** à une adresse située hors de son sous-réseau.
+
+**Correction :** la passerelle d'un serveur de la DMZ est **l'adresse du pare-feu dans la DMZ** (`172.16.0.254`).
+
+> [!TIP]
+> **Le réflexe :** si le journal dit `PASS` et que ça ne marche pas, teste **le serveur lui-même** : son adresse, son masque, sa passerelle.
+
+### Check-list réseau (à faire avant tout le reste)
+
+| À vérifier | Comment |
+|---|---|
+| Adresse et masque de chaque interface (IN, DMZ, OUT) | écran des interfaces |
+| Route par défaut vers le FAI | écran du routage |
+| Passerelle des hôtes = adresse du pare-feu **dans leur zone** | configuration de l'hôte |
+| Le FAI joint-il le pare-feu ? | ping de la passerelle du FAI depuis le pare-feu |
+
 ---
 
 ## 🧠 Quiz de fin

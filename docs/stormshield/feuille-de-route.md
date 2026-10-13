@@ -14,6 +14,7 @@
 | S08 Utilisateurs et authentification | ☐ | ☐ | ☐ | ☐ |
 | S09 VPN IPsec | ☐ | ☐ | ☐ | ☐ |
 | S10 VPN SSL | ☐ | ☐ | ☐ | ☐ |
+| S11 Dépanner un pare-feu | ☐ | ☐ | ☐ | ☐ |
 
 ## 📝 Examen blanc
 

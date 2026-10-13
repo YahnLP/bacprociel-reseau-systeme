@@ -72,6 +72,35 @@ La **VTI** est une **interface virtuelle** qui représente le tunnel : le trafic
 > [!NOTE]
 > 🧊 **Limite du simulateur.** Le **pare-feu Stormshield du simulateur n'a pas de VPN** (ni IKE, ni VTI). **Alternative dans le simulateur :** le TP **CCNA 5-05** monte un **vrai tunnel IPsec** entre **deux routeurs Cisco** : mêmes notions (phases, AES/SHA/DH, clé pré-partagée, trafic à chiffrer), commandes Cisco. **Alternatives :** Packet Tracer (même scénario) ; **VM EVA** ×2 (TP du module).
 
+## 🔧 Dépanner : le tunnel IPsec
+
+> [!NOTE]
+> **Pourquoi ce chapitre ?** Un tunnel qui ne monte pas ne dit pas pourquoi à l'utilisateur. La méthode : **identifier la phase** qui échoue (la phase 1 construit le canal de contrôle, la phase 2 crée le tunnel de données), puis comparer les deux extrémités **paramètre par paramètre**.
+
+> [!WARNING]
+> **Ce tableau n'est pas reproductible dans le simulateur** du site (pas de tunnel IPsec). Il décrit les causes **classiques** à connaître pour la certification ; **vérifie-les sur ta VM EVA** (ou en classe) avant de les considérer comme acquises.
+
+### Phase 1 qui n'aboutit pas
+
+| Cause | À comparer / vérifier |
+|---|---|
+| Clé pré-partagée différente | la clé, **à l'identique** des deux côtés (casse, espaces) |
+| Propositions incompatibles | chiffrement, hachage, groupe Diffie-Hellman, **version IKE** : mêmes choix des deux côtés |
+| Pair injoignable | adresse du pair juste ? ports UDP 500 / 4500 ouverts sur le chemin ? |
+| Identifiants (ID locaux/distants) incohérents | l'identité attendue par chaque extrémité |
+
+### Phase 1 établie, mais pas de trafic
+
+| Cause | À comparer / vérifier |
+|---|---|
+| Réseaux locaux / distants **non symétriques** | ce qui est « local » à un bout doit être « distant » à l'autre, avec **les mêmes réseaux** |
+| Règle de filtrage absente | le trafic à destination du tunnel doit être autorisé |
+| Route absente | les réseaux distants sont-ils routés vers le tunnel ? |
+| Proposition de phase 2 différente | chiffrement, hachage, PFS identiques des deux côtés |
+
+> [!TIP]
+> **Le réflexe :** on lit le **journal des VPN des deux extrémités**. L'une des deux dit presque toujours précisément ce qu'elle a refusé (proposition, identité, réseau).
+
 ---
 
 ## 🧠 Quiz de fin

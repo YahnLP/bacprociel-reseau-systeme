@@ -47,6 +47,18 @@ Les pare-feux Stormshield créent déjà des objets utiles : les **interfaces** 
 > [!NOTE]
 > 🧊 **Limite du simulateur.** Il n'a **pas de menu Objets** : dans une règle, tu saisis directement l'adresse (`192.168.1.10/32`) ou le réseau (`192.168.1.0/24`) et le port (`80,443`). Le principe est le même, la lisibilité en moins : **note le nom de l'objet dans le commentaire** de la règle. **Alternatives :** (1) **VM Stormshield EVA** (TP du module) ; (2) **Packet Tracer** : les listes d'accès Cisco peuvent utiliser des **groupes d'objets** (`object-group`) sur certains équipements (ASA) ; sur un routeur, les ACL nommées jouent un rôle proche (module [CCNA 5-03](../../ccna/5-03-acl/01-cours.md)).
 
+## 🔧 Dépanner : les objets
+
+> [!NOTE]
+> **Pourquoi ce chapitre ?** Un objet est utilisé par **plusieurs** règles. Une erreur dans l'objet se propage donc **partout** : c'est pratique quand on corrige, dangereux quand on se trompe.
+
+| Symptôme | Cause fréquente | Vérification |
+|---|---|---|
+| Une règle « ne correspond jamais » | l'objet a un **mauvais masque** ou une mauvaise adresse | relire l'objet (adresse **et** masque) |
+| Plusieurs règles changent de comportement d'un coup | un objet partagé a été modifié | chercher où l'objet est utilisé avant de le modifier |
+| Un objet « nom de machine » ne fonctionne pas | résolution DNS impossible | tester la résolution du nom depuis le pare-feu |
+| Règle illisible | objets nommés `obj1`, `obj2`… | donner des **noms explicites** (`SRV-WEB-DMZ`, `LAN-COMPTA`) |
+
 ---
 
 ## 🧠 Quiz de fin

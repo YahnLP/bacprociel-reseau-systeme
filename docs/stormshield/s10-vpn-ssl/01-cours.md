@@ -49,6 +49,22 @@ Le VPN SSL crée un **tunnel chiffré** entre le poste de l'utilisateur et le pa
 > [!NOTE]
 > 🧊 **Limite du simulateur.** Il n'a pas de VPN (IPsec ni SSL) sur le pare-feu. **Alternatives :** (1) **VM EVA** + poste client (TP du module) ; (2) **VirtualBox, sans Stormshield** : un serveur **OpenVPN** sur une VM Linux (TP du module) pour comprendre le principe ; (3) **Packet Tracer** : seulement le VPN IPsec (module [CCNA 5-05](../../ccna/5-05-vpn-ipsec/01-cours.md)).
 
+## 🔧 Dépanner : le VPN SSL (nomade)
+
+> [!NOTE]
+> **Pourquoi ce chapitre ?** Le VPN nomade touche des postes que tu ne maîtrises pas (domicile, hôtel). Les pannes viennent souvent du **poste** ou du **réseau de l'utilisateur**, autant que du pare-feu.
+
+> [!WARNING]
+> **Ce tableau n'est pas reproductible dans le simulateur** du site (pas de VPN SSL). Il décrit les causes **classiques** à connaître pour la certification ; **vérifie-les sur ta VM EVA** (ou en classe) avant de les considérer comme acquises.
+
+| Symptôme | Cause fréquente | Vérification |
+|---|---|---|
+| Le client ne se connecte pas | adresse / port du pare-feu faux, port bloqué par le réseau de l'utilisateur | tester l'accès au port depuis le poste |
+| Avertissement de certificat | certificat auto-signé non reconnu par le poste | installer l'autorité de certification sur le poste |
+| Connexion refusée après identification | utilisateur **non autorisé** à utiliser le VPN SSL | droits de l'utilisateur / groupe |
+| Connecté mais aucune ressource accessible | réseaux à joindre non annoncés ; règle de filtrage pour le trafic VPN absente | politique de filtrage, réseaux annoncés au client |
+| Conflit d'adresses | le réseau du domicile utilise le même plan d'adresses que l'entreprise | choisir un plan d'adressage peu courant pour le LAN et le pool VPN |
+
 ---
 
 ## 🧠 Quiz de fin

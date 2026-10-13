@@ -45,6 +45,21 @@ Dans une **règle de filtrage**, on choisit le niveau d'**inspection** (pare-feu
 > [!NOTE]
 > 🧊 **Limite du simulateur.** Il ne fait ni filtrage d'URL, ni antivirus, ni IPS, ni déchiffrement. **Alternatives :** (1) **VM Stormshield EVA** (TP du module) ; (2) **Packet Tracer** : pas d'équivalent applicatif ; on illustre seulement la **limite des ports** avec une ACL qui bloque ou autorise le port 80 (module [CCNA 5-03](../../ccna/5-03-acl/01-cours.md)), et on lit les catégories d'URL à la main.
 
+## 🔧 Dépanner : la protection bloque un usage légitime
+
+> [!NOTE]
+> **Pourquoi ce chapitre ?** Plus on inspecte, plus on risque un **faux positif** : un site, un logiciel ou un échange légitime bloqué. Le bon réflexe n'est pas de désactiver la protection, mais de **comprendre laquelle a décidé**.
+
+> [!WARNING]
+> **Ce tableau n'est pas reproductible dans le simulateur** du site (pas de protection applicative, d'IPS ni d'antivirus). Il décrit les causes **classiques** à connaître pour la certification ; **vérifie-les sur ta VM EVA** (ou en classe) avant de les considérer comme acquises.
+
+| Symptôme | Cause fréquente | Que faire |
+|---|---|---|
+| Un site précis est inaccessible | catégorie d'URL bloquée par la politique | lire le journal **Web** (catégorie, règle), ajuster **cette** catégorie ou ajouter une exception |
+| Un logiciel métier ne marche plus | alarme de l'IPS sur son protocole | lire le journal des **alarmes** : signature, action ; traiter au cas par cas |
+| Avertissements de certificat sur tous les sites HTTPS | l'inspection SSL est active et le certificat de l'autorité du pare-feu n'est pas installé sur les postes | déployer ce certificat sur les postes ; ne jamais apprendre aux utilisateurs à « ignorer l'alerte » |
+| Pare-feu lent | inspection trop large | cibler les règles qui ont besoin d'inspection |
+
 ---
 
 ## 🧠 Quiz de fin

@@ -56,6 +56,20 @@ Le simulateur contient un **Stormshield SN210** à quatre ports : `OUT` (zone WA
 > [!NOTE]
 > 🧊 **Limite du simulateur.** Il n'a pas de licence, de mise à jour, de sauvegarde ni de comptes administrateurs. **Alternative :** machine virtuelle **Stormshield EVA** (voir le TP). Sur **Cisco Packet Tracer**, l'équivalent est la sauvegarde de configuration d'un routeur : `copy running-config startup-config` (module [CCNA 4-05](../../ccna/4-05-ssh-tftp/01-cours.md)).
 
+## 🔧 Dépanner : « je n'arrive pas à ouvrir l'interface d'administration »
+
+> [!NOTE]
+> **Pourquoi ce chapitre ?** La toute première panne qu'un technicien rencontre est de **joindre** l'équipement. La méthode est celle des réseaux : de la couche 1 à la couche 7.
+
+| Étape | Test | Cause fréquente |
+|---|---|---|
+| 1 | Le câble est-il sur le **bon port** ? voyant allumé ? | port `OUT` au lieu de `IN` ; câble défectueux |
+| 2 | Le poste est-il **dans le même réseau** que l'adresse d'administration ? | mauvaise adresse ou mauvais masque sur le poste |
+| 3 | `ping` de l'adresse du pare-feu | pare-feu non démarré, mauvaise adresse |
+| 4 | `https://adresse/admin` (**https**, chemin `/admin`) | adresse tapée en `http`, sans `/admin` |
+| 5 | Avertissement du navigateur sur le certificat | normal au premier accès : le certificat est auto-signé |
+| 6 | Identifiants refusés | compte par défaut modifié ; vérifier avec l'enseignant |
+
 ---
 
 ## 🧠 Quiz de fin

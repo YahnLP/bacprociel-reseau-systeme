@@ -36,6 +36,7 @@
 | [S08 · Utilisateurs et authentification](s08-utilisateurs-authentification/01-cours.md) | Annuaire, Kerberos, RADIUS, portail captif, SSO | [VM EVA + AD, ou 🧊](s08-utilisateurs-authentification/02-tp.md) |
 | [S09 · VPN IPsec](s09-vpn-ipsec/01-cours.md) | Phases, IKEv1/v2, clé pré-partagée, VTI | [🖥️ tunnel IPsec (routeurs Cisco)](s09-vpn-ipsec/02-tp.md) |
 | [S10 · VPN SSL](s10-vpn-ssl/01-cours.md) | VPN nomade, mise en service | [VM EVA ou OpenVPN](s10-vpn-ssl/02-tp.md) |
+| [S11 · Dépanner un pare-feu](s11-depannage/01-cours.md) | Lire le journal, arbre de décision, fiche réflexe, journal de dépannage | [🖥️ site en panne (simulateur)](s11-depannage/02-tp.md) |
 | [📝 Examen blanc](examen-blanc/01-examen.md) | 29 questions sur S01 à S10 | corrigé inclus |
 
 ## 🧪 Le matériel de TP

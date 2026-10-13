@@ -49,6 +49,53 @@ Rubrique **Redirections de ports** : protocole, **port externe**, adresse et por
 > [!NOTE]
 > 🧊 **Limite du simulateur.** Pas de NAT 1:1 avec une adresse publique dédiée, ni de règles de NAT détaillées (par source, par service). **Alternative Packet Tracer :** NAT sur un routeur Cisco : `ip nat inside source list … overload` (PAT) et `ip nat inside source static` (module [CCNA 4-01](../../ccna/4-01-nat/01-cours.md)).
 
+## 🔧 Dépanner : les trois pannes du NAT
+
+> [!NOTE]
+> **Pourquoi ce chapitre ?** Le NAT et le filtrage sont **deux étages distincts** : le NAT *réécrit* les adresses, le filtrage *autorise ou refuse*. Une publication de service ne fonctionne que si **les trois éléments** sont présents : la **redirection**, la **règle de filtrage** correspondante, et un serveur qui **répond** correctement. Les pannes se reconnaissent à la façon dont le journal réagit.
+
+### Panne 1 – Le masquerade est absent (accès Internet)
+
+*Symptôme : `PC-ADMIN` n'ouvre plus aucun site d'Internet, alors que le site de la DMZ fonctionne.*
+
+```text
+PASS  192.168.1.10:49475 → 198.51.100.80:80  tcp [LAN→WAN]  règle 1
+```
+
+Le journal affiche **`PASS`** : le filtrage a laissé sortir le paquet. Mais il part avec une adresse **privée** (`192.168.1.10`) : Internet ne sait pas y répondre. **Signature :** `PASS` dans le journal, aucune réponse. **Correction :** recréer la règle de NAT « masquerade LAN → WAN ».
+
+### Panne 2 – La redirection est absente (publication du site)
+
+*Symptôme : depuis Internet, `http://203.0.113.2` ne répond plus.*
+
+```text
+BLOCK 198.51.100.20:50949 → 203.0.113.2:80  tcp [WAN→FW]  connexion vers le pare-feu refusée (WAN)
+```
+
+Sans redirection, la demande vise le **pare-feu lui-même** (zone `FW`), qui refuse les connexions WAN par défaut. **Signature :** destination = **adresse publique du pare-feu**, zone d'arrivée `FW`. **Correction :** recréer la redirection (`tcp 80` → `172.16.0.10:80`).
+
+### Panne 3 – La règle de filtrage manque ou est désactivée
+
+*Symptôme : la redirection existe, mais la publication ne marche pas.*
+
+```text
+BLOCK 198.51.100.20:50949 → 172.16.0.10:80  tcp [WAN→DMZ]  politique par défaut
+```
+
+Cette fois, l'adresse a bien été **traduite** (destination = `172.16.0.10`, le serveur), mais **aucune règle** `WAN→DMZ` n'autorise le flux : on tombe sur la **politique par défaut**. **Signature :** destination = **adresse du serveur**, zone `WAN→DMZ`, motif « politique par défaut ». **Correction :** créer (ou réactiver) la règle `WAN → DMZ, tcp 80`.
+
+> [!TIP]
+> **Comment les distinguer en un coup d'œil ?**
+>
+> | La destination du journal est… | Le NAT… | Le problème est… |
+> |---|---|---|
+> | l'**adresse publique** du pare-feu | n'a pas été appliqué | la **redirection** |
+> | l'**adresse du serveur** | a été appliqué | le **filtrage** |
+> | n'importe laquelle, mais `PASS` et pas de réponse | – | le **retour** (masquerade, passerelle du serveur) |
+
+> [!WARNING]
+> **Piège du simulateur.** Le simulateur filtre sur l'adresse et le port **après** traduction (adresse du serveur). Le matériel Stormshield réel évalue la politique de filtrage sur les adresses **avant** NAT (adresse publique). Écris donc tes règles en pensant au produit réel, et ne te fie pas au simulateur pour ce détail.
+
 ---
 
 ## 🧠 Quiz de fin

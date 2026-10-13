@@ -54,6 +54,21 @@ Avec l'authentification **explicite**, l'utilisateur est redirigé vers une **pa
 > [!NOTE]
 > 🧊 **Limite du simulateur.** Le pare-feu du simulateur ne gère ni utilisateurs, ni annuaire, ni portail captif. **Alternatives :** (1) **VM EVA** + **VM Active Directory** (TP du module) ; (2) **Packet Tracer** : un serveur AAA (RADIUS) joint par un routeur ou un switch, comme au module [CCNA 5-02](../../ccna/5-02-acces-equipements-aaa/02-tp.md).
 
+## 🔧 Dépanner : l'authentification
+
+> [!NOTE]
+> **Pourquoi ce chapitre ?** Avec l'authentification, une règle ne dépend plus seulement de l'**adresse**, mais de **qui** est connecté. Quand un utilisateur « n'a plus accès », il faut donc vérifier trois choses : est-il **identifié** ? dans le **bon groupe** ? la règle **cible-t-elle ce groupe** ?
+
+> [!WARNING]
+> **Ce tableau n'est pas reproductible dans le simulateur** du site (pas de annuaire LDAP ni de portail captif). Il décrit les causes **classiques** à connaître pour la certification ; **vérifie-les sur ta VM EVA** (ou en classe) avant de les considérer comme acquises.
+
+| Symptôme | Cause fréquente | Vérification |
+|---|---|---|
+| Tous les utilisateurs échouent | annuaire injoignable ; compte de liaison ou mot de passe faux ; mauvais port | tester la connexion à l'annuaire depuis le pare-feu |
+| Un seul utilisateur échoue | mot de passe, compte verrouillé, **absent du groupe** | vérifier le compte dans l'annuaire |
+| Le portail captif n'apparaît pas | la navigation testée est en HTTPS, ou l'interface n'est pas dans la méthode d'authentification | tester une page en `http://` ; vérifier la politique d'authentification |
+| L'utilisateur est identifié mais refusé | la règle de filtrage cible un autre groupe, ou elle est **plus bas** que la règle générale | relire la règle et son ordre |
+
 ---
 
 ## 🧠 Quiz de fin

@@ -78,6 +78,21 @@ lab({ id: 's06-filtrage', start: D + 's06-filtrage/tp/s06-filtrage.json', soluti
   solve: (sim, h) => { const f = h.get('FW1'); f.rules = [R('block', 'LAN', 'WAN', 'any', '192.168.1.50/32', 'any', 'any', 'Stagiaire bloqué'), R('pass', 'LAN', 'WAN', 'tcp', 'any', 'any', '80,443', 'Navigation web'), R('pass', 'LAN', 'WAN', 'udp', 'any', 'any', '53', 'DNS'), R('pass', 'LAN', 'DMZ', 'tcp', 'any', 'any', '80', 'Site de la DMZ')]; },
   checks: s06, startShould: [s06[1].label, s06[2].label] });
 
+/* ---------- S11 : site en panne (trois pannes à diagnostiquer) ---------- */
+const s11 = [
+  { label: 'PC-ADMIN ouvre le site web d\'Internet', run: c => page(c, 'PC-ADMIN', 'http://198.51.100.80') },
+  { label: 'PC-STAGIAIRE ne peut PAS ouvrir le site web d\'Internet', run: c => !page(c, 'PC-STAGIAIRE', 'http://198.51.100.80') },
+  { label: 'Le client Internet ouvre le site de la DMZ sur http://203.0.113.2', run: c => page(c, 'CLIENT', 'http://203.0.113.2') },
+  { label: 'PC-ADMIN ouvre le site de la DMZ', run: c => page(c, 'PC-ADMIN', 'http://172.16.0.10') },
+];
+lab({ id: 's11-site-en-panne', start: D + 's11-depannage/tp/s11-site-en-panne.json', solution: K + 'S11-site-en-panne-corrige.json',
+  notes: 'Stormshield S11 – Site en panne : un pare-feu configuré par un collègue ne fait pas ce qui est demandé (accès Internet pour le LAN sauf PC-STAGIAIRE ; site de la DMZ publié sur 203.0.113.2). Trois pannes indépendantes à trouver avec le journal.',
+  build: (sim, h) => { site(sim, h); const f = h.get('FW1');
+    f.rules = [R('pass', 'LAN', 'WAN', 'tcp', 'any', 'any', '80,443', 'Navigation web'), R('block', 'LAN', 'WAN', 'any', '192.168.1.50/32', 'any', 'any', 'Stagiaire bloqué'), R('pass', 'LAN', 'WAN', 'udp', 'any', 'any', '53', 'DNS'), R('pass', 'LAN', 'DMZ', 'tcp', 'any', 'any', '80', 'Site de la DMZ'), R('pass', 'WAN', 'DMZ', 'tcp', 'any', 'any', '80', 'Publication du site')];
+    f.rules[4].on = false; f.natMasq = []; f.forwards = [{ proto: 'tcp', port: 80, toIp: '172.16.0.10', toPort: 80 }]; f.rebuildNat(); f.ifaceByName('dmz1').nat = 'inside'; },
+  solve: (sim, h) => { const f = h.get('FW1'); const r = f.rules.splice(1, 1)[0]; f.rules.unshift(r); f.rules.forEach(x => { x.on = true; }); f.natMasq = [{ from: 'LAN', to: 'WAN' }]; f.rebuildNat(); f.ifaceByName('dmz1').nat = 'inside'; },
+  checks: s11, startShould: [s11[0].label, s11[2].label] });
+
 const want = process.argv.slice(2); let all = true;
 TPS.filter(t => !want.length || want.includes(t.id)).forEach(t => { all = L.run(t) && all; });
 process.exit(all ? 0 : 1);

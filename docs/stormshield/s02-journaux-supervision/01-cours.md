@@ -52,6 +52,31 @@ Onglet **Journal** du pare-feu : une ligne par décision (autorisé ou bloqué) 
 > [!NOTE]
 > 🧊 **Limite du simulateur.** Pas de graphiques historiques ni de catégories (alarmes, web…). **Alternative Packet Tracer :** sur un routeur Cisco, `show access-lists` affiche des compteurs de correspondances, et `log` à la fin d'une ACL journalise (module [CCNA 5-03](../../ccna/5-03-acl/01-cours.md)).
 
+## 🔧 Dépanner : lire le motif du journal
+
+> [!NOTE]
+> **Pourquoi ce chapitre ?** Un pare-feu qui bloque ne s'excuse pas : il écrit **pourquoi** dans son journal. Savoir lire le **motif** transforme « ça ne marche pas » en « la règle 3 est désactivée ». Les quatre motifs ci-dessous ont été relevés dans le simulateur.
+
+### Les quatre cas à reconnaître
+
+| Ce que dit le journal | Ce que ça veut dire | Où chercher |
+|---|---|---|
+| `BLOCK … règle 1` | une règle **précise** a bloqué le flux | est-ce la règle voulue ? n'est-elle pas **trop haut** dans la liste ? |
+| `BLOCK … politique par défaut` | **aucune règle** n'a correspondu : tout ce qui n'est pas autorisé est refusé | règle manquante, **désactivée**, mauvaise **zone**, mauvais **port** |
+| `BLOCK … connexion vers le pare-feu refusée` | le flux vise **le pare-feu lui-même** (son adresse) | une **redirection** (NAT) manque ou n'est pas appliquée |
+| `PASS …` mais le service ne répond pas | le **filtrage n'est pas en cause** | NAT, route, passerelle du serveur, service arrêté |
+
+> [!WARNING]
+> **`PASS` ne veut pas dire « ça marche ».** Cela veut dire que le pare-feu a **laissé passer le paquet aller**. Si la réponse ne revient pas (pas de NAT, mauvaise passerelle sur le serveur), le journal affiche quand même `PASS`. Dans ce cas, **cherche ailleurs que dans les règles**.
+
+### La méthode de lecture
+
+1. **Refais le test** pendant que le journal est ouvert, pour retrouver *ta* ligne (adresse source, adresse destination, port).
+2. Lis **l'action** (`PASS`/`BLOCK`), les **zones** (`LAN→DMZ`), puis le **motif**.
+3. Si `BLOCK` : ouvre la règle citée (ou la liste, si c'est la politique par défaut) et compare avec le flux.
+4. Si `PASS` mais ça échoue : le problème est **hors filtrage** (S04, S05).
+5. Si **aucune ligne** n'apparaît pour ton test : le flux n'arrive pas jusqu'au filtrage (câblage, adresse, route) : voir [S04](../s04-configuration-reseau/01-cours.md).
+
 ---
 
 ## 🧠 Quiz de fin

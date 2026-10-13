@@ -13,4 +13,5 @@ nav:
   - s08-utilisateurs-authentification
   - s09-vpn-ipsec
   - s10-vpn-ssl
+  - s11-depannage
   - examen-blanc
