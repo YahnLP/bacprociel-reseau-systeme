@@ -123,4 +123,4 @@ Les mots du métier, expliqués simplement.
 
 ## ⚖️ Licence
 
-Contenus sous licence **CC BY-NC-SA 4.0**. Le simulateur réseau est distribué sous licence **EUPL 1.2**.
+Contenus sous licence **CC BY-NC-SA 4.0**.<br>Le simulateur réseau est distribué sous licence **EUPL 1.2**.

@@ -2,9 +2,12 @@ title: Parcours serveurs
 nav:
   - README.md
   - feuille-de-route.md
+  - methode-depannage.md
+  - fiche-depannage.md
   - glossaire-serveurs.md
   - m0-virtualbox
   - m1-serveur-web
   - m2-ftp-sftp
   - m3-nas
   - m4-active-directory
+  - m5-depannage

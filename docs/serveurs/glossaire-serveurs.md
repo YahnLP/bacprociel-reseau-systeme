@@ -19,3 +19,15 @@
 | Contrôleur de domaine | *domain controller (DC)* | Serveur qui porte l'AD | 4 |
 | Unité d'organisation | *OU* | Dossier de l'annuaire pour ranger comptes et ordinateurs | 4 |
 | Stratégie de groupe | *GPO (group policy object)* | Règles appliquées aux comptes et postes | 4 |
+| Code d'état | *HTTP status code* | 200 OK, 403 interdit, 404 introuvable, 502 passerelle | 1 |
+| Site virtuel | *virtual host* | Plusieurs sites sur une même adresse, distingués par le nom | 1 |
+| Serveur mandataire inverse | *reverse proxy* | Reçoit les requêtes et les transmet à une application | 1 |
+| Mode passif | *passive mode (FTP)* | Le client ouvre aussi la connexion de données | 2 |
+| Chroot | *chroot* | Enferme l'utilisateur dans un dossier | 2 |
+| Niveaux de droits d'un partage | *share permissions / file permissions* | Droit du partage + droit du dossier : le plus restrictif s'applique | 3 |
+| Règle 3-2-1 | *3-2-1 backup rule* | 3 copies, 2 supports, 1 hors site | 3 |
+| Kerberos | *Kerberos* | Authentification par tickets (heure précise exigée) | 4 |
+| Enregistrement de service | *SRV record* | Entrée DNS qui indique où se trouve un service (le DC) | 4 |
+| Relation d'approbation | *trust / secure channel* | Lien de confiance entre un poste et le domaine | 4 |
+| Incident | *incident / ticket* | Signalement d'un dysfonctionnement à traiter | 5 |
+| Contournement | *workaround* | Solution provisoire, sans traiter la cause | 5 |
