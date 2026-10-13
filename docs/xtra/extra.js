@@ -57,3 +57,11 @@ if (window.document$) document$.subscribe(decorate); else document.addEventListe
   function mount() { make("toggle-nav", "hide-nav", "hide-nav"); make("toggle-toc", "hide-toc", "hide-toc"); refresh(); }
   if (window.document$) document$.subscribe(mount); else document.addEventListener("DOMContentLoaded", mount);
 })();
+
+/* Le simulateur s'ouvre toujours dans un nouvel onglet : on garde la page du TP sous la main */
+(function () {
+  function tag() {
+    document.querySelectorAll('a[href*="simulateur-reseau.html"]').forEach(function (a) { a.target = "_blank"; a.rel = "noopener"; });
+  }
+  if (window.document$) document$.subscribe(tag); else document.addEventListener("DOMContentLoaded", tag);
+})();
