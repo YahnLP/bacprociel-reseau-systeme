@@ -8,6 +8,7 @@ edit_uri: "edit/main/docs/"
 copyright: |
   © Yahn LE PRETTRE, Enseignant à la MFR de Pontonx ·
   <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.fr">Licence CC BY-NC-SA 4.0</a>
+  · Simulateur sous <a href="https://yahnlp.github.io/bacprociel-reseau-systeme/ressources/licences/">licence EUPL 1.2</a>
   · Hébergé sur GitHub Pages
 
 docs_dir: docs
