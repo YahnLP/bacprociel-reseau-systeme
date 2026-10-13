@@ -93,6 +93,54 @@ Le Port-channel 1 est de **couche 2**, **en service**, en **LACP**, avec **deux 
 
 ---
 
+## 🔧 Dépanner : l'EtherChannel ne se forme pas
+
+> [!NOTE]
+> **Pourquoi ce chapitre ?** Un EtherChannel est un « faisceau » de liens physiques vus comme un seul. Il ne se forme que si **les deux côtés sont d'accord** (même protocole, modes compatibles, mêmes réglages sur tous les ports). S'ils ne le sont pas, les ports restent **seuls** (stand-alone) : le lien peut sembler fonctionner, mais sans l'agrégation attendue.
+
+### La commande clé : `show etherchannel summary`
+
+Faisceau sain (LACP, deux ports regroupés) :
+
+```text
+Group  Port-channel  Protocol    Ports
+1      Po1(SU)       LACP        Fa0/23(P)  Fa0/24(P)
+```
+
+| Lettre | Signifie |
+|---|---|
+| `S` (sur Po) | **L**ayer 2 | 
+| `U` (sur Po) | **in use** : le faisceau est en service |
+| `P` (sur un port) | le port est **bundled** (regroupé) |
+| `I` (sur un port) | le port est **stand-alone** : il n'a pas rejoint le faisceau |
+| `D` (sur Po) | **down** : aucun port regroupé |
+
+### Panne – « passive » des deux côtés
+
+Les deux modes `passive` **attendent que l'autre commence** : personne ne propose, rien ne se forme. Sortie réelle du simulateur :
+
+```text
+SW1# show etherchannel summary
+Group  Port-channel  Protocol    Ports
+1      Po1(SD)       LACP        Fa0/23(I)  Fa0/24(I)
+```
+
+`Po1(SD)` et les ports en `(I)` : le faisceau est **down** et les ports sont seuls. **Correction :** mettre **au moins un** côté en `active` (`channel-group 1 mode active`).
+
+### Les causes classiques (à vérifier une à une)
+
+| Cause | Comment la voir | Correction |
+|---|---|---|
+| `passive` + `passive` (ou `auto` + `auto` en PAgP) | `(I)` / `Po1(SD)` | un côté en `active` |
+| `on` d'un côté, LACP de l'autre | un côté regroupe, l'autre non (comportement réel du matériel) | même mode des deux côtés (LACP : `active`) |
+| Ports aux réglages **différents** (vitesse, VLAN, trunk) | `show running-config` des ports | réglages identiques sur tous les ports du groupe |
+| Un des câbles est coupé | `show interfaces status` | rétablir le lien |
+
+> [!WARNING]
+> **Limite du simulateur.** Le simulateur ne reproduit pas l'incohérence « `on` contre LACP » (il regroupe quand même). Le cas `passive`/`passive` est en revanche fidèle. Pour étudier le premier, utilise Packet Tracer 🧊.
+
+---
+
 ## 🧠 Quiz de fin
 
 **1.** Quel protocole de découverte est un standard IEEE ?

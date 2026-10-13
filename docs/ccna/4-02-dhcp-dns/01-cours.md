@@ -95,6 +95,42 @@ Le **DNS** traduit un **nom** en **adresse IP**. Port **53** (UDP, ou TCP pour l
 
 ---
 
+## 🔧 Dépanner : « le poste n'obtient pas d'adresse »
+
+> [!NOTE]
+> **Pourquoi ce chapitre ?** Un poste qui ne reçoit pas d'adresse n'a **aucune** connectivité : l'utilisateur dit « Internet est en panne », alors qu'il s'agit du DHCP. Un client DHCP **diffuse** sa demande (broadcast) ; un routeur **ne transmet pas** les diffusions. Si le serveur DHCP est sur un autre réseau, il faut un **relais** (`ip helper-address`).
+
+### Reconnaître le symptôme côté poste
+
+Un poste qui n'a pas reçu d'adresse n'affiche **aucune adresse IPv4** sur son interface (sous Linux : `ip a` ne montre que `lo` ; sous Windows : adresse `169.254.x.x`, dite APIPA).
+
+### Panne – Le relais est absent
+
+Sur `R1` (le routeur du LAN), on retire `ip helper-address 10.0.0.2` de `gi0/0`. Puis le poste redemande une adresse :
+
+```text
+PC1$ ip a
+1: lo ...
+(aucune adresse sur ens33)
+```
+
+Côté serveur, `show ip dhcp binding` de `R2` **ne montre aucune nouvelle attribution** : la demande n'est jamais arrivée. **Correction :** `interface gi0/0` puis `ip helper-address 10.0.0.2` ; le poste obtient son adresse au renouvellement (vérifié dans le simulateur).
+
+### Les causes classiques
+
+| Cause | Comment la voir | Correction |
+|---|---|---|
+| Relais absent ou mauvaise adresse | `show running-config interface …` : pas de `helper-address` | `ip helper-address <serveur>` sur l'interface **côté clients** |
+| Serveur DHCP injoignable | `ping` du serveur depuis le routeur | corriger le routage vers le serveur (et le **retour**) |
+| Pool épuisé | `show ip dhcp pool`, `show ip dhcp binding` | élargir le pool, réduire la durée du bail |
+| Plage exclue trop grande | `show running-config` (cherche `excluded-address`) | corriger `ip dhcp excluded-address` |
+| Mauvais réseau dans le pool | `show ip dhcp pool` | `network` correspond au LAN des clients |
+
+> [!TIP]
+> **Où poser le relais ?** Toujours sur l'interface **qui reçoit les diffusions des clients** (côté LAN), pas côté serveur.
+
+---
+
 ## 🧠 Quiz de fin
 
 **1.** Que signifie DORA ?

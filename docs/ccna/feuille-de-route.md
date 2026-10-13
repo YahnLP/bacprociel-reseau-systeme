@@ -61,6 +61,12 @@
 | 6-02 API REST et JSON | ☐ | ☐ | ☐ |
 | 6-03 Ansible et Terraform | ☐ | – | ☐ |
 
+## Domaine 7 – Dépannage (transversal)
+
+| Module | Cours | TP | Quiz |
+|---|---|---|---|
+| 7-01 Dépanner un réseau | ☐ | ☐ | ☐ |
+
 ## 📝 Examen blanc
 
 | Étape | Fait | Score |

@@ -101,6 +101,75 @@ Réseaux **différents** sur le lien (masques différents), **aires différentes
 
 ---
 
+## 🔧 Dépanner : « le voisin OSPF n'apparaît pas »
+
+> [!NOTE]
+> **Pourquoi ce chapitre ?** OSPF construit tout seul ses routes, mais **seulement entre voisins** qui se sont mis d'accord. Quand une route manque, la question n'est jamais « pourquoi cette route ? » mais **« pourquoi ce voisin n'est-il pas là ? »**. Deux routeurs ne deviennent voisins que si, sur le lien : même zone (area), mêmes temporisateurs (hello/dead), même sous-réseau, et si aucun n'est en `passive-interface`.
+
+### Les deux commandes de base
+
+```text
+R1# show ip ospf neighbor
+Neighbor ID  Pri  State     Dead Time  Address     Interface
+2.2.2.2      1    FULL/DR   00:00:37   10.0.12.2   GigabitEthernet0/1
+3.3.3.3      1    FULL/DR   00:00:37   10.0.13.2   GigabitEthernet0/2
+
+R1# show ip route ospf
+O  10.0.23.0/30   [110/2] via 10.0.12.2, GigabitEthernet0/1
+O  192.168.3.0/24 [110/2] via 10.0.13.2, GigabitEthernet0/2
+```
+
+Un voisin **absent** de la liste, ou bloqué en `INIT` / `2-WAY`, signale un désaccord sur le lien.
+
+### Panne 1 – Interface passive sur le lien
+
+`passive-interface gi0/1` sur `R2` : l'interface **n'envoie plus de Hello**. Sur `R1`, il ne reste qu'un voisin :
+
+```text
+R1# show ip ospf neighbor
+3.3.3.3   1   FULL/DR   00:00:33   10.0.13.2   GigabitEthernet0/2
+```
+
+Les routes ont **basculé par `R3`** (le triangle redondant masque la panne), mais le lien R1–R2 n'est plus utilisé. **Correction :** `no passive-interface gi0/1` sous `router ospf 1`.
+
+### Panne 2 – Zone différente
+
+`network 10.0.12.0 0.0.0.3 area 1` d'un côté, `area 0` de l'autre :
+
+```text
+R2# show ip ospf interface brief
+Gi0/1   1   1   10.0.12.2/30   1   DR   0/0     <- area 1, 0 voisin
+Gi0/2   1   0   10.0.23.1/30   1  BDR   1/1
+```
+
+L'interface est dans la **zone 1** et ne voit **aucun voisin (0/0)**. **Correction :** remettre `area 0`.
+
+### Panne 3 – Hello-interval différent
+
+`ip ospf hello-interval 5` sur un seul côté (l'autre garde 10) :
+
+```text
+R1# show ip ospf neighbor
+3.3.3.3   1   FULL/DR   00:00:33   10.0.13.2   GigabitEthernet0/2     <- plus de 2.2.2.2
+```
+
+Les temporisateurs doivent être **identiques** sur le lien. **Correction :** `no ip ospf hello-interval` (retour à 10 s).
+
+### Check-list « pas de voisin »
+
+| À vérifier | Commande |
+|---|---|
+| L'interface est dans OSPF et dans la **bonne zone** | `show ip ospf interface brief` |
+| Elle n'est pas **passive** | `show running-config` (cherche `passive-interface`) |
+| Hello / Dead **identiques** des deux côtés | `show ip ospf interface gi0/1` |
+| Les deux routeurs sont dans le **même sous-réseau** | `show ip interface brief` |
+| Les `router-id` sont **différents** | `show ip ospf` |
+
+> [!TIP]
+> Après une correction, **attends** : un voisin met jusqu'à 40 secondes (temps *Dead*) à apparaître ou disparaître. Un changement visible tout de suite est rare.
+
+---
+
 ## 🧠 Quiz de fin
 
 **1.** Quelle est la distance administrative d'OSPF ?

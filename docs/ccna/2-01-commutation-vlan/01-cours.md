@@ -99,6 +99,67 @@ interface fa0/5
 
 ---
 
+## 🔧 Dépanner : « le poste ne joint pas son voisin »
+
+> [!NOTE]
+> **Pourquoi ce chapitre ?** Un technicien passe plus de temps à *réparer* qu'à *installer*. Sur un switch, presque toutes les pannes de VLAN viennent de **deux sources** : un port qui n'est pas dans le bon VLAN, ou un VLAN qui n'existe pas (ou plus). Les commandes ci-dessous les révèlent en dix secondes, si on sait les lire.
+
+### Les trois commandes qui disent presque tout
+
+| Commande | Ce qu'elle répond | À regarder |
+|---|---|---|
+| `show interfaces status` | Le port est-il **utilisable** ? | `connected` (ok), `notconnect` (pas de câble ou poste éteint), `disabled` (`shutdown`), `err-disabled` (coupé par une sécurité) |
+| `show vlan brief` | Quel port est dans **quel VLAN** ? | le port du poste est-il dans le bon VLAN ? le VLAN existe-t-il ? |
+| `show mac address-table` | Le switch **voit-il** le poste ? | l'adresse MAC du poste apparaît-elle, dans le bon VLAN ? |
+
+### Panne 1 – Un poste est dans le mauvais VLAN
+
+*Symptôme : `PC10A` joint bien tout le monde sauf `PC10B`, pourtant branchés « au même réseau ».*
+
+Sortie réelle du simulateur après avoir placé `Fa0/1` dans le VLAN 20 par erreur :
+
+```text
+SW1# show vlan brief
+VLAN Name                             Status    Ports
+10   COMPTA                           active
+20   ATELIER                          active    Fa0/1, Fa0/2
+```
+
+Le VLAN 10 est **vide** : le poste n'est plus dans le bon domaine de diffusion. Le ping vers son voisin du VLAN 10 : **100 % de perte**.
+
+**Correction :** `interface fa0/1` puis `switchport access vlan 10`. **Vérification :** `show vlan brief`, puis un ping.
+
+### Panne 2 – Le VLAN a été supprimé
+
+*Symptôme : tous les postes d'un service tombent d'un coup.*
+
+Après `no vlan 20`, les ports `Fa0/3` et `Fa0/4` **disparaissent de la liste** : ils sont toujours configurés `switchport access vlan 20`, mais ce VLAN n'existe plus, donc les ports sont **inactifs** (ils ne transmettent plus rien).
+
+```text
+SW1# show vlan brief
+1    default      active    Fa0/5, Fa0/6, Fa0/7, ...
+10   COMPTA       active    Fa0/1, Fa0/2
+                            (plus de VLAN 20, plus de Fa0/3 ni Fa0/4)
+```
+
+**Correction :** recréer le VLAN (`vlan 20` puis `name ATELIER`). Les ports reviennent d'eux-mêmes (vérifié dans le simulateur).
+
+> [!WARNING]
+> **Leçon d'exploitation :** supprimer un VLAN ne remet **pas** les ports dans le VLAN 1. Avant `no vlan X`, on déplace d'abord les ports (`show vlan brief`).
+
+### Panne 3 – Le port lui-même
+
+| `show interfaces status` | Cause | Que faire |
+|---|---|---|
+| `notconnect` | câble débranché, mauvais port, poste éteint | tester le câble, regarder le voyant, changer de port |
+| `disabled` | quelqu'un a tapé `shutdown` | `no shutdown` (en sachant **pourquoi** il avait été coupé) |
+| `err-disabled` | une sécurité a coupé le port (voir [5-04](../5-04-securite-couche2/01-cours.md)) | trouver la cause **avant** de remettre le port en service |
+
+> [!TIP]
+> **Le réflexe en 3 temps :** ① le **port** est-il `connected` ? ② est-il dans le **bon VLAN** ? ③ le switch **apprend-il** l'adresse MAC du poste ? Si oui aux trois, le problème est plus haut (adresse IP, passerelle).
+
+---
+
 ## 🧠 Quiz de fin
 
 **1.** Que fait un switch quand il reçoit une trame dont la destination est inconnue ?

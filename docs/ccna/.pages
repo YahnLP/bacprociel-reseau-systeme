@@ -32,4 +32,5 @@ nav:
   - 6-01-automatisation-controleurs
   - 6-02-api-rest-json
   - 6-03-ansible-terraform
+  - 7-01-depannage-reseau
   - examen-blanc

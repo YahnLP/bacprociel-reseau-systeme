@@ -89,6 +89,56 @@ Par le **numéro de port** source : à chaque connexion, le routeur choisit un p
 
 ---
 
+## 🔧 Dépanner : « les postes n'accèdent plus à Internet »
+
+> [!NOTE]
+> **Pourquoi ce chapitre ?** Le NAT est le point de passage obligé entre le réseau privé et Internet. Si une seule des **trois** conditions manque, rien ne sort : ① les interfaces sont déclarées `inside` / `outside`, ② une ACL désigne **qui** a le droit d'être traduit, ③ la règle `ip nat inside source` relie l'ACL à l'adresse publique.
+
+### Les commandes de diagnostic
+
+| Commande | Ce qu'elle montre |
+|---|---|
+| `show ip nat translations` | les traductions **en cours** (qui est sorti, avec quel port) |
+| `show ip nat statistics` | les interfaces `inside` / `outside`, le nombre de traductions, les échecs |
+| `show access-lists` | l'ACL de sélection, avec ses **compteurs de correspondances** |
+| `show ip route` | la route par défaut vers le FAI |
+
+### Panne 1 – `ip nat inside` oublié
+
+*Symptôme : le ping vers un serveur d'Internet échoue (100 % de perte).*
+
+```text
+R1# show ip nat statistics
+Outside interfaces:
+  GigabitEthernet0/1
+Inside interfaces:                 <- la liste est VIDE
+```
+
+**Correction :** `interface gi0/0` puis `ip nat inside`. Aucune erreur n'avait été affichée à la configuration : la commande manquante ne produit **aucun message**.
+
+### Panne 2 – L'ACL ne désigne pas le bon réseau
+
+```text
+R1# show access-lists
+Standard IP access list 1
+    10 permit 192.168.11.0, wildcard bits 0.0.0.255      <- le LAN est en .10.0
+```
+
+Le LAN est en `192.168.10.0/24`, l'ACL autorise `192.168.11.0/24` : **personne n'est traduit**. Indice supplémentaire : l'ACL n'a **aucune correspondance** (pas de « matches »). **Correction :** réécrire l'ACL avec le bon réseau.
+
+> [!WARNING]
+> **Piège de test.** Après une panne, la table des traductions peut encore contenir d'**anciennes** entrées. Vide-la (`clear ip nat translation *`) avant de retester, sinon tu interprètes un état ancien.
+
+### Check-list « pas d'Internet »
+
+1. Le poste joint-il **sa passerelle** (le routeur) ? Sinon, ce n'est pas le NAT.
+2. Le routeur joint-il le **FAI** (`ping` de l'adresse du FAI) ? Route par défaut ? Interface `up/up` ?
+3. `show ip nat statistics` : interfaces `inside`/`outside` correctes ?
+4. `show access-lists` : l'ACL **correspond-elle** aux adresses du LAN ?
+5. `show ip nat translations` : une traduction apparaît-elle quand le poste teste ?
+
+---
+
 ## 🧠 Quiz de fin
 
 **1.** Quel NAT permet de partager **une** adresse publique entre tous les postes ?

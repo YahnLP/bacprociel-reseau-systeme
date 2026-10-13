@@ -409,6 +409,33 @@ lab({ id: 'c505-vpn-ipsec', start: D + '5-05-vpn-ipsec/tp/c505-vpn-ipsec.json', 
   notes: 'CCNA 5-05 – VPN IPsec site à site : deux sites (R1, R2) reliés par Internet (ISP) qui ne route pas les adresses privées. À faire : ACL du trafic à chiffrer, politique IKE, clé partagée, transform-set, crypto map.',
   build: (sim, h) => vpnBuild(h), solve: vpnSolve, checks: vpnChecks, startShould: [vpnChecks[0].label, vpnChecks[1].label, vpnChecks[2].label, vpnChecks[3].label] });
 
+/* ---------- 7-01 : réseau en panne (trois pannes à diagnostiquer) ---------- */
+function repBuild(h) {
+  const { dev, link, get } = h;
+  dev('r-2911', 'R1', 300, 40, 'Routeur d\'étage'); dev('r-2911', 'R2', 600, 40, 'Routeur serveurs'); dev('sw-2960', 'SW1', 150, 160);
+  pc(h, 'PC10', 40, 300, 'COMPTA'); pc(h, 'PC20', 260, 300, 'ATELIER'); pc(h, 'SRV', 760, 160, 'Serveur');
+  link('PC10', PCIF, 'SW1', 'Fa0/1'); link('PC20', PCIF, 'SW1', 'Fa0/2'); link('SW1', 'Fa0/24', 'R1', 'gi0/0'); link('R1', 'gi0/1', 'R2', 'gi0/1'); link('R2', 'gi0/0', 'SRV', PCIF);
+  hostIp(get('PC10'), '192.168.10.10', '24', '192.168.10.1'); hostIp(get('PC20'), '192.168.20.10', '24', '192.168.20.1'); hostIp(get('SRV'), '172.16.0.10', '24', '172.16.0.1');
+  const k = (n, l) => cliRun(get(n), 'enable\nconf t\nhostname ' + n + '\n' + l + '\nend\nwrite memory');
+  k('SW1', 'vlan 10\nname COMPTA\nvlan 20\nname ATELIER\nexit\ninterface fa0/1\nswitchport mode access\nswitchport access vlan 10\nexit\ninterface fa0/2\nswitchport mode access\nswitchport access vlan 10\nexit\ninterface fa0/24\nswitchport mode trunk\nswitchport trunk allowed vlan 10,20');
+  k('R1', 'interface gi0/0\nno shutdown\nexit\ninterface gi0/0.10\nencapsulation dot1Q 10\nip address 192.168.10.1 255.255.255.0\nexit\ninterface gi0/0.20\nencapsulation dot1Q 20\nip address 192.168.20.1 255.255.255.0\nexit\ninterface gi0/1\nip address 10.0.0.1 255.255.255.252\nshutdown\nexit\nip route 172.16.0.0 255.255.255.0 10.0.0.2');
+  k('R2', 'interface gi0/0\nip address 172.16.0.1 255.255.255.0\nno shutdown\nexit\ninterface gi0/1\nip address 10.0.0.2 255.255.255.252\nno shutdown\nexit\nip route 192.168.10.0 255.255.255.0 10.0.0.1');
+}
+const repChecks = [
+  { label: 'PC10 (COMPTA) joint le serveur 172.16.0.10', run: c => /bytes from/.test(sh(c, 'PC10', 'ping -c 2 172.16.0.10')) },
+  { label: 'PC20 (ATELIER) joint sa passerelle 192.168.20.1', run: c => /bytes from/.test(sh(c, 'PC20', 'ping -c 2 192.168.20.1')) },
+  { label: 'PC20 (ATELIER) joint le serveur 172.16.0.10', run: c => /bytes from/.test(sh(c, 'PC20', 'ping -c 2 172.16.0.10')) },
+  { label: 'Le lien R1–R2 est up/up (show ip interface brief)', run: c => /GigabitEthernet0\/1\s+10\.0\.0\.1\s+YES\s+\w+\s+up\s+up/.test(ios(c, 'R1', 'show ip interface brief')) },
+];
+function repSolve(sim, h) {
+  cliRun(h.get('R1'), 'enable\nconf t\ninterface gi0/1\nno shutdown\nend\nwrite memory');
+  cliRun(h.get('SW1'), 'enable\nconf t\ninterface fa0/2\nswitchport access vlan 20\nend\nwrite memory');
+  cliRun(h.get('R2'), 'enable\nconf t\nip route 192.168.20.0 255.255.255.0 10.0.0.1\nend\nwrite memory');
+}
+lab({ id: 'c701-reseau-en-panne', start: D + '7-01-depannage-reseau/tp/c701-reseau-en-panne.json', solution: K + 'C701-reseau-en-panne-corrige.json',
+  notes: 'CCNA 7-01 – Réseau en panne : deux VLAN, un routeur sur un bras (R1), une liaison vers R2 et un serveur. Trois pannes indépendantes à trouver méthodiquement (couche 1/2, couche 2, couche 3).',
+  build: (sim, h) => repBuild(h), solve: repSolve, checks: repChecks, startShould: [repChecks[0].label, repChecks[1].label, repChecks[2].label, repChecks[3].label] });
+
 const want = process.argv.slice(2); let all = true;
 TPS.filter(t => !want.length || want.includes(t.id)).forEach(t => { all = L.run(t) && all; });
 process.exit(all ? 0 : 1);

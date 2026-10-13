@@ -112,6 +112,48 @@ Le switch envoie des **BPDU**. Le port reçoit un BPDU alors qu'il ne devrait pa
 
 ---
 
+## 🔧 Dépanner : « le pont racine n'est plus celui qu'on avait prévu »
+
+> [!NOTE]
+> **Pourquoi ce chapitre ?** STP élit lui-même un pont racine : si on ne force pas ce choix, ou si quelqu'un branche un switch mal réglé, **le chemin de tout le trafic peut changer sans qu'aucune alarme ne sonne**. Le réseau « marche », mais mal (liens saturés, chemins absurdes). Il faut donc savoir **vérifier qui est la racine**.
+
+### La commande clé : `show spanning-tree root`
+
+Situation voulue : `SW2` (priorité 4096) est la racine du VLAN 1.
+
+```text
+SW1# show spanning-tree root
+VLAN0001         4097 0000.0c00.001c   19   2  20  2   Fa0/23
+```
+
+(priorité 4096 + numéro de VLAN 1 = **4097**).
+
+### Panne – un switch d'accès prend la racine
+
+Un autre switch est branché (ou reconfiguré) avec une priorité plus basse, ici `spanning-tree vlan 1 priority 0` sur `SW3`. Sortie réelle sur `SW1` :
+
+```text
+SW1# show spanning-tree root
+VLAN0001         1 0000.0c00.0037     19   2  20  2   Fa0/24
+```
+
+Le **Root ID a changé** (priorité `1` = 0 + VLAN 1, autre adresse MAC) et **le port racine de `SW1` est passé de `Fa0/23` à `Fa0/24`** : le trafic ne prend plus le même chemin.
+
+**Correction :** retirer le réglage du switch fautif (`no spanning-tree vlan 1 priority`) ; la racine redevient `SW2` après la convergence (vérifié dans le simulateur).
+
+> [!TIP]
+> **Prévention.** Fixer explicitement le pont racine et son secours (priorité 4096 et 8192), activer **PortFast + BPDU guard** sur les ports d'accès : un switch inconnu branché sur un port d'accès **coupe le port** (`err-disabled`) au lieu de prendre la racine.
+
+### Autres symptômes à connaître
+
+| Symptôme | Lecture | Piste |
+|---|---|---|
+| Réseau lent, voyants qui clignotent à toute vitesse | tempête de diffusion (boucle) | un lien redondant a été branché **sans STP** ou STP désactivé |
+| Un port d'accès passe `err-disabled` | BPDU guard a réagi | un switch (ou un équipement qui émet des BPDU) a été branché dessus |
+| Poste qui met 30 s à obtenir une adresse | le port passe par les états STP | PortFast manquant sur les ports d'accès |
+
+---
+
 ## 🧠 Quiz de fin
 
 **1.** Qui devient pont racine quand toutes les priorités sont égales ?

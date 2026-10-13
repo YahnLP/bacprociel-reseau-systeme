@@ -78,6 +78,42 @@ interface gi0/1
 
 ---
 
+## 🔧 Dépanner : « le port est en err-disabled »
+
+> [!NOTE]
+> **Pourquoi ce chapitre ?** La sécurité de port **coupe volontairement** un port quand elle détecte une violation. Ce n'est donc pas une panne matérielle : le port s'est **protégé**. Le bon réflexe n'est pas de le rallumer, mais de **comprendre ce qui l'a déclenché**.
+
+### Reconnaître et comprendre
+
+```text
+SW1# show interfaces status
+Fa0/1        err-disabled  1   a-full  a-100 10/100BaseTX
+Fa0/2        err-disabled  1   a-full  a-100 10/100BaseTX
+
+SW1# show port-security
+Secure Port  MaxSecureAddr  CurrentAddr  SecurityViolation  Security Action
+Fa0/1                    1            1                  1         Shutdown
+```
+
+`SecurityViolation = 1` : une violation a eu lieu ; l'action prévue est `Shutdown`.
+
+### Remettre en service… sans masquer le problème
+
+La procédure classique : `shutdown` puis `no shutdown` sur le port. Mais **si l'équipement non autorisé est toujours branché**, la violation se reproduit aussitôt. Dans le simulateur, après cette manipulation, le compteur passe de **1 à 2** et le port retombe en `err-disabled`.
+
+**Méthode :**
+
+1. Lire `show port-security interface fa0/1` : quelle adresse est autorisée, laquelle a violé ?
+2. **Débrancher** (ou identifier) l'équipement fautif.
+3. Seulement ensuite : `shutdown` puis `no shutdown`.
+4. Vérifier `show interfaces status` : retour à `connected`.
+
+### Cas fréquent en entreprise
+
+Un technicien remplace un PC : la **nouvelle adresse MAC** diffère de celle apprise (*sticky*). Le port se coupe. Ce n'est pas une attaque, mais le processus est le même : on **change l'adresse autorisée** (`no switchport port-security mac-address sticky …` et réapprentissage) plutôt que de désactiver la sécurité.
+
+---
+
 ## 🧠 Quiz de fin
 
 **1.** Quel est le mode de violation par défaut ?

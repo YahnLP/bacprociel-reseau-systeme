@@ -1,9 +1,9 @@
 # 🚀 Parcours CCNA
 
-*Pour aller plus loin – hors programme, non exigé à l'épreuve E31.*
+*Parcours complémentaire – non exigé à l'épreuve E31.*
 
 > [!EXAMPLE] 🚀 Pour aller plus loin
-> Ce parcours est **facultatif**. Il est fait pour les élèves qui **terminent les TP avant les autres** et veulent utiliser leur temps utilement : il prépare au **CCNA 200-301** (certification réseau de Cisco, reconnue dans le métier). Tu avances **à ton rythme**, sans attendre la classe.
+> Ce parcours est **complémentaire**. Il est fait pour les élèves qui **terminent les TP avant les autres** et veulent utiliser leur temps utilement : il prépare au **CCNA 200-301** (certification réseau de Cisco, reconnue dans le métier). Tu avances **à ton rythme**, sans attendre la classe.
 
 ## 🎯 Comment ça marche
 
@@ -25,6 +25,7 @@
 | **4 – IP Services** (NAT, DHCP, NTP, SSH…) | 10 % | ✅ disponible |
 | **5 – Security Fundamentals** (ACL, sécurité L2, VPN) | 15 % | ✅ disponible |
 | **6 – Automation and Programmability** (API, JSON, Ansible) | 10 % | ✅ disponible |
+| **7 – Dépannage** (méthode, transversal) | – | ✅ disponible : chaque module technique comporte une section 🔧 « Dépanner » |
 
 ## 📚 Modules disponibles
 
@@ -86,6 +87,12 @@
 | [6-01 · Automatisation et contrôleurs](6-01-automatisation-controleurs/01-cours.md) | SDN, plans, réseaux pilotés par contrôleur | cours + 🧊 |
 | [6-02 · API REST et JSON](6-02-api-rest-json/01-cours.md) | REST, CRUD, JSON, mini-TP Python | exercice Python |
 | [6-03 · Ansible et Terraform](6-03-ansible-terraform/01-cours.md) | Gestion de configuration, IaC | cours seul |
+
+### Domaine 7 – Dépannage (transversal)
+
+| Module | Contenu | TP simulateur |
+|---|---|---|
+| [7-01 · Dépanner un réseau](7-01-depannage-reseau/01-cours.md) | Méthode, échelle du ping, lecture des erreurs, fiche réflexe, journal de dépannage | [🖥️ réseau en panne](7-01-depannage-reseau/02-tp.md) |
 
 ### 📝 Examen blanc
 

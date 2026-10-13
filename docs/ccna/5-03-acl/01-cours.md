@@ -99,6 +99,56 @@ Où placer une ACL **étendue** qui refuse le trafic d'un poste vers un serveur 
 
 ---
 
+## 🔧 Dépanner : « l'ACL bloque tout… ou ne bloque rien »
+
+> [!NOTE]
+> **Pourquoi ce chapitre ?** Une ACL se lit **de haut en bas** ; la première ligne qui correspond s'applique ; il y a un **refus implicite** à la fin. Elle est ensuite appliquée sur **une interface, dans un sens**. Les erreurs d'ACL viennent presque toujours de l'**ordre des lignes** ou du **sens d'application** : ces deux éléments se vérifient en deux commandes.
+
+### Les deux commandes de diagnostic
+
+```text
+R1# show access-lists
+Extended IP access list VERS-SERVEUR
+    10 deny ip host 192.168.10.12 any (2 matches)
+    20 permit tcp host 192.168.10.11 host 192.168.20.10 eq www
+    30 deny ip any any
+
+R1# show ip interface gi0/0
+  Inbound  access list is VERS-SERVEUR
+  Outgoing access list is not set
+```
+
+Les **compteurs `(N matches)`** disent quelle ligne s'applique réellement : c'est l'outil principal du dépanneur.
+
+### Panne – L'ACL est appliquée dans le mauvais sens
+
+*Situation voulue :* filtrer les paquets **entrant** dans le routeur par `gi0/0` (`ip access-group VERS-SERVEUR in`). Si on l'applique par erreur en `out`, voici ce que le simulateur montre :
+
+```text
+R1# show ip interface gi0/0
+  Inbound  access list is not set
+  Outgoing access list is VERS-SERVEUR
+
+R1# show access-lists
+    30 deny ip any any (2 matches)        <- ce sont les RÉPONSES qui sont refusées
+```
+
+Effet observé : le poste de la **Comptabilité**, qui devait pouvoir ouvrir la page web du serveur, **ne le peut plus** (`curl: Failed to connect: Connection timed out`). En sortie, l'ACL bloque **tout ce qui revient vers le LAN**, y compris les réponses légitimes. Après remise en `in`, la page s'affiche de nouveau.
+
+> [!WARNING]
+> **Sens :** `in` = les paquets **qui arrivent** sur l'interface ; `out` = ceux qui **en sortent**. Pour filtrer le trafic d'un LAN vers l'extérieur, on place l'ACL **en `in` sur l'interface du LAN**.
+
+### Autres erreurs classiques
+
+| Symptôme | Cause | Vérification |
+|---|---|---|
+| Un poste qu'on voulait bloquer passe | la ligne `permit` plus générale est placée **avant** le `deny` | numéros de ligne dans `show access-lists` |
+| Tout est bloqué | pas de `permit` pour le trafic légitime (refus implicite) | compteurs : seul `deny` augmente |
+| Rien n'est filtré | ACL créée mais **jamais appliquée** | `show ip interface` : « access list is not set » |
+| ACL standard qui bloque trop | placée **loin** de la destination | une ACL standard se pose **près de la destination** |
+
+---
+
 ## 🧠 Quiz de fin
 
 **1.** Que se passe-t-il si un paquet ne correspond à aucune règle ?
