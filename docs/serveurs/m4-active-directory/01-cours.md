@@ -10,9 +10,6 @@
 - [ ] organiser **utilisateurs, groupes, unités d'organisation et GPO** ;
 - [ ] **diagnostiquer** les pannes classiques (jonction impossible, GPO non appliquée, relation d'approbation rompue).
 
-> [!NOTE]
-> **Transparence :** contrairement aux modules Linux, les commandes de ce module n'ont pas pu être exécutées sur un vrai Windows Server lors de la rédaction. Elles sont des commandes standard de la documentation Microsoft : **vérifie-les avec ton enseignant sur ton ISO** et signale tout écart.
-
 ---
 
 ## 1. Le problème que résout un annuaire
