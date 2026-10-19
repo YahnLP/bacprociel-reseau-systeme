@@ -40,6 +40,16 @@ def s02():
         f.rect(x, y, w, h, fill, LINE, 3, 0)
         f.text(x + 12, y + 26, n, 15, INK, "start", "700")
     f.rect(40, 260, 660, 70, GRY, LINE, 2, 0); f.text(370, 300, "Couloir", 14, MUTED, "middle", "700")
+    # quadrillage : 1 carreau = 20 px = 1 m (origine : angle haut-gauche du plan)
+    for k in range(1, 46):
+        f.line(40 + k * 20, 60, 40 + k * 20, 420, "#b9c0e6" if k % 5 else "#8f99d4", 0.8 if k % 5 else 1.3)
+    for k in range(1, 18):
+        f.line(40, 60 + k * 20, 960, 60 + k * 20, "#b9c0e6" if k % 5 else "#8f99d4", 0.8 if k % 5 else 1.3)
+    # murs redessinés par-dessus le quadrillage
+    for n, x, y, w, h in rooms:
+        f.rect(x, y, w, h, "none", LINE, 3, 0)
+        f.text(x + 12, y + 26, n, 15, INK, "start", "700")
+    f.rect(40, 260, 660, 70, "none", LINE, 2, 0); f.text(370, 300, "Couloir", 14, MUTED, "middle", "700")
     # prises : (id, x, y)
     prises = [("P1", 70, 230), ("P2", 220, 230), ("P3", 290, 230), ("P4", 420, 230), ("P5", 530, 230), ("P6", 590, 230), ("P7", 700, 230), ("P8", 830, 230)]
     for pid, x, y in prises:
@@ -50,7 +60,8 @@ def s02():
     f.rect(40, 440, 920, 60, YEL_L, YEL, 2, 10)
     f.rect(56, 458, 28, 24, TEAL, WHITE, 2, 5); f.text(98, 476, "= prise RJ45 murale (n° de prise)", 14, INK, "start")
     f.rect(430, 456, 28, 28, ORA, WHITE, 2, 5); f.text(472, 476, "= baie de brassage", 14, INK, "start")
-    f.text(660, 476, "Hauteur sous plafond : 2,60 m", 14, MUTED, "start")
+    f.text(660, 466, "Hauteur sous plafond : 2,60 m", 14, MUTED, "start")
+    f.rect(660, 476, 20, 20, WHITE, "#8f99d4", 1.3, 0); f.text(690, 492, "= 1 carreau = 1 m (trait épais : 5 m)", 12.5, MUTED, "start")
     f.save(out(d, "plan-local.svg"))
 
 
