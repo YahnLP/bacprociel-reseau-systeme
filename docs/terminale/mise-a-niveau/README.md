@@ -3,7 +3,7 @@
 **Pour qui ?** Un(e) élève qui arrive en Terminale **sans avoir suivi Seconde ni Première**. **Objectif :** être prêt(e) pour l'**épreuve pratique E31** (3 h : préparer, intervenir, assurer la maintenance) en 15 semaines de 4 h, soit 60 h.
 
 > [!NOTE]
-> **Principe.** On ne rejoue pas trois ans. On garde ce qui est utile le jour de l'épreuve : câbler, tester, configurer un switch (VLAN, passerelle, DHCP), régler le Wi-Fi, sauvegarder, dépanner, rendre compte. Chaque semaine vise **une tâche d'épreuve** précise, avec une preuve dans le passeport d'autonomie.
+> **Principe.** On ne rejoue pas trois ans. On garde ce qui est utile le jour de l'épreuve : câbler, tester, configurer un switch (VLAN, passerelle, DHCP), régler le Wi-Fi, sauvegarder, dépanner, rendre compte. Chaque séance est un **cours complet et autonome** (cours, TP, bilan), écrit pour ce parcours : tu n'as **pas besoin** des séances de Seconde et de Première. Chaque semaine vise **une tâche d'épreuve** précise, avec une preuve dans le passeport d'autonomie.
 
 ## 🗓️ Les 15 semaines
 
@@ -46,7 +46,7 @@ Reprise (30 min) → essentiel (45 min) → TP (2 h) → bilan et passeport (30 
 | **C10** Exploiter un réseau informatique | M04, M10, M12, M14, M15 |
 
 > [!WARNING]
-> **À valider par l'enseignant.** Ce tableau s'appuie sur les intitulés U31 (C06, C09, C10). Il reste à le confronter à la grille nationale d'évaluation. Les séances sont un **plan** : les fiches « essentiel » d'une page et les TP en syntaxe OmniSwitch restent à rédiger.
+> **À valider par l'enseignant.** Ce tableau s'appuie sur les intitulés U31 (C06, C09, C10) : à confronter à la grille nationale d'évaluation. Les TP sont écrits pour le simulateur (OmniSwitch AOS 6.4) et le plateau réel : **à tester** avant usage, en particulier la configuration du serveur DHCP du simulateur (M08) et les règles de filtrage `policy`, qui ne sont pas appliquées par le simulateur (M09).
 
 ## 🔭 Ce qui n'est pas au programme du parcours
 
