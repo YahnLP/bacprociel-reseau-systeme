@@ -31,6 +31,11 @@
 | **S18** | 7 juin 2027 | Remédiation, rattrapage et dossier | 🔴 Autonome | [📘 Ouvrir](S18-remediation-dossier/README.md) |
 | **S19** | 14 juin 2027 | Bilan terminal et suite de parcours | 🔴 Autonome | [📘 Ouvrir](S19-bilan-terminal/README.md) |
 
+## 🚀 En complément : parcours de mise à niveau (15 semaines)
+
+> [!NOTE]
+> Pour un(e) élève qui **arrive en Terminale sans Seconde ni Première**, un [**parcours de mise à niveau en 15 semaines de 4 h**](mise-a-niveau/README.md) reprend l'essentiel utile à l'épreuve E31. Il **s'ajoute** à la progression ci-dessus, qui reste inchangée, et s'utilise **au besoin**.
+
 ## 🧭 Autonomie : comment lire les pastilles
 
 | Pastille | Signification |
