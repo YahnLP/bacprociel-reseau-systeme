@@ -30,6 +30,10 @@
 | [📖 Cours élève](01-cours.md) | Les idées à comprendre, une à la fois, avec des questions pour vérifier la compréhension |
 | [🛠️ TP guidé](02-tp.md) | Installation pas à pas + fiche d'identité du PC + checklist de livraison |
 | [✅ Checklist « poste prêt à l'emploi »](03-checklist.md) | Document à imprimer et à faire signer par le binôme |
+| [💾 Fiche – Choisir son outil et comprendre le BIOS](04-fiche-cle-bootable.md) | Créer une clé d'installation : comparatif, UEFI / Legacy, GPT / MBR, Secure Boot, FAT32 / NTFS |
+| [★ Fiche Ventoy](05-fiche-ventoy.md) | Méthode **prioritaire** : une clé, plusieurs ISO (v 1.1.18) |
+| [🔧 Fiche Rufus](06-fiche-rufus.md) | Une clé, une ISO, réglages précis du mode BIOS (v 4.15) |
+| [🪟 Fiche outil Microsoft](07-fiche-microsoft.md) | La méthode la plus simple, sans réglage (Windows 11 25H2) |
 
 ## ⏱️ Déroulé conseillé (4 h)
 
@@ -46,7 +50,7 @@
 ## 🧪 Matériel et préparation
 
 - Un poste (ou une machine virtuelle) par binôme, **sans données à conserver**.
-- Une clé USB d'installation Windows 11 Pro (ou 10) par binôme, ou un ISO monté dans la machine virtuelle.
+- Une clé USB d'installation Windows 11 Pro (ou 10) par binôme, ou un ISO monté dans la machine virtuelle. **Elle peut être préparée par les élèves** avec les fiches [Ventoy](05-fiche-ventoy.md), [Rufus](06-fiche-rufus.md) ou [outil Microsoft](07-fiche-microsoft.md) (prévoir **une clé de 16 Go** par binôme, **sans données**, et un PC de préparation avec droits administrateur).
 - Un accès Internet (pour Windows Update).
 - Fiches du TP imprimées (ou affichées) + [checklist](03-checklist.md).
 
