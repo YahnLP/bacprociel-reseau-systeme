@@ -93,7 +93,7 @@ On **démarre l'ordinateur directement depuis une clé USB** (ou un DVD) qui con
 
 | Quoi | Pourquoi | Qui s'en occupe |
 |---|---|---|
-| **Une clé d'installation** (ou un fichier ISO) | C'est le « Windows livré dans une boîte » | Fournie / préparée avec l'outil de Microsoft |
+| **Une clé d'installation** (ou un fichier ISO) | C'est le « Windows livré dans une boîte » | Préparée avec **Ventoy**, **Rufus** ou l'outil de Microsoft : voir [la fiche « créer une clé bootable »](04-fiche-cle-bootable.md) |
 | **L'ordre de démarrage** (BIOS / UEFI) | Le PC doit regarder **la clé USB avant le disque** | Toi, avec la touche du constructeur (souvent `F12`, `F2`, `Échap` ou `Suppr`) |
 | **Une sauvegarde** de ce qui compte | L'installation **efface** le disque (voir plus bas) | Toi, **avant** de commencer |
 
@@ -133,7 +133,7 @@ Parce que l'installateur peut **effacer** la partition qui contenait les fichier
 
 **Le film en quelques mots :**
 
-1. **Préparer** la clé d'installation.
+1. **Préparer** la clé d'installation ([fiches Ventoy ★, Rufus, outil Microsoft](04-fiche-cle-bootable.md)).
 2. **Démarrer** le PC sur la clé (ordre de démarrage).
 3. **Choisir** la langue, le clavier, l'édition (par exemple *Pro*) et **le disque** où installer.
 4. **Copier** : Windows copie ses fichiers et redémarre plusieurs fois, tout seul. **On n'éteint pas le PC.** C'est long, c'est normal.
